@@ -75,11 +75,14 @@ const EventModal: React.FC<IProps> = ({
     handleClose()
     dispatch({ type: 'eventForm', payload: eventFormInitState })
   }
-  const handleChangeDate = (prop: string) => (dateValue: Date | null) => {
-    dispatch({ type: 'eventFormField', prop, payload: dateValue })
+  const handleChangeDate = (field: string) => (dateValue: Date | null) => {
+    setFieldValue(field, dateValue)
   }
 
   const disableConfirm = !(isValid && values?.title)
+
+  console.log(errors)
+  console.log(values)
 
   return (
     <Modal
@@ -114,7 +117,7 @@ const EventModal: React.FC<IProps> = ({
             }}
             onBlur={handleSaveOnBlur}
             error={!!(errors.price && touched.price)}
-            helperText={errors.title}
+            helperText={errors.price}
           />
           <KeyboardDatePicker
             name="date"
@@ -133,7 +136,7 @@ const EventModal: React.FC<IProps> = ({
             className={classes.keyboardDatePicker}
             onBlur={handleSaveOnBlur}
             error={!!(errors.date && touched.date)}
-            helperText={errors.title}
+            helperText={errors.date}
           />
           <TextField
             name="description"
@@ -146,7 +149,7 @@ const EventModal: React.FC<IProps> = ({
             rows={4}
             onBlur={handleSaveOnBlur}
             error={!!(errors.description && touched.description)}
-            helperText={errors.title}
+            helperText={errors.description}
           />
         </div>
       </Grid>

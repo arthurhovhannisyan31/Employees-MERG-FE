@@ -28,6 +28,7 @@ const Events: React.FC = () => {
   // useReducer
   const [state, dispatch] = React.useReducer(eventsReducer, eventsInitState)
   const { eventForm, eventDetails, events, loading } = state
+  console.log(eventForm)
   // useStyles
   const classes = useStyles()
 
@@ -165,7 +166,7 @@ const Events: React.FC = () => {
           <Grid container item className={classes.container} direction="column">
             {token && (
               <Grid item>
-                <Button onClick={toggleModal('eventForm', 'isOpen', true)}>
+                <Button onClick={toggleModal('eventFormField', 'isOpen', true)}>
                   Add event
                 </Button>
               </Grid>
