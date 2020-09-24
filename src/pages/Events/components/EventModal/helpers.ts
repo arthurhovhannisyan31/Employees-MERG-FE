@@ -1,6 +1,7 @@
 // deps
 import * as Yup from 'yup'
-// local
+// helpers
+import { IEventForm } from '_/pages/Events/types'
 
 export const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -17,4 +18,14 @@ export const validationSchema = Yup.object().shape({
     .max(1000, 'Too long!'),
 })
 
-export const getInitState = () => ({})
+export const getInitState = ({
+  description,
+  price,
+  title,
+  date,
+}: IEventForm) => ({
+  description,
+  price,
+  title,
+  date,
+})

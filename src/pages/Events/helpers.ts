@@ -34,8 +34,15 @@ export const eventsReducer = (
     case 'eventForm':
       return {
         ...state,
+        eventForm: { ...state.eventForm, ...payload },
+      }
+    case 'eventFormField':
+      return {
+        ...state,
         eventForm: { ...state.eventForm, [prop as string]: payload },
       }
+    case 'resetForm':
+      return { ...state, eventForm: eventFormInitState }
     case 'eventDetails':
       return {
         ...state,
@@ -51,8 +58,6 @@ export const eventsReducer = (
       return { ...state, [type]: payload }
     case 'addEvent':
       return { ...state, events: [...state.events, payload] }
-    case 'resetForm':
-      return { ...state, eventForm: eventFormInitState }
     default:
       return state
   }
