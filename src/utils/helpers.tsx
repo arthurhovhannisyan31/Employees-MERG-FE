@@ -1,14 +1,56 @@
 // deps
-import React from 'react'
-import { Route } from 'react-router-dom'
 // local
-import PrivateRoute from '_/routes/private-route'
-import { IRoute } from '_/routes/app-routes'
 
-// eslint-disable-next-line import/prefer-default-export
-export const routeMaker: React.FC<IRoute> = (params) =>
-  params.isPrivate ? (
-    <PrivateRoute key={params.path} {...params} />
-  ) : (
-    <Route key={params.path} {...params} />
+export const regExp = {
+  phone: /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+  zipCode: /^[0-9]{5}([- /]?[0-9]{4})?$/,
+  vinNumber: /^[A-HJ-NPR-Z\\d]{8}[\\dX][A-HJ-NPR-Z\\d]{2}\\d{6}$/,
+}
+
+export const useFileUploadSizeValidation = (arr: any[], limit: number) => {
+  if (!arr.length || !limit) return false
+  const invalid = arr.filter((el) => {
+    return el.size / (1024 * 1024) > limit
+  })
+  return [!invalid.length, invalid]
+}
+
+export const useFileUploadFormatValidation = (
+  arr: any[],
+  excludedFormats: string[]
+) => {
+  if (!arr.length || !excludedFormats.length) return false
+  const invalid = arr.filter((el) =>
+    excludedFormats.includes(el.type.split('/')[0])
   )
+  return [!invalid.length, invalid]
+}
+
+export const getBase64 = async (file: any) => {
+  const reader = new FileReader()
+  await reader.readAsDataURL(file)
+  return new Promise((resolve, reject) => {
+    reader.onload = (_) => resolve(reader.result)
+    reader.onerror = (error) => reject(error)
+  })
+}
+
+export const fileFormats = {
+  images: [
+    'apng',
+    'bmp',
+    'gif',
+    'ico',
+    'cur',
+    'jpg',
+    'jpeg',
+    'jfif',
+    'pjpeg',
+    'pjp',
+    'png',
+    'svg',
+    'tif',
+    'tiff',
+    'webp',
+  ],
+}

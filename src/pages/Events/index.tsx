@@ -3,107 +3,35 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
-import { makeStyles, Theme } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
-// local
+// components
 import EventsList from '_/pages/Events/components/EventsList'
 import EventModal from '_/pages/Events/components/EventModal'
 import DetailsModal from '_/pages/Events/components/DetailsModal'
-import {
-  IEventsState,
-  IEventFormAction,
-  IEventForm,
-} from '_/pages/Events/types'
+// helpers
 import { AuthContext } from '_/context'
 import { createEvent, createBooking } from '_/gql/mutations'
 import { getEvents } from '_/gql/queries'
+import { eventsInitState, eventsReducer } from '_/pages/Events/helpers'
+// types & styles
 import { IEvent } from '_/types'
-
-const eventFormInitState: IEventForm = {
-  isOpen: false,
-  title: '',
-  description: '',
-  price: null,
-  date: null,
-  loading: false,
-}
-
-const eventsInitState: IEventsState = {
-  eventForm: eventFormInitState,
-  eventDetails: {
-    id: '',
-    isOpen: false,
-  },
-  events: [],
-  loading: false,
-  active: false,
-}
-
-const eventsReducer = (state: IEventsState, action: IEventFormAction) => {
-  const { type, prop, payload } = action
-  switch (type) {
-    case 'eventForm':
-      return {
-        ...state,
-        eventForm: { ...state.eventForm, [prop as string]: payload },
-      }
-    case 'eventDetails':
-      return {
-        ...state,
-        eventDetails: { ...state.eventDetails, [prop as string]: payload },
-      }
-    case 'loading': {
-      return { ...state, loading: payload }
-    }
-    case 'active': {
-      return { ...state, active: payload }
-    }
-    case 'events':
-      return { ...state, [type]: payload }
-    case 'addEvent':
-      return { ...state, events: [...state.events, payload] }
-    case 'resetForm':
-      return { ...state, eventForm: eventFormInitState }
-    default:
-      return state
-  }
-}
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    maxWidth: '1600px',
-    margin: '0 auto',
-    padding: theme.spacing(1),
-  },
-  divider: {
-    margin: `${theme.spacing(1)}px 0`,
-  },
-  loadingIndicator: {
-    padding: theme.spacing(5),
-  },
-}))
+import useStyles from '_/pages/Events/style'
 
 const Events: React.FC = () => {
   // useContext
   const { token, userId } = React.useContext(AuthContext)
-
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   }
-
   const apiUrl = process?.env?.API_URL || ''
-
   // useReducer
   const [state, dispatch] = React.useReducer(eventsReducer, eventsInitState)
-
   const { eventForm, eventDetails, events, loading } = state
-  console.log(eventForm)
-
   // useStyles
   const classes = useStyles()
 
-  const handleConfirmEventForm = async () => {
+  const handleConfirmEventForm = React.useCallback(async () => {
     dispatch({ type: 'eventForm', prop: 'loading', payload: true })
     try {
       const res = await fetch(apiUrl, {
@@ -141,19 +69,17 @@ const Events: React.FC = () => {
       dispatch({ type: 'resetForm' })
     } catch (err) {
       dispatch({ type: 'loading', payload: false })
-      console.log(err)
     }
-  }
+  }, [apiUrl, eventForm, headers, userId])
 
-  const toggleModal = (
-    type: string,
-    prop: string,
-    modalState: boolean
-  ) => () => {
-    dispatch({ type, prop, payload: modalState })
-  }
+  const toggleModal = React.useCallback(
+    (type: string, prop: string, modalState: boolean) => () => {
+      dispatch({ type, prop, payload: modalState })
+    },
+    []
+  )
 
-  const handleGetEvents = async () => {
+  const handleGetEvents = React.useCallback(async () => {
     try {
       dispatch({ type: 'loading', payload: true })
       const res = await fetch(apiUrl, {
@@ -171,9 +97,9 @@ const Events: React.FC = () => {
     } catch (err) {
       console.log(err)
     }
-  }
+  }, [apiUrl, headers])
 
-  const handleBookEvent = async () => {
+  const handleBookEvent = React.useCallback(async () => {
     try {
       const res = await fetch(apiUrl, {
         method: 'POST',
@@ -190,15 +116,16 @@ const Events: React.FC = () => {
     } catch (err) {
       console.log(err)
     }
-  }
+  }, [apiUrl, headers, eventDetails.id])
 
-  const handleOpenDetails = (id: string) => {
+  const handleOpenDetails = React.useCallback((id: string) => {
     dispatch({ type: 'eventDetails', prop: 'id', payload: id })
     dispatch({ type: 'eventDetails', prop: 'isOpen', payload: true })
-  }
+  }, [])
 
-  const eventDetailsData = events?.find(
-    (el: IEvent) => el._id === eventDetails.id
+  const eventDetailsData = React.useMemo(
+    () => events?.find((el: IEvent) => el._id === eventDetails.id),
+    [events, eventDetails]
   )
 
   React.useEffect(() => {

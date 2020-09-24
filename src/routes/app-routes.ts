@@ -1,7 +1,7 @@
 // deps
 import React from 'react'
 import { RouteProps } from 'react-router-dom'
-import { routeMaker } from '_/utils/helpers'
+import { routeMaker } from '_/routes/helpers'
 // local
 import CONSTANTS from '_/utils/constants'
 

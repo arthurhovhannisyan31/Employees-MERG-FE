@@ -104,12 +104,8 @@ const Modal: React.FC<IProps> = ({
                         disabled={disableConfirm}
                       >
                         {confirmLabel}
+                        {isLoading && <CircularProgress size={20} />}
                       </Button>
-                    )}
-                    {isLoading && (
-                      <Grid item className={classes.controls}>
-                        <CircularProgress size={20} />
-                      </Grid>
                     )}
                   </Grid>
                 </section>
