@@ -5,7 +5,7 @@ export interface IEventsState {
   eventDetails: IEventDetails
   events: IEvent[]
   loading: boolean
-  active: boolean
+  // active: boolean
 }
 
 export interface IEventFormFields {
@@ -24,6 +24,7 @@ export interface IEventForm {
 export interface IEventDetails {
   id: string
   isOpen: boolean
+  loading: boolean
 }
 
 export interface IEventFormAction {

@@ -25,7 +25,7 @@ export default App
 // todo add style loader to webpack
 // todo add layout component
 // todo add token expiration
-
+// todo https://webpack.js.org/guides/hot-module-replacement/
 // todo add employees model
 // hire employee
 // fire employee

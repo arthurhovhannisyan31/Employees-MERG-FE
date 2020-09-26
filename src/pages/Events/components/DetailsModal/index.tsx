@@ -5,16 +5,15 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 // local
 import Modal from '_/components/Modal'
-import { IEventFormAction, IEventForm } from '_/pages/Events/types'
 import { IEvent } from '_/types'
 import { AuthContext } from '_/context'
 
 interface IProps {
   handleClose: () => void
-  handleConfirm: () => void
+  onSubmit: () => void
   isOpen: boolean
-  dispatch: React.Dispatch<IEventFormAction>
-  eventDetailsData: Partial<IEventForm> | undefined
+  loading: boolean
+  eventDetailsData: IEvent | undefined
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -32,11 +31,11 @@ const DetailsModal: React.FC<IProps> = ({
   handleClose,
   isOpen,
   eventDetailsData,
-  handleConfirm,
+  onSubmit,
+  loading,
 }) => {
   // useContext
   const { token } = React.useContext(AuthContext)
-
   const classes = useStyles()
 
   return (
@@ -44,22 +43,22 @@ const DetailsModal: React.FC<IProps> = ({
       isOpen={isOpen}
       title="Event details"
       onCancel={handleClose}
-      onConfirm={handleConfirm}
+      onConfirm={onSubmit}
       confirmLabel="Book event"
-      isLoading={!!eventDetailsData?.loading}
+      isLoading={loading}
       disableConfirm={!token}
     >
       <Grid container direction="column" className={classes.container}>
         <Typography variant="h6" className={classes.boldText}>
-          {eventDetailsData?.fields?.title}
+          {eventDetailsData?.title}
         </Typography>
         <Typography className={classes.boldText}>
-          ${eventDetailsData?.fields?.price?.toFixed(2)} -{' '}
+          ${eventDetailsData?.price?.toFixed(2)} -{' '}
           {new Date(
-            eventDetailsData?.fields?.date as Date
+            (eventDetailsData?.date as never) as Date
           ).toLocaleDateString()}
         </Typography>
-        <Typography>{eventDetailsData?.fields?.description}</Typography>
+        <Typography>{eventDetailsData?.description}</Typography>
       </Grid>
     </Modal>
   )

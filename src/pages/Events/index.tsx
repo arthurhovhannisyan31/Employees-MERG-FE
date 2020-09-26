@@ -14,7 +14,7 @@ import { createEvent, createBooking } from '_/gql/mutations'
 import { getEvents } from '_/gql/queries'
 import { IEvent } from '_/types'
 import useStyles from '_/pages/Events/style'
-import { IEventForm } from '_/pages/Events/types'
+import { IEventFormFields } from '_/pages/Events/types'
 
 const Events: React.FC = () => {
   // useStyles
@@ -26,8 +26,6 @@ const Events: React.FC = () => {
     state: { eventForm, eventDetails, events, loading },
   } = React.useContext(EventsContext)
 
-  console.log(eventForm)
-
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
@@ -36,7 +34,10 @@ const Events: React.FC = () => {
 
   // // todo accept props
   const handleConfirmEventForm = React.useCallback(
-    async (values: Partial<IEventForm>) => {
+    async (
+      { date, description, price, title }: IEventFormFields,
+      resetForm
+    ) => {
       dispatch({ type: 'eventForm', prop: 'loading', payload: true })
       try {
         const res = await fetch(apiUrl, {
@@ -44,10 +45,10 @@ const Events: React.FC = () => {
           body: JSON.stringify(
             createEvent({
               eventInput: {
-                title: eventForm?.fields?.title,
-                price: +(eventForm?.fields?.price as number),
-                description: eventForm?.fields?.description,
-                date: eventForm?.fields?.date?.toISOString() as string,
+                title,
+                price: +(price as number),
+                description,
+                date: date?.toISOString() as string,
               },
             })
           ),
@@ -56,8 +57,8 @@ const Events: React.FC = () => {
         if (![200, 201].includes(res?.status)) {
           throw new Error('Failed!')
         }
+        resetForm()
         dispatch({ type: 'eventForm', prop: 'isOpen', payload: false })
-        dispatch({ type: 'eventForm', prop: 'loading', payload: false })
         const {
           data: { createEvent: createdEventData },
         } = await res.json()
@@ -73,10 +74,11 @@ const Events: React.FC = () => {
         })
         dispatch({ type: 'resetForm' })
       } catch (err) {
-        dispatch({ type: 'loading', payload: false })
+        console.log(err)
       }
+      dispatch({ type: 'eventForm', prop: 'loading', payload: false })
     },
-    [apiUrl, eventForm, headers, userId, dispatch]
+    [apiUrl, headers, userId, dispatch]
   )
 
   const toggleModal = React.useCallback(
@@ -88,7 +90,7 @@ const Events: React.FC = () => {
 
   const handleGetEvents = React.useCallback(async () => {
     try {
-      dispatch({ type: 'loading', payload: true })
+      dispatch({ type: 'events', prop: 'loading', payload: true })
       const res = await fetch(apiUrl, {
         method: 'POST',
         body: JSON.stringify(getEvents()),
@@ -98,32 +100,34 @@ const Events: React.FC = () => {
         throw new Error('Failed!')
       }
       const { data } = await res.json()
-      dispatch({ type: 'events', payload: data?.events })
-      dispatch({ type: 'resetForm' })
-      dispatch({ type: 'loading', payload: false })
+      dispatch({ type: 'events', prop: 'events', payload: data?.events })
+      dispatch({ type: 'eventFormReset' })
     } catch (err) {
       console.log(err)
     }
+    dispatch({ type: 'events', prop: 'loading', payload: false })
   }, [apiUrl, headers, dispatch])
 
-  // const handleBookEvent = React.useCallback(async () => {
-  //   try {
-  //     const res = await fetch(apiUrl, {
-  //       method: 'POST',
-  //       body: JSON.stringify(createBooking({ eventId: eventDetails.id })),
-  //       headers,
-  //     })
-  //     if (![200, 201].includes(res?.status)) {
-  //       throw new Error('Failed!')
-  //     }
-  //     const { data } = await res.json()
-  //     if (data) {
-  //       dispatch({ type: 'eventDetails', prop: 'isOpen', payload: false })
-  //     }
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }, [apiUrl, headers, eventDetails.id, dispatch])
+  const handleBookEvent = React.useCallback(async () => {
+    dispatch({ type: 'eventDetails', prop: 'loading', payload: true })
+    try {
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        body: JSON.stringify(createBooking({ eventId: eventDetails.id })),
+        headers,
+      })
+      if (![200, 201].includes(res?.status)) {
+        throw new Error('Failed!')
+      }
+      const { data } = await res.json()
+      if (data) {
+        dispatch({ type: 'eventDetails', prop: 'isOpen', payload: false })
+      }
+    } catch (err) {
+      console.log(err)
+    }
+    dispatch({ type: 'eventDetails', prop: 'loading', payload: false })
+  }, [apiUrl, headers, eventDetails, dispatch])
 
   const handleOpenDetails = React.useCallback(
     (id: string) => {
@@ -133,16 +137,14 @@ const Events: React.FC = () => {
     [dispatch]
   )
 
-  // const eventDetailsData = React.useMemo(
-  //   () => events?.find((el: IEvent) => el._id === eventDetails.id),
-  //   [events, eventDetails]
-  // )
+  const eventDetailsData = React.useMemo(
+    () => events?.find((el: IEvent) => el._id === eventDetails.id),
+    [events, eventDetails]
+  )
 
   React.useEffect(() => {
+    // fixme if no events fetch it
     handleGetEvents()
-    // todo review setState on unmount
-    // dispatch({type: "active", payload: true})
-    // return () => dispatch({type: 'active', payload: false})
     // eslint-disable-next-line
   }, [])
 
@@ -156,17 +158,17 @@ const Events: React.FC = () => {
         <>
           <EventModal
             eventFormData={eventForm}
-            // onSubmit={handleConfirmEventForm}
+            onSubmit={handleConfirmEventForm}
             dispatch={dispatch}
             handleClose={toggleModal('eventForm', 'isOpen', false)}
           />
-          {/* <DetailsModal */}
-          {/*  eventDetailsData={eventDetailsData} */}
-          {/*  handleConfirm={handleBookEvent} */}
-          {/*  isOpen={eventDetails?.isOpen} */}
-          {/*  dispatch={dispatch} */}
-          {/*  handleClose={toggleModal('eventDetails', 'isOpen', false)} */}
-          {/* /> */}
+          <DetailsModal
+            isOpen={eventDetails?.isOpen}
+            loading={eventDetails?.loading}
+            handleClose={toggleModal('eventDetails', 'isOpen', false)}
+            eventDetailsData={eventDetailsData}
+            onSubmit={handleBookEvent}
+          />
           <Grid container item className={classes.container} direction="column">
             {token && (
               <Grid item>

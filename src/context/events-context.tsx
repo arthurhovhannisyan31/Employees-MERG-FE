@@ -23,10 +23,10 @@ export const eventsInitState: IEventsState = {
   eventDetails: {
     id: '',
     isOpen: false,
+    loading: false,
   },
   events: [],
   loading: false,
-  active: false,
 }
 
 interface IEventsContext {
@@ -72,14 +72,8 @@ export const eventsReducer = (
         ...state,
         eventDetails: { ...state.eventDetails, [prop as string]: payload },
       }
-    case 'loading': {
-      return { ...state, loading: payload }
-    }
-    case 'active': {
-      return { ...state, active: payload }
-    }
     case 'events':
-      return { ...state, [type]: payload }
+      return { ...state, [prop as string]: payload }
     case 'addEvent':
       return { ...state, events: [...state.events, payload] }
     default:

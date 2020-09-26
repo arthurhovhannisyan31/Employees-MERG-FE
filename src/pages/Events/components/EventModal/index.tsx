@@ -23,14 +23,14 @@ import { regExp } from '_/utils/helpers'
 
 interface IProps {
   handleClose: () => void
-  // onSubmit: (values: Partial<IEventForm>) => void
+  onSubmit: (values: IEventFormFields, resetForm: () => void) => void
   dispatch: React.Dispatch<IEventFormAction>
   eventFormData: IEventForm
 }
 
 const EventModal: React.FC<IProps> = ({
   handleClose,
-  // onSubmit,
+  onSubmit,
   dispatch,
   eventFormData: { isOpen, loading, fields },
 }) => {
@@ -53,8 +53,7 @@ const EventModal: React.FC<IProps> = ({
     enableReinitialize: true,
     validationSchema,
     onSubmit: (submitValues: IEventFormFields) => {
-      console.log(submitValues)
-      // onSubmit(submitValues)
+      onSubmit(submitValues, resetForm)
     },
   })
 

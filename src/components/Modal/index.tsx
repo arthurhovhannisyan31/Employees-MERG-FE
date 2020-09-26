@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     zIndex: 10,
   },
   circularProgress: {
-    paddingRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
 }))
 
@@ -63,7 +63,7 @@ const Modal: React.FC<IProps> = ({
   onConfirm,
   confirmLabel = 'Confirm',
   disableConfirm,
-  isLoading = true,
+  isLoading,
 }) => {
   const [openState, setOpenState] = React.useState(isOpen)
   const cls = useStyles()
@@ -110,7 +110,7 @@ const Modal: React.FC<IProps> = ({
                         {confirmLabel}
                         {isLoading && (
                           <CircularProgress
-                            size={20}
+                            size={15}
                             className={cls.circularProgress}
                           />
                         )}
