@@ -23,7 +23,6 @@ const App: React.FC = () => {
 export default App
 
 // todo add style loader to webpack
-// todo move states to single provider
 // todo add layout component
 // todo add token expiration
 

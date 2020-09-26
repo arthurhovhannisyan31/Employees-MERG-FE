@@ -38,16 +38,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   backDrop: {
     zIndex: 10,
   },
+  circularProgress: {
+    paddingRight: theme.spacing(1),
+  },
 }))
 
 interface IProps {
   isOpen?: boolean
   title?: string
   onCancel?: () => void
+  onClose?: () => void
   onConfirm?: () => void
   confirmLabel?: string
   disableConfirm?: boolean
-  isLoading: boolean
+  isLoading?: boolean
 }
 
 const Modal: React.FC<IProps> = ({
@@ -55,19 +59,19 @@ const Modal: React.FC<IProps> = ({
   title,
   children,
   onCancel,
+  onClose,
   onConfirm,
   confirmLabel = 'Confirm',
   disableConfirm,
   isLoading = true,
 }) => {
   const [openState, setOpenState] = React.useState(isOpen)
-  const classes = useStyles()
+  const cls = useStyles()
   const handleClose = () => {
     setOpenState(false)
-    if (onCancel) {
-      onCancel()
+    if (onClose) {
+      onClose()
     }
-    console.log('close')
   }
 
   React.useEffect(() => {
@@ -80,31 +84,36 @@ const Modal: React.FC<IProps> = ({
         <>
           <Backdrop />
           <ClickAwayListener onClickAway={handleClose}>
-            <Paper className={classes.container}>
+            <Paper className={cls.container}>
               <Grid container direction="column">
                 {title && (
-                  <header className={classes.header}>
+                  <header className={cls.header}>
                     <Typography align="center" variant="body2">
                       {title}
                     </Typography>
                   </header>
                 )}
-                <section className={classes.content}>{children}</section>
-                <section className={classes.actions}>
+                <section className={cls.content}>{children}</section>
+                <section className={cls.actions}>
                   <Grid container justify="flex-end" alignItems="center">
                     {onCancel && (
-                      <Button onClick={onCancel} className={classes.controls}>
+                      <Button onClick={onCancel} className={cls.controls}>
                         Cancel
                       </Button>
                     )}
                     {onConfirm && (
                       <Button
                         onClick={onConfirm}
-                        className={classes.controls}
+                        className={cls.controls}
                         disabled={disableConfirm}
                       >
                         {confirmLabel}
-                        {isLoading && <CircularProgress size={20} />}
+                        {isLoading && (
+                          <CircularProgress
+                            size={20}
+                            className={cls.circularProgress}
+                          />
+                        )}
                       </Button>
                     )}
                   </Grid>

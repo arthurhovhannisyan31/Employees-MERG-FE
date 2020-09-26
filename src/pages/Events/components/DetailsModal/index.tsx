@@ -6,6 +6,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 // local
 import Modal from '_/components/Modal'
 import { IEventFormAction, IEventForm } from '_/pages/Events/types'
+import { IEvent } from '_/types'
 import { AuthContext } from '_/context'
 
 interface IProps {
@@ -13,7 +14,7 @@ interface IProps {
   handleConfirm: () => void
   isOpen: boolean
   dispatch: React.Dispatch<IEventFormAction>
-  eventDetailsData: Partial<IEventForm>
+  eventDetailsData: Partial<IEventForm> | undefined
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -50,13 +51,15 @@ const DetailsModal: React.FC<IProps> = ({
     >
       <Grid container direction="column" className={classes.container}>
         <Typography variant="h6" className={classes.boldText}>
-          {eventDetailsData?.title}
+          {eventDetailsData?.fields?.title}
         </Typography>
         <Typography className={classes.boldText}>
-          ${eventDetailsData?.price?.toFixed(2)} -{' '}
-          {new Date(eventDetailsData?.date as Date).toLocaleDateString()}
+          ${eventDetailsData?.fields?.price?.toFixed(2)} -{' '}
+          {new Date(
+            eventDetailsData?.fields?.date as Date
+          ).toLocaleDateString()}
         </Typography>
-        <Typography>{eventDetailsData?.description}</Typography>
+        <Typography>{eventDetailsData?.fields?.description}</Typography>
       </Grid>
     </Modal>
   )

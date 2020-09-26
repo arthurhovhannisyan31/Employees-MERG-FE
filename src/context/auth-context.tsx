@@ -1,6 +1,5 @@
 // deps
 import React from 'react'
-// local
 
 interface IAuthState {
   token: string
@@ -68,10 +67,10 @@ const AuthContextContainer: React.FC = ({ children }) => {
 
   const { token, userId, tokenExpiration } = state
 
-  const authContextValue = { login, logout, token, userId, tokenExpiration }
-
   return (
-    <AuthContext.Provider value={authContextValue}>
+    <AuthContext.Provider
+      value={{ login, logout, token, userId, tokenExpiration }}
+    >
       {children}
     </AuthContext.Provider>
   )

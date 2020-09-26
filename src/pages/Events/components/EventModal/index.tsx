@@ -13,29 +13,30 @@ import {
   getInitState,
   validationSchema,
 } from '_/pages/Events/components/EventModal/helpers'
-import { IEventForm, IEventFormAction } from '_/pages/Events/types'
+import {
+  IEventForm,
+  IEventFormAction,
+  IEventFormFields,
+} from '_/pages/Events/types'
 import useStyles from '_/pages/Events/components/EventModal/style'
 import { regExp } from '_/utils/helpers'
-import { eventFormInitState } from '_/pages/Events/helpers'
 
 interface IProps {
   handleClose: () => void
-  onSubmit: (values: Partial<IEventForm>) => void
+  // onSubmit: (values: Partial<IEventForm>) => void
   dispatch: React.Dispatch<IEventFormAction>
   eventFormData: IEventForm
 }
 
 const EventModal: React.FC<IProps> = ({
   handleClose,
-  onSubmit,
+  // onSubmit,
   dispatch,
-  eventFormData,
-  eventFormData: { isOpen, loading },
+  eventFormData: { isOpen, loading, fields },
 }) => {
   // useStyles
-  const classes = useStyles()
-
-  const initState = getInitState(eventFormData)
+  const cls = useStyles()
+  const initState = getInitState(fields)
 
   const {
     values,
@@ -45,57 +46,74 @@ const EventModal: React.FC<IProps> = ({
     handleBlur,
     handleSubmit,
     isValid,
+    resetForm,
   } = useFormik({
     initialValues: initState,
     validateOnMount: true,
     enableReinitialize: true,
     validationSchema,
-    onSubmit: (submitValues: Partial<IEventForm>) => {
+    onSubmit: (submitValues: IEventFormFields) => {
       console.log(submitValues)
-      onSubmit(submitValues)
+      // onSubmit(submitValues)
     },
   })
-  const handleChangeText = (field: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFieldValue(field, event.target.value)
-  }
-  const handleChangeNumber = (field: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (event.target.value.match(regExp.numbers) || event.target.value === '') {
-      handleChangeText(field)(event)
-    }
-  }
-  const handleSaveOnBlur = (e: React.FocusEvent<never>) => {
-    handleBlur(e)
-    dispatch({ type: 'eventForm', payload: values })
-  }
-  const handleCancel = () => {
+
+  // useMemo
+  const memoPriceFormat = React.useCallback(
+    (props) => NumberFormatCustom({ prefix: '$' })(props),
+    []
+  )
+  const handleChangeText = React.useCallback(
+    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFieldValue(field, event.target.value)
+    },
+    [setFieldValue]
+  )
+  const handleChangeNumber = React.useCallback(
+    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (
+        event.target.value.match(regExp.numbers) ||
+        event.target.value === ''
+      ) {
+        handleChangeText(field)(event)
+      }
+    },
+    [handleChangeText]
+  )
+  const handleSaveOnBlur = React.useCallback(
+    (e: React.FocusEvent<never>) => {
+      handleBlur(e)
+      dispatch({ type: 'eventForm', payload: values })
+    },
+    [handleBlur, dispatch, values]
+  )
+  const handleCancel = React.useCallback(() => {
     handleClose()
-    dispatch({ type: 'eventForm', payload: eventFormInitState })
-  }
-  const handleChangeDate = (field: string) => (dateValue: Date | null) => {
-    setFieldValue(field, dateValue)
-  }
+    dispatch({ type: 'eventFormReset' })
+    resetForm({})
+  }, [handleClose, dispatch, resetForm])
+  const handleChangeDate = React.useCallback(
+    (field: string) => (dateValue: Date | null) => {
+      setFieldValue(field, dateValue)
+    },
+    [setFieldValue]
+  )
 
   const disableConfirm = !(isValid && values?.title)
-
-  console.log(errors)
-  console.log(values)
 
   return (
     <Modal
       isOpen={isOpen}
       title="Create event"
       onCancel={handleCancel}
+      onClose={handleClose}
       onConfirm={handleSubmit}
       disableConfirm={disableConfirm}
       isLoading={loading}
     >
-      <Grid className={classes.container} container direction="column">
+      <Grid className={cls.container} container direction="column">
         <Typography>Event form</Typography>
-        <div className={classes.fieldsGrid}>
+        <div className={cls.fieldsGrid}>
           <TextField
             name="title"
             label="Title"
@@ -113,7 +131,7 @@ const EventModal: React.FC<IProps> = ({
             value={values.price}
             onChange={handleChangeNumber('price')}
             InputProps={{
-              inputComponent: NumberFormatCustom as never,
+              inputComponent: memoPriceFormat,
             }}
             onBlur={handleSaveOnBlur}
             error={!!(errors.price && touched.price)}
@@ -123,17 +141,18 @@ const EventModal: React.FC<IProps> = ({
             name="date"
             label="Date"
             inputVariant="outlined"
+            clearable
             autoOk
             disablePast
             margin="normal"
             id="date-picker-dialog"
-            format="dd:MM:yyyy"
+            format="dd/MM/yyyy"
             value={values.date}
             onChange={handleChangeDate('date')}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
-            className={classes.keyboardDatePicker}
+            className={cls.keyboardDatePicker}
             onBlur={handleSaveOnBlur}
             error={!!(errors.date && touched.date)}
             helperText={errors.date}

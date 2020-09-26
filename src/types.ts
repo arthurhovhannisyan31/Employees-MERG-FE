@@ -1,5 +1,4 @@
-// global imports
-// local imports
+// deps
 
 // instances
 export interface IEvent {

@@ -3,14 +3,21 @@ import React from 'react'
 import NumberFormat from 'react-number-format'
 // local
 
-interface NumberFormatCustomProps {
+interface INumberFormatCustomProps {
+  prefix?: string
+  format?: string
+}
+
+interface NumberFormatInputProps {
   inputRef: (instance: NumberFormat | null) => void
   onChange: (event: { target: { name: string; value: string } }) => void
   name: string
 }
 
-const NumberFormatCustom = (props: NumberFormatCustomProps) => {
-  const { inputRef, onChange, ...other } = props
+const NumberFormatCustom = (customProps: INumberFormatCustomProps) => (
+  inputProps: NumberFormatInputProps
+) => {
+  const { inputRef, onChange, name, ...other } = inputProps
 
   return (
     <NumberFormat
@@ -19,14 +26,14 @@ const NumberFormatCustom = (props: NumberFormatCustomProps) => {
       onValueChange={(values) => {
         onChange({
           target: {
-            name: props.name,
+            name,
             value: values.value,
           },
         })
       }}
       thousandSeparator
       isNumericString
-      prefix="$"
+      {...customProps}
     />
   )
 }

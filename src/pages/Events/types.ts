@@ -8,13 +8,17 @@ export interface IEventsState {
   active: boolean
 }
 
-export interface IEventForm {
-  isOpen: false
-  loading: boolean
+export interface IEventFormFields {
   title: string
   description: string
   price: number | null
   date: Date | null
+}
+
+export interface IEventForm {
+  isOpen: false
+  loading: boolean
+  fields: IEventFormFields
 }
 
 export interface IEventDetails {

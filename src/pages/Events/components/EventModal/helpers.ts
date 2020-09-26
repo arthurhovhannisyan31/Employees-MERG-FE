@@ -1,8 +1,7 @@
 // deps
 import * as Yup from 'yup'
 // helpers
-import { IEventForm } from '_/pages/Events/types'
-import { regExp } from '_/utils/helpers'
+import { IEventFormFields } from '_/pages/Events/types'
 
 export const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -11,11 +10,15 @@ export const validationSchema = Yup.object().shape({
     .required('Please fill the title')
     .min(2, 'Too short!')
     .max(100, 'Too long!'),
-  price: Yup.string()
-    .trim()
-    .required('Please fill the price')
-    .matches(regExp.numbers, 'Please type correct value'),
-  date: Yup.date().nullable().required('Please fill the date'),
+  price: Yup.number()
+    .nullable()
+    .max(1000, 'Please use price below $1000')
+    .typeError('Please fill full date value')
+    .required('Please fill the date'),
+  date: Yup.date()
+    .nullable()
+    .typeError('Please fill correct date value')
+    .required('Please fill the date'),
   description: Yup.string()
     .trim()
     .required('Please fill the description')
@@ -28,7 +31,7 @@ export const getInitState = ({
   price,
   title,
   date,
-}: IEventForm) => ({
+}: IEventFormFields) => ({
   description,
   price,
   title,

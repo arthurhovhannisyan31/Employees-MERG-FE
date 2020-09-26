@@ -14,7 +14,6 @@ export default makeStyles((theme: Theme) => ({
     gridGap: theme.spacing(2),
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    // gridTemplateColumns: "repeat(2, minmax(200px, 1fr))",
   },
   keyboardDatePicker: {
     margin: 0,
