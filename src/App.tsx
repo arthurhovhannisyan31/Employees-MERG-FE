@@ -22,15 +22,16 @@ const App: React.FC = () => {
 
 export default App
 
-// todo add style loader to webpack
+// find layout for employees
+
 // todo add layout component
 // todo add token expiration
-// todo https://webpack.js.org/guides/hot-module-replacement/
 // todo add employees model
-// hire employee
-// fire employee
-// promote employee
-// downgrade employee
-// change salary salary
-// make payoff
-// analytics
+
+// todo hire employee
+// todo fire employee
+// todo promote employee
+// todo downgrade employee
+// todo change salary salary
+// todo make payoff
+// todo analytics
