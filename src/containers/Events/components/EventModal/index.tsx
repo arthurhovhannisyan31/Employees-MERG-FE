@@ -6,19 +6,19 @@ import TextField from '@material-ui/core/TextField'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { useFormik } from 'formik'
 // components
-import NumberFormatCustom from '_/pages/Events/components/NumberFormatCustom'
+import NumberFormatCustom from '_/containers/Events/components/NumberFormatCustom'
 import Modal from '_/components/Modal'
 // helpers
 import {
   getInitState,
   validationSchema,
-} from '_/pages/Events/components/EventModal/helpers'
+} from '_/containers/Events/components/EventModal/helpers'
 import {
   IEventForm,
   IEventFormAction,
   IEventFormFields,
-} from '_/pages/Events/types'
-import useStyles from '_/pages/Events/components/EventModal/style'
+} from '_/containers/Events/types'
+import useStyles from '_/containers/Events/components/EventModal/style'
 import { regExp } from '_/utils/helpers'
 
 interface IProps {

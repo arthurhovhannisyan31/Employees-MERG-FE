@@ -2,7 +2,7 @@
 import React from 'react'
 import { CssBaseline } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
-import Header from '_/pages/Header'
+import Header from '_/containers/Header'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Switch } from 'react-router-dom'
 // local
@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   container: {
     height: `calc(100vh - ${theme.spacing(6)}px)`,
+    maxWidth: '1600px',
+    width: '100%',
+    margin: '0 auto',
+    padding: theme.spacing(1),
+    flexGrow: 1,
   },
 }))
 

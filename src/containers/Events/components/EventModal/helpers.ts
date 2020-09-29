@@ -1,7 +1,7 @@
 // deps
 import * as Yup from 'yup'
 // helpers
-import { IEventFormFields } from '_/pages/Events/types'
+import { IEventFormFields } from '_/containers/Events/types'
 
 export const validationSchema = Yup.object().shape({
   title: Yup.string()

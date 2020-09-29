@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
 import TablePagination from '@material-ui/core/TablePagination'
 // local
-import EventItem from '_/pages/Events/components/EventItem'
+import EventItem from '_/containers/Events/components/EventItem'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { IEvent } from '_/types'
 import { AuthContext } from '_/context'

@@ -5,7 +5,7 @@ import {
   IEventForm,
   IEventFormAction,
   IEventsState,
-} from '_/pages/Events/types'
+} from '_/containers/Events/types'
 
 export const eventFormInitState: IEventForm = {
   isOpen: false,

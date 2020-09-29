@@ -1,6 +1,3 @@
-// deps
-
-// instances
 export interface IEvent {
   _id: string
   title: string
@@ -42,6 +39,20 @@ export interface IAuthData {
   userId: string
   token: string
   tokenExpiration: number
+}
+
+export interface IEmployee {
+  _id: string
+  birth_date: string
+  first_name: string
+  last_name: string
+  gender: IGender
+  hire_date: string
+}
+
+export interface IGender {
+  _id: string
+  name: string
 }
 
 // inputs

@@ -5,16 +5,17 @@ import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
 import CircularProgress from '@material-ui/core/CircularProgress'
 // components
-import EventsList from '_/pages/Events/components/EventsList'
-import EventModal from '_/pages/Events/components/EventModal'
-import DetailsModal from '_/pages/Events/components/DetailsModal'
+import EventsList from '_/containers/Events/components/EventsList'
+import EventModal from '_/containers/Events/components/EventModal'
+import DetailsModal from '_/containers/Events/components/DetailsModal'
 // helpers
 import { AuthContext, EventsContext } from '_/context'
 import { createEvent, createBooking } from '_/gql/mutations'
 import { getEvents } from '_/gql/queries'
 import { IEvent } from '_/types'
-import useStyles from '_/pages/Events/style'
-import { IEventFormFields } from '_/pages/Events/types'
+import useStyles from '_/containers/Events/style'
+import { IEventFormFields } from '_/containers/Events/types'
+import { fetchResponseCheck } from '_/utils/helpers'
 
 const Events: React.FC = () => {
   // useStyles
@@ -32,7 +33,6 @@ const Events: React.FC = () => {
   }
   const apiUrl = process?.env?.API_URL || ''
 
-  // // todo accept props
   const handleConfirmEventForm = React.useCallback(
     async (
       { date, description, price, title }: IEventFormFields,
@@ -89,16 +89,14 @@ const Events: React.FC = () => {
   )
 
   const handleGetEvents = React.useCallback(async () => {
+    dispatch({ type: 'events', prop: 'loading', payload: true })
     try {
-      dispatch({ type: 'events', prop: 'loading', payload: true })
       const res = await fetch(apiUrl, {
         method: 'POST',
         body: JSON.stringify(getEvents()),
         headers,
       })
-      if (![200, 201].includes(res?.status)) {
-        throw new Error('Failed!')
-      }
+      fetchResponseCheck(res?.status)
       const { data } = await res.json()
       dispatch({ type: 'events', prop: 'events', payload: data?.events })
       dispatch({ type: 'eventFormReset' })
@@ -116,9 +114,7 @@ const Events: React.FC = () => {
         body: JSON.stringify(createBooking({ eventId: eventDetails.id })),
         headers,
       })
-      if (![200, 201].includes(res?.status)) {
-        throw new Error('Failed!')
-      }
+      fetchResponseCheck(res?.status)
       const { data } = await res.json()
       if (data) {
         dispatch({ type: 'eventDetails', prop: 'isOpen', payload: false })
@@ -149,7 +145,7 @@ const Events: React.FC = () => {
   }, [])
 
   return (
-    <>
+    <Grid container>
       {loading ? (
         <Grid container justify="center" className={classes.loadingIndicator}>
           <CircularProgress size={20} />
@@ -187,7 +183,7 @@ const Events: React.FC = () => {
           </Grid>
         </>
       )}
-    </>
+    </Grid>
   )
 }
 

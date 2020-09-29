@@ -53,3 +53,20 @@ export const getBookings = () => ({
     }
   `,
 })
+
+export const getEmployees = () => ({
+  query: `
+    query {
+      employees {
+        _id
+        birth_date
+        first_name
+        last_name
+        hire_date
+        gender {
+          name
+        }
+      }
+    }
+  `,
+})
