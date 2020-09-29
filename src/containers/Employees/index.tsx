@@ -3,7 +3,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 // components
 // helpers
-import { AuthContext } from '_/context'
+import { AuthContext, EmployeesContext } from '_/context'
 import { getEmployees } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/helpers'
 import useStyles from './style'
@@ -11,6 +11,8 @@ import useStyles from './style'
 const Employees: React.FC = () => {
   // useStyle
   const classes = useStyles()
+  // useContext
+  const { dispatch, initState, state } = React.useContext(EmployeesContext)
 
   // useContext
   const { token } = React.useContext(AuthContext)

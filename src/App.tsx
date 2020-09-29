@@ -35,3 +35,4 @@ export default App
 // todo change salary salary
 // todo make payoff
 // todo analytics
+// todo add husky and pre-commit formating
