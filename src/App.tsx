@@ -22,9 +22,9 @@ const App: React.FC = () => {
 
 export default App
 
-// find layout for employees
+// todo add husky and pre-commit formatting
 
-// todo add layout component
+// todo find layout for employees
 // todo add token expiration
 // todo add employees model
 
@@ -35,4 +35,3 @@ export default App
 // todo change salary salary
 // todo make payoff
 // todo analytics
-// todo add husky and pre-commit formating
