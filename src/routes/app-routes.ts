@@ -35,7 +35,7 @@ const routes: IRoute[] = [
   },
   {
     exact: true,
-    isPrivate: true,
+    isPrivate: false,
     path: CONSTANTS.ROUTES.AUTH,
     component: Auth,
   },

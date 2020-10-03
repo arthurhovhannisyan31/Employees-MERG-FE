@@ -1,6 +1,8 @@
 // deps
-// local
 import React from 'react'
+// components
+
+// helpers
 
 const Index: React.FC = () => {
   return (

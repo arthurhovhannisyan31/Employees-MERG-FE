@@ -35,3 +35,6 @@ export default App
 // todo change salary salary
 // todo make payoff
 // todo analytics
+
+// todo remove bookings
+// todo remove events

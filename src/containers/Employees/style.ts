@@ -5,4 +5,7 @@ export default makeStyles((theme: Theme) => ({
   container: {
     padding: theme.spacing(0),
   },
+  loadingIndicator: {
+    padding: theme.spacing(5),
+  },
 }))

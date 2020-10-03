@@ -13,9 +13,9 @@ import { AuthContext, EventsContext } from '_/context'
 import { createEvent, createBooking } from '_/gql/mutations'
 import { getEvents } from '_/gql/queries'
 import { IEvent } from '_/types'
-import useStyles from '_/containers/Events/style'
 import { IEventFormFields } from '_/containers/Events/types'
 import { fetchResponseCheck } from '_/utils/helpers'
+import useStyles from '_/containers/Events/style'
 
 const Events: React.FC = () => {
   // useStyles
@@ -148,7 +148,7 @@ const Events: React.FC = () => {
     <Grid container>
       {loading ? (
         <Grid container justify="center" className={classes.loadingIndicator}>
-          <CircularProgress size={20} />
+          <CircularProgress />
         </Grid>
       ) : (
         <>

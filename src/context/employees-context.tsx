@@ -2,13 +2,30 @@
 import React from 'react'
 import { IEventFormAction } from '_/containers/Events/types'
 // helpers
+import { IEmployee } from '_/types'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IEmployeesState {}
+interface IEmployeesState {
+  loading: boolean
+  error: boolean
+  data: IEmployee[]
+  table: {
+    rows: any[]
+  }
+}
 
 const employeesInitState = {
-  state: {},
-  initState: {},
+  loading: false,
+  error: false,
+  data: [],
+  table: {
+    rows: [],
+  },
+}
+
+const employeesContextInitState = {
+  state: employeesInitState,
+  initState: employeesInitState,
   dispatch: () => {},
 }
 
@@ -19,7 +36,7 @@ interface IEmployeesContext {
 }
 
 const EmployeesContext = React.createContext<IEmployeesContext>(
-  employeesInitState
+  employeesContextInitState
 )
 
 interface IEmployeesRecucerAction {
@@ -37,10 +54,30 @@ const employeesReducer = (
   // @ts-ignore
   const { type, prop, payload } = action
   switch (type) {
-    case 'one':
+    case 'employees.loading':
       return {
         ...state,
+        loading: payload,
       }
+    case 'employees.error':
+      return {
+        ...state,
+        error: payload,
+      }
+    case 'employees.data':
+      return {
+        ...state,
+        data: payload,
+      }
+    case 'table.rows': {
+      return {
+        ...state,
+        table: {
+          ...state.table,
+          rows: payload,
+        },
+      }
+    }
     default:
       return state
   }
