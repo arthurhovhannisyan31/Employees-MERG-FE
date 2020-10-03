@@ -22,7 +22,10 @@ interface IProps {
   data: IEmployee[]
 }
 
-const EmployeesTable: React.FC<IProps> = ({ dispatch, data }) => {
+const EmployeesTable: React.FC<IProps> = ({
+  // dispatch,
+  data,
+}) => {
   // todo move to context state
   // useState
   const [columns] = React.useState(initColumns)
