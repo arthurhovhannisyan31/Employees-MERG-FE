@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 
 // local
 import { IBooking } from '_/types'
-import BookingItem from '_/pages/Bookings/components/BookingItem'
+import BookingItem from '_/containers/Bookings/components/BookingItem'
 
 interface IProps {
   bookings: IBooking[]

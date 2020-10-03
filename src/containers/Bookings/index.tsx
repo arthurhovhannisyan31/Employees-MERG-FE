@@ -8,16 +8,16 @@ import Tab from '@material-ui/core/Tab'
 import AppBar from '@material-ui/core/AppBar'
 // local
 // components
-import TabPanel from '_/pages/Bookings/components/TabPanel'
-import BookingList from '_/pages/Bookings/components/BookingList'
-import BookingCharts from '_/pages/Bookings/components/BookingCharts'
+import TabPanel from '_/containers/Bookings/components/TabPanel'
+import BookingList from '_/containers/Bookings/components/BookingList'
+import BookingCharts from '_/containers/Bookings/components/BookingCharts'
 // helpers
-import { IBookingAction, IBookingsState } from '_/pages/Bookings/types'
+import { IBookingAction, IBookingsState } from '_/containers/Bookings/types'
 import { IBooking } from '_/types'
 import { getBookings } from '_/gql/queries'
 import { cancelBooking } from '_/gql/mutations'
 import { AuthContext } from '_/context'
-import { a11yProps } from '_/pages/Bookings/helpers'
+import { a11yProps } from '_/containers/Bookings/helpers'
 
 const bookingsInitState: IBookingsState = {
   bookings: [],
@@ -53,11 +53,7 @@ const bookingsReducer = (state: IBookingsState, action: IBookingAction) => {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    maxWidth: '1600px',
-    margin: '0 auto',
-    padding: theme.spacing(1),
-  },
+  container: {},
   loadingIndicator: {
     padding: theme.spacing(5),
   },
@@ -138,43 +134,34 @@ const Bookings: React.FC = () => {
   }, [])
 
   return (
-    <>
-      <Grid container item className={classes.container} direction="column">
-        <Grid item>
-          {loading ? (
-            <Grid
-              container
-              justify="center"
-              className={classes.loadingIndicator}
-            >
-              <CircularProgress size={20} />
-            </Grid>
-          ) : (
-            <>
-              <AppBar position="static">
-                <Tabs
-                  value={tab}
-                  onChange={handleChangeTab}
-                  aria-label="simple tabs example"
-                >
-                  <Tab label="Booking List" {...a11yProps(0)} />
-                  <Tab label="Booking Charts" {...a11yProps(1)} />
-                </Tabs>
-              </AppBar>
-              <TabPanel value={tab} index={0}>
-                <BookingList
-                  bookings={bookings}
-                  onDelete={handleDeleteBooking}
-                />
-              </TabPanel>
-              <TabPanel value={tab} index={1}>
-                <BookingCharts bookings={bookings} />
-              </TabPanel>
-            </>
-          )}
-        </Grid>
+    <Grid container item className={classes.container} direction="column">
+      <Grid item>
+        {loading ? (
+          <Grid container justify="center" className={classes.loadingIndicator}>
+            <CircularProgress size={20} />
+          </Grid>
+        ) : (
+          <>
+            <AppBar position="static">
+              <Tabs
+                value={tab}
+                onChange={handleChangeTab}
+                aria-label="simple tabs example"
+              >
+                <Tab label="Booking List" {...a11yProps(0)} />
+                <Tab label="Booking Charts" {...a11yProps(1)} />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={tab} index={0}>
+              <BookingList bookings={bookings} onDelete={handleDeleteBooking} />
+            </TabPanel>
+            <TabPanel value={tab} index={1}>
+              <BookingCharts bookings={bookings} />
+            </TabPanel>
+          </>
+        )}
       </Grid>
-    </>
+    </Grid>
   )
 }
 

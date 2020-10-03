@@ -5,9 +5,9 @@ import {
   IEventForm,
   IEventFormAction,
   IEventsState,
-} from '_/pages/Events/types'
+} from '_/containers/Events/types'
 
-export const eventFormInitState: IEventForm = {
+const eventFormInitState: IEventForm = {
   isOpen: false,
   loading: false,
   fields: {
@@ -18,7 +18,7 @@ export const eventFormInitState: IEventForm = {
   },
 }
 
-export const eventsInitState: IEventsState = {
+const eventsInitState: IEventsState = {
   eventForm: eventFormInitState,
   eventDetails: {
     id: '',
@@ -43,10 +43,7 @@ const contextInitState = {
 
 const EventsContext = React.createContext<IEventsContext>(contextInitState)
 
-export const eventsReducer = (
-  state: IEventsState,
-  action: IEventFormAction
-) => {
+const eventsReducer = (state: IEventsState, action: IEventFormAction) => {
   const { type, prop, payload } = action
   switch (type) {
     case 'eventForm':

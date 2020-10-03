@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/Info'
+import PeopleIcon from '@material-ui/icons/People'
 import EventsIcon from '@material-ui/icons/Event'
 import BookingsIcon from '@material-ui/icons/Book'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -49,25 +50,25 @@ const Header: React.FC = () => {
     history.push('/auth')
   }
 
+  // todo nav bar props array
+
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
         <Grid container justify="space-between" className={classes.container}>
           <Grid item>
             <Grid item container alignItems="center">
-              {token && (
-                <Tooltip title="Home">
-                  <Button
-                    onClick={() => history.push('/')}
-                    className={clsx(classes.link, {
-                      [classes.activeLink]: location?.pathname === '/',
-                    })}
-                  >
-                    <HomeIcon />
-                    Event Booking
-                  </Button>
-                </Tooltip>
-              )}
+              <Tooltip title="Home">
+                <Button
+                  onClick={() => history.push('/')}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/',
+                  })}
+                >
+                  <HomeIcon />
+                  Event Booking
+                </Button>
+              </Tooltip>
               <Tooltip title="Events">
                 <Button
                   onClick={() => history.push('/events')}
@@ -78,18 +79,26 @@ const Header: React.FC = () => {
                   <EventsIcon />
                 </Button>
               </Tooltip>
-              {token && (
-                <Tooltip title="Bookings">
-                  <Button
-                    onClick={() => history.push('/bookings')}
-                    className={clsx(classes.link, {
-                      [classes.activeLink]: location?.pathname === '/bookings',
-                    })}
-                  >
-                    <BookingsIcon />
-                  </Button>
-                </Tooltip>
-              )}
+              <Tooltip title="Bookings">
+                <Button
+                  onClick={() => history.push('/bookings')}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/bookings',
+                  })}
+                >
+                  <BookingsIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Employees">
+                <Button
+                  onClick={() => history.push('/employees')}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/employees',
+                  })}
+                >
+                  <PeopleIcon />
+                </Button>
+              </Tooltip>
               <Tooltip title="About">
                 <Button
                   onClick={() => history.push('/about')}

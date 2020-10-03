@@ -16,6 +16,12 @@ export const useFileUploadSizeValidation = (arr: any[], limit: number) => {
   return [!invalid.length, invalid]
 }
 
+export const fetchResponseCheck = (status: number) => {
+  if (![200, 201].includes(status)) {
+    throw new Error('Failed!')
+  }
+}
+
 export const useFileUploadFormatValidation = (
   arr: any[],
   excludedFormats: string[]

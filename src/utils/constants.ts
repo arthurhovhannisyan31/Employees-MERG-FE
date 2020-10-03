@@ -5,6 +5,8 @@ export const ROUTES = {
   EVENTS: '/events',
   BOOKINGS: '/bookings',
   ABOUT: '/about',
+  EMPLOYEES: '/employees',
+  EMPLOYEE: '/employees/?:id',
   NOT_FOUND: '*',
 }
 
