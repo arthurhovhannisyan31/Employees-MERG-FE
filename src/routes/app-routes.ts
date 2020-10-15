@@ -17,7 +17,7 @@ export interface IRoute extends RouteProps {
   exact: boolean
   isPrivate: boolean
   path: string
-  component: any
+  component: React.ComponentClass | React.FunctionComponent
 }
 
 const routes: IRoute[] = [
