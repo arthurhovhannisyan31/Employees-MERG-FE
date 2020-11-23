@@ -8,10 +8,13 @@ import Layout from '_/containers/Layout'
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
 import storage from '_/utils/storage'
+import useStyles from './styles'
 
 const Root: React.FC = () => {
   // useTheme
   const { token, login } = React.useContext(AuthContext)
+  // useStyles
+  const classes = useStyles()
 
   if (!token && storage.get('token')) {
     login({
@@ -25,7 +28,9 @@ const Root: React.FC = () => {
 
   return (
     <Layout>
-      <React.Suspense fallback={<CircularProgress />}>
+      <React.Suspense
+        fallback={<CircularProgress className={classes.circularProgress} />}
+      >
         <Switch>{routes}</Switch>
       </React.Suspense>
     </Layout>

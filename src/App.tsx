@@ -21,20 +21,3 @@ const App: React.FC = () => {
 }
 
 export default App
-
-// todo add husky and pre-commit formatting
-
-// todo find layout for employees
-// todo add token expiration
-// todo add employees model
-
-// todo hire employee
-// todo fire employee
-// todo promote employee
-// todo downgrade employee
-// todo change salary salary
-// todo make payoff
-// todo analytics
-
-// todo remove bookings
-// todo remove events

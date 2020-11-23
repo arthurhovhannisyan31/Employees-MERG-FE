@@ -47,17 +47,14 @@ const Auth: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     switch (type) {
-      case 'email': {
+      case 'email':
         setEmail(event.target.value)
         break
-      }
-      case 'password': {
+      case 'password':
         setPassword(event.target.value)
         break
-      }
-      default: {
+      default:
         break
-      }
     }
   }
 
@@ -74,7 +71,7 @@ const Auth: React.FC = () => {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        body: JSON.stringify(authState ? loginBody : signupBody),
+        body: JSON.stringify(authState ? signupBody : loginBody),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -121,7 +118,7 @@ const Auth: React.FC = () => {
         <Grid container direction="column" spacing={2}>
           <Grid item>
             <Typography className={classes.headTitle}>
-              {authState ? 'Login' : 'Sign up'}
+              {authState ? 'Sign up' : 'Login'}
             </Typography>
           </Grid>
           <Grid item>
@@ -146,7 +143,7 @@ const Auth: React.FC = () => {
           </Grid>
           <Grid item container justify="space-between">
             <Button onClick={toggleAuthState}>
-              {!authState ? 'Login' : 'Sign up'}
+              {authState ? 'Login' : 'Sign up'}
             </Button>
             <Button onClick={handleSubmit} disabled={disableSubmit}>
               Submit
