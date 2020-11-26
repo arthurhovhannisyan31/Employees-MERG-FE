@@ -1,3 +1,7 @@
+// model
+import { IEvent } from '_/model/event'
+import { IUser } from '_/model/auth'
+
 export interface IBooking {
   _id: string
   createdAt: string

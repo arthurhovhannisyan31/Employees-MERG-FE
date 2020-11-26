@@ -1,4 +1,4 @@
-import { IBooking } from '_/types'
+import { IBooking } from '_/model/booking'
 
 export interface IBookingsState {
   loading: boolean

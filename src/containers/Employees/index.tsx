@@ -54,21 +54,23 @@ const Employees: React.FC = () => {
     // eslint-disable-next-line
   }, [])
 
+  if (loading) {
+    return (
+      <Grid container justify="center" className={classes.loadingIndicator}>
+        <CircularProgress />
+      </Grid>
+    )
+  }
+
   return (
     <Grid container>
-      {loading ? (
-        <Grid container justify="center" className={classes.loadingIndicator}>
-          <CircularProgress />
-        </Grid>
-      ) : (
-        <Grid container direction="row">
-          {error ? (
-            <Typography>Regular error message</Typography>
-          ) : (
-            <EmployeesTable dispatch={dispatch} data={employeesData} />
-          )}
-        </Grid>
-      )}
+      <Grid container direction="row">
+        {error ? (
+          <Typography>Regular error message</Typography>
+        ) : (
+          <EmployeesTable dispatch={dispatch} data={employeesData} />
+        )}
+      </Grid>
     </Grid>
   )
 }

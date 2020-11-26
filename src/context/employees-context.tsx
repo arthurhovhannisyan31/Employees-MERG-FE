@@ -2,7 +2,7 @@
 import React from 'react'
 import { IEventFormAction } from '_/containers/Events/types'
 // helpers
-import { IEmployee } from '_/types'
+import { IEmployee } from '_/model/employee'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IEmployeesState {

@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 // local
 import Modal from '_/components/Modal'
-import { IEvent } from '_/types'
+import { IEvent } from '_/model/event'
 import { AuthContext } from '_/context'
 
 interface IProps {

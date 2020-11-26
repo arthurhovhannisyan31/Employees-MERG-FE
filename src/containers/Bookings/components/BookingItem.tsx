@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 // local
-import { IBooking } from '_/types'
+import { IBooking } from '_/model/booking'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

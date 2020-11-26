@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { IBooking } from '_/types'
+import { IBooking } from '_/model/booking'
 
 export function a11yProps(index: number) {
   return {

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
 // local
-import { IBooking } from '_/types'
+import { IBooking } from '_/model/booking'
 import BookingItem from '_/containers/Bookings/components/BookingItem'
 
 interface IProps {

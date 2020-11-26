@@ -1,3 +1,10 @@
+// import modules structure
+
+// deps
+// components
+// model
+// helpers
+
 
 // todo
 add employee detail with all nested data

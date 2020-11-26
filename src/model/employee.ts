@@ -1,4 +1,4 @@
-import { IGender } from '_/types'
+import { IGender } from '_/model/gender'
 
 export interface IEmployee {
   _id: string

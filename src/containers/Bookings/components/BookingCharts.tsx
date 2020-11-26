@@ -5,7 +5,7 @@ import HighchartsReact from 'highcharts-react-official'
 // local
 // components
 // helpers
-import { IBooking } from '_/types'
+import { IBooking } from '_/model/booking'
 import { handleBookingGroups } from '_/containers/Bookings/helpers'
 
 const BOOKING_BUCKETS = {

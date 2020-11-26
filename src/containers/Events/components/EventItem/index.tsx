@@ -14,7 +14,7 @@ import TableHead from '@material-ui/core/TableHead'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 // local
-import { IEvent } from '_/types'
+import { IEvent } from '_/model/event'
 
 const useStyles = makeStyles(() => ({
   container: {},

@@ -1,9 +1,6 @@
-import {
-  IEventInput,
-  IBookEventInput,
-  ICancelBookingInput,
-  ILogin,
-} from '_/types'
+import { IEventInput } from '_/model/event'
+import { IBookEventInput, ICancelBookingInput } from '_/model/booking'
+import { ILogin } from '_/model/auth'
 
 export const createUser = () => ({})
 

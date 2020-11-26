@@ -1,4 +1,4 @@
-import { IEvent } from '_/types'
+import { IEvent } from '_/model/event'
 
 export interface IEventsState {
   eventForm: IEventForm

@@ -3,6 +3,6 @@ export interface IEmployeesTableRow {
   hire_date: string
   last_name: string
   first_name: string
-  genderName: string
+  gender: string
   birth_date: string
 }
