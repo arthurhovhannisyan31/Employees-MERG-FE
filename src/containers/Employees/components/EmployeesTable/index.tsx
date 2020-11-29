@@ -41,17 +41,15 @@ const EmployeesTable: React.FC<IProps> = ({
   currentPage,
   setCurrentPage,
 }) => {
-  console.log(pageSize, currentPage)
   // useContext
   const { state } = React.useContext(EmployeesContext)
 
   const { data, count } = state
-  console.log(count)
   // todo move to context state
   // todo move to reducer
   // useState
   const [columns] = React.useState(initColumns)
-  const [rows, setRows] = React.useState<IEmployeesTableRow[]>([])
+  const [rows] = React.useState<IEmployeesTableRow[]>(data?.map(rowsSelector))
   const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>(
     initColumnExtensions
   )
@@ -67,9 +65,7 @@ const EmployeesTable: React.FC<IProps> = ({
   const handleChangeColumnOrder = React.useCallback(setColumnOrder, [
     setColumnOrder,
   ])
-  const handleChangeRows = React.useCallback(setRows, [setRows])
   // useMemo
-  const rowsItems = React.useMemo(() => data?.map(rowsSelector), [data])
   const pagingContainer = (props: PagingPanel.ContainerProps) => (
     <CustomPagingPanel
       {...{
@@ -78,14 +74,6 @@ const EmployeesTable: React.FC<IProps> = ({
       }}
     />
   )
-
-  React.useEffect(() => {
-    // todo add condition for fetch
-    if (true) {
-      handleChangeRows(rowsItems)
-    }
-  }, [rowsItems, handleChangeRows])
-
   return (
     <Paper>
       <Grid columns={columns} rows={rows} getRowId={rowIdSelector}>

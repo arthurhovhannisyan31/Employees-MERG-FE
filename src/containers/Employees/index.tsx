@@ -54,7 +54,7 @@ const Employees: React.FC = () => {
       }
       dispatch({ type: 'employees.loading', payload: false })
     },
-    [apiUrl, headers, dispatch]
+    [apiUrl, dispatch, headers]
   )
   React.useEffect(() => {
     handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
