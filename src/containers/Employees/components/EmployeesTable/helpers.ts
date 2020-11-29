@@ -20,11 +20,12 @@ export const rowsSelector = ({
 })
 
 export const initColumns = [
-  { name: 'birth_date', title: 'Birth Date' },
   { name: 'first_name', title: 'First Name' },
+  { name: 'last_name', title: 'Last Name' },
   { name: 'gender', title: 'Gender' },
   { name: 'hire_date', title: 'Hire Date' },
-  { name: 'last_name', title: 'Last Name' },
+  { name: 'birth_date', title: 'Birth Date' },
+  { name: 'details', title: '' },
 ]
 
 export const getInitColumnsOrder = () =>

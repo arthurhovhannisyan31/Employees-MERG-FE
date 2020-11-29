@@ -74,6 +74,9 @@ const EmployeesTable: React.FC<IProps> = ({
       }}
     />
   )
+
+  // todo add rows handler to generate details link
+
   return (
     <Paper>
       <Grid columns={columns} rows={rows} getRowId={rowIdSelector}>
