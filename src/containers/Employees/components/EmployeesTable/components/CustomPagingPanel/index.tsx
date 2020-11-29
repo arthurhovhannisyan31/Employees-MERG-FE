@@ -23,15 +23,24 @@ const CustomPagingPanel: React.FC<IProps> = ({
   const classes = useStyles()
 
   const handleChangePage = (_: React.ChangeEvent<unknown>, value: number) => {
-    onCurrentPageChange(value)
+    onCurrentPageChange(value - 1)
   }
   const handleChangePageSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onCurrentPageChange(0)
     onPageSizeChange((event.target.value as never) as number)
   }
 
-  const rangeStart = currentPage === 0 ? 1 : (currentPage - 1) * pageSize
-  const rangeEnd =
-    pageSize * currentPage > totalCount ? totalCount : pageSize * currentPage
+  const rangeStart = currentPage === 0 ? 1 : currentPage * pageSize
+  const getRangeEnd = () => {
+    if (currentPage === 0) {
+      return pageSize
+    }
+    return pageSize * (currentPage + 1) > totalCount
+      ? totalCount
+      : pageSize * (currentPage + 1)
+  }
+  const rangeEnd = getRangeEnd()
+
   const pageCount = Math.ceil(totalCount / pageSize)
 
   return (
@@ -70,7 +79,7 @@ const CustomPagingPanel: React.FC<IProps> = ({
       <Grid item>
         <Pagination
           count={pageCount}
-          page={currentPage}
+          page={currentPage + 1}
           onChange={handleChangePage}
         />
       </Grid>
