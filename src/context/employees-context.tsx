@@ -9,6 +9,7 @@ interface IEmployeesState {
   loading: boolean
   error: boolean
   data: IEmployee[]
+  count: number
   table: {
     rows: any[]
   }
@@ -18,6 +19,7 @@ const employeesInitState = {
   loading: false,
   error: false,
   data: [],
+  count: 0,
   table: {
     rows: [],
   },
@@ -52,7 +54,7 @@ const employeesReducer = (
 ) => {
   // eslint-disable-next-line
   // @ts-ignore
-  const { type, prop, payload } = action
+  const { type, payload } = action
   switch (type) {
     case 'employees.loading':
       return {
@@ -69,7 +71,12 @@ const employeesReducer = (
         ...state,
         data: payload,
       }
-    case 'table.rows': {
+    case 'employees.count':
+      return {
+        ...state,
+        count: payload,
+      }
+    case 'table.rows':
       return {
         ...state,
         table: {
@@ -77,7 +84,6 @@ const employeesReducer = (
           rows: payload,
         },
       }
-    }
     default:
       return state
   }

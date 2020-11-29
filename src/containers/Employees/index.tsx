@@ -5,6 +5,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography'
 // components
 import EmployeesTable from '_/containers/Employees/components/EmployeesTable'
+// model
+import { IGetEmployeesInput } from '_/model/employee'
 // helpers
 import { AuthContext, EmployeesContext } from '_/context'
 import { getEmployees } from '_/gql/queries'
@@ -18,7 +20,10 @@ const Employees: React.FC = () => {
   const { token } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
 
-  const { error, loading, data: employeesData } = state
+  const { error, loading } = state
+  // useState
+  const [currentPage, setCurrentPage] = React.useState(0)
+  const [pageSize, setPageSize] = React.useState(5)
 
   const headers = {
     'Content-Type': 'application/json',
@@ -27,32 +32,33 @@ const Employees: React.FC = () => {
   const apiUrl = process?.env?.API_URL || ''
 
   // useCallback
-  const handleGetEmployees = React.useCallback(async () => {
-    dispatch({ type: 'employees.loading', payload: true })
-    try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        body: JSON.stringify(getEmployees()),
-        headers,
-      })
-      fetchResponseCheck(res?.status)
-      const response = await res.json()
-      const {
-        data: {
-          employees: { nodes },
-        },
-      } = response
-      dispatch({ type: 'employees.data', payload: nodes })
-    } catch (err) {
-      dispatch({ type: 'employees.error', payload: err })
-    }
-    dispatch({ type: 'employees.loading', payload: false })
-  }, [apiUrl, headers, dispatch])
-
+  const handleGetEmployees = React.useCallback(
+    async ({ offset, limit }: IGetEmployeesInput) => {
+      dispatch({ type: 'employees.loading', payload: true })
+      try {
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          body: JSON.stringify(getEmployees({ offset, limit })),
+          headers,
+        })
+        fetchResponseCheck(res?.status)
+        const {
+          data: {
+            employees: { nodes, count },
+          },
+        } = await res.json()
+        dispatch({ type: 'employees.data', payload: nodes })
+        dispatch({ type: 'employees.count', payload: count })
+      } catch (err) {
+        dispatch({ type: 'employees.error', payload: err })
+      }
+      dispatch({ type: 'employees.loading', payload: false })
+    },
+    [apiUrl, headers, dispatch]
+  )
   React.useEffect(() => {
-    handleGetEmployees()
-    // eslint-disable-next-line
-  }, [])
+    handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
+  }, [pageSize, currentPage])
 
   if (loading) {
     return (
@@ -68,7 +74,13 @@ const Employees: React.FC = () => {
         {error ? (
           <Typography>Regular error message</Typography>
         ) : (
-          <EmployeesTable dispatch={dispatch} data={employeesData} />
+          <EmployeesTable
+            dispatch={dispatch}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+          />
         )}
       </Grid>
     </Grid>

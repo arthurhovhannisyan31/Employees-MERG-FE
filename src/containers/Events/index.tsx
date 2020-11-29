@@ -10,8 +10,8 @@ import EventModal from '_/containers/Events/components/EventModal'
 import DetailsModal from '_/containers/Events/components/DetailsModal'
 // helpers
 import { AuthContext, EventsContext } from '_/context'
-import { createEvent, createBooking } from '_/gql/mutations'
-import { getEvents } from '_/gql/queries'
+import { createEvent, createBooking, getEvents } from '_/gql/queries'
+
 import { IEvent } from '_/model/event'
 import { IEventFormFields } from '_/containers/Events/types'
 import { fetchResponseCheck } from '_/utils/helpers'

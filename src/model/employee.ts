@@ -8,3 +8,8 @@ export interface IEmployee {
   gender: IGender
   hire_date: string
 }
+
+export interface IGetEmployeesInput {
+  limit: number
+  offset: number
+}

@@ -1,5 +1,3 @@
-// deps
-import { PagingPanel } from '@devexpress/dx-react-grid'
 // helpers
 import { IEmployee } from '_/model/employee'
 

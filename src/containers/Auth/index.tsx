@@ -11,8 +11,7 @@ import Button from '@material-ui/core/Button'
 // helpers
 import { AuthContext } from '_/context'
 import storage from '_/utils/storage'
-import { loginQuery } from '_/gql/queries'
-import { signUp } from '_/gql/mutations'
+import { loginQuery, signUp } from '_/gql/queries'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

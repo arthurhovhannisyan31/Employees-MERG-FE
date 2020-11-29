@@ -14,8 +14,8 @@ import BookingCharts from '_/containers/Bookings/components/BookingCharts'
 // helpers
 import { IBookingAction, IBookingsState } from '_/containers/Bookings/types'
 import { IBooking } from '_/model/booking'
-import { getBookings } from '_/gql/queries'
-import { cancelBooking } from '_/gql/mutations'
+import { getBookings, cancelBooking } from '_/gql/queries'
+
 import { AuthContext } from '_/context'
 import { a11yProps } from '_/containers/Bookings/helpers'
 

@@ -1,4 +1,6 @@
+// model
 import { ILogin } from '_/model/auth'
+import { IGetEmployeesInput } from '_/model/employee'
 
 export const loginQuery = ({ email, password }: ILogin) => ({
   query: `
@@ -54,10 +56,13 @@ export const getBookings = () => ({
   `,
 })
 
-export const getEmployees = () => ({
+export const getEmployees = ({ limit, offset }: IGetEmployeesInput) => ({
   query: `
-    query {
-      employees {
+    query employees($limit: Int!, $offset: Int!) {
+      employees(input:{
+        limit: $limit, 
+        offset: $offset
+      }) {
         nodes {
           _id
           birth_date
@@ -66,9 +71,14 @@ export const getEmployees = () => ({
           hire_date
           gender {
             name
-          }
+          }  
         }
+        count
       }
     }
   `,
+  variables: {
+    limit,
+    offset,
+  },
 })
