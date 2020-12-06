@@ -13,16 +13,16 @@ add employee detail with all nested data
 
 // todo find layout for employees
 // todo add token expiration
-// todo add employees model
 
-// todo hire employee
-// todo fire employee
-// todo promote employee
-// todo downgrade employee
-// todo change salary salary
-// todo make payoff
+
 // todo analytics
-
+// todo CRUD for employees, title, payoff, salary
+// hire employee
+// fire employee
+// promote employee
+// downgrade employee
+// change salary salary
+// make payoff
 // todo remove bookings
 // todo remove events
 
@@ -30,7 +30,3 @@ add employee detail with all nested data
 // new route, get design from material-ui examples page
 
 // add google login form
-
-отдельный роут на сотрудника
-
-bread-crumbs
