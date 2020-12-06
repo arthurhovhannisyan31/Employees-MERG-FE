@@ -6,6 +6,7 @@ import {
   IEventFormAction,
   IEventsState,
 } from '_/containers/Events/types'
+import { IEventsContext } from '_/model/context/events'
 
 const eventFormInitState: IEventForm = {
   isOpen: false,
@@ -27,12 +28,6 @@ const eventsInitState: IEventsState = {
   },
   events: [],
   loading: false,
-}
-
-interface IEventsContext {
-  state: IEventsState
-  initState: IEventsState
-  dispatch: React.Dispatch<IEventFormAction>
 }
 
 const contextInitState = {

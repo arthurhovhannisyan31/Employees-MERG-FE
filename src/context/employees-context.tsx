@@ -1,19 +1,11 @@
 // deps
 import React from 'react'
 // model
-import { IEmployee } from '_/model/employee'
-import { IEventFormAction } from '_/containers/Events/types'
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IEmployeesState {
-  loading: boolean
-  error: boolean
-  data: IEmployee[]
-  count: number
-  table: {
-    rows: any[]
-  }
-}
+import {
+  IEmployeesContext,
+  IEmployeesRecucerAction,
+  IEmployeesState,
+} from '_/model/context/employees'
 
 const employeesInitState = {
   loading: false,
@@ -31,22 +23,9 @@ const employeesContextInitState = {
   dispatch: () => {},
 }
 
-interface IEmployeesContext {
-  state: IEmployeesState
-  initState: IEmployeesState
-  dispatch: React.Dispatch<IEventFormAction>
-}
-
 const EmployeesContext = React.createContext<IEmployeesContext>(
   employeesContextInitState
 )
-
-interface IEmployeesRecucerAction {
-  type: string
-  prop?: string
-  // eslint-disable-next-line
-  payload?: any
-}
 
 const employeesReducer = (
   state: IEmployeesState,

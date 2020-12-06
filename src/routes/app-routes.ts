@@ -12,10 +12,11 @@ const Events = React.lazy(() => import('_/containers/Events'))
 const Bookings = React.lazy(() => import('_/containers/Bookings'))
 const NotFound = React.lazy(() => import('_/containers/NotFound'))
 const Employees = React.lazy(() => import('_/containers/Employees'))
+const Employee = React.lazy(() => import('_/containers/Employee'))
 
 export interface IRoute extends RouteProps {
-  exact: boolean
-  isPrivate: boolean
+  exact?: boolean
+  isPrivate?: boolean
   path: string
   component: React.ComponentClass | React.FunctionComponent
 }
@@ -50,6 +51,12 @@ const routes: IRoute[] = [
     isPrivate: true,
     path: CONSTANTS.ROUTES.BOOKINGS,
     component: Bookings,
+  },
+  {
+    exact: true,
+    isPrivate: true,
+    path: CONSTANTS.ROUTES.EMPLOYEE,
+    component: Employee,
   },
   {
     exact: true,

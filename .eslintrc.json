@@ -40,7 +40,8 @@
     "react/jsx-props-no-spreading": 0,
     "import/named": 0,
     "react/jsx-curly-newline": "warn",
-    "@typescript-eslint/explicit-module-boundary-types": 0
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "import/prefer-default-export": 0
   },
   "globals": {
     "window": true,

@@ -1,21 +1,11 @@
 // deps
 import React from 'react'
-
-interface IAuthState {
-  token: string
-  userId: string
-  tokenExpiration: number
-}
-
-interface IAuthContext extends IAuthState {
-  login: (_: IAuthState) => void
-  logout: () => void
-}
-
-interface IAuthReducerAction {
-  type: string
-  payload?: IAuthState
-}
+// model
+import {
+  IAuthContext,
+  IAuthReducerAction,
+  IAuthState,
+} from '_/model/context/auth'
 
 const authContextInitValue = {
   token: '',

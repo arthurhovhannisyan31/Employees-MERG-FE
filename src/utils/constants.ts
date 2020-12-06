@@ -6,7 +6,7 @@ export const ROUTES = {
   BOOKINGS: '/bookings',
   ABOUT: '/about',
   EMPLOYEES: '/employees',
-  EMPLOYEE: '/employees/?:id',
+  EMPLOYEE: '/employees/:id',
   NOT_FOUND: '*',
 }
 

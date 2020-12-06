@@ -1,10 +1,7 @@
 // deps
 import React from 'react'
-
-interface IThemeContext {
-  darkMode: boolean
-  toggleTheme: () => void
-}
+// model
+import { IThemeContext } from '_/model/context/theme'
 
 const themeInitState = {
   darkMode: true,
