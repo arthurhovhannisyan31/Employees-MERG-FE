@@ -2,8 +2,10 @@
 import React, { useContext } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-// local
-import { SnackbarContext, ISnackbarContext } from '_/context'
+// model
+import { ISnackbarContext } from '_/model/context/snackbar'
+// helpers
+import { SnackbarContext } from '_/context'
 
 const SnackbarComp: React.FC = () => {
   const {
@@ -11,7 +13,7 @@ const SnackbarComp: React.FC = () => {
     setSnackbarState,
   } = useContext<ISnackbarContext>(SnackbarContext)
 
-  const handleClose = (_: any) => {
+  const handleClose = () => {
     setSnackbarState({
       open: false,
     })

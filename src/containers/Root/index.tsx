@@ -4,6 +4,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { Switch } from 'react-router-dom'
 // components
 import Layout from '_/containers/Layout'
+import SnackbarComp from '_/components/Snackbar'
+import BreadcrumbsComp from '_/components/Breadcrumbs'
 // helpers
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
@@ -28,6 +30,8 @@ const Root: React.FC = () => {
 
   return (
     <Layout>
+      <SnackbarComp />
+      <BreadcrumbsComp />
       <React.Suspense
         fallback={<CircularProgress className={classes.circularProgress} />}
       >
