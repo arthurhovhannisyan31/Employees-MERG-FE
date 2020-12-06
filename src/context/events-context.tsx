@@ -1,6 +1,6 @@
 // deps
 import React from 'react'
-// helpers
+// model
 import {
   IEventForm,
   IEventFormAction,

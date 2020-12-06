@@ -1,8 +1,8 @@
 // deps
 import React from 'react'
-import { IEventFormAction } from '_/containers/Events/types'
-// helpers
+// model
 import { IEmployee } from '_/model/employee'
+import { IEventFormAction } from '_/containers/Events/types'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IEmployeesState {

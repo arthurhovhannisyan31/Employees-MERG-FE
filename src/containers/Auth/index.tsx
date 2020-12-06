@@ -11,7 +11,8 @@ import Button from '@material-ui/core/Button'
 // helpers
 import { AuthContext } from '_/context'
 import storage from '_/utils/storage'
-import { loginQuery, signUp } from '_/gql/queries'
+import { loginQuery } from '_/gql/queries'
+import { signUp } from '_/gql/mutations'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -138,6 +139,7 @@ const Auth: React.FC = () => {
               value={password}
               onChange={handleTextField('password')}
               onKeyDown={handleKeyDown}
+              type="password"
             />
           </Grid>
           <Grid item container justify="space-between">

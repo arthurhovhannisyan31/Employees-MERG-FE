@@ -1,6 +1,5 @@
 // deps
 import React from 'react'
-// local
 
 interface IThemeContext {
   darkMode: boolean

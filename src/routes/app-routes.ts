@@ -1,8 +1,8 @@
 // deps
 import React from 'react'
 import { RouteProps } from 'react-router-dom'
+// helpers
 import { routeMaker } from '_/routes/helpers'
-// local
 import CONSTANTS from '_/utils/constants'
 
 const Home = React.lazy(() => import('_/containers/Home'))

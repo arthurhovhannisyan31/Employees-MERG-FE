@@ -1,3 +1,4 @@
+// model
 import { IGender } from '_/model/gender'
 
 export interface IEmployee {

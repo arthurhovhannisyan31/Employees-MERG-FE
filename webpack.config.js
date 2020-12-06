@@ -7,6 +7,8 @@ require('dotenv').config()
 
 module.exports = {
   mode: 'production',
+  entry: [path.resolve(__dirname, 'src', 'index.tsx')],
+  devtool: 'inline-source-map',
   devServer: {
     host: 'localhost',
     hot: true,
@@ -18,14 +20,14 @@ module.exports = {
       poll: 1000,
       ignored: ['node_modules'],
     },
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
   },
-  devtool: 'inline-source-map',
-  entry: [path.resolve(__dirname, 'src', 'index.tsx')],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].bundle.js',
+    filename: '[name].[chunkhash].bundle.js',
     publicPath: '/',
-    chunkFilename: '[name].[hash].bundle.js',
+    chunkFilename: '[name].[chunkhash].bundle.js',
   },
   optimization: {
     splitChunks: {
@@ -76,6 +78,9 @@ module.exports = {
       cache: false,
     }),
     new webpack.EnvironmentPlugin(['API_URL']),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],

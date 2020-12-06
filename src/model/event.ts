@@ -1,3 +1,6 @@
+// model
+import { IUser } from '_/model/user'
+
 export interface IEvent {
   _id: string
   title: string

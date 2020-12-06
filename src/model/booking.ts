@@ -1,6 +1,6 @@
 // model
 import { IEvent } from '_/model/event'
-import { IUser } from '_/model/auth'
+import { IUser } from '_/model/user'
 
 export interface IBooking {
   _id: string

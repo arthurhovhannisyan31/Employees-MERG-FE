@@ -1,9 +1,10 @@
 // deps
 import React, { useContext } from 'react'
 import { Route, Redirect } from 'react-router-dom'
+// model
+import { IRoute } from '_/routes/app-routes'
 // local
 import CONSTANTS from '_/utils/constants'
-import { IRoute } from '_/routes/app-routes'
 import { AuthContext } from '_/context'
 import storage from '_/utils/storage'
 

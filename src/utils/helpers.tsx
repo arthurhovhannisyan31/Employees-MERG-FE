@@ -1,6 +1,3 @@
-// deps
-// local
-
 export const regExp = {
   phone: /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
   zipCode: /^[0-9]{5}([- /]?[0-9]{4})?$/,
@@ -10,9 +7,7 @@ export const regExp = {
 
 export const useFileUploadSizeValidation = (arr: any[], limit: number) => {
   if (!arr.length || !limit) return false
-  const invalid = arr.filter((el) => {
-    return el.size / (1024 * 1024) > limit
-  })
+  const invalid = arr.filter((el) => el.size / (1024 * 1024) > limit)
   return [!invalid.length, invalid]
 }
 
