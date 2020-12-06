@@ -6,17 +6,16 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import AppBar from '@material-ui/core/AppBar'
-// local
 // components
 import TabPanel from '_/containers/Bookings/components/TabPanel'
 import BookingList from '_/containers/Bookings/components/BookingList'
 import BookingCharts from '_/containers/Bookings/components/BookingCharts'
-// helpers
+// model
 import { IBookingAction, IBookingsState } from '_/containers/Bookings/types'
 import { IBooking } from '_/model/booking'
+// helpers
 import { getBookings } from '_/gql/queries'
 import { cancelBooking } from '_/gql/mutations'
-
 import { AuthContext } from '_/context'
 import { a11yProps } from '_/containers/Bookings/helpers'
 

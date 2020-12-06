@@ -10,6 +10,7 @@ import BreadcrumbsComp from '_/components/Breadcrumbs'
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
 import storage from '_/utils/storage'
+import Grid from '@material-ui/core/Grid'
 import useStyles from './styles'
 
 const Root: React.FC = () => {
@@ -33,7 +34,11 @@ const Root: React.FC = () => {
       <SnackbarComp />
       <BreadcrumbsComp />
       <React.Suspense
-        fallback={<CircularProgress className={classes.circularProgress} />}
+        fallback={(
+          <Grid container justify="center" className={classes.circularProgress}>
+            <CircularProgress size={20} />
+          </Grid>
+        )}
       >
         <Switch>{routes}</Switch>
       </React.Suspense>
