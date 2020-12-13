@@ -25,11 +25,14 @@ const Employees: React.FC = () => {
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
 
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  }
-  const apiUrl = process?.env?.API_URL || ''
+  const headers = React.useMemo(
+    () => ({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    }),
+    [token]
+  )
+  const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
 
   // useCallback
   const handleGetEmployees = React.useCallback(
@@ -58,7 +61,7 @@ const Employees: React.FC = () => {
   )
   React.useEffect(() => {
     handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
-  }, [pageSize, currentPage])
+  }, [pageSize, currentPage, handleGetEmployees])
 
   if (loading) {
     return (
