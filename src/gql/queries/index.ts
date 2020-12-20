@@ -1,4 +1,4 @@
-import { ILogin } from '_/types'
+import { ILogin } from '_/model/auth'
 
 export const loginQuery = ({ email, password }: ILogin) => ({
   query: `
@@ -58,13 +58,15 @@ export const getEmployees = () => ({
   query: `
     query {
       employees {
-        _id
-        birth_date
-        first_name
-        last_name
-        hire_date
-        gender {
-          name
+        nodes {
+          _id
+          birth_date
+          first_name
+          last_name
+          hire_date
+          gender {
+            name
+          }
         }
       }
     }

@@ -10,7 +10,7 @@ module.exports = {
   devServer: {
     host: 'localhost',
     hot: true,
-    port: 4001,
+    port: process.env.PORT || 3000,
     inline: true,
     disableHostCheck: true,
     historyApiFallback: true,

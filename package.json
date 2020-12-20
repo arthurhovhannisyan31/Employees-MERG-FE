@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server",
+    "start:dev": "webpack-dev-server",
     "watch": "tsc -w"
   },
   "dependencies": {

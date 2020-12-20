@@ -22,3 +22,5 @@ add employee detail with all nested data
 // todo employee detail
 // new route, get design from material-ui examples page
 // todo pagination for employees table
+
+// todo remove current styles, do styles later

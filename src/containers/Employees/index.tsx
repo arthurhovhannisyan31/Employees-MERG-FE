@@ -36,10 +36,13 @@ const Employees: React.FC = () => {
         headers,
       })
       fetchResponseCheck(res?.status)
+      const response = await res.json()
       const {
-        data: { employees },
-      } = await res.json()
-      dispatch({ type: 'employees.data', payload: employees })
+        data: {
+          employees: { nodes },
+        },
+      } = response
+      dispatch({ type: 'employees.data', payload: nodes })
     } catch (err) {
       dispatch({ type: 'employees.error', payload: err })
     }
