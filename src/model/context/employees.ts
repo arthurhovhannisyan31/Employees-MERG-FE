@@ -1,16 +1,16 @@
 // deps
 import React from 'react'
 // model
-import { IEmployee } from '_/model/employee'
+import { Employee } from '_/model/generated/graphql'
 import { IEventFormAction } from '_/containers/Events/types'
 
 export interface IEmployeesState {
   loading: boolean
   error: boolean
-  data: IEmployee[]
+  data: Employee[]
   count: number
   table: {
-    rows: Record<string, any>[]
+    rows: Record<string, unknown>[]
   }
 }
 
