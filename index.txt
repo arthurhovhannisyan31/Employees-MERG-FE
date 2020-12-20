@@ -28,5 +28,6 @@ add employee detail with all nested data
 
 // todo employee detail
 // new route, get design from material-ui examples page
-
 // add google login form:
+// todo pagination for employees table
+// todo remove current styles, do styles later

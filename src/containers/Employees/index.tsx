@@ -35,6 +35,7 @@ const Employees: React.FC = () => {
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
 
   // useCallback
+
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit }: IGetEmployeesInput) => {
       dispatch({ type: 'employees.loading', payload: true })
@@ -59,6 +60,7 @@ const Employees: React.FC = () => {
     },
     [apiUrl, dispatch, headers]
   )
+
   React.useEffect(() => {
     handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
   }, [pageSize, currentPage, handleGetEmployees])

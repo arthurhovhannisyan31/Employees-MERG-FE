@@ -71,7 +71,7 @@ export const getEmployees = ({ limit, offset }: IGetEmployeesInput) => ({
           hire_date
           gender {
             name
-          }  
+          }
         }
         count
       }
