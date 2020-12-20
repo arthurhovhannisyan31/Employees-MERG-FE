@@ -7,33 +7,62 @@ import Tab from '@material-ui/core/Tab'
 import AppBar from '@material-ui/core/AppBar'
 // components
 import TabPanel from '_/components/TabPanel'
-import Details from './components/Details'
-import Employments from './components/Employments'
-import Paychecks from './components/Paychecks'
-import Titles from './components/Titles'
+import Details from '_/containers/Employee/components/Details'
+import Employments from '_/containers/Employee/components/Employments'
+import Paychecks from '_/containers/Employee/components/Paychecks'
+import Titles from '_/containers/Employee/components/Titles'
+// model
+import { GetEmployeeInput } from '_/model/generated/graphql'
+import { TEmployeeFetchResponse } from '_/containers/Employee/types'
 // helpers
+import { AuthContext } from '_/context/auth-context'
+import { getEmployee } from '_/gql/queries'
+import { fetchResponseCheck } from '_/utils/helpers'
 import { a11yProps } from './helpers'
 import useStyles from './style'
 
-const Employee: React.FC = () => {
+const EmployeePage: React.FC = () => {
   // styles
   const classes = useStyles()
   // context
-
+  const { headers } = React.useContext(AuthContext)
   // state
   const [tab, setTab] = React.useState<number>(0)
-
-  // callbacks
-  const handleChangeTab = (
-    _: React.ChangeEvent<Record<string, unknown>>,
-    newValue: number
-  ) => {
-    setTab(newValue)
+  // callback
+  const handleChangeTab = React.useCallback(
+    (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
+      setTab(newValue)
+    },
+    []
+  )
+  // memo
+  const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
+  const handleGetEmployee = async ({ id }: GetEmployeeInput) => {
+    try {
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        body: JSON.stringify(getEmployee({ id })),
+        headers,
+      })
+      fetchResponseCheck(res?.status)
+      const {
+        data: {
+          employee: { _id: employeeId },
+        },
+      }: TEmployeeFetchResponse = await res.json()
+      console.log(employeeId)
+    } catch (err) {
+      // dispatch err
+    }
   }
 
-  // todo employee fetch
   // todo employee reducer mb with employees
   // todo update fields and delete profile
+
+  React.useEffect(() => {
+    handleGetEmployee({ id: '5f6a3d5a4636e1543f6d4452' })
+    // eslint-disable-next-line
+  }, [])
 
   const loading = false
   return (
@@ -76,4 +105,4 @@ const Employee: React.FC = () => {
   )
 }
 
-export default Employee
+export default EmployeePage

@@ -6,32 +6,29 @@ import Typography from '@material-ui/core/Typography'
 // components
 import EmployeesTable from '_/containers/Employees/components/EmployeesTable'
 // model
-import { IGetEmployeesInput } from '_/model/employee'
-
+import { GetEmployeesInput } from '_/model/generated/graphql'
+import { TEmployeesFetchResponse } from '_/containers/Employees/types'
 // helpers
 import { AuthContext, EmployeesContext } from '_/context'
 import { getEmployees } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/helpers'
 import useStyles from '_/containers/Employees/style'
 
-const Employees: React.FC = () => {
+const EmployeesPage: React.FC = () => {
   // style
   const classes = useStyles()
   // context
   const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
-
   const { error, loading } = state
   // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
-
+  // memo
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
-
   // callback
-
   const handleGetEmployees = React.useCallback(
-    async ({ offset, limit }: IGetEmployeesInput) => {
+    async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({ type: 'employees.loading', payload: true })
       try {
         const res = await fetch(apiUrl, {
@@ -44,7 +41,7 @@ const Employees: React.FC = () => {
           data: {
             employees: { nodes, count },
           },
-        } = await res.json()
+        }: TEmployeesFetchResponse = await res.json()
         dispatch({ type: 'employees.data', payload: nodes })
         dispatch({ type: 'employees.count', payload: count })
       } catch (err) {
@@ -86,4 +83,4 @@ const Employees: React.FC = () => {
   )
 }
 
-export default Employees
+export default EmployeesPage

@@ -1,6 +1,12 @@
 // model
 import { ILogin } from '_/model/auth'
-import { IGetEmployeesInput } from '_/model/employee'
+import { GetEmployeeInput, GetEmployeesInput } from '_/model/generated/graphql'
+// helpers
+import {
+  employeeFragment,
+  genderFragment,
+  employeeDetailsFragment,
+} from '_/gql/fragments'
 
 export const loginQuery = ({ email, password }: ILogin) => ({
   query: `
@@ -56,7 +62,7 @@ export const getBookings = () => ({
   `,
 })
 
-export const getEmployees = ({ limit, offset }: IGetEmployeesInput) => ({
+export const getEmployees = ({ limit, offset }: GetEmployeesInput) => ({
   query: `
     query employees($limit: Int!, $offset: Int!) {
       employees(input:{
@@ -64,14 +70,8 @@ export const getEmployees = ({ limit, offset }: IGetEmployeesInput) => ({
         offset: $offset
       }) {
         nodes {
-          _id
-          birth_date
-          first_name
-          last_name
-          hire_date
-          gender {
-            name
-          }
+          ${employeeFragment}
+          ${genderFragment}
         }
         count
       }
@@ -80,5 +80,18 @@ export const getEmployees = ({ limit, offset }: IGetEmployeesInput) => ({
   variables: {
     limit,
     offset,
+  },
+})
+
+export const getEmployee = ({ id }: GetEmployeeInput) => ({
+  query: `
+    query employee($id: ID!){
+      employee(input:{id: $id}){
+        ${employeeDetailsFragment}
+      }
+    }
+  `,
+  variables: {
+    id,
   },
 })
