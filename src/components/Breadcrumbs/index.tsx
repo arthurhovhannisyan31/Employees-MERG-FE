@@ -4,6 +4,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import clsx from 'clsx'
 // helpers
 import useStyles from './style'
 
@@ -24,12 +25,12 @@ const BreadcrumbsComp: React.FC = () => {
 
   const links = paths.map((el: string, idx: number) => {
     if (idx + 1 === paths.length) {
-      return <Typography>{el}</Typography>
+      return <Typography className={classes.link}>{el}</Typography>
     }
     const path = idx === 0 ? el : paths.slice(0, idx + 1).join('/')
     return (
       <Button
-        className={classes.link}
+        className={clsx(classes.link)}
         color="inherit"
         variant="text"
         onClick={() => handleHistory(`/${path}`)}

@@ -31,8 +31,6 @@ const employeesReducer = (
   state: IEmployeesState,
   action: IEmployeesRecucerAction
 ) => {
-  // eslint-disable-next-line
-  // @ts-ignore
   const { type, payload } = action
   switch (type) {
     case 'employees.loading':

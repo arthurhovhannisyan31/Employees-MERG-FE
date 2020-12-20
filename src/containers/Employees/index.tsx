@@ -18,7 +18,7 @@ const Employees: React.FC = () => {
   // useStyle
   const classes = useStyles()
   // useContext
-  const { token } = React.useContext(AuthContext)
+  const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
 
   const { error, loading } = state
@@ -26,13 +26,6 @@ const Employees: React.FC = () => {
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
 
-  const headers = React.useMemo(
-    () => ({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    }),
-    [token]
-  )
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
 
   // useCallback

@@ -23,6 +23,6 @@ export interface IEmployeesContext {
 export interface IEmployeesRecucerAction {
   type: string
   prop?: string
-  // eslint-disable-next-line
+  // todo fix types
   payload?: any
 }

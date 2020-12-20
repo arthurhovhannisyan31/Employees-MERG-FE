@@ -14,6 +14,7 @@ const authContextInitValue = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   login: (_: IAuthState) => {},
   logout: () => {},
+  headers: {},
 }
 
 const AuthContext = React.createContext<IAuthContext>(authContextInitValue)
@@ -57,9 +58,17 @@ const AuthContextContainer: React.FC = ({ children }) => {
 
   const { token, userId, tokenExpiration } = state
 
+  const headers = React.useMemo(
+    () => ({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    }),
+    [token]
+  )
+
   return (
     <AuthContext.Provider
-      value={{ login, logout, token, userId, tokenExpiration }}
+      value={{ login, logout, token, userId, tokenExpiration, headers }}
     >
       {children}
     </AuthContext.Provider>

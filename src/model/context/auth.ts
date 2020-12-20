@@ -7,6 +7,7 @@ export interface IAuthState {
 export interface IAuthContext extends IAuthState {
   login: (_: IAuthState) => void
   logout: () => void
+  headers: Record<string, string>
 }
 
 export interface IAuthReducerAction {

@@ -9,6 +9,7 @@
 
 // todo add token expiration
 
+// todo exclude fetch to custom function
 
 // todo analytics
 // todo CRUD for employees, title, payoff, salary
