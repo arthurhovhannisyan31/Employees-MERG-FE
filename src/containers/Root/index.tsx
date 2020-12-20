@@ -14,9 +14,9 @@ import Grid from '@material-ui/core/Grid'
 import useStyles from './styles'
 
 const Root: React.FC = () => {
-  // useTheme
+  // theme
   const { token, login } = React.useContext(AuthContext)
-  // useStyles
+  // styles
   const classes = useStyles()
 
   if (!token && storage.get('token')) {

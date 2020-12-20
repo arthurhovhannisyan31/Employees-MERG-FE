@@ -16,13 +16,14 @@ import { a11yProps } from './helpers'
 import useStyles from './style'
 
 const Employee: React.FC = () => {
-  // useStyles
+  // styles
   const classes = useStyles()
+  // context
 
-  // useState
+  // state
   const [tab, setTab] = React.useState<number>(0)
 
-  // useCallback
+  // callbacks
   const handleChangeTab = (
     _: React.ChangeEvent<Record<string, unknown>>,
     newValue: number

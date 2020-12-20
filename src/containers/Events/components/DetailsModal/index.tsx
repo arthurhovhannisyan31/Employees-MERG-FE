@@ -34,7 +34,7 @@ const DetailsModal: React.FC<IProps> = ({
   onSubmit,
   loading,
 }) => {
-  // useContext
+  // context
   const { token } = React.useContext(AuthContext)
   const classes = useStyles()
 

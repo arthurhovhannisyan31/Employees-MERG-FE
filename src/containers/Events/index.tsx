@@ -19,9 +19,9 @@ import { fetchResponseCheck } from '_/utils/helpers'
 import useStyles from '_/containers/Events/style'
 
 const Events: React.FC = () => {
-  // useStyles
+  // styles
   const classes = useStyles()
-  // useContext
+  // context
   const { token, userId } = React.useContext(AuthContext)
   const {
     dispatch,

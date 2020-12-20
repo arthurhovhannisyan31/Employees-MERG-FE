@@ -10,9 +10,9 @@ import { ThemeContext } from '_/context'
 import useStyles from '_/containers/Layout/style'
 
 const Layout: React.FC = ({ children }) => {
-  // useContext
+  // context
   const { darkMode } = React.useContext(ThemeContext)
-  // useStyles
+  // styles
   const classes = useStyles()
 
   return (

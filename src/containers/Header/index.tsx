@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Header: React.FC = () => {
-  // useContext
+  // context
   const { darkMode, toggleTheme } = React.useContext(ThemeContext)
   const { token, logout, userId } = useContext(AuthContext)
-  // useState
+  // state
   const classes = useStyles()
   const history = useHistory()
   const location = useLocation()

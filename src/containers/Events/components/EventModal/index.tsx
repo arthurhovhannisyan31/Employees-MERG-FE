@@ -34,7 +34,7 @@ const EventModal: React.FC<IProps> = ({
   dispatch,
   eventFormData: { isOpen, loading, fields },
 }) => {
-  // useStyles
+  // styles
   const cls = useStyles()
   const initState = getInitState(fields)
 
@@ -57,7 +57,7 @@ const EventModal: React.FC<IProps> = ({
     },
   })
 
-  // useMemo
+  // memo
   const memoPriceFormat = React.useCallback(
     (props) => NumberFormatCustom({ prefix: '$' })(props),
     []

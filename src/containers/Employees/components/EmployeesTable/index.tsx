@@ -46,9 +46,9 @@ const EmployeesTable: React.FC<IProps> = ({
   currentPage,
   setCurrentPage,
 }) => {
-  // useRoute
+  // route
   const history = useHistory()
-  // useContext
+  // context
   const { state } = React.useContext(EmployeesContext)
 
   const { data, count } = state
@@ -56,18 +56,18 @@ const EmployeesTable: React.FC<IProps> = ({
   // todo move to reducer
   // todo add create an employee
 
-  // useState
+  // state
   const [columns] = React.useState(initColumns)
   const [rows] = React.useState<IEmployeesTableRow[]>(data?.map(rowsSelector))
   const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>(
     initColumnExtensions
   )
-  // useMemo
+  // memo
   const initColumnsOrder = React.useMemo(() => getInitColumnsOrder(), [])
   const [columnOrder, setColumnOrder] = React.useState<string[]>(
     initColumnsOrder
   )
-  // useCallback
+  // callback
   // handlers
   const handleChangePageSize = React.useCallback(setPageSize, [setPageSize])
   const handleChangeCurrentPage = React.useCallback(setCurrentPage, [
@@ -117,7 +117,7 @@ const EmployeesTable: React.FC<IProps> = ({
         return <Table.Cell {...props} />
     }
   }
-  // useMemo
+  // memo
   // todo add stub row to prevent table collapse
 
   return (

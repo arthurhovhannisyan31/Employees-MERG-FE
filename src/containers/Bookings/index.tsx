@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Bookings: React.FC = () => {
-  // useContext
+  // context
   const { token } = React.useContext(AuthContext)
 
   const headers = {
@@ -70,12 +70,12 @@ const Bookings: React.FC = () => {
 
   const apiUrl = process?.env?.API_URL || ''
 
-  // useReducer
+  // reducer
   const [state, dispatch] = React.useReducer(bookingsReducer, bookingsInitState)
 
   const { bookings, loading, tab } = state
 
-  // useStyles
+  // styles
   const classes = useStyles()
 
   const handleChangeTab = React.useCallback(

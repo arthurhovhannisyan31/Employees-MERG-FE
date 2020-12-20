@@ -9,16 +9,16 @@ import clsx from 'clsx'
 import useStyles from './style'
 
 const BreadcrumbsComp: React.FC = () => {
-  // useRouter
+  // router
   const location = useLocation()
   const history = useHistory()
   const classes = useStyles()
-  // useMemo
+  // memo
   const paths = React.useMemo(
     () => location?.pathname?.split('/').filter((el: string) => el),
     [location]
   )
-  // useCallback
+  // callback
   const handleHistory = React.useCallback((str: string) => history.push(str), [
     history,
   ])

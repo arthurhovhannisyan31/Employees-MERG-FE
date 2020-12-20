@@ -15,20 +15,20 @@ import { fetchResponseCheck } from '_/utils/helpers'
 import useStyles from '_/containers/Employees/style'
 
 const Employees: React.FC = () => {
-  // useStyle
+  // style
   const classes = useStyles()
-  // useContext
+  // context
   const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
 
   const { error, loading } = state
-  // useState
+  // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
 
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
 
-  // useCallback
+  // callback
 
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit }: IGetEmployeesInput) => {

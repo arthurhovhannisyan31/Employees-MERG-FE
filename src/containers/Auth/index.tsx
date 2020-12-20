@@ -27,20 +27,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Auth: React.FC = () => {
-  // useRouter
+  // router
   const history = useHistory()
 
-  // useContext
+  // context
   const { login } = useContext(AuthContext)
 
-  // useState
+  // state
   const [authState, setAuthState] = useState<boolean>(false)
   const toggleAuthState = () => setAuthState((val: boolean) => !val)
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  // useStyles
+  // styles
   const classes = useStyles()
 
   const handleTextField = (type: string) => (
