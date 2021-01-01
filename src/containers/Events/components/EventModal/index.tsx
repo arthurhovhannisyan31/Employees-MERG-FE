@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import {
- KeyboardDatePicker
+  KeyboardDatePicker,
 } from '@material-ui/pickers'
 import {
- useFormik
+  useFormik,
 } from 'formik'
 // components
 import NumberFormatCustom from '_/containers/Events/components/NumberFormatCustom'
@@ -24,7 +24,7 @@ import {
 } from '_/containers/Events/types'
 import useStyles from '_/containers/Events/components/EventModal/style'
 import {
- regExp
+  regExp,
 } from '_/utils/helpers'
 
 interface IProps {
@@ -39,8 +39,8 @@ const EventModal: React.FC<IProps> = ({
   onSubmit,
   dispatch,
   eventFormData: {
- isOpen, loading, fields
-},
+    isOpen, loading, fields,
+  },
 }) => {
   // styles
   const cls = useStyles()
@@ -68,49 +68,49 @@ const EventModal: React.FC<IProps> = ({
   // memo
   const memoPriceFormat = React.useCallback(
     (props) => NumberFormatCustom({
- prefix: '$'
-})(props),
-    []
+      prefix: '$',
+    })(props),
+    [],
   )
   const handleChangeText = React.useCallback(
     (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
       setFieldValue(field, event.target.value)
     },
-    [setFieldValue]
+    [setFieldValue],
   )
   const handleChangeNumber = React.useCallback(
     (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
       if (
-        event.target.value.match(regExp.numbers) ||
-        event.target.value === ''
+        event.target.value.match(regExp.numbers)
+        || event.target.value === ''
       ) {
         handleChangeText(field)(event)
       }
     },
-    [handleChangeText]
+    [handleChangeText],
   )
   const handleSaveOnBlur = React.useCallback(
     (e: React.FocusEvent<never>) => {
       handleBlur(e)
       dispatch({
- type: 'eventForm', payload: values
-})
+        type: 'eventForm', payload: values,
+      })
     },
-    [handleBlur, dispatch, values]
+    [handleBlur, dispatch, values],
   )
   const handleCancel = React.useCallback(() => {
     handleClose()
     dispatch({
- type: 'eventFormReset'
-})
+      type: 'eventFormReset',
+    })
     resetForm({
-})
+    })
   }, [handleClose, dispatch, resetForm])
   const handleChangeDate = React.useCallback(
     (field: string) => (dateValue: Date | null) => {
       setFieldValue(field, dateValue)
     },
-    [setFieldValue]
+    [setFieldValue],
   )
 
   const disableConfirm = !(isValid && values?.title)

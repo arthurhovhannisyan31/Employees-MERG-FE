@@ -11,7 +11,7 @@ interface IPortalProps {
 const Portal: React.FC<IPortalProps> = React.forwardRef<
   HTMLDivElement,
   IPortalProps
->(({ children, selector = '', className = '', style, ...props 
+>(({ children, selector = '', className = '', style, ...props
 }, _ref) => {
   const mountNode: HTMLElement = React.useMemo(
     () => document.querySelector(selector) || document.body,
@@ -30,3 +30,6 @@ const Portal: React.FC<IPortalProps> = React.forwardRef<
 })
 
 export default Portal
+
+
+
