@@ -12,6 +12,7 @@ import {
   TableColumnReordering,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import AccountBoxIcon from '@material-ui/icons/AccountBox'
 import Button from '@material-ui/core/Button'
 import Avatar from '@material-ui/core/Avatar'
@@ -31,6 +32,7 @@ import {
   getAvatarLetters,
 } from '_/containers/Employees/components/EmployeesTable/helpers'
 import { EmployeesContext } from '_/context'
+import useStyles from './style'
 
 interface IProps {
   dispatch: React.Dispatch<IEventFormAction>
@@ -38,6 +40,7 @@ interface IProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pageSize: number
   setPageSize: React.Dispatch<React.SetStateAction<number>>
+  loading?: boolean
 }
 
 const EmployeesTable: React.FC<IProps> = ({
@@ -45,7 +48,10 @@ const EmployeesTable: React.FC<IProps> = ({
   setPageSize,
   currentPage,
   setCurrentPage,
+  loading,
 }) => {
+  // styles
+  const cls = useStyles();
   // route
   const history = useHistory()
   // context
@@ -58,7 +64,7 @@ const EmployeesTable: React.FC<IProps> = ({
 
   // state
   const [columns] = React.useState(initColumns)
-  const [rows] = React.useState<IEmployeesTableRow[]>(data?.map(rowsSelector))
+  const [rows, setRows] = React.useState<IEmployeesTableRow[]>(data?.map(rowsSelector))
   const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>(
     initColumnExtensions,
   )
@@ -67,7 +73,6 @@ const EmployeesTable: React.FC<IProps> = ({
   const [columnOrder, setColumnOrder] = React.useState<string[]>(
     initColumnsOrder,
   )
-  // callback
   // handlers
   const handleChangePageSize = React.useCallback(setPageSize, [setPageSize])
   const handleChangeCurrentPage = React.useCallback(setCurrentPage, [
@@ -76,7 +81,7 @@ const EmployeesTable: React.FC<IProps> = ({
   const handleChangeColumnOrder = React.useCallback(setColumnOrder, [
     setColumnOrder,
   ])
-  const handleRedirectProfile = (id: string) => () => history.push(`/employees/${id}`)
+  const handleRedirectProfile = React.useCallback((id: string) => () => history.push(`/employees/${id}`), [history])
   // containers
   const pagingContainer = React.useCallback(
     (props: PagingPanel.ContainerProps) => (
@@ -96,18 +101,10 @@ const EmployeesTable: React.FC<IProps> = ({
       row: { _id: id, first_name: firstName, last_name: lastName },
     } = props
     switch (name) {
-      case 'link':
-        return (
-          <Table.Cell {...props}>
-            <Button variant="text" onClick={handleRedirectProfile(id)}>
-              <AccountBoxIcon />
-            </Button>
-          </Table.Cell>
-        )
       case 'avatar':
         return (
           <Table.Cell {...props}>
-            <Avatar variant="rounded">
+            <Avatar variant="rounded" onClick={handleRedirectProfile(id)} className={cls.avatar}>
               {getAvatarLetters(firstName, lastName)}
             </Avatar>
           </Table.Cell>
@@ -116,8 +113,12 @@ const EmployeesTable: React.FC<IProps> = ({
         return <Table.Cell {...props} />
     }
   }
-  // memo
-  // todo add stub row to prevent table collapse
+
+  React.useEffect(() => {
+    if (data.length) {
+      setRows(data?.map(rowsSelector));
+    }
+  }, [data])
 
   return (
     <Paper>

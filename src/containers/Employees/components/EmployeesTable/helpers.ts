@@ -29,8 +29,6 @@ export const initColumns = [
   { name: 'gender', title: 'Gender' },
   { name: 'hire_date', title: 'Hire Date' },
   { name: 'birth_date', title: 'Birth Date' },
-  { name: 'details', title: ' ' },
-  { name: 'link', title: ' ' },
 ]
 
 export const getInitColumnsOrder = () => initColumns.map((column) => column.name)

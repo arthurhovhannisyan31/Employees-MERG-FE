@@ -1,7 +1,6 @@
 // deps
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography'
 // components
 import EmployeesTable from '_/containers/Employees/components/EmployeesTable'
@@ -12,11 +11,9 @@ import { TEmployeesFetchResponse } from '_/containers/Employees/types'
 import { AuthContext, EmployeesContext } from '_/context'
 import { getEmployees } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/helpers'
-import useStyles from '_/containers/Employees/style'
 
 const EmployeesPage: React.FC = () => {
   // style
-  const classes = useStyles()
   // context
   const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
@@ -56,14 +53,6 @@ const EmployeesPage: React.FC = () => {
     handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
   }, [pageSize, currentPage, handleGetEmployees])
 
-  if (loading) {
-    return (
-      <Grid container justify="center" className={classes.loadingIndicator}>
-        <CircularProgress />
-      </Grid>
-    )
-  }
-
   return (
     <Grid container>
       <Grid container direction="row">
@@ -76,6 +65,7 @@ const EmployeesPage: React.FC = () => {
             setCurrentPage={setCurrentPage}
             pageSize={pageSize}
             setPageSize={setPageSize}
+            loading={loading}
           />
         )}
       </Grid>

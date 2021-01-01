@@ -32,7 +32,7 @@ const Modal: React.FC<IProps> = ({ isOpen, children, onClose }) => {
         <>
           <Backdrop />
           <ClickAwayListener onClickAway={handleClose}>
-            <Grid container className={cls.container} justify="center">
+            <Grid className={cls.container}>
               {children}
             </Grid>
           </ClickAwayListener>
