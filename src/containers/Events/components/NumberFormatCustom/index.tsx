@@ -15,9 +15,11 @@ interface NumberFormatInputProps {
 }
 
 const NumberFormatCustom = (customProps: INumberFormatCustomProps) => (
-  inputProps: NumberFormatInputProps
+  inputProps: NumberFormatInputProps,
 ) => {
-  const { inputRef, onChange, name, ...other } = inputProps
+  const {
+    inputRef, onChange, name, ...other
+  } = inputProps
 
   return (
     <NumberFormat

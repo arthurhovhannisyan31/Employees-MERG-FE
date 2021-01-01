@@ -33,8 +33,7 @@ export const initColumns = [
   { name: 'link', title: ' ' },
 ]
 
-export const getInitColumnsOrder = () =>
-  initColumns.map((column) => column.name)
+export const getInitColumnsOrder = () => initColumns.map((column) => column.name)
 
 export const initColumnExtensions: Table.ColumnExtension[] = [
   { columnName: 'gender', align: 'left' },
@@ -47,5 +46,4 @@ export const initColumnExtensions: Table.ColumnExtension[] = [
 
 export const pageSizes = [5, 10, 20, 50, 100]
 
-export const getAvatarLetters = (str1: string, str2: string) =>
-  `${str1[0].toUpperCase()}${str2[0].toUpperCase()}`
+export const getAvatarLetters = (str1: string, str2: string) => `${str1[0].toUpperCase()}${str2[0].toUpperCase()}`

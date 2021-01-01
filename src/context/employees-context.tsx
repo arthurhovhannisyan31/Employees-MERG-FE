@@ -24,12 +24,12 @@ const employeesContextInitState = {
 }
 
 const EmployeesContext = React.createContext<IEmployeesContext>(
-  employeesContextInitState
+  employeesContextInitState,
 )
 
 const employeesReducer = (
   state: IEmployeesState,
-  action: IEmployeesRecucerAction
+  action: IEmployeesRecucerAction,
 ) => {
   const { type, payload } = action
   switch (type) {
@@ -69,7 +69,7 @@ const employeesReducer = (
 const EmployeesContextContainer: React.FC = ({ children }) => {
   const [state, dispatch] = React.useReducer(
     employeesReducer,
-    employeesInitState
+    employeesInitState,
   )
 
   return (

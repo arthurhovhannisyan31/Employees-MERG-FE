@@ -18,21 +18,19 @@ export const fetchResponseCheck = (status: number) => {
 }
 
 export const useFileUploadFormatValidation = (
-  arr: any[],
-  excludedFormats: string[]
+  arr: {type: string}[],
+  excludedFormats: string[],
 ) => {
   if (!arr.length || !excludedFormats.length) return false
-  const invalid = arr.filter((el) =>
-    excludedFormats.includes(el.type.split('/')[0])
-  )
+  const invalid = arr.filter((el) => excludedFormats.includes(el.type.split('/')[0]))
   return [!invalid.length, invalid]
 }
 
-export const getBase64 = async (file: any) => {
+export const getBase64 = async (file: never) => {
   const reader = new FileReader()
   await reader.readAsDataURL(file)
   return new Promise((resolve, reject) => {
-    reader.onload = (_) => resolve(reader.result)
+    reader.onload = () => resolve(reader.result)
     reader.onerror = (error) => reject(error)
   })
 }

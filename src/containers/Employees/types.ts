@@ -11,8 +11,8 @@ export interface IEmployeesTableRow {
 
 // todo fix gender
 export type TEmployeesTableRow = Pick<
-  Employee,
-  '_id' | 'hire_date' | 'last_name' | 'first_name' | 'gender' | 'birth_date'
+Employee,
+'_id' | 'hire_date' | 'last_name' | 'first_name' | 'gender' | 'birth_date'
 >
 
 export type TEmployeesFetchResponse = {

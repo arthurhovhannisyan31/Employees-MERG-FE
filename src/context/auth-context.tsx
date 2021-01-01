@@ -21,7 +21,7 @@ const AuthContext = React.createContext<IAuthContext>(authContextInitValue)
 
 const authContextReducer = (
   state: IAuthContext,
-  action: IAuthReducerAction
+  action: IAuthReducerAction,
 ) => {
   const { type, payload } = action
   switch (type) {
@@ -50,7 +50,7 @@ const authContextReducer = (
 const AuthContextContainer: React.FC = ({ children }) => {
   const [state, dispatch] = React.useReducer(
     authContextReducer,
-    authContextInitValue
+    authContextInitValue,
   )
 
   const login = (payload: IAuthState) => dispatch({ type: 'login', payload })
@@ -63,12 +63,14 @@ const AuthContextContainer: React.FC = ({ children }) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     }),
-    [token]
+    [token],
   )
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, token, userId, tokenExpiration, headers }}
+      value={{
+        login, logout, token, userId, tokenExpiration, headers,
+      }}
     >
       {children}
     </AuthContext.Provider>

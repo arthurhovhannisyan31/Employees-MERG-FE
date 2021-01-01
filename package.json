@@ -6,7 +6,9 @@
   "scripts": {
     "start:dev": "webpack serve",
     "watch": "tsc -w",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "lint": "eslint src/",
+    "format": "eslint src/ --fix"
   },
   "dependencies": {
     "@date-io/date-fns": "^2.10.6",

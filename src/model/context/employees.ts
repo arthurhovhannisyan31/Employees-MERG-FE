@@ -24,5 +24,7 @@ export interface IEmployeesRecucerAction {
   type: string
   prop?: string
   // todo fix types
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   payload?: any
 }

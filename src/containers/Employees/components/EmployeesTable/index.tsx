@@ -60,12 +60,12 @@ const EmployeesTable: React.FC<IProps> = ({
   const [columns] = React.useState(initColumns)
   const [rows] = React.useState<IEmployeesTableRow[]>(data?.map(rowsSelector))
   const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>(
-    initColumnExtensions
+    initColumnExtensions,
   )
   // memo
   const initColumnsOrder = React.useMemo(() => getInitColumnsOrder(), [])
   const [columnOrder, setColumnOrder] = React.useState<string[]>(
-    initColumnsOrder
+    initColumnsOrder,
   )
   // callback
   // handlers
@@ -76,8 +76,7 @@ const EmployeesTable: React.FC<IProps> = ({
   const handleChangeColumnOrder = React.useCallback(setColumnOrder, [
     setColumnOrder,
   ])
-  const handleRedirectProfile = (id: string) => () =>
-    history.push(`/employees/${id}`)
+  const handleRedirectProfile = (id: string) => () => history.push(`/employees/${id}`)
   // containers
   const pagingContainer = React.useCallback(
     (props: PagingPanel.ContainerProps) => (
@@ -88,7 +87,7 @@ const EmployeesTable: React.FC<IProps> = ({
         }}
       />
     ),
-    [count]
+    [count],
   )
 
   const tableCellContainer = (props: Table.DataCellProps) => {

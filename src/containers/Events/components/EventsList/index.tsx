@@ -41,20 +41,19 @@ const EventsList: React.FC<IProps> = ({ events, handleOpenDetails }) => {
 
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
+    newPage: number,
   ) => {
     setPage(newPage)
   }
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
   }
 
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, events.length - page * rowsPerPage)
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, events.length - page * rowsPerPage)
 
   console.log(events)
 

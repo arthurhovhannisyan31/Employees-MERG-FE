@@ -24,7 +24,9 @@ export const signUp = ({ email, password }: ILogin) => ({
 })
 
 export const createEvent = ({
-  eventInput: { date, description, price, title },
+  eventInput: {
+    date, description, price, title,
+  },
 }: IEventInput) => ({
   query: `
     mutation createEventMutation($title: String!, $description: String!, $price: Float!, $date: String!) {

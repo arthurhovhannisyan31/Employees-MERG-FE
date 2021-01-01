@@ -9,21 +9,19 @@ interface IProps {
   index: number
 }
 
-const TabPanel: React.FC<IProps> = ({ children, value, index }) => {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
-}
+const TabPanel: React.FC<IProps> = ({ children, value, index }) => (
+  <div
+    role="tabpanel"
+    hidden={value !== index}
+    id={`simple-tabpanel-${index}`}
+    aria-labelledby={`simple-tab-${index}`}
+  >
+    {value === index && (
+    <Box p={3}>
+      <Typography>{children}</Typography>
+    </Box>
+    )}
+  </div>
+)
 
 export default TabPanel

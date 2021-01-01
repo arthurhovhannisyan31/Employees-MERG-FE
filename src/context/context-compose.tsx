@@ -19,7 +19,7 @@ const ContextCompose: React.FC = ({ children }) => (
       (child: React.ReactNode, Container: React.FC) => (
         <Container>{child}</Container>
       ),
-      children
+      children,
     )}
   </>
 )

@@ -63,10 +63,10 @@ const Bookings: React.FC = () => {
   // context
   const { token } = React.useContext(AuthContext)
 
-  const headers = {
+  const headers = React.useMemo(() => ({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
-  }
+  }), [token])
 
   const apiUrl = process?.env?.API_URL || ''
 
@@ -82,7 +82,7 @@ const Bookings: React.FC = () => {
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
       dispatch({ type: 'tab', payload: newValue })
     },
-    []
+    [],
   )
 
   const handleGetBookings = React.useCallback(async () => {
@@ -117,7 +117,7 @@ const Bookings: React.FC = () => {
           throw new Error('Failed!')
         }
         const newBookings = bookings.filter(
-          (el: IBooking) => el._id !== bookingId
+          (el: IBooking) => el._id !== bookingId,
         )
         dispatch({ type: 'bookings', payload: newBookings })
         dispatch({ type: 'loading', payload: false })
@@ -125,7 +125,7 @@ const Bookings: React.FC = () => {
         console.log(err)
       }
     },
-    [headers, apiUrl, bookings]
+    [headers, apiUrl, bookings],
   )
 
   React.useEffect(() => {

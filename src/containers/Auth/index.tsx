@@ -44,7 +44,7 @@ const Auth: React.FC = () => {
   const classes = useStyles()
 
   const handleTextField = (type: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     switch (type) {
       case 'email':

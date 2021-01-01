@@ -49,7 +49,7 @@ const EmployeesPage: React.FC = () => {
       }
       dispatch({ type: 'employees.loading', payload: false })
     },
-    [apiUrl, dispatch, headers]
+    [apiUrl, dispatch, headers],
   )
 
   React.useEffect(() => {

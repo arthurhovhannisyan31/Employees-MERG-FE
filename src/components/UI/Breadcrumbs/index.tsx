@@ -16,7 +16,7 @@ const BreadcrumbsComp: React.FC = () => {
   // memo
   const paths = React.useMemo(
     () => location?.pathname?.split('/').filter((el: string) => el),
-    [location]
+    [location],
   )
   // callback
   const handleHistory = React.useCallback((str: string) => history.push(str), [

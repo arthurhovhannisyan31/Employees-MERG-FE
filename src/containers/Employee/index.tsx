@@ -33,7 +33,7 @@ const EmployeePage: React.FC = () => {
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
       setTab(newValue)
     },
-    []
+    [],
   )
   // memo
   const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])

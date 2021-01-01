@@ -19,8 +19,8 @@ const TabPanel: React.FC<IProps> = ({ children, value, index }) => (
     <Box p={3}>
       <Typography>{children}</Typography>
     </Box>
-      )}
+    )}
   </div>
-  )
+)
 
 export default TabPanel
