@@ -5,11 +5,6 @@ export default makeStyles((theme: Theme) => ({
   container: {
     maxWidth: '90vw',
     width: theme.spacing(50),
-    position: 'fixed',
-    top: '40%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 2,
   },
   content: {
     padding: theme.spacing(1),

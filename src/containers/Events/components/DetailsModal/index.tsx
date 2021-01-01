@@ -3,8 +3,9 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-// local
-import Modal from '_/components/Modal'
+// components
+import Modal from '_/components/UI/Modal'
+import Dialog from '_/components/UI/Dialog';
 import { IEvent } from '_/model/event'
 import { AuthContext } from '_/context'
 
@@ -41,25 +42,28 @@ const DetailsModal: React.FC<IProps> = ({
   return (
     <Modal
       isOpen={isOpen}
-      title="Event details"
-      onCancel={handleClose}
-      onConfirm={onSubmit}
-      confirmLabel="Book event"
-      isLoading={loading}
-      disableConfirm={!token}
     >
-      <Grid container direction="column" className={classes.container}>
-        <Typography variant="h6" className={classes.boldText}>
-          {eventDetailsData?.title}
-        </Typography>
-        <Typography className={classes.boldText}>
-          ${eventDetailsData?.price?.toFixed(2)} -{' '}
-          {new Date(
-            (eventDetailsData?.date as never) as Date,
-          ).toLocaleDateString()}
-        </Typography>
-        <Typography>{eventDetailsData?.description}</Typography>
-      </Grid>
+      <Dialog
+        title="Event details"
+        onCancel={handleClose}
+        onConfirm={onSubmit}
+        confirmLabel="Book event"
+        isLoading={loading}
+        disableConfirm={!token}
+      >
+        <Grid container direction="column" className={classes.container}>
+          <Typography variant="h6" className={classes.boldText}>
+            {eventDetailsData?.title}
+          </Typography>
+          <Typography className={classes.boldText}>
+            ${eventDetailsData?.price?.toFixed(2)} -{' '}
+            {new Date(
+              (eventDetailsData?.date as never) as Date,
+            ).toLocaleDateString()}
+          </Typography>
+          <Typography>{eventDetailsData?.description}</Typography>
+        </Grid>
+      </Dialog>
     </Modal>
   )
 }

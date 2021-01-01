@@ -15,10 +15,10 @@ export const validationSchema = Yup.object().shape({
     .max(1000, 'Please use price below $1000')
     .typeError('Please fill full date value')
     .required('Please fill the date'),
-  date: Yup.date()
-    .nullable()
-    .typeError('Please fill correct date value')
-    .required('Please fill the date'),
+  // date: Yup.date()
+  //   .nullable()
+  //   .typeError('Please fill correct date value')
+  //   .required('Please fill the date'),
   description: Yup.string()
     .trim()
     .required('Please fill the description')

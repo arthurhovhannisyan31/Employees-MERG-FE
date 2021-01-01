@@ -6,7 +6,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import AppBar from '@material-ui/core/AppBar'
 // components
-import TabPanel from '_/components/TabPanel'
+import TabPanel from '_/components/UI/TabPanel'
 import Details from '_/containers/Employee/components/Details'
 import Employments from '_/containers/Employee/components/Employments'
 import Paychecks from '_/containers/Employee/components/Paychecks'

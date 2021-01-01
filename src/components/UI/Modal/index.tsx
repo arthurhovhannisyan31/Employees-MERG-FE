@@ -9,13 +9,7 @@ import useStyles from './style'
 
 interface IProps {
   isOpen?: boolean
-  title?: string
-  onCancel?: () => void
   onClose?: () => void
-  onConfirm?: () => void
-  confirmLabel?: string
-  disableConfirm?: boolean
-  isLoading?: boolean
 }
 
 const Modal: React.FC<IProps> = ({ isOpen, children, onClose }) => {
@@ -38,7 +32,7 @@ const Modal: React.FC<IProps> = ({ isOpen, children, onClose }) => {
         <>
           <Backdrop />
           <ClickAwayListener onClickAway={handleClose}>
-            <Grid container className={cls.container}>
+            <Grid container className={cls.container} justify="center">
               {children}
             </Grid>
           </ClickAwayListener>

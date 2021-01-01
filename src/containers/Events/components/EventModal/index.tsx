@@ -12,20 +12,22 @@ import {
 // components
 import NumberFormatCustom from '_/containers/Events/components/NumberFormatCustom'
 import Modal from '_/components/UI/Modal'
+import Dialog from '_/components/UI/Dialog'
+// model
+import {
+  IEventForm,
+  IEventFormAction,
+  IEventFormFields,
+} from '_/containers/Events/types'
 // helpers
 import {
   getInitState,
   validationSchema,
 } from '_/containers/Events/components/EventModal/helpers'
 import {
-  IEventForm,
-  IEventFormAction,
-  IEventFormFields,
-} from '_/containers/Events/types'
-import useStyles from '_/containers/Events/components/EventModal/style'
-import {
   regExp,
 } from '_/utils/helpers'
+import useStyles from '_/containers/Events/components/EventModal/style'
 
 interface IProps {
   handleClose: () => void
@@ -118,74 +120,77 @@ const EventModal: React.FC<IProps> = ({
   return (
     <Modal
       isOpen={isOpen}
-      title="Create event"
-      onCancel={handleCancel}
       onClose={handleClose}
-      onConfirm={handleSubmit}
-      disableConfirm={disableConfirm}
-      isLoading={loading}
     >
-      <Grid className={cls.container} container direction="column">
-        <Typography>Event form</Typography>
-        <div className={cls.fieldsGrid}>
-          <TextField
-            name="title"
-            label="Title"
-            variant="outlined"
-            value={values.title}
-            onChange={handleChangeText('title')}
-            onBlur={handleSaveOnBlur}
-            error={!!(errors.title && touched.title)}
-            helperText={errors.title}
-          />
-          <TextField
-            name="price"
-            label="Price"
-            variant="outlined"
-            value={values.price}
-            onChange={handleChangeNumber('price')}
-            InputProps={{
-              inputComponent: memoPriceFormat,
-            }}
-            onBlur={handleSaveOnBlur}
-            error={!!(errors.price && touched.price)}
-            helperText={errors.price}
-          />
-          <KeyboardDatePicker
-            name="date"
-            label="Date"
-            inputVariant="outlined"
-            clearable
-            autoOk
-            disablePast
-            margin="normal"
-            id="date-picker-dialog"
-            format="dd/MM/yyyy"
-            value={values.date}
-            onChange={handleChangeDate('date')}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-            className={cls.keyboardDatePicker}
-            onBlur={handleSaveOnBlur}
-            error={!!(errors.date && touched.date)}
-            helperText={errors.date}
-          />
-          <TextField
-            name="description"
-            label="Description"
-            variant="outlined"
-            value={values.description}
-            onChange={handleChangeText('description')}
-            multiline
-            rowsMax={4}
-            rows={4}
-            onBlur={handleSaveOnBlur}
-            error={!!(errors.description && touched.description)}
-            helperText={errors.description}
-          />
-        </div>
-      </Grid>
+      <Dialog
+        title="Create event"
+        onCancel={handleCancel}
+        onConfirm={handleSubmit}
+        disableConfirm={disableConfirm}
+        isLoading={loading}
+      >
+        <Grid className={cls.container} container direction="column">
+          <Typography>Event form</Typography>
+          <div className={cls.fieldsGrid}>
+            <TextField
+              name="title"
+              label="Title"
+              variant="outlined"
+              value={values.title}
+              onChange={handleChangeText('title')}
+              onBlur={handleSaveOnBlur}
+              error={!!(errors.title && touched.title)}
+              helperText={errors.title}
+            />
+            <TextField
+              name="price"
+              label="Price"
+              variant="outlined"
+              value={values.price}
+              onChange={handleChangeNumber('price')}
+              InputProps={{
+                inputComponent: memoPriceFormat,
+              }}
+              onBlur={handleSaveOnBlur}
+              error={!!(errors.price && touched.price)}
+              helperText={errors.price}
+            />
+            <KeyboardDatePicker
+              name="date"
+              label="Date"
+              inputVariant="outlined"
+              clearable
+              autoOk
+              disablePast
+              margin="normal"
+              id="date-picker-dialog"
+              format="dd/MM/yyyy"
+              value={values.date}
+              onChange={handleChangeDate('date')}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+              className={cls.keyboardDatePicker}
+              onBlur={handleSaveOnBlur}
+              error={!!(errors.date && touched.date)}
+              helperText={errors.date}
+            />
+            <TextField
+              name="description"
+              label="Description"
+              variant="outlined"
+              value={values.description}
+              onChange={handleChangeText('description')}
+              multiline
+              rowsMax={4}
+              rows={4}
+              onBlur={handleSaveOnBlur}
+              error={!!(errors.description && touched.description)}
+              helperText={errors.description}
+            />
+          </div>
+        </Grid>
+      </Dialog>
     </Modal>
   )
 }
