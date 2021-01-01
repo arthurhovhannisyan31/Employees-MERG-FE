@@ -1,6 +1,7 @@
 // deps
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import MUIGrid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import { PagingState } from '@devexpress/dx-react-grid'
 import {
@@ -13,11 +14,10 @@ import {
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import AccountBoxIcon from '@material-ui/icons/AccountBox'
-import Button from '@material-ui/core/Button'
 import Avatar from '@material-ui/core/Avatar'
 // components
 import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/components/CustomPagingPanel'
+import Backdrop from '_/components/UI/Backdrop';
 // model
 import { IEmployeesTableRow } from '_/containers/Employees/types'
 import { IEventFormAction } from '_/containers/Events/types'
@@ -121,7 +121,13 @@ const EmployeesTable: React.FC<IProps> = ({
   }, [data])
 
   return (
-    <Paper>
+    <Paper className={cls.container}>
+      {loading && (
+        <MUIGrid container justify="center" className={cls.loadingSplash} alignItems="center">
+          <Backdrop isAbsolute />
+          <CircularProgress />
+        </MUIGrid>
+      )}
       <Grid columns={columns} rows={rows} getRowId={rowIdSelector}>
         <DragDropProvider />
         <PagingState

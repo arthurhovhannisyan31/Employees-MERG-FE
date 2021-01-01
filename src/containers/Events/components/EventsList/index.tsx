@@ -55,8 +55,6 @@ const EventsList: React.FC<IProps> = ({ events, handleOpenDetails }) => {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, events.length - page * rowsPerPage)
 
-  console.log(events)
-
   const eventItems = events
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     ?.map((el: IEvent) => (

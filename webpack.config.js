@@ -9,6 +9,17 @@ module.exports = {
   mode: 'production',
   entry: [path.resolve(__dirname, 'src', 'index.tsx')],
   devtool: 'inline-source-map',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[chunkhash].bundle.js',
+    publicPath: '/',
+    chunkFilename: '[name].[chunkhash].bundle.js',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   devServer: {
     host: 'localhost',
     hot: true,
@@ -21,18 +32,6 @@ module.exports = {
       ignored: ['node_modules'],
     },
     contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[chunkhash].bundle.js',
-    publicPath: '/',
-    chunkFilename: '[name].[chunkhash].bundle.js',
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
   },
   module: {
     rules: [
