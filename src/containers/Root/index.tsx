@@ -34,11 +34,11 @@ const Root: React.FC = () => {
       <SnackbarComp />
       <BreadcrumbsComp />
       <React.Suspense
-        fallback={
+        fallback={(
           <Grid container justify="center" className={classes.circularProgress}>
             <CircularProgress size={20} />
           </Grid>
-        }
+        )}
       >
         <Switch>{routes}</Switch>
       </React.Suspense>

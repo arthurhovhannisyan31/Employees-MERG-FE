@@ -4,22 +4,31 @@
     "project": "tsconfig.json"
   },
   "extends": [
-    "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb-typescript",
-    "prettier",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
+    "airbnb-typescript"
   ],
   "plugins": [
     "@typescript-eslint",
-    "react"
+    "react",
+    "prettier"
   ],
   "env": {
     "jest": true
   },
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "tabWidth": 2,
+        "semi": false,
+        "singleQuote": true
+      }
+    ],
+    "@typescript-eslint/semi": 0,
     "react/jsx-filename-extension": [
       1,
       {
@@ -41,7 +50,9 @@
     "import/named": 0,
     "react/jsx-curly-newline": "warn",
     "@typescript-eslint/explicit-module-boundary-types": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   },
   "globals": {
     "window": true,
