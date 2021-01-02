@@ -1,9 +1,13 @@
 // deps
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import {
+  useHistory,
+} from 'react-router-dom'
 import MUIGrid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import { PagingState } from '@devexpress/dx-react-grid'
+import {
+  PagingState,
+} from '@devexpress/dx-react-grid'
 import {
   DragDropProvider,
   Grid,
@@ -19,8 +23,12 @@ import Avatar from '@material-ui/core/Avatar'
 import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/components/CustomPagingPanel'
 import Backdrop from '_/components/UI/Backdrop';
 // model
-import { IEmployeesTableRow } from '_/containers/Employees/types'
-import { TEmployeesAction } from '_/model/context/employees';
+import {
+  IEmployeesTableRow,
+} from '_/containers/Employees/types'
+import {
+  TEmployeesAction,
+} from '_/model/context/employees';
 // helpers
 import {
   initColumns,
@@ -31,7 +39,9 @@ import {
   pageSizes,
   getAvatarLetters,
 } from '_/containers/Employees/components/EmployeesTable/helpers'
-import { EmployeesContext } from '_/context'
+import {
+  EmployeesContext,
+} from '_/context'
 import useStyles from './style'
 
 interface IProps {
@@ -55,9 +65,13 @@ const EmployeesTable: React.FC<IProps> = ({
   // route
   const history = useHistory()
   // context
-  const { state } = React.useContext(EmployeesContext)
+  const {
+    state,
+  } = React.useContext(EmployeesContext)
 
-  const { data, count } = state
+  const {
+    data, count,
+  } = state
   // todo move to context state
   // todo move to reducer
 
@@ -98,8 +112,12 @@ const EmployeesTable: React.FC<IProps> = ({
 
   const tableCellContainer = (props: Table.DataCellProps) => {
     const {
-      column: { name },
-      row: { _id: id, first_name: firstName, last_name: lastName },
+      column: {
+        name,
+      },
+      row: {
+        _id: id, first_name: firstName, last_name: lastName,
+      },
     } = props
     switch (name) {
       case 'avatar':

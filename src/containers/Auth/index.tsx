@@ -1,7 +1,13 @@
 // deps
-import React, { useState, useContext } from 'react'
-import { useHistory } from 'react-router-dom'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import React, {
+  useState, useContext,
+} from 'react'
+import {
+  useHistory,
+} from 'react-router-dom'
+import {
+  makeStyles, Theme,
+} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -9,10 +15,16 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 // components
 // helpers
-import { AuthContext } from '_/context'
+import {
+  AuthContext,
+} from '_/context'
 import storage from '_/utils/storage'
-import { loginQuery } from '_/gql/queries'
-import { signUp } from '_/gql/mutations'
+import {
+  loginQuery,
+} from '_/gql/queries'
+import {
+  signUp,
+} from '_/gql/mutations'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -31,7 +43,9 @@ const Auth: React.FC = () => {
   const history = useHistory()
 
   // context
-  const { login } = useContext(AuthContext)
+  const {
+    login,
+  } = useContext(AuthContext)
 
   // state
   const [authState, setAuthState] = useState<boolean>(false)
@@ -62,8 +76,12 @@ const Auth: React.FC = () => {
   const apiUrl = process?.env?.API_URL || ''
 
   const handleSubmit = async () => {
-    const loginBody = loginQuery({ email, password })
-    const signupBody = signUp({ email, password })
+    const loginBody = loginQuery({
+      email, password,
+    })
+    const signupBody = signUp({
+      email, password,
+    })
 
     try {
       const res = await fetch(apiUrl, {

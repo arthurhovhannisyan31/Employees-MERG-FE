@@ -5,50 +5,99 @@ import Typography from '@material-ui/core/Typography'
 // components
 import EmployeesTable from '_/containers/Employees/components/EmployeesTable'
 // model
-import { GetEmployeesInput } from '_/model/generated/graphql'
-import { TEmployeesFetchResponse } from '_/containers/Employees/types'
+import {
+  GetEmployeesInput,
+} from '_/model/generated/graphql'
+import {
+  TEmployeesFetchResponse,
+} from '_/containers/Employees/types'
 // helpers
-import { AuthContext, EmployeesContext } from '_/context'
-import { getEmployees } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/helpers'
+import {
+  AuthContext, EmployeesContext,
+} from '_/context'
+import {
+  getEmployees,
+} from '_/gql/queries'
+import {
+  fetchResponseCheck,
+} from '_/utils/helpers'
 
 const EmployeesPage: React.FC = () => {
   // context
-  const { headers } = React.useContext(AuthContext)
-  const { dispatch, state } = React.useContext(EmployeesContext)
-  const { error, loading } = state
+  const {
+    headers,
+  } = React.useContext(AuthContext)
+  const {
+    dispatch, state,
+  } = React.useContext(EmployeesContext)
+  const {
+    error, loading,
+  } = state
   // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
   // memo
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
   const handleGetEmployees = React.useCallback(
-    async ({ offset, limit }: GetEmployeesInput) => {
-      dispatch({ type: 'employees', payload: { loading: true } })
+    async ({
+      offset, limit,
+    }: GetEmployeesInput) => {
+      dispatch({
+        type: 'employees',
+        payload: {
+          loading: true,
+        },
+      })
       try {
         const res = await fetch(apiUrl, {
           method: 'POST',
-          body: JSON.stringify(getEmployees({ offset, limit })),
+          body: JSON.stringify(getEmployees({
+            offset, limit,
+          })),
           headers,
         })
         fetchResponseCheck(res?.status)
         const {
           data: {
-            employees: { nodes, count },
+            employees: {
+              nodes, count,
+            },
           },
         }: TEmployeesFetchResponse = await res.json()
-        dispatch({ type: 'employees', payload: { data: nodes } })
-        dispatch({ type: 'employees', payload: { count } })
+        dispatch({
+          type: 'employees',
+          payload: {
+            data: nodes,
+          },
+        })
+        dispatch({
+          type: 'employees',
+          payload: {
+            count,
+          },
+        })
       } catch (err) {
-        dispatch({ type: 'employees', payload: { error: err } })
+        dispatch({
+          type: 'employees',
+          payload: {
+            error: err,
+          },
+        })
       }
-      dispatch({ type: 'employees', payload: { loading: false } })
+      dispatch({
+        type: 'employees',
+        payload: {
+          loading: false,
+        },
+      })
     },
     [apiUrl, dispatch, headers],
   )
 
   React.useEffect(() => {
-    handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
+    handleGetEmployees({
+      limit: pageSize, offset: currentPage * pageSize,
+    })
   }, [pageSize, currentPage, handleGetEmployees])
 
   return (

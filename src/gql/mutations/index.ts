@@ -1,9 +1,14 @@
 // model
-import { UserInput } from '_/model/generated/graphql'
+import {
+  UserInput,
+} from '_/model/generated/graphql'
 
-export const createUser = () => ({})
+export const createUser = () => ({
+})
 
-export const signUp = ({ email, password }: UserInput) => ({
+export const signUp = ({
+  email, password,
+}: UserInput) => ({
   query: `
     mutation signUpMutation($email: String!, $password: String!) {
       createUser(userInput: {

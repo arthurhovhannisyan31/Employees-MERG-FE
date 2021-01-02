@@ -1,4 +1,6 @@
-import { Employees, Employee } from '_/model/generated/graphql'
+import {
+  Employees, Employee,
+} from '_/model/generated/graphql'
 
 export interface IEmployeesTableRow {
   _id: string

@@ -1,16 +1,18 @@
 // deps
 import React from 'react'
 // model
-import { IEmployeesContext, IEmployeesState, TEmployeesReducer } from '_/model/context/employees';
+import {
+  IEmployeesContext, IEmployeesState, TEmployeesReducer,
+} from '_/model/context/employees';
 
-const employeesInitState = {
+const employeesInitState: IEmployeesState = {
   loading: false,
   error: null,
   data: [],
   count: 0,
 }
 
-const employeesContextInitState = {
+const employeesContextInitState: IEmployeesContext = {
   state: employeesInitState,
   initState: employeesInitState,
   dispatch: () => {},
@@ -24,7 +26,9 @@ const employeesReducer:TEmployeesReducer = (
   state,
   action,
 ) => {
-  const { type, payload } = action
+  const {
+    type, payload,
+  } = action
   switch (type) {
     case 'loading':
       return {
@@ -51,7 +55,9 @@ const employeesReducer:TEmployeesReducer = (
   }
 }
 
-const EmployeesContextContainer: React.FC = ({ children }) => {
+const EmployeesContextContainer: React.FC = ({
+  children,
+}) => {
   const [state, dispatch] = React.useReducer<TEmployeesReducer>(
     employeesReducer,
     employeesInitState,
@@ -70,4 +76,6 @@ const EmployeesContextContainer: React.FC = ({ children }) => {
   )
 }
 
-export { EmployeesContextContainer as default, EmployeesContext }
+export {
+  EmployeesContextContainer as default, EmployeesContext,
+}

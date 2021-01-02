@@ -1,7 +1,9 @@
 // deps
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import { PagingPanel } from '@devexpress/dx-react-grid'
+import {
+  PagingPanel,
+} from '@devexpress/dx-react-grid'
 import TextField from '@material-ui/core/TextField'
 import Pagination from '@material-ui/lab/Pagination'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -61,7 +63,9 @@ const CustomPagingPanel: React.FC<IProps> = ({
             select
             value={pageSize}
             onChange={handleChangePageSize}
-            InputProps={{ disableUnderline: true }}
+            InputProps={{
+              disableUnderline: true,
+            }}
           >
             {pageSizes.map((el) => (
               <MenuItem key={el} value={el}>

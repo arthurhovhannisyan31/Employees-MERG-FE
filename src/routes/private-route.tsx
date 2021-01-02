@@ -1,11 +1,19 @@
 // deps
-import React, { useContext } from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import React, {
+  useContext,
+} from 'react'
+import {
+  Route, Redirect,
+} from 'react-router-dom'
 // model
-import { IRoute } from '_/routes/app-routes'
+import {
+  IRoute,
+} from '_/routes/app-routes'
 // local
 import CONSTANTS from '_/utils/constants'
-import { AuthContext } from '_/context'
+import {
+  AuthContext,
+} from '_/context'
 import storage from '_/utils/storage'
 
 const PrivateRoute: React.FC<IRoute> = ({
@@ -13,7 +21,9 @@ const PrivateRoute: React.FC<IRoute> = ({
   ...params
 }) => {
   // context
-  const { token } = useContext(AuthContext)
+  const {
+    token,
+  } = useContext(AuthContext)
 
   const isAuthorized = token || storage.get('token')
 

@@ -19,6 +19,8 @@
     "jest": true
   },
   "rules": {
+    "object-curly-newline": ["error", "always"],
+    "object-curly-spacing": ["error", "always"],
     "no-console": 0,
     "@typescript-eslint/semi": 0,
     "react/jsx-filename-extension": [

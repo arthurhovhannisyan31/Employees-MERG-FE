@@ -12,7 +12,9 @@ interface IProps {
   onClose?: () => void
 }
 
-const Modal: React.FC<IProps> = ({ isOpen, children, onClose }) => {
+const Modal: React.FC<IProps> = ({
+  isOpen, children, onClose,
+}) => {
   const [openState, setOpenState] = React.useState(isOpen)
   const cls = useStyles()
   const handleClose = () => {

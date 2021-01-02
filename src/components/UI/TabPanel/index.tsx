@@ -8,7 +8,9 @@ interface IProps {
   index: number
 }
 
-const TabPanel: React.FC<IProps> = ({ children, value, index }) => (
+const TabPanel: React.FC<IProps> = ({
+  children, value, index,
+}) => (
   <div
     role="tabpanel"
     hidden={value !== index}

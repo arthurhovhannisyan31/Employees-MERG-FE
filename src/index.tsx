@@ -1,10 +1,14 @@
 // deps
 import React from 'react'
-import { render } from 'react-dom'
+import {
+  render,
+} from 'react-dom'
 // components
 import App from '_/App'
 // model
-import { IModule } from '_/model/common'
+import {
+  IModule,
+} from '_/model/common'
 
 const renderApp = () => render(
   <React.StrictMode>

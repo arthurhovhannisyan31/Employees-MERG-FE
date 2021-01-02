@@ -1,8 +1,12 @@
 // deps
 import React from 'react'
 // model
-import { Employee } from '_/model/generated/graphql'
-import { IAction } from '_/model/store'
+import {
+  Employee,
+} from '_/model/generated/graphql'
+import {
+  IAction,
+} from '_/model/store'
 
 export interface IEmployeesState {
   loading: boolean

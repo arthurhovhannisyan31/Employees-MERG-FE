@@ -1,7 +1,11 @@
 // deps
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { Grid } from '@material-ui/core'
+import {
+  useParams,
+} from 'react-router-dom'
+import {
+  Grid,
+} from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -13,22 +17,38 @@ import Employments from '_/containers/Employee/components/Employments'
 import Paychecks from '_/containers/Employee/components/Paychecks'
 import Titles from '_/containers/Employee/components/Titles'
 // model
-import { GetEmployeeInput } from '_/model/generated/graphql'
-import { TEmployeeFetchResponse } from '_/containers/Employee/types'
+import {
+  GetEmployeeInput,
+} from '_/model/generated/graphql'
+import {
+  TEmployeeFetchResponse,
+} from '_/containers/Employee/types'
 // helpers
-import { AuthContext } from '_/context/auth-context'
-import { getEmployee } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/helpers'
-import { a11yProps } from './helpers'
+import {
+  AuthContext,
+} from '_/context/auth-context'
+import {
+  getEmployee,
+} from '_/gql/queries'
+import {
+  fetchResponseCheck,
+} from '_/utils/helpers'
+import {
+  a11yProps,
+} from './helpers'
 import useStyles from './style'
 
 const EmployeePage: React.FC = () => {
   // router
-  const { id: idParam } = useParams<Record<'id', string>>()
+  const {
+    id: idParam,
+  } = useParams<Record<'id', string>>()
   // styles
   const classes = useStyles()
   // context
-  const { headers } = React.useContext(AuthContext)
+  const {
+    headers,
+  } = React.useContext(AuthContext)
   // state
   const [tab, setTab] = React.useState<number>(0)
   // memo
@@ -39,17 +59,23 @@ const EmployeePage: React.FC = () => {
     [],
   )
   const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
-  const handleGetEmployee = async ({ id }: GetEmployeeInput) => {
+  const handleGetEmployee = async ({
+    id,
+  }: GetEmployeeInput) => {
     try {
       const res = await fetch(apiUrl, {
         method: 'POST',
-        body: JSON.stringify(getEmployee({ id })),
+        body: JSON.stringify(getEmployee({
+          id,
+        })),
         headers,
       })
       fetchResponseCheck(res?.status)
       const {
         data: {
-          employee: { _id: employeeId },
+          employee: {
+            _id: employeeId,
+          },
         },
       }: TEmployeeFetchResponse = await res.json()
       console.log(employeeId)
@@ -62,7 +88,9 @@ const EmployeePage: React.FC = () => {
   // todo update fields and delete profile
 
   React.useEffect(() => {
-    handleGetEmployee({ id: idParam })
+    handleGetEmployee({
+      id: idParam,
+    })
     // eslint-disable-next-line
   }, [])
 

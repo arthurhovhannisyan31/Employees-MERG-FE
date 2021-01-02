@@ -1,12 +1,18 @@
 // deps
-import React, { useContext } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import React, {
+  useContext,
+} from 'react'
+import {
+  useHistory, useLocation,
+} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Switch from '@material-ui/core/Switch'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import {
+  makeStyles, Theme,
+} from '@material-ui/core/styles'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/Info'
 import PeopleIcon from '@material-ui/icons/People'
@@ -16,11 +22,14 @@ import PersonIcon from '@material-ui/icons/Person'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
 // local
-import { AuthContext, ThemeContext } from '_/context'
+import {
+  AuthContext, ThemeContext,
+} from '_/context'
 import storage from '_/utils/storage'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {},
+  container: {
+  },
   link: {
     color: 'white',
   },
@@ -31,8 +40,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Header: React.FC = () => {
   // context
-  const { darkMode, toggleTheme } = React.useContext(ThemeContext)
-  const { token, logout, userId } = useContext(AuthContext)
+  const {
+    darkMode, toggleTheme,
+  } = React.useContext(ThemeContext)
+  const {
+    token, logout, userId,
+  } = useContext(AuthContext)
   // state
   const classes = useStyles()
   const history = useHistory()

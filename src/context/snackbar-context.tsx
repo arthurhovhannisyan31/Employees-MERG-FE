@@ -1,7 +1,9 @@
 // deps
 import React from 'react'
 // model
-import { ISnackbarContext, ISnackbar } from '_/model/context/snackbar'
+import {
+  ISnackbarContext, ISnackbar,
+} from '_/model/context/snackbar'
 
 const snackbarInitState: ISnackbar = {
   open: false,
@@ -14,7 +16,9 @@ const SnackbarContext = React.createContext<ISnackbarContext>({
   setSnackbarState: () => {},
 })
 
-const SnackbarContextContainer: React.FC = ({ children }) => {
+const SnackbarContextContainer: React.FC = ({
+  children,
+}) => {
   const [snackbarState, setSnackbarState] = React.useState(snackbarInitState)
 
   const handleChange = (props: Partial<ISnackbar>) => {
@@ -36,4 +40,6 @@ const SnackbarContextContainer: React.FC = ({ children }) => {
   )
 }
 
-export { SnackbarContextContainer as default, SnackbarContext }
+export {
+  SnackbarContextContainer as default, SnackbarContext,
+}
