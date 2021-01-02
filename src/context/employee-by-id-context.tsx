@@ -22,33 +22,21 @@ const EmployeeByIdContext = React.createContext<IEmployeesByIdContext>(EmployeeB
 const employeeByIdReducer: TEmployeeByIdReducer = (
   state, action,
 ) => {
-  const {
-    type, payload,
-  } = action
+  const { type, payload } = action
   switch (type) {
     case 'loading':
-      return {
-        ...state,
-        loading: payload.loading as IEmployeeByIdState['loading'],
-      }
     case 'error':
-      return {
-        ...state,
-        error: payload.error as IEmployeeByIdState['error'],
-      }
     case 'data':
       return {
         ...state,
-        data: payload.data as IEmployeeByIdState['data'],
+        [type]: payload[type] as IEmployeeByIdState[typeof type],
       }
     default:
       return state
   }
 }
 
-const EmployeeContextContainer: React.FC = ({
-  children,
-}) => {
+const EmployeeContextContainer: React.FC = ({ children }) => {
   const [state, dispatch] = React.useReducer<TEmployeeByIdReducer>(
     employeeByIdReducer,
     employeeByIdInitState,

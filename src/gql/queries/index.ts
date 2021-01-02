@@ -9,9 +9,7 @@ import {
   employeeDetailsFragment,
 } from '_/gql/fragments'
 
-export const loginQuery = ({
-  email, password,
-}: UserInput) => ({
+export const loginQuery = ({ email, password }: UserInput) => ({
   query: `
         query loginQuery($email: String!, $password: String!) {
           login(
@@ -29,9 +27,7 @@ export const loginQuery = ({
   },
 })
 
-export const getEmployees = ({
-  limit, offset,
-}: GetEmployeesInput) => ({
+export const getEmployees = ({ limit, offset }: GetEmployeesInput) => ({
   query: `
     query employees($limit: Int!, $offset: Int!) {
       employees(input:{
@@ -52,9 +48,7 @@ export const getEmployees = ({
   },
 })
 
-export const getEmployee = ({
-  id,
-}: GetEmployeeInput) => ({
+export const getEmployee = ({ id }: GetEmployeeInput) => ({
   query: `
     query employee($id: ID!){
       employee(input:{id: $id}){

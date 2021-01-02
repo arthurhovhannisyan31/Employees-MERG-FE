@@ -40,15 +40,11 @@ import useStyles from './style'
 
 const EmployeePage: React.FC = () => {
   // router
-  const {
-    id: idParam,
-  } = useParams<Record<'id', string>>()
+  const { id: idParam } = useParams<Record<'id', string>>()
   // styles
   const classes = useStyles()
   // context
-  const {
-    headers,
-  } = React.useContext(AuthContext)
+  const { headers } = React.useContext(AuthContext)
   // state
   const [tab, setTab] = React.useState<number>(0)
   // memo
@@ -59,9 +55,7 @@ const EmployeePage: React.FC = () => {
     [],
   )
   const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
-  const handleGetEmployee = async ({
-    id,
-  }: GetEmployeeInput) => {
+  const handleGetEmployee = async ({ id }: GetEmployeeInput) => {
     try {
       const res = await fetch(apiUrl, {
         method: 'POST',
@@ -71,13 +65,7 @@ const EmployeePage: React.FC = () => {
         headers,
       })
       fetchResponseCheck(res?.status)
-      const {
-        data: {
-          employee: {
-            _id: employeeId,
-          },
-        },
-      }: TEmployeeFetchResponse = await res.json()
+      const { data: { employee: { _id: employeeId } } }: TEmployeeFetchResponse = await res.json()
       console.log(employeeId)
     } catch (err) {
       // dispatch err

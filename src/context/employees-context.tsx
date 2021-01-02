@@ -26,38 +26,22 @@ const employeesReducer:TEmployeesReducer = (
   state,
   action,
 ) => {
-  const {
-    type, payload,
-  } = action
+  const { type, payload } = action
   switch (type) {
     case 'loading':
-      return {
-        ...state,
-        loading: payload.loading as IEmployeesState['loading'],
-      }
     case 'error':
-      return {
-        ...state,
-        error: payload.error as IEmployeesState['error'],
-      }
     case 'data':
-      return {
-        ...state,
-        data: payload.data as IEmployeesState['data'],
-      }
     case 'count':
       return {
         ...state,
-        count: payload.count as IEmployeesState['count'],
+        [type]: payload[type] as IEmployeesState[typeof type],
       }
     default:
       return state
   }
 }
 
-const EmployeesContextContainer: React.FC = ({
-  children,
-}) => {
+const EmployeesContextContainer: React.FC = ({ children }) => {
   const [state, dispatch] = React.useReducer<TEmployeesReducer>(
     employeesReducer,
     employeesInitState,

@@ -7,14 +7,10 @@ import {
 
 const useStyles = makeStyles<Theme, IBackdropProps>(() => ({
   container: {
-    position: ({
-      isAbsolute,
-    }) => (isAbsolute ? 'absolute' : 'fixed'),
+    position: ({ isAbsolute }) => (isAbsolute ? 'absolute' : 'fixed'),
     top: 0,
     left: 0,
-    height: ({
-      isAbsolute,
-    }) => (isAbsolute ? '100%' : '100vh'),
+    height: ({ isAbsolute }) => (isAbsolute ? '100%' : '100vh'),
     width: '100%',
     background: 'rgba(0,0,0,0.5)',
     zIndex: 1,
@@ -25,9 +21,7 @@ interface IBackdropProps {
   isAbsolute?: boolean
 }
 
-const Backdrop: React.FC<IBackdropProps> = ({
-  isAbsolute,
-}) => {
+const Backdrop: React.FC<IBackdropProps> = ({ isAbsolute }) => {
   const classes = useStyles({
     isAbsolute,
   })

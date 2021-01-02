@@ -19,7 +19,10 @@
     "jest": true
   },
   "rules": {
-    "object-curly-newline": ["error", "always"],
+    "object-curly-newline": ["error", {
+      "ObjectExpression": "always",
+      "ObjectPattern": {"multiline": true}
+    }],
     "object-curly-spacing": ["error", "always"],
     "no-console": 0,
     "@typescript-eslint/semi": 0,

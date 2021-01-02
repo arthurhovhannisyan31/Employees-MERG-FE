@@ -43,9 +43,7 @@ const Auth: React.FC = () => {
   const history = useHistory()
 
   // context
-  const {
-    login,
-  } = useContext(AuthContext)
+  const { login } = useContext(AuthContext)
 
   // state
   const [authState, setAuthState] = useState<boolean>(false)

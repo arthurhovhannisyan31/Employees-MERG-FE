@@ -12,9 +12,7 @@ const themeInitState = {
 
 const ThemeContext = React.createContext<IThemeContext>(themeInitState)
 
-const ThemeContextContainer: React.FC = ({
-  children,
-}) => {
+const ThemeContextContainer: React.FC = ({ children }) => {
   // state
   const [darkMode, setDarkMode] = React.useState(true)
 

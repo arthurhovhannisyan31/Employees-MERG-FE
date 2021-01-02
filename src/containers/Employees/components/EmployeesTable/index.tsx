@@ -65,13 +65,9 @@ const EmployeesTable: React.FC<IProps> = ({
   // route
   const history = useHistory()
   // context
-  const {
-    state,
-  } = React.useContext(EmployeesContext)
+  const { state } = React.useContext(EmployeesContext)
 
-  const {
-    data, count,
-  } = state
+  const { data, count } = state
   // todo move to context state
   // todo move to reducer
 
@@ -112,12 +108,8 @@ const EmployeesTable: React.FC<IProps> = ({
 
   const tableCellContainer = (props: Table.DataCellProps) => {
     const {
-      column: {
-        name,
-      },
-      row: {
-        _id: id, first_name: firstName, last_name: lastName,
-      },
+      column: { name },
+      row: { _id: id, first_name: firstName, last_name: lastName },
     } = props
     switch (name) {
       case 'avatar':

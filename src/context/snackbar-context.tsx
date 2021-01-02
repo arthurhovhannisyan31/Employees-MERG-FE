@@ -16,9 +16,7 @@ const SnackbarContext = React.createContext<ISnackbarContext>({
   setSnackbarState: () => {},
 })
 
-const SnackbarContextContainer: React.FC = ({
-  children,
-}) => {
+const SnackbarContextContainer: React.FC = ({ children }) => {
   const [snackbarState, setSnackbarState] = React.useState(snackbarInitState)
 
   const handleChange = (props: Partial<ISnackbar>) => {

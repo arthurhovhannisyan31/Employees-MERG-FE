@@ -15,9 +15,7 @@ import {
 
 const SnackbarComp: React.FC = () => {
   const {
-    snackbarState: {
-      message, open, type,
-    },
+    snackbarState: { message, open, type },
     setSnackbarState,
   } = useContext<ISnackbarContext>(SnackbarContext)
 

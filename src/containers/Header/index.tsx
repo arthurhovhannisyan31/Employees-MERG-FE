@@ -40,12 +40,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Header: React.FC = () => {
   // context
-  const {
-    darkMode, toggleTheme,
-  } = React.useContext(ThemeContext)
-  const {
-    token, logout, userId,
-  } = useContext(AuthContext)
+  const { darkMode, toggleTheme } = React.useContext(ThemeContext)
+  const { token, logout, userId } = useContext(AuthContext)
   // state
   const classes = useStyles()
   const history = useHistory()

@@ -15,13 +15,9 @@ import {
 } from '_/context'
 import useStyles from '_/containers/Layout/style'
 
-const Layout: React.FC = ({
-  children,
-}) => {
+const Layout: React.FC = ({ children }) => {
   // context
-  const {
-    darkMode,
-  } = React.useContext(ThemeContext)
+  const { darkMode } = React.useContext(ThemeContext)
   // styles
   const classes = useStyles()
 

@@ -8,18 +8,14 @@ import {
   Employee,
 } from '_/model/generated/graphql'
 
-export const rowIdSelector = ({
-  _id,
-}: Omit<Employee, '__typename'>) => _id
+export const rowIdSelector = ({ _id }: Omit<Employee, '__typename'>) => _id
 
 export const rowsSelector = ({
   _id,
   hire_date,
   last_name,
   first_name,
-  gender: {
-    name: genderName,
-  },
+  gender: { name: genderName },
   birth_date,
 }: Omit<Employee, '__typename'>) => ({
   _id,

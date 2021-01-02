@@ -24,9 +24,7 @@ const authContextReducer = (
   state: IAuthContext,
   action: IAuthReducerAction,
 ) => {
-  const {
-    type, payload,
-  } = action
+  const { type, payload } = action
   switch (type) {
     case 'login': {
       return {
@@ -50,9 +48,7 @@ const authContextReducer = (
   }
 }
 
-const AuthContextContainer: React.FC = ({
-  children,
-}) => {
+const AuthContextContainer: React.FC = ({ children }) => {
   const [state, dispatch] = React.useReducer(
     authContextReducer,
     authContextInitValue,
@@ -65,9 +61,7 @@ const AuthContextContainer: React.FC = ({
     type: 'logout',
   })
 
-  const {
-    token, userId, tokenExpiration,
-  } = state
+  const { token, userId, tokenExpiration } = state
 
   const headers = React.useMemo(
     () => ({

@@ -24,24 +24,16 @@ import {
 
 const EmployeesPage: React.FC = () => {
   // context
-  const {
-    headers,
-  } = React.useContext(AuthContext)
-  const {
-    dispatch, state,
-  } = React.useContext(EmployeesContext)
-  const {
-    error, loading,
-  } = state
+  const { headers } = React.useContext(AuthContext)
+  const { dispatch, state } = React.useContext(EmployeesContext)
+  const { error, loading } = state
   // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
   // memo
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
   const handleGetEmployees = React.useCallback(
-    async ({
-      offset, limit,
-    }: GetEmployeesInput) => {
+    async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({
         type: 'employees',
         payload: {
@@ -57,13 +49,7 @@ const EmployeesPage: React.FC = () => {
           headers,
         })
         fetchResponseCheck(res?.status)
-        const {
-          data: {
-            employees: {
-              nodes, count,
-            },
-          },
-        }: TEmployeesFetchResponse = await res.json()
+        const { data: { employees: { nodes, count } } }: TEmployeesFetchResponse = await res.json()
         dispatch({
           type: 'employees',
           payload: {

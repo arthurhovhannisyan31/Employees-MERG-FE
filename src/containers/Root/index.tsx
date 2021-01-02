@@ -19,9 +19,7 @@ import useStyles from './styles'
 
 const Root: React.FC = () => {
   // theme
-  const {
-    token, login,
-  } = React.useContext(AuthContext)
+  const { token, login } = React.useContext(AuthContext)
   // styles
   const classes = useStyles()
 

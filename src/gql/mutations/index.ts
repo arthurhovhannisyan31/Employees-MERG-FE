@@ -6,9 +6,7 @@ import {
 export const createUser = () => ({
 })
 
-export const signUp = ({
-  email, password,
-}: UserInput) => ({
+export const signUp = ({ email, password }: UserInput) => ({
   query: `
     mutation signUpMutation($email: String!, $password: String!) {
       createUser(userInput: {
