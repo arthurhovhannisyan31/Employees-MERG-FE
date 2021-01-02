@@ -20,7 +20,7 @@ import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/
 import Backdrop from '_/components/UI/Backdrop';
 // model
 import { IEmployeesTableRow } from '_/containers/Employees/types'
-import { IEventFormAction } from '_/containers/Events/types'
+import { IAction } from '_/model/common'
 // helpers
 import {
   initColumns,
@@ -35,7 +35,7 @@ import { EmployeesContext } from '_/context'
 import useStyles from './style'
 
 interface IProps {
-  dispatch: React.Dispatch<IEventFormAction>
+  dispatch: React.Dispatch<IAction<Record<string, unknown>>>
   currentPage: number
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pageSize: number
@@ -60,6 +60,7 @@ const EmployeesTable: React.FC<IProps> = ({
   const { data, count } = state
   // todo move to context state
   // todo move to reducer
+
   // todo add create an employee
 
   // state

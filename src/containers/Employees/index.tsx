@@ -13,7 +13,6 @@ import { getEmployees } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/helpers'
 
 const EmployeesPage: React.FC = () => {
-  // style
   // context
   const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
@@ -23,7 +22,6 @@ const EmployeesPage: React.FC = () => {
   const [pageSize, setPageSize] = React.useState(5)
   // memo
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
-  // callback
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({ type: 'employees.loading', payload: true })

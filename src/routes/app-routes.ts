@@ -8,8 +8,6 @@ import CONSTANTS from '_/utils/constants'
 const Home = React.lazy(() => import('_/containers/Home'))
 const About = React.lazy(() => import('_/containers/About'))
 const Auth = React.lazy(() => import('_/containers/Auth'))
-const Events = React.lazy(() => import('_/containers/Events'))
-const Bookings = React.lazy(() => import('_/containers/Bookings'))
 const NotFound = React.lazy(() => import('_/containers/NotFound'))
 const Employees = React.lazy(() => import('_/containers/Employees'))
 const Employee = React.lazy(() => import('_/containers/Employee'))
@@ -39,18 +37,6 @@ const routes: IRoute[] = [
     isPrivate: false,
     path: CONSTANTS.ROUTES.AUTH,
     component: Auth,
-  },
-  {
-    exact: true,
-    isPrivate: true,
-    path: CONSTANTS.ROUTES.EVENTS,
-    component: Events,
-  },
-  {
-    exact: true,
-    isPrivate: true,
-    path: CONSTANTS.ROUTES.BOOKINGS,
-    component: Bookings,
   },
   {
     exact: true,
