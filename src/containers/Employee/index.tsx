@@ -1,5 +1,6 @@
 // deps
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Tabs from '@material-ui/core/Tabs'
@@ -22,20 +23,21 @@ import { a11yProps } from './helpers'
 import useStyles from './style'
 
 const EmployeePage: React.FC = () => {
+  // router
+  const { id: idParam } = useParams<Record<'id', string>>()
   // styles
   const classes = useStyles()
   // context
   const { headers } = React.useContext(AuthContext)
   // state
   const [tab, setTab] = React.useState<number>(0)
-  // callback
+  // memo
   const handleChangeTab = React.useCallback(
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
       setTab(newValue)
     },
     [],
   )
-  // memo
   const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
   const handleGetEmployee = async ({ id }: GetEmployeeInput) => {
     try {
@@ -60,7 +62,7 @@ const EmployeePage: React.FC = () => {
   // todo update fields and delete profile
 
   React.useEffect(() => {
-    handleGetEmployee({ id: '5f6a3d5a4636e1543f6d4452' })
+    handleGetEmployee({ id: idParam })
     // eslint-disable-next-line
   }, [])
 

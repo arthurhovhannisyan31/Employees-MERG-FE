@@ -24,7 +24,7 @@ const EmployeesPage: React.FC = () => {
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
-      dispatch({ type: 'employees.loading', payload: true })
+      dispatch({ type: 'employees', payload: { loading: true } })
       try {
         const res = await fetch(apiUrl, {
           method: 'POST',
@@ -37,12 +37,12 @@ const EmployeesPage: React.FC = () => {
             employees: { nodes, count },
           },
         }: TEmployeesFetchResponse = await res.json()
-        dispatch({ type: 'employees.data', payload: nodes })
-        dispatch({ type: 'employees.count', payload: count })
+        dispatch({ type: 'employees', payload: { data: nodes } })
+        dispatch({ type: 'employees', payload: { count } })
       } catch (err) {
-        dispatch({ type: 'employees.error', payload: err })
+        dispatch({ type: 'employees', payload: { error: err } })
       }
-      dispatch({ type: 'employees.loading', payload: false })
+      dispatch({ type: 'employees', payload: { loading: false } })
     },
     [apiUrl, dispatch, headers],
   )

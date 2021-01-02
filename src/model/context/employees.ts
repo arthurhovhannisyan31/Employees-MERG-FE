@@ -2,29 +2,22 @@
 import React from 'react'
 // model
 import { Employee } from '_/model/generated/graphql'
-import { IEventFormAction } from '_/containers/Events/types'
+import { IAction } from '_/model/store'
 
 export interface IEmployeesState {
   loading: boolean
-  error: boolean
+  error: Record<string, string>|null
   data: Employee[]
   count: number
-  table: {
-    rows: Record<string, unknown>[]
-  }
 }
+
+export type TEmployeesAction = IAction<Partial<IEmployeesState>>
+
+export type TEmployeesReducer =
+  (prevState: IEmployeesState, action: TEmployeesAction) => IEmployeesState
 
 export interface IEmployeesContext {
   state: IEmployeesState
   initState: IEmployeesState
-  dispatch: React.Dispatch<IEventFormAction>
-}
-
-export interface IEmployeesRecucerAction {
-  type: string
-  prop?: string
-  // todo fix types
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  payload?: any
+  dispatch: React.Dispatch<TEmployeesAction>
 }

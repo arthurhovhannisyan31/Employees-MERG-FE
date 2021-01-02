@@ -1,6 +1,5 @@
 // model
-import { ILogin } from '_/model/auth'
-import { GetEmployeeInput, GetEmployeesInput } from '_/model/generated/graphql'
+import { GetEmployeeInput, GetEmployeesInput, UserInput } from '_/model/generated/graphql'
 // helpers
 import {
   employeeFragment,
@@ -8,7 +7,7 @@ import {
   employeeDetailsFragment,
 } from '_/gql/fragments'
 
-export const loginQuery = ({ email, password }: ILogin) => ({
+export const loginQuery = ({ email, password }: UserInput) => ({
   query: `
         query loginQuery($email: String!, $password: String!) {
           login(
@@ -24,42 +23,6 @@ export const loginQuery = ({ email, password }: ILogin) => ({
     email,
     password,
   },
-})
-
-export const getEvents = () => ({
-  query: `
-    query {
-      events{
-        _id
-        title
-        description
-        price
-        date
-        creator {
-          _id
-          email
-        }
-      }
-    }
-  `,
-})
-
-export const getBookings = () => ({
-  query: `
-    query {
-      bookings {
-        _id
-        createdAt
-        event {
-          _id
-          title
-          date
-          description
-          price
-        }
-      }
-    }
-  `,
 })
 
 export const getEmployees = ({ limit, offset }: GetEmployeesInput) => ({

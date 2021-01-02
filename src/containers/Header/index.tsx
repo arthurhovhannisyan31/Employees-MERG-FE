@@ -10,8 +10,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/Info'
 import PeopleIcon from '@material-ui/icons/People'
-import EventsIcon from '@material-ui/icons/Event'
-import BookingsIcon from '@material-ui/icons/Book'
 import Tooltip from '@material-ui/core/Tooltip'
 import LogOut from '@material-ui/icons/ExitToApp'
 import PersonIcon from '@material-ui/icons/Person'
@@ -66,27 +64,6 @@ const Header: React.FC = () => {
                   })}
                 >
                   <HomeIcon />
-                  Event Booking
-                </Button>
-              </Tooltip>
-              <Tooltip title="Events">
-                <Button
-                  onClick={() => history.push('/events')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/events',
-                  })}
-                >
-                  <EventsIcon />
-                </Button>
-              </Tooltip>
-              <Tooltip title="Bookings">
-                <Button
-                  onClick={() => history.push('/bookings')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/bookings',
-                  })}
-                >
-                  <BookingsIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="Employees">

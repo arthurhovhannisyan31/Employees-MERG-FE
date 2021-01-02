@@ -2,9 +2,9 @@
 import format from 'date-fns/format'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
 // helpers
-import { IEmployee } from '_/model/employee'
+import { Employee } from '_/model/generated/graphql'
 
-export const rowIdSelector = ({ _id }: IEmployee) => _id
+export const rowIdSelector = ({ _id }: Omit<Employee, '__typename'>) => _id
 
 export const rowsSelector = ({
   _id,
@@ -13,7 +13,7 @@ export const rowsSelector = ({
   first_name,
   gender: { name: genderName },
   birth_date,
-}: IEmployee) => ({
+}: Omit<Employee, '__typename'>) => ({
   _id,
   hire_date: format(new Date(hire_date), 'dd-MMM-yyyy'),
   last_name,

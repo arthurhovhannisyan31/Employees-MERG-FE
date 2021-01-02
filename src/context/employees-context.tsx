@@ -1,20 +1,13 @@
 // deps
 import React from 'react'
 // model
-import {
-  IEmployeesContext,
-  IEmployeesRecucerAction,
-  IEmployeesState,
-} from '_/model/context/employees'
+import { IEmployeesContext, IEmployeesState, TEmployeesReducer } from '_/model/context/employees';
 
 const employeesInitState = {
   loading: false,
-  error: false,
+  error: null,
   data: [],
   count: 0,
-  table: {
-    rows: [],
-  },
 }
 
 const employeesContextInitState = {
@@ -27,39 +20,31 @@ const EmployeesContext = React.createContext<IEmployeesContext>(
   employeesContextInitState,
 )
 
-const employeesReducer = (
-  state: IEmployeesState,
-  action: IEmployeesRecucerAction,
+const employeesReducer:TEmployeesReducer = (
+  state,
+  action,
 ) => {
   const { type, payload } = action
   switch (type) {
-    case 'employees.loading':
+    case 'loading':
       return {
         ...state,
-        loading: payload,
+        loading: payload.loading as IEmployeesState['loading'],
       }
-    case 'employees.error':
+    case 'error':
       return {
         ...state,
-        error: payload,
+        error: payload.error as IEmployeesState['error'],
       }
-    case 'employees.data':
+    case 'data':
       return {
         ...state,
-        data: payload,
+        data: payload.data as IEmployeesState['data'],
       }
-    case 'employees.count':
+    case 'count':
       return {
         ...state,
-        count: payload,
-      }
-    case 'table.rows':
-      return {
-        ...state,
-        table: {
-          ...state.table,
-          rows: payload,
-        },
+        count: payload.count as IEmployeesState['count'],
       }
     default:
       return state
@@ -67,7 +52,7 @@ const employeesReducer = (
 }
 
 const EmployeesContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer(
+  const [state, dispatch] = React.useReducer<TEmployeesReducer>(
     employeesReducer,
     employeesInitState,
   )

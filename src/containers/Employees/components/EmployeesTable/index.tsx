@@ -20,7 +20,7 @@ import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/
 import Backdrop from '_/components/UI/Backdrop';
 // model
 import { IEmployeesTableRow } from '_/containers/Employees/types'
-import { IAction } from '_/model/common'
+import { TEmployeesAction } from '_/model/context/employees';
 // helpers
 import {
   initColumns,
@@ -35,7 +35,7 @@ import { EmployeesContext } from '_/context'
 import useStyles from './style'
 
 interface IProps {
-  dispatch: React.Dispatch<IAction<Record<string, unknown>>>
+  dispatch: React.Dispatch<TEmployeesAction>
   currentPage: number
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pageSize: number
