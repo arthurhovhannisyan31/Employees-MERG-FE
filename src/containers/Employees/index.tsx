@@ -21,6 +21,7 @@ const EmployeesPage: React.FC = () => {
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
   // memo
+  const key = React.useMemo(() => `${pageSize}-${currentPage}`, [pageSize, currentPage]);
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit, }: GetEmployeesInput) => {
@@ -41,7 +42,7 @@ const EmployeesPage: React.FC = () => {
           type: 'data',
           payload: {
             data: nodes,
-            key: `${pageSize}-${currentPage}`,
+            key,
           },
         })
         dispatch({
@@ -59,9 +60,9 @@ const EmployeesPage: React.FC = () => {
         payload: { loading: false },
       })
     },
-    [apiUrl, dispatch, headers, currentPage, pageSize],
+    [apiUrl, dispatch, headers, key],
   )
-  const slice = React.useMemo(() => data?.[`${pageSize}-${currentPage}`] || [], [data, pageSize, currentPage]);
+  const slice = React.useMemo(() => data?.[key] || [], [key, data]);
 
   React.useEffect(() => {
     if (!slice.length) {

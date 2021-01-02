@@ -16,6 +16,7 @@ import Titles from '_/containers/Employee/components/Titles'
 import { GetEmployeeInput, } from '_/model/generated/graphql'
 import { TEmployeeFetchResponse, } from '_/containers/Employee/types'
 // helpers
+import { EmployeeByIdContext } from "_/context";
 import { AuthContext, } from '_/context/auth-context'
 import { getEmployee, } from '_/gql/queries'
 import { fetchResponseCheck, } from '_/utils/helpers'
@@ -29,8 +30,11 @@ const EmployeePage: React.FC = () => {
   const classes = useStyles()
   // context
   const { headers } = React.useContext(AuthContext)
+  const { dispatch, state } = React.useContext(EmployeeByIdContext)
+  const { data, loading, error } = state
   // state
   const [tab, setTab] = React.useState<number>(0)
+  const employeeData = data?.[idParam];
   // memo
   const handleChangeTab = React.useCallback(
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
@@ -39,7 +43,11 @@ const EmployeePage: React.FC = () => {
     [],
   )
   const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
-  const handleGetEmployee = async ({ id }: GetEmployeeInput) => {
+  const handleGetEmployee = React.useCallback(async ({ id }: GetEmployeeInput) => {
+    dispatch({
+      type: "loading",
+      payload: { loading: true }
+    })
     try {
       const res = await fetch(apiUrl, {
         method: 'POST',
@@ -47,22 +55,35 @@ const EmployeePage: React.FC = () => {
         headers,
       })
       fetchResponseCheck(res?.status)
-      const { data: { employee: { _id: employeeId }}}: TEmployeeFetchResponse = await res.json()
-      console.log(employeeId)
+      const { data: { employee }}: TEmployeeFetchResponse = await res.json()
+      dispatch({
+        type: 'data',
+        payload: {
+          data: employee,
+          key: idParam
+        }
+      })
     } catch (err) {
-      // dispatch err
+      dispatch({
+        type: 'error',
+        payload: { error: err }
+      })
     }
-  }
+    dispatch({
+      type: 'loading',
+      payload: { loading: false }
+    })
+  }, [apiUrl, dispatch, headers, idParam]);
 
-  // todo employee reducer mb with employees
   // todo update fields and delete profile
+  // todo error message
 
   React.useEffect(() => {
-    handleGetEmployee({ id: idParam, })
-    // eslint-disable-next-line
-  }, [])
+    if (!employeeData) {
+      handleGetEmployee({ id: idParam, })
+    }
+  }, [idParam, handleGetEmployee, employeeData])
 
-  const loading = false
   return (
     <Grid container item className={classes.container} direction="column">
       <Grid>
