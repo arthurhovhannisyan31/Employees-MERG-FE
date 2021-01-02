@@ -1,18 +1,12 @@
 // deps
 import React from 'react'
 import themeCreator from '_/theme'
-import {
-  CssBaseline,
-} from '@material-ui/core'
+import { CssBaseline, } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Header from '_/containers/Header'
-import {
-  ThemeProvider,
-} from '@material-ui/core/styles'
+import { ThemeProvider, } from '@material-ui/core/styles'
 // helpers
-import {
-  ThemeContext,
-} from '_/context'
+import { ThemeContext, } from '_/context'
 import useStyles from '_/containers/Layout/style'
 
 const Layout: React.FC = ({ children }) => {
@@ -22,10 +16,7 @@ const Layout: React.FC = ({ children }) => {
   const classes = useStyles()
 
   return (
-    <ThemeProvider theme={themeCreator({
-      darkMode,
-    })}
-    >
+    <ThemeProvider theme={themeCreator({ darkMode, })}>
       <CssBaseline />
       <Grid container direction="column">
         <Grid item className={classes.header}>

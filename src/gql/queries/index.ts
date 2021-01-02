@@ -1,7 +1,5 @@
 // model
-import {
-  GetEmployeeInput, GetEmployeesInput, UserInput,
-} from '_/model/generated/graphql'
+import { GetEmployeeInput, GetEmployeesInput, UserInput, } from '_/model/generated/graphql'
 // helpers
 import {
   employeeFragment,
@@ -56,7 +54,5 @@ export const getEmployee = ({ id }: GetEmployeeInput) => ({
       }
     }
   `,
-  variables: {
-    id,
-  },
+  variables: { id, },
 })

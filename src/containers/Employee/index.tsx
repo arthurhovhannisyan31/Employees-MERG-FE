@@ -1,11 +1,7 @@
 // deps
 import React from 'react'
-import {
-  useParams,
-} from 'react-router-dom'
-import {
-  Grid,
-} from '@material-ui/core'
+import { useParams, } from 'react-router-dom'
+import { Grid, } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -17,25 +13,13 @@ import Employments from '_/containers/Employee/components/Employments'
 import Paychecks from '_/containers/Employee/components/Paychecks'
 import Titles from '_/containers/Employee/components/Titles'
 // model
-import {
-  GetEmployeeInput,
-} from '_/model/generated/graphql'
-import {
-  TEmployeeFetchResponse,
-} from '_/containers/Employee/types'
+import { GetEmployeeInput, } from '_/model/generated/graphql'
+import { TEmployeeFetchResponse, } from '_/containers/Employee/types'
 // helpers
-import {
-  AuthContext,
-} from '_/context/auth-context'
-import {
-  getEmployee,
-} from '_/gql/queries'
-import {
-  fetchResponseCheck,
-} from '_/utils/helpers'
-import {
-  a11yProps,
-} from './helpers'
+import { AuthContext, } from '_/context/auth-context'
+import { getEmployee, } from '_/gql/queries'
+import { fetchResponseCheck, } from '_/utils/helpers'
+import { a11yProps, } from './helpers'
 import useStyles from './style'
 
 const EmployeePage: React.FC = () => {
@@ -59,13 +43,11 @@ const EmployeePage: React.FC = () => {
     try {
       const res = await fetch(apiUrl, {
         method: 'POST',
-        body: JSON.stringify(getEmployee({
-          id,
-        })),
+        body: JSON.stringify(getEmployee({ id, })),
         headers,
       })
       fetchResponseCheck(res?.status)
-      const { data: { employee: { _id: employeeId } } }: TEmployeeFetchResponse = await res.json()
+      const { data: { employee: { _id: employeeId }}}: TEmployeeFetchResponse = await res.json()
       console.log(employeeId)
     } catch (err) {
       // dispatch err
@@ -76,9 +58,7 @@ const EmployeePage: React.FC = () => {
   // todo update fields and delete profile
 
   React.useEffect(() => {
-    handleGetEmployee({
-      id: idParam,
-    })
+    handleGetEmployee({ id: idParam, })
     // eslint-disable-next-line
   }, [])
 

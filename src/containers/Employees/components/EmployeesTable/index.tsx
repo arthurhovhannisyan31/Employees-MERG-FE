@@ -1,13 +1,9 @@
 // deps
 import React from 'react'
-import {
-  useHistory,
-} from 'react-router-dom'
+import { useHistory, } from 'react-router-dom'
 import MUIGrid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import {
-  PagingState,
-} from '@devexpress/dx-react-grid'
+import { PagingState, } from '@devexpress/dx-react-grid'
 import {
   DragDropProvider,
   Grid,
@@ -23,12 +19,9 @@ import Avatar from '@material-ui/core/Avatar'
 import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/components/CustomPagingPanel'
 import Backdrop from '_/components/UI/Backdrop';
 // model
-import {
-  IEmployeesTableRow,
-} from '_/containers/Employees/types'
-import {
-  TEmployeesAction,
-} from '_/model/context/employees';
+import { IEmployeesTableRow, } from '_/containers/Employees/types'
+import { TEmployeesAction, } from '_/model/context/employees';
+import { Employee } from '_/model/generated/graphql';
 // helpers
 import {
   initColumns,
@@ -39,9 +32,6 @@ import {
   pageSizes,
   getAvatarLetters,
 } from '_/containers/Employees/components/EmployeesTable/helpers'
-import {
-  EmployeesContext,
-} from '_/context'
 import useStyles from './style'
 
 interface IProps {
@@ -51,6 +41,8 @@ interface IProps {
   pageSize: number
   setPageSize: React.Dispatch<React.SetStateAction<number>>
   loading?: boolean
+  data: Employee[]
+  count: number
 }
 
 const EmployeesTable: React.FC<IProps> = ({
@@ -59,17 +51,13 @@ const EmployeesTable: React.FC<IProps> = ({
   currentPage,
   setCurrentPage,
   loading,
+  count,
+  data,
 }) => {
   // styles
   const cls = useStyles();
   // route
   const history = useHistory()
-  // context
-  const { state } = React.useContext(EmployeesContext)
-
-  const { data, count } = state
-  // todo move to context state
-  // todo move to reducer
 
   // todo add create an employee
 
@@ -95,14 +83,17 @@ const EmployeesTable: React.FC<IProps> = ({
   const handleRedirectProfile = React.useCallback((id: string) => () => history.push(`/employees/${id}`), [history])
   // containers
   const pagingContainer = React.useCallback(
-    (props: PagingPanel.ContainerProps) => (
-      <CustomPagingPanel
-        {...{
-          ...props,
-          totalCount: count,
-        }}
-      />
-    ),
+    (props: PagingPanel.ContainerProps) => {
+      const newProps = {
+        ...props,
+        totalCount: count,
+      }
+      return (
+        <CustomPagingPanel
+          {...newProps}
+        />
+      )
+    },
     [count],
   )
 

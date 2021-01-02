@@ -1,10 +1,4 @@
 // deps
-import {
-  makeStyles,
-} from '@material-ui/core/styles'
+import { makeStyles, } from '@material-ui/core/styles'
 
-export default makeStyles(() => ({
-  circularProgress: {
-    margin: '0 auto',
-  },
-}))
+export default makeStyles(() => ({ circularProgress: { margin: '0 auto', }, }))

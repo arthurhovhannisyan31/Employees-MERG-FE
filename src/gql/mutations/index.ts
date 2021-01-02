@@ -1,10 +1,7 @@
 // model
-import {
-  UserInput,
-} from '_/model/generated/graphql'
+import { UserInput, } from '_/model/generated/graphql'
 
-export const createUser = () => ({
-})
+export const createUser = () => ({})
 
 export const signUp = ({ email, password }: UserInput) => ({
   query: `

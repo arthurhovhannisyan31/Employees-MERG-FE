@@ -1,12 +1,8 @@
 // deps
 import format from 'date-fns/format'
-import {
-  Table,
-} from '@devexpress/dx-react-grid-material-ui'
+import { Table, } from '@devexpress/dx-react-grid-material-ui'
 // helpers
-import {
-  Employee,
-} from '_/model/generated/graphql'
+import { Employee, } from '_/model/generated/graphql'
 
 export const rowIdSelector = ({ _id }: Omit<Employee, '__typename'>) => _id
 
@@ -27,47 +23,23 @@ export const rowsSelector = ({
 })
 
 export const initColumns = [
-  {
-    name: 'avatar', title: ' ',
-  },
-  {
-    name: 'first_name', title: 'First Name',
-  },
-  {
-    name: 'last_name', title: 'Last Name',
-  },
-  {
-    name: 'gender', title: 'Gender',
-  },
-  {
-    name: 'hire_date', title: 'Hire Date',
-  },
-  {
-    name: 'birth_date', title: 'Birth Date',
-  },
+  { name: 'avatar', title: ' ', },
+  { name: 'first_name', title: 'First Name', },
+  { name: 'last_name', title: 'Last Name', },
+  { name: 'gender', title: 'Gender', },
+  { name: 'hire_date', title: 'Hire Date', },
+  { name: 'birth_date', title: 'Birth Date', },
 ]
 
 export const getInitColumnsOrder = () => initColumns.map((column) => column.name)
 
 export const initColumnExtensions: Table.ColumnExtension[] = [
-  {
-    columnName: 'gender', align: 'left',
-  },
-  {
-    columnName: 'first_name', align: 'left',
-  },
-  {
-    columnName: 'last_name', align: 'left',
-  },
-  {
-    columnName: 'hire_date', align: 'left',
-  },
-  {
-    columnName: 'birth_date', align: 'left',
-  },
-  {
-    columnName: 'details', align: 'left',
-  },
+  { columnName: 'gender', align: 'left', },
+  { columnName: 'first_name', align: 'left', },
+  { columnName: 'last_name', align: 'left', },
+  { columnName: 'hire_date', align: 'left', },
+  { columnName: 'birth_date', align: 'left', },
+  { columnName: 'details', align: 'left', },
 ]
 
 export const pageSizes = [5, 10, 20, 50, 100]

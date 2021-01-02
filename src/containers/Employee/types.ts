@@ -1,6 +1,4 @@
-import {
-  Employee,
-} from '_/model/generated/graphql'
+import { Employee, } from '_/model/generated/graphql'
 
 export type TEmployeeFetchResponse = {
   data: {

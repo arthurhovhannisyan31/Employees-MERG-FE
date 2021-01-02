@@ -1,14 +1,13 @@
 // deps
 import React from 'react'
 // model
-import {
-  IEmployeesContext, IEmployeesState, TEmployeesReducer,
-} from '_/model/context/employees';
+import { IEmployeesContext, IEmployeesState, TEmployeesReducer, } from '_/model/context/employees';
+import { Employee } from "_/model/generated/graphql";
 
 const employeesInitState: IEmployeesState = {
   loading: false,
   error: null,
-  data: [],
+  data: { '': [], },
   count: 0,
 }
 
@@ -21,7 +20,7 @@ const employeesContextInitState: IEmployeesContext = {
 const EmployeesContext = React.createContext<IEmployeesContext>(
   employeesContextInitState,
 )
-
+// todo refactor types
 const employeesReducer:TEmployeesReducer = (
   state,
   action,
@@ -30,11 +29,18 @@ const employeesReducer:TEmployeesReducer = (
   switch (type) {
     case 'loading':
     case 'error':
-    case 'data':
     case 'count':
       return {
         ...state,
-        [type]: payload[type] as IEmployeesState[typeof type],
+        [type]: payload[type],
+      }
+    case 'data':
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [payload.key as string]: payload.data as Employee[],
+        },
       }
     default:
       return state
@@ -46,7 +52,6 @@ const EmployeesContextContainer: React.FC = ({ children }) => {
     employeesReducer,
     employeesInitState,
   )
-
   return (
     <EmployeesContext.Provider
       value={{
@@ -60,6 +65,4 @@ const EmployeesContextContainer: React.FC = ({ children }) => {
   )
 }
 
-export {
-  EmployeesContextContainer as default, EmployeesContext,
-}
+export { EmployeesContextContainer as default, EmployeesContext, }

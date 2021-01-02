@@ -1,12 +1,8 @@
 // deps
-import {
-  makeStyles, Theme,
-} from '@material-ui/core/styles'
+import { makeStyles, Theme, } from '@material-ui/core/styles'
 
 export default makeStyles((theme: Theme) => ({
-  header: {
-    height: theme.spacing(6),
-  },
+  header: { height: theme.spacing(6), },
   container: {
     height: `calc(100vh - ${theme.spacing(6)}px)`,
     maxWidth: '1600px',

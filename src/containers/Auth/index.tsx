@@ -1,13 +1,7 @@
 // deps
-import React, {
-  useState, useContext,
-} from 'react'
-import {
-  useHistory,
-} from 'react-router-dom'
-import {
-  makeStyles, Theme,
-} from '@material-ui/core/styles'
+import React, { useState, useContext, } from 'react'
+import { useHistory, } from 'react-router-dom'
+import { makeStyles, Theme, } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -15,27 +9,15 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 // components
 // helpers
-import {
-  AuthContext,
-} from '_/context'
+import { AuthContext, } from '_/context'
 import storage from '_/utils/storage'
-import {
-  loginQuery,
-} from '_/gql/queries'
-import {
-  signUp,
-} from '_/gql/mutations'
+import { loginQuery, } from '_/gql/queries'
+import { signUp, } from '_/gql/mutations'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    height: '100%',
-  },
-  paper: {
-    padding: theme.spacing(2),
-  },
-  headTitle: {
-    textAlign: 'center',
-  },
+  container: { height: '100%', },
+  paper: { padding: theme.spacing(2), },
+  headTitle: { textAlign: 'center', },
 }))
 
 const Auth: React.FC = () => {
@@ -74,12 +56,8 @@ const Auth: React.FC = () => {
   const apiUrl = process?.env?.API_URL || ''
 
   const handleSubmit = async () => {
-    const loginBody = loginQuery({
-      email, password,
-    })
-    const signupBody = signUp({
-      email, password,
-    })
+    const loginBody = loginQuery({ email, password, })
+    const signupBody = signUp({ email, password, })
 
     try {
       const res = await fetch(apiUrl, {
@@ -88,9 +66,7 @@ const Auth: React.FC = () => {
         cache: 'no-cache',
         credentials: 'same-origin',
         body: JSON.stringify(authState ? signupBody : loginBody),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json', },
       })
       if (![200, 201].includes(res?.status)) {
         throw new Error('Failed!')

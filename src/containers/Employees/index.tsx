@@ -5,87 +5,69 @@ import Typography from '@material-ui/core/Typography'
 // components
 import EmployeesTable from '_/containers/Employees/components/EmployeesTable'
 // model
-import {
-  GetEmployeesInput,
-} from '_/model/generated/graphql'
-import {
-  TEmployeesFetchResponse,
-} from '_/containers/Employees/types'
+import { GetEmployeesInput } from '_/model/generated/graphql'
+import { TEmployeesFetchResponse } from '_/containers/Employees/types'
 // helpers
-import {
-  AuthContext, EmployeesContext,
-} from '_/context'
-import {
-  getEmployees,
-} from '_/gql/queries'
-import {
-  fetchResponseCheck,
-} from '_/utils/helpers'
+import { AuthContext, EmployeesContext, } from '_/context'
+import { getEmployees } from '_/gql/queries'
+import { fetchResponseCheck } from '_/utils/helpers'
 
 const EmployeesPage: React.FC = () => {
   // context
   const { headers } = React.useContext(AuthContext)
-  const { dispatch, state } = React.useContext(EmployeesContext)
-  const { error, loading } = state
+  const { dispatch, state, } = React.useContext(EmployeesContext)
+  const { error, loading, data, count, } = state
   // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
   // memo
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
   const handleGetEmployees = React.useCallback(
-    async ({ offset, limit }: GetEmployeesInput) => {
+    async ({ offset, limit, }: GetEmployeesInput) => {
       dispatch({
-        type: 'employees',
-        payload: {
-          loading: true,
-        },
+        type: 'loading',
+        payload: { loading: true },
       })
       try {
         const res = await fetch(apiUrl, {
           method: 'POST',
-          body: JSON.stringify(getEmployees({
-            offset, limit,
-          })),
+          body: JSON.stringify(getEmployees({ offset, limit, })),
           headers,
         })
         fetchResponseCheck(res?.status)
-        const { data: { employees: { nodes, count } } }: TEmployeesFetchResponse = await res.json()
+        const { data: { employees: { nodes, count: quantity, }}}: TEmployeesFetchResponse =
+          await res.json()
         dispatch({
-          type: 'employees',
+          type: 'data',
           payload: {
             data: nodes,
+            key: `${pageSize}-${currentPage}`,
           },
         })
         dispatch({
-          type: 'employees',
-          payload: {
-            count,
-          },
+          type: 'count',
+          payload: { count: quantity },
         })
       } catch (err) {
         dispatch({
-          type: 'employees',
-          payload: {
-            error: err,
-          },
+          type: 'error',
+          payload: { error: err },
         })
       }
       dispatch({
-        type: 'employees',
-        payload: {
-          loading: false,
-        },
+        type: 'loading',
+        payload: { loading: false },
       })
     },
-    [apiUrl, dispatch, headers],
+    [apiUrl, dispatch, headers, currentPage, pageSize],
   )
+  const slice = React.useMemo(() => data?.[`${pageSize}-${currentPage}`] || [], [data, pageSize, currentPage]);
 
   React.useEffect(() => {
-    handleGetEmployees({
-      limit: pageSize, offset: currentPage * pageSize,
-    })
-  }, [pageSize, currentPage, handleGetEmployees])
-
+    if (!slice.length) {
+      handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize, })
+    }
+  }, [pageSize, currentPage, handleGetEmployees, slice])
   return (
     <Grid container>
       <Grid container direction="row">
@@ -99,6 +81,8 @@ const EmployeesPage: React.FC = () => {
             pageSize={pageSize}
             setPageSize={setPageSize}
             loading={loading}
+            data={slice}
+            count={count}
           />
         )}
       </Grid>

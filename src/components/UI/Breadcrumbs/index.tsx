@@ -1,8 +1,6 @@
 // deps
 import React from 'react'
-import {
-  useLocation, useHistory,
-} from 'react-router-dom'
+import { useLocation, useHistory, } from 'react-router-dom'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
@@ -32,6 +30,7 @@ const BreadcrumbsComp: React.FC = () => {
     const path = idx === 0 ? el : paths.slice(0, idx + 1).join('/')
     return (
       <Button
+        key={path}
         className={clsx(classes.link)}
         color="inherit"
         variant="text"
