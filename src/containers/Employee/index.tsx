@@ -1,78 +1,80 @@
 // deps
-import React from 'react'
-import { useParams, } from 'react-router-dom'
-import { Grid, } from '@material-ui/core'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import AppBar from '@material-ui/core/AppBar'
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import AppBar from '@material-ui/core/AppBar';
 // components
-import TabPanel from '_/components/UI/TabPanel'
-import Details from '_/containers/Employee/components/Details'
-import Employments from '_/containers/Employee/components/Employments'
-import Paychecks from '_/containers/Employee/components/Paychecks'
-import Titles from '_/containers/Employee/components/Titles'
+import TabPanel from '_/components/UI/TabPanel';
+import Details from '_/containers/Employee/components/Details';
+import Employments from '_/containers/Employee/components/Employments';
+import Paychecks from '_/containers/Employee/components/Paychecks';
+import Titles from '_/containers/Employee/components/Titles';
 // model
-import { GetEmployeeInput, } from '_/model/generated/graphql'
-import { TEmployeeFetchResponse, } from '_/containers/Employee/types'
+import { GetEmployeeInput } from '_/model/generated/graphql';
+import { TEmployeeFetchResponse } from '_/containers/Employee/types';
 // helpers
-import { EmployeeByIdContext } from "_/context";
-import { AuthContext, } from '_/context/auth-context'
-import { getEmployee, } from '_/gql/queries'
-import { fetchResponseCheck, } from '_/utils/helpers'
-import { a11yProps, } from './helpers'
-import useStyles from './style'
+import { EmployeeByIdContext } from '_/context';
+import { AuthContext } from '_/context/auth-context';
+import { getEmployee } from '_/gql/queries';
+import { fetchResponseCheck } from '_/utils/helpers';
+import { a11yProps } from './helpers';
+import useStyles from './style';
 
 const EmployeePage: React.FC = () => {
-  // router
-  const { id: idParam } = useParams<Record<'id', string>>()
-  // styles
-  const classes = useStyles()
+  // utils
+  const classes = useStyles();
+  const { id: idParam } = useParams<Record<'id', string>>();
+  const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', []);
   // context
-  const { headers } = React.useContext(AuthContext)
-  const { dispatch, state } = React.useContext(EmployeeByIdContext)
-  const { data, loading, error } = state
+  const { headers } = React.useContext(AuthContext);
+  const { dispatch, state } = React.useContext(EmployeeByIdContext);
+  const { data, loading, error } = state;
   // state
-  const [tab, setTab] = React.useState<number>(0)
+  const [tab, setTab] = React.useState<number>(0);
+  console.log(data);
   const employeeData = data?.[idParam];
+  console.log(employeeData)
   // memo
   const handleChangeTab = React.useCallback(
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
-      setTab(newValue)
+      setTab(newValue);
     },
     [],
-  )
-  const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
+  );
   const handleGetEmployee = React.useCallback(async ({ id }: GetEmployeeInput) => {
     dispatch({
-      type: "loading",
-      payload: { loading: true }
-    })
+      type: 'loading',
+      payload: { loading: true },
+    });
     try {
       const res = await fetch(apiUrl, {
         method: 'POST',
-        body: JSON.stringify(getEmployee({ id, })),
+        body: JSON.stringify(getEmployee({ id })),
         headers,
-      })
-      fetchResponseCheck(res?.status)
-      const { data: { employee }}: TEmployeeFetchResponse = await res.json()
+      });
+      fetchResponseCheck(res?.status);
+      const { data: { employee } }: TEmployeeFetchResponse = await res.json();
       dispatch({
         type: 'data',
         payload: {
           data: employee,
-          key: idParam
-        }
-      })
+          key: idParam,
+        },
+      });
     } catch (err) {
       dispatch({
         type: 'error',
-        payload: { error: err }
-      })
+        payload: { error: err },
+      });
     }
     dispatch({
       type: 'loading',
-      payload: { loading: false }
-    })
+      payload: { loading: false },
+    });
   }, [apiUrl, dispatch, headers, idParam]);
 
   // todo update fields and delete profile
@@ -80,9 +82,9 @@ const EmployeePage: React.FC = () => {
 
   React.useEffect(() => {
     if (!employeeData) {
-      handleGetEmployee({ id: idParam, })
+      handleGetEmployee({ id: idParam });
     }
-  }, [idParam, handleGetEmployee, employeeData])
+  }, [idParam, handleGetEmployee, employeeData]);
 
   return (
     <Grid container item className={classes.container} direction="column">
@@ -93,35 +95,41 @@ const EmployeePage: React.FC = () => {
           </Grid>
         ) : (
           <>
-            <AppBar position="static">
-              <Tabs
-                value={tab}
-                onChange={handleChangeTab}
-                aria-label="simple tabs employee"
-              >
-                <Tab label="Details" {...a11yProps(0)} />
-                <Tab label="Paychecks" {...a11yProps(1)} />
-                <Tab label="Titles" {...a11yProps(2)} />
-                <Tab label="Employments" {...a11yProps(3)} />
-              </Tabs>
-            </AppBar>
-            <TabPanel value={tab} index={0}>
-              <Details />
-            </TabPanel>
-            <TabPanel value={tab} index={1}>
-              <Paychecks />
-            </TabPanel>
-            <TabPanel value={tab} index={2}>
-              <Titles />
-            </TabPanel>
-            <TabPanel value={tab} index={3}>
-              <Employments />
-            </TabPanel>
+            {error ? (
+              Typography
+            ) : (
+              <>
+                <AppBar position="static">
+                  <Tabs
+                    value={tab}
+                    onChange={handleChangeTab}
+                    aria-label="simple tabs employee"
+                  >
+                    <Tab label="Details" {...a11yProps(0)} />
+                    <Tab label="Paychecks" {...a11yProps(1)} />
+                    <Tab label="Titles" {...a11yProps(2)} />
+                    <Tab label="Employments" {...a11yProps(3)} />
+                  </Tabs>
+                </AppBar>
+                <TabPanel value={tab} index={0}>
+                  <Details {...employeeData} />
+                </TabPanel>
+                <TabPanel value={tab} index={1}>
+                  <Paychecks />
+                </TabPanel>
+                <TabPanel value={tab} index={2}>
+                  <Titles />
+                </TabPanel>
+                <TabPanel value={tab} index={3}>
+                  <Employments />
+                </TabPanel>
+              </>
+            )}
           </>
         )}
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default EmployeePage
+export default EmployeePage;

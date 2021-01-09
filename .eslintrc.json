@@ -4,11 +4,12 @@
     "project": "tsconfig.json"
   },
   "extends": [
-    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/@typescript-eslint",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint"
+    "airbnb-typescript"
   ],
   "plugins": [
     "@typescript-eslint",
@@ -19,8 +20,6 @@
     "jest": true
   },
   "rules": {
-    "object-curly-newline": ["error", { "multiline": true }],
-    "object-curly-spacing": ["error", "always", { "objectsInObjects": false }],
     "no-console": 0,
     "@typescript-eslint/semi": 0,
     "react/jsx-filename-extension": [

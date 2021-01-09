@@ -15,11 +15,7 @@ module.exports = {
     publicPath: '/',
     chunkFilename: '[name].[chunkhash].bundle.js',
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
+  optimization: { splitChunks: { chunks: 'all' }, },
   devServer: {
     host: 'localhost',
     hot: true,
@@ -38,9 +34,7 @@ module.exports = {
       {
         exclude: /node_modules|lib/,
         test: /\.(ts|js)x?$/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: { loader: 'babel-loader', },
       },
       {
         test: /\.css$/,
@@ -51,9 +45,7 @@ module.exports = {
         use: [
           {
             loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
+            options: { limit: 8192, },
           },
         ],
       },
@@ -62,9 +54,7 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: {
-              outputPath: 'public',
-            },
+            options: { outputPath: 'public', },
           },
         ],
       },
@@ -77,14 +67,10 @@ module.exports = {
       cache: false,
     }),
     new webpack.EnvironmentPlugin(['API_URL']),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
+    new webpack.ProvidePlugin({ process: 'process/browser', }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-    alias: {
-      _: path.resolve(__dirname, 'src'),
-    },
+    alias: { _: path.resolve(__dirname, 'src'), },
   },
 }
