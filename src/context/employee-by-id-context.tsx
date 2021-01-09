@@ -1,8 +1,8 @@
 // deps
 import React from 'react'
 // model
-import { IEmployeeByIdState, IEmployeeByIdContext, TEmployeeByIdReducer, } from '_/model/context/employee'
-import { Employee } from "_/model/generated/graphql";
+import { IEmployeeByIdState, IEmployeeByIdContext, TEmployeeByIdReducer } from '_/model/context/employee'
+import { Employee } from '_/model/generated/graphql';
 
 const employeeByIdInitState: IEmployeeByIdState = {
   loading: false,
@@ -34,7 +34,7 @@ const employeeByIdReducer: TEmployeeByIdReducer = (
         data: {
           ...state.data,
           [payload.key as string]: payload.data as Employee,
-        }
+        },
       }
     default:
       return state
@@ -59,4 +59,4 @@ const EmployeeContextContainer: React.FC = ({ children }) => {
   )
 }
 
-export { EmployeeContextContainer as default, EmployeeByIdContext, }
+export { EmployeeContextContainer as default, EmployeeByIdContext }

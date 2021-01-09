@@ -19,4 +19,4 @@ const App: React.FC = () => (
   </ContextCompose>
 );
 
-export default App;  
+export default App;

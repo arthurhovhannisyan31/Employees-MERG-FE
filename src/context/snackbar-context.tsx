@@ -1,7 +1,7 @@
 // deps
 import React from 'react'
 // model
-import { ISnackbarContext, ISnackbar, } from '_/model/context/snackbar'
+import { ISnackbarContext, ISnackbar } from '_/model/context/snackbar'
 
 const snackbarInitState: ISnackbar = {
   open: false,
@@ -36,4 +36,4 @@ const SnackbarContextContainer: React.FC = ({ children }) => {
   )
 }
 
-export { SnackbarContextContainer as default, SnackbarContext, }
+export { SnackbarContextContainer as default, SnackbarContext }

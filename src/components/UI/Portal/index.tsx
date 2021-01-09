@@ -9,7 +9,9 @@ interface IPortalProps {
   [key: string]: unknown
 }
 
-const Portal: React.FC<IPortalProps> = React.forwardRef<HTMLDivElement, IPortalProps>(({ children, selector = '', className = '', style, ...props }, _ref) => {
+const Portal: React.FC<IPortalProps> = React.forwardRef<HTMLDivElement, IPortalProps>(({
+  children, selector = '', className = '', style, ...props
+}, _ref) => {
   const mountNode: HTMLElement = React.useMemo(
     () => document.querySelector(selector) || document.body,
     [selector],

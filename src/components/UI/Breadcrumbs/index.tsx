@@ -1,6 +1,6 @@
 // deps
 import React from 'react'
-import { useLocation, useHistory, } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'

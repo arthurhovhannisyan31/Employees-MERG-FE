@@ -1,8 +1,8 @@
 // deps
 import React from 'react'
 // model
-import { Employee, } from '_/model/generated/graphql'
-import { IAction, } from '_/model/store'
+import { Employee } from '_/model/generated/graphql'
+import { IAction } from '_/model/store'
 
 export interface IEmployeesState {
   loading: boolean
@@ -12,8 +12,8 @@ export interface IEmployeesState {
 }
 // todo refactor types
 export type TEmployeesAction = IAction<
-    Partial<Omit<IEmployeesState,'data'>&{data: Employee[], key: string}>
-  >
+Partial<Omit<IEmployeesState, 'data'>&{data: Employee[], key: string}>
+>
 
 export type TEmployeesReducer =
   (prevState: IEmployeesState, action: TEmployeesAction) => IEmployeesState

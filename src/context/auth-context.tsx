@@ -53,8 +53,8 @@ const AuthContextContainer: React.FC = ({ children }) => {
     authContextInitValue,
   )
 
-  const login = (payload: IAuthState) => dispatch({ type: 'login', payload, })
-  const logout = () => dispatch({ type: 'logout', })
+  const login = (payload: IAuthState) => dispatch({ type: 'login', payload })
+  const logout = () => dispatch({ type: 'logout' })
 
   const { token, userId, tokenExpiration } = state
 
@@ -68,11 +68,13 @@ const AuthContextContainer: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, token, userId, tokenExpiration, headers, }}
+      value={{
+        login, logout, token, userId, tokenExpiration, headers,
+      }}
     >
       {children}
     </AuthContext.Provider>
   )
 }
 
-export { AuthContextContainer as default, AuthContext, }
+export { AuthContextContainer as default, AuthContext }

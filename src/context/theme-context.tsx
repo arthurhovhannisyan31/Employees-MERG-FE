@@ -1,7 +1,7 @@
 // deps
 import React from 'react'
 // model
-import { IThemeContext, } from '_/model/context/theme'
+import { IThemeContext } from '_/model/context/theme'
 
 const themeInitState = {
   darkMode: true,
@@ -24,4 +24,4 @@ const ThemeContextContainer: React.FC = ({ children }) => {
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 
-export { ThemeContextContainer as default, ThemeContext, }
+export { ThemeContextContainer as default, ThemeContext }

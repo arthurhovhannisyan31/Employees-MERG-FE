@@ -8,6 +8,6 @@ export const ROUTES = {
   NOT_FOUND: '*',
 }
 
-const CONSTANTS = { ROUTES, }
+const CONSTANTS = { ROUTES }
 
 export default CONSTANTS

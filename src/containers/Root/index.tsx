@@ -25,7 +25,7 @@ const Root: React.FC = () => {
       token: storage.get('token') as string,
       userId: storage.get('userId') as string,
       tokenExpiration: +((storage.get(
-        'tokenExpirationtoken'
+        'tokenExpirationtoken',
       ) as unknown) as number),
     })
   }

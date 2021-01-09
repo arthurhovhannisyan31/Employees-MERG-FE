@@ -1,5 +1,5 @@
 // deps
-import { makeStyles, } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(() => ({
   loadingFallback: {
@@ -7,6 +7,6 @@ export default makeStyles(() => ({
     top: 0,
     left: 0,
     width: '100%',
-    height: '100vh'
-  }
+    height: '100vh',
+  },
 }))

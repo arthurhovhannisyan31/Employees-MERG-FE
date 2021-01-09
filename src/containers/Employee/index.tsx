@@ -20,7 +20,7 @@ import { TEmployeeFetchResponse } from '_/containers/Employee/types';
 import { EmployeeByIdContext } from '_/context';
 import { AuthContext } from '_/context/auth-context';
 import { getEmployee } from '_/gql/queries';
-import { fetchResponseCheck } from '_/utils/helpers';
+import { fetchResponseCheck } from '_/utils/auth';
 import { a11yProps } from './helpers';
 import useStyles from './style';
 
@@ -35,9 +35,7 @@ const EmployeePage: React.FC = () => {
   const { data, loading, error } = state;
   // state
   const [tab, setTab] = React.useState<number>(0);
-  console.log(data);
   const employeeData = data?.[idParam];
-  console.log(employeeData)
   // memo
   const handleChangeTab = React.useCallback(
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
@@ -96,7 +94,7 @@ const EmployeePage: React.FC = () => {
         ) : (
           <>
             {error ? (
-              Typography
+              <Typography>Error message</Typography>
             ) : (
               <>
                 <AppBar position="static">

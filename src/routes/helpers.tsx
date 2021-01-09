@@ -1,8 +1,8 @@
 // deps
 import React from 'react'
-import { Route, } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 // model
-import { IRoute, } from '_/routes/app-routes'
+import { IRoute } from '_/routes/app-routes'
 // local
 import PrivateRoute from '_/routes/private-route'
 

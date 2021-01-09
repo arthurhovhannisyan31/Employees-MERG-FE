@@ -1,9 +1,9 @@
 // deps
 import React from 'react'
-import { useHistory, } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import MUIGrid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import { PagingState, } from '@devexpress/dx-react-grid'
+import { PagingState } from '@devexpress/dx-react-grid'
 import {
   DragDropProvider,
   Grid,
@@ -19,8 +19,8 @@ import Avatar from '@material-ui/core/Avatar'
 import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/components/CustomPagingPanel'
 import Backdrop from '_/components/UI/Backdrop';
 // model
-import { IEmployeesTableRow, } from '_/containers/Employees/types'
-import { TEmployeesAction, } from '_/model/context/employees';
+import { IEmployeesTableRow } from '_/containers/Employees/types'
+import { TEmployeesAction } from '_/model/context/employees';
 import { Employee } from '_/model/generated/graphql';
 // helpers
 import {

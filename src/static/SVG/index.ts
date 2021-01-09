@@ -1,1 +1,1 @@
-export { SVG404, } from './404'
+export { SVG404 } from './404'

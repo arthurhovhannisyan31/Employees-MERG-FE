@@ -1,13 +1,13 @@
 // deps
 import React from 'react'
 // model
-import { IEmployeesContext, IEmployeesState, TEmployeesReducer, } from '_/model/context/employees';
-import { Employee } from "_/model/generated/graphql";
+import { IEmployeesContext, IEmployeesState, TEmployeesReducer } from '_/model/context/employees';
+import { Employee } from '_/model/generated/graphql';
 
 const employeesInitState: IEmployeesState = {
   loading: false,
   error: null,
-  data: { '': [], },
+  data: { '': [] },
   count: 0,
 }
 
@@ -65,4 +65,4 @@ const EmployeesContextContainer: React.FC = ({ children }) => {
   )
 }
 
-export { EmployeesContextContainer as default, EmployeesContext, }
+export { EmployeesContextContainer as default, EmployeesContext }

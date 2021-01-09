@@ -8,15 +8,17 @@ import EmployeesTable from '_/containers/Employees/components/EmployeesTable'
 import { GetEmployeesInput } from '_/model/generated/graphql'
 import { TEmployeesFetchResponse } from '_/containers/Employees/types'
 // helpers
-import { AuthContext, EmployeesContext, } from '_/context'
+import { AuthContext, EmployeesContext } from '_/context'
 import { getEmployees } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/helpers'
+import { fetchResponseCheck } from '_/utils/auth'
 
 const EmployeesPage: React.FC = () => {
   // context
   const { headers } = React.useContext(AuthContext)
-  const { dispatch, state, } = React.useContext(EmployeesContext)
-  const { error, loading, data, count, } = state
+  const { dispatch, state } = React.useContext(EmployeesContext)
+  const {
+    error, loading, data, count,
+  } = state
   // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
@@ -24,7 +26,7 @@ const EmployeesPage: React.FC = () => {
   const key = React.useMemo(() => `${pageSize}-${currentPage}`, [pageSize, currentPage]);
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
   const handleGetEmployees = React.useCallback(
-    async ({ offset, limit, }: GetEmployeesInput) => {
+    async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({
         type: 'loading',
         payload: { loading: true },
@@ -32,11 +34,11 @@ const EmployeesPage: React.FC = () => {
       try {
         const res = await fetch(apiUrl, {
           method: 'POST',
-          body: JSON.stringify(getEmployees({ offset, limit, })),
+          body: JSON.stringify(getEmployees({ offset, limit })),
           headers,
         })
         fetchResponseCheck(res?.status)
-        const { data: { employees: { nodes, count: quantity, }}}: TEmployeesFetchResponse =
+        const { data: { employees: { nodes, count: quantity } } }: TEmployeesFetchResponse =
           await res.json()
         dispatch({
           type: 'data',
@@ -66,7 +68,7 @@ const EmployeesPage: React.FC = () => {
 
   React.useEffect(() => {
     if (!slice.length) {
-      handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize, })
+      handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
     }
   }, [pageSize, currentPage, handleGetEmployees, slice])
   return (
