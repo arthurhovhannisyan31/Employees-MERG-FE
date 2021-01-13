@@ -2,16 +2,12 @@
 export const ROUTES = {
   HOME: '/',
   AUTH: '/auth',
-  EVENTS: '/events',
-  BOOKINGS: '/bookings',
   ABOUT: '/about',
   EMPLOYEES: '/employees',
-  EMPLOYEE: '/employees/?:id',
+  EMPLOYEE: '/employees/:id',
   NOT_FOUND: '*',
 }
 
-const CONSTANTS = {
-  ROUTES,
-}
+const CONSTANTS = { ROUTES }
 
 export default CONSTANTS

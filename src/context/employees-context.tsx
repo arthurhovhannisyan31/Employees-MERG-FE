@@ -1,94 +1,57 @@
 // deps
 import React from 'react'
-import { IEventFormAction } from '_/containers/Events/types'
-// helpers
-import { IEmployee } from '_/types'
+// model
+import { IEmployeesContext, IEmployeesState, TEmployeesReducer } from '_/model/context/employees';
+import { Employee } from '_/model/generated/graphql';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IEmployeesState {
-  loading: boolean
-  error: boolean
-  data: IEmployee[]
-  table: {
-    rows: any[]
-  }
-}
-
-const employeesInitState = {
+const employeesInitState: IEmployeesState = {
   loading: false,
-  error: false,
-  data: [],
-  table: {
-    rows: [],
-  },
+  error: null,
+  data: { '': [] },
+  count: 0,
 }
 
-const employeesContextInitState = {
+const employeesContextInitState: IEmployeesContext = {
   state: employeesInitState,
   initState: employeesInitState,
   dispatch: () => {},
 }
 
-interface IEmployeesContext {
-  state: IEmployeesState
-  initState: IEmployeesState
-  dispatch: React.Dispatch<IEventFormAction>
-}
-
 const EmployeesContext = React.createContext<IEmployeesContext>(
-  employeesContextInitState
+  employeesContextInitState,
 )
-
-interface IEmployeesRecucerAction {
-  type: string
-  prop?: string
-  // eslint-disable-next-line
-  payload?: any
-}
-
-const employeesReducer = (
-  state: IEmployeesState,
-  action: IEmployeesRecucerAction
+// todo refactor types
+const employeesReducer:TEmployeesReducer = (
+  state,
+  action,
 ) => {
-  // eslint-disable-next-line
-  // @ts-ignore
-  const { type, prop, payload } = action
+  const { type, payload } = action
   switch (type) {
-    case 'employees.loading':
+    case 'loading':
+    case 'error':
+    case 'count':
       return {
         ...state,
-        loading: payload,
+        [type]: payload[type],
       }
-    case 'employees.error':
+    case 'data':
       return {
         ...state,
-        error: payload,
-      }
-    case 'employees.data':
-      return {
-        ...state,
-        data: payload,
-      }
-    case 'table.rows': {
-      return {
-        ...state,
-        table: {
-          ...state.table,
-          rows: payload,
+        data: {
+          ...state.data,
+          [payload.key as string]: payload.data as Employee[],
         },
       }
-    }
     default:
       return state
   }
 }
 
 const EmployeesContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer(
+  const [state, dispatch] = React.useReducer<TEmployeesReducer>(
     employeesReducer,
-    employeesInitState
+    employeesInitState,
   )
-
   return (
     <EmployeesContext.Provider
       value={{

@@ -5,15 +5,14 @@ import { CssBaseline } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Header from '_/containers/Header'
 import { ThemeProvider } from '@material-ui/core/styles'
-// components
 // helpers
 import { ThemeContext } from '_/context'
 import useStyles from '_/containers/Layout/style'
 
 const Layout: React.FC = ({ children }) => {
-  // useContext
+  // context
   const { darkMode } = React.useContext(ThemeContext)
-  // useStyles
+  // styles
   const classes = useStyles()
 
   return (

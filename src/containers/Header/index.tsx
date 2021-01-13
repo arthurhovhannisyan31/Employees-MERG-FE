@@ -10,8 +10,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/Info'
 import PeopleIcon from '@material-ui/icons/People'
-import EventsIcon from '@material-ui/icons/Event'
-import BookingsIcon from '@material-ui/icons/Book'
 import Tooltip from '@material-ui/core/Tooltip'
 import LogOut from '@material-ui/icons/ExitToApp'
 import PersonIcon from '@material-ui/icons/Person'
@@ -23,19 +21,15 @@ import storage from '_/utils/storage'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {},
-  link: {
-    color: 'white',
-  },
-  activeLink: {
-    color: theme.palette.secondary.main,
-  },
+  link: { color: 'white' },
+  activeLink: { color: theme.palette.secondary.main },
 }))
 
 const Header: React.FC = () => {
-  // useContext
+  // context
   const { darkMode, toggleTheme } = React.useContext(ThemeContext)
   const { token, logout, userId } = useContext(AuthContext)
-  // useState
+  // state
   const classes = useStyles()
   const history = useHistory()
   const location = useLocation()
@@ -61,40 +55,15 @@ const Header: React.FC = () => {
               <Tooltip title="Home">
                 <Button
                   onClick={() => history.push('/')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/',
-                  })}
+                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/' })}
                 >
                   <HomeIcon />
-                  Event Booking
-                </Button>
-              </Tooltip>
-              <Tooltip title="Events">
-                <Button
-                  onClick={() => history.push('/events')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/events',
-                  })}
-                >
-                  <EventsIcon />
-                </Button>
-              </Tooltip>
-              <Tooltip title="Bookings">
-                <Button
-                  onClick={() => history.push('/bookings')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/bookings',
-                  })}
-                >
-                  <BookingsIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="Employees">
                 <Button
                   onClick={() => history.push('/employees')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/employees',
-                  })}
+                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/employees' })}
                 >
                   <PeopleIcon />
                 </Button>
@@ -102,9 +71,7 @@ const Header: React.FC = () => {
               <Tooltip title="About">
                 <Button
                   onClick={() => history.push('/about')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/about',
-                  })}
+                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/about' })}
                 >
                   <AboutIcon />
                 </Button>

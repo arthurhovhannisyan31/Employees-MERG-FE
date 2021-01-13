@@ -14,7 +14,7 @@ import { createEvent, createBooking } from '_/gql/mutations'
 import { getEvents } from '_/gql/queries'
 import { IEvent } from '_/types'
 import { IEventFormFields } from '_/containers/Events/types'
-import { fetchResponseCheck } from '_/utils/helpers'
+import { fetchResponseCheck } from '_/utils/auth'
 import useStyles from '_/containers/Events/style'
 
 const Events: React.FC = () => {
@@ -24,7 +24,9 @@ const Events: React.FC = () => {
   const { token, userId } = React.useContext(AuthContext)
   const {
     dispatch,
-    state: { eventForm, eventDetails, events, loading },
+    state: {
+      eventForm, eventDetails, events, loading,
+    },
   } = React.useContext(EventsContext)
 
   const headers = {
@@ -35,8 +37,10 @@ const Events: React.FC = () => {
 
   const handleConfirmEventForm = React.useCallback(
     async (
-      { date, description, price, title }: IEventFormFields,
-      resetForm
+      {
+        date, description, price, title,
+      }: IEventFormFields,
+      resetForm,
     ) => {
       dispatch({ type: 'eventForm', prop: 'loading', payload: true })
       try {
@@ -50,7 +54,7 @@ const Events: React.FC = () => {
                 description,
                 date: date?.toISOString() as string,
               },
-            })
+            }),
           ),
           headers,
         })
@@ -78,14 +82,14 @@ const Events: React.FC = () => {
       }
       dispatch({ type: 'eventForm', prop: 'loading', payload: false })
     },
-    [apiUrl, headers, userId, dispatch]
+    [apiUrl, headers, userId, dispatch],
   )
 
   const toggleModal = React.useCallback(
     (type: string, prop: string, modalState: boolean) => () => {
       dispatch({ type, prop, payload: modalState })
     },
-    [dispatch]
+    [dispatch],
   )
 
   const handleGetEvents = React.useCallback(async () => {
@@ -130,12 +134,12 @@ const Events: React.FC = () => {
       dispatch({ type: 'eventDetails', prop: 'id', payload: id })
       dispatch({ type: 'eventDetails', prop: 'isOpen', payload: true })
     },
-    [dispatch]
+    [dispatch],
   )
 
   const eventDetailsData = React.useMemo(
     () => events?.find((el: IEvent) => el._id === eventDetails.id),
-    [events, eventDetails]
+    [events, eventDetails],
   )
 
   React.useEffect(() => {

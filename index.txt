@@ -1,26 +1,28 @@
-
-// todo
-add employee detail with all nested data
+// deps
+// components
+// model
+// helpers
 
 // todo add husky and pre-commit formatting
 
-// todo find layout for employees
 // todo add token expiration
-// todo add employees model
 
-// todo hire employee
-// todo fire employee
-// todo promote employee
-// todo downgrade employee
-// todo change salary salary
-// todo make payoff
+// todo exclude fetch to custom function
+
 // todo analytics
-
+// todo CRUD for employees, title, payoff, salary
+// hire employee
+// fire employeeqq
+// promote employee
+// downgrade employee
+// change salary salary
+// make payoff
 // todo remove bookings
 // todo remove events
 
 // todo employee detail
 // new route, get design from material-ui examples page
-// todo pagination for employees table
+// add google login form:
+// todo update styles
 
-// todo remove current styles, do styles later
+// todo remove all old types, use generated types

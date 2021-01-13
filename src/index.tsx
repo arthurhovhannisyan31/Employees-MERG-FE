@@ -1,17 +1,17 @@
 // deps
 import React from 'react'
 import { render } from 'react-dom'
-// local
+// components
 import App from '_/App'
+// model
 import { IModule } from '_/model/common'
 
-const renderApp = () =>
-  render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-  )
+const renderApp = () => render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root'),
+)
 
 renderApp()
 

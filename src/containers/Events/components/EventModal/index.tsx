@@ -60,13 +60,13 @@ const EventModal: React.FC<IProps> = ({
   // useMemo
   const memoPriceFormat = React.useCallback(
     (props) => NumberFormatCustom({ prefix: '$' })(props),
-    []
+    [],
   )
   const handleChangeText = React.useCallback(
     (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
       setFieldValue(field, event.target.value)
     },
-    [setFieldValue]
+    [setFieldValue],
   )
   const handleChangeNumber = React.useCallback(
     (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,14 +77,14 @@ const EventModal: React.FC<IProps> = ({
         handleChangeText(field)(event)
       }
     },
-    [handleChangeText]
+    [handleChangeText],
   )
   const handleSaveOnBlur = React.useCallback(
     (e: React.FocusEvent<never>) => {
       handleBlur(e)
       dispatch({ type: 'eventForm', payload: values })
     },
-    [handleBlur, dispatch, values]
+    [handleBlur, dispatch, values],
   )
   const handleCancel = React.useCallback(() => {
     handleClose()
@@ -95,7 +95,7 @@ const EventModal: React.FC<IProps> = ({
     (field: string) => (dateValue: Date | null) => {
       setFieldValue(field, dateValue)
     },
-    [setFieldValue]
+    [setFieldValue],
   )
 
   const disableConfirm = !(isValid && values?.title)

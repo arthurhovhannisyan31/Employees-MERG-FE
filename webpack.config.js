@@ -7,6 +7,15 @@ require('dotenv').config()
 
 module.exports = {
   mode: 'production',
+  entry: [path.resolve(__dirname, 'src', 'index.tsx')],
+  devtool: 'inline-source-map',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[chunkhash].bundle.js',
+    publicPath: '/',
+    chunkFilename: '[name].[chunkhash].bundle.js',
+  },
+  optimization: { splitChunks: { chunks: 'all' } },
   devServer: {
     host: 'localhost',
     hot: true,
@@ -18,28 +27,14 @@ module.exports = {
       poll: 1000,
       ignored: ['node_modules'],
     },
-  },
-  devtool: 'inline-source-map',
-  entry: [path.resolve(__dirname, 'src', 'index.tsx')],
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].bundle.js',
-    publicPath: '/',
-    chunkFilename: '[name].[hash].bundle.js',
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
+    contentBase: path.join(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
         exclude: /node_modules|lib/,
         test: /\.(ts|js)x?$/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: { loader: 'babel-loader' },
       },
       {
         test: /\.css$/,
@@ -50,9 +45,7 @@ module.exports = {
         use: [
           {
             loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
+            options: { limit: 8192 },
           },
         ],
       },
@@ -61,9 +54,7 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: {
-              outputPath: 'public',
-            },
+            options: { outputPath: 'public' },
           },
         ],
       },
@@ -76,11 +67,10 @@ module.exports = {
       cache: false,
     }),
     new webpack.EnvironmentPlugin(['API_URL']),
+    new webpack.ProvidePlugin({ process: 'process/browser' }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-    alias: {
-      _: path.resolve(__dirname, 'src'),
-    },
+    alias: { _: path.resolve(__dirname, 'src') },
   },
 }

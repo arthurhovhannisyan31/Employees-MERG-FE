@@ -10,7 +10,7 @@ export function a11yProps(index: number) {
 
 export const handleBookingGroups = (
   items: IBooking[],
-  categories: Record<string, number>
+  categories: Record<string, number>,
 ) => {
   const ranges = Object.entries(categories).map(([key, val], idx, arr) => {
     const isLast = idx + 1 === arr.length
@@ -23,7 +23,7 @@ export const handleBookingGroups = (
   return ranges.map((range) => [
     range.label,
     items.filter(
-      (el) => el.event.price >= range.min && el.event.price < range.max
+      (el) => el.event.price >= range.min && el.event.price < range.max,
     ).length,
   ])
 }

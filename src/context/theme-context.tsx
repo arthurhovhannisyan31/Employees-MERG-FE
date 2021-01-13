@@ -1,11 +1,7 @@
 // deps
 import React from 'react'
-// local
-
-interface IThemeContext {
-  darkMode: boolean
-  toggleTheme: () => void
-}
+// model
+import { IThemeContext } from '_/model/context/theme'
 
 const themeInitState = {
   darkMode: true,
@@ -15,7 +11,7 @@ const themeInitState = {
 const ThemeContext = React.createContext<IThemeContext>(themeInitState)
 
 const ThemeContextContainer: React.FC = ({ children }) => {
-  // useState
+  // state
   const [darkMode, setDarkMode] = React.useState(true)
 
   const toggleTheme = () => setDarkMode((val: boolean) => !val)

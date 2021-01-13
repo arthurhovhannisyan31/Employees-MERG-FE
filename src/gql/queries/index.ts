@@ -1,6 +1,13 @@
-import { ILogin } from '_/model/auth'
+// model
+import { GetEmployeeInput, GetEmployeesInput, UserInput } from '_/model/generated/graphql'
+// helpers
+import {
+  employeeFragment,
+  genderFragment,
+  employeeDetailsFragment,
+} from '_/gql/fragments'
 
-export const loginQuery = ({ email, password }: ILogin) => ({
+export const loginQuery = ({ email, password }: UserInput) => ({
   query: `
         query loginQuery($email: String!, $password: String!) {
           login(
@@ -18,57 +25,34 @@ export const loginQuery = ({ email, password }: ILogin) => ({
   },
 })
 
-export const getEvents = () => ({
+export const getEmployees = ({ limit, offset }: GetEmployeesInput) => ({
   query: `
-    query {
-      events{
-        _id
-        title
-        description
-        price
-        date
-        creator {
-          _id
-          email
-        }
-      }
-    }
-  `,
-})
-
-export const getBookings = () => ({
-  query: `
-    query {
-      bookings {
-        _id
-        createdAt
-        event {
-          _id
-          title
-          date
-          description
-          price
-        }
-      }
-    }
-  `,
-})
-
-export const getEmployees = () => ({
-  query: `
-    query {
-      employees {
+    query employees($limit: Int!, $offset: Int!) {
+      employees(input:{
+        limit: $limit, 
+        offset: $offset
+      }) {
         nodes {
-          _id
-          birth_date
-          first_name
-          last_name
-          hire_date
-          gender {
-            name
-          }
+          ${employeeFragment}
+          ${genderFragment}
         }
+        count
       }
     }
   `,
+  variables: {
+    limit,
+    offset,
+  },
+})
+
+export const getEmployee = ({ id }: GetEmployeeInput) => ({
+  query: `
+    query employee($id: ID!){
+      employee(input:{id: $id}){
+        ${employeeDetailsFragment}
+      }
+    }
+  `,
+  variables: { id },
 })

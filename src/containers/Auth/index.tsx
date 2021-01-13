@@ -15,36 +15,30 @@ import { loginQuery } from '_/gql/queries'
 import { signUp } from '_/gql/mutations'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    height: '100%',
-  },
-  paper: {
-    padding: theme.spacing(2),
-  },
-  headTitle: {
-    textAlign: 'center',
-  },
+  container: { height: '100%' },
+  paper: { padding: theme.spacing(2) },
+  headTitle: { textAlign: 'center' },
 }))
 
 const Auth: React.FC = () => {
-  // useRouter
+  // router
   const history = useHistory()
 
-  // useContext
+  // context
   const { login } = useContext(AuthContext)
 
-  // useState
+  // state
   const [authState, setAuthState] = useState<boolean>(false)
   const toggleAuthState = () => setAuthState((val: boolean) => !val)
 
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  // useStyles
+  // styles
   const classes = useStyles()
 
   const handleTextField = (type: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     switch (type) {
       case 'email':
@@ -72,9 +66,7 @@ const Auth: React.FC = () => {
         cache: 'no-cache',
         credentials: 'same-origin',
         body: JSON.stringify(authState ? signupBody : loginBody),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       })
       if (![200, 201].includes(res?.status)) {
         throw new Error('Failed!')
@@ -139,6 +131,7 @@ const Auth: React.FC = () => {
               value={password}
               onChange={handleTextField('password')}
               onKeyDown={handleKeyDown}
+              type="password"
             />
           </Grid>
           <Grid item container justify="space-between">

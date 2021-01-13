@@ -4,12 +4,10 @@ import React from 'react'
 
 // helpers
 
-const Index: React.FC = () => {
-  return (
-    <>
-      <span>About</span>
-    </>
-  )
-}
+const Index: React.FC = () => (
+  <>
+    <span>About</span>
+  </>
+)
 
 export default Index

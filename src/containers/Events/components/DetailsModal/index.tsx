@@ -55,7 +55,7 @@ const DetailsModal: React.FC<IProps> = ({
         <Typography className={classes.boldText}>
           ${eventDetailsData?.price?.toFixed(2)} -{' '}
           {new Date(
-            (eventDetailsData?.date as never) as Date
+            (eventDetailsData?.date as never) as Date,
           ).toLocaleDateString()}
         </Typography>
         <Typography>{eventDetailsData?.description}</Typography>
