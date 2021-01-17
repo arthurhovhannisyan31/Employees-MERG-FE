@@ -3,7 +3,7 @@ import React from 'react'
 import themeCreator from '_/theme'
 import { CssBaseline } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
-import Header from '_/containers/Header'
+import Header from '_/components/Header'
 import { ThemeProvider } from '@material-ui/core/styles'
 // helpers
 import { ThemeContext } from '_/context'

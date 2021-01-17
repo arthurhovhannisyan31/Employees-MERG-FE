@@ -1,43 +1,39 @@
 // deps
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { makeStyles, Theme } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 // components
+// model
+import { EAuthContextActions } from '_/model/context/auth';
 // helpers
 import { AuthContext } from '_/context'
 import storage from '_/utils/storage'
 import { loginQuery } from '_/gql/queries'
 import { signUp } from '_/gql/mutations'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: { height: '100%' },
-  paper: { padding: theme.spacing(2) },
-  headTitle: { textAlign: 'center' },
-}))
+import useStyles from './style'
 
 const Auth: React.FC = () => {
   // router
   const history = useHistory()
 
   // context
-  const { login } = useContext(AuthContext)
+  const { dispatch, errors: authErrors } = React.useContext(AuthContext)
 
   // state
-  const [authState, setAuthState] = useState<boolean>(false)
+  const [authState, setAuthState] = React.useState<boolean>(false)
   const toggleAuthState = () => setAuthState((val: boolean) => !val)
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = React.useState<string>('')
+  const [password, setPassword] = React.useState<string>('')
 
   // styles
-  const classes = useStyles()
+  const classes = useStyles({ hasError: !!authErrors?.length })
 
-  const handleTextField = (type: string) => (
+  const handleTextField = React.useCallback((type: string) => (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     switch (type) {
@@ -50,12 +46,18 @@ const Auth: React.FC = () => {
       default:
         break
     }
-  }
+  }, [])
 
-  const disableSubmit = !email?.trim() || !password?.trim()
   const apiUrl = process?.env?.API_URL || ''
+  const disableSubmit = React.useMemo(() => !email?.trim() || !password?.trim(), [email, password])
 
-  const handleSubmit = async () => {
+  const errorMessages = React.useMemo(() => authErrors?.map((err) => (
+    <Typography className={classes.errorMessage}>
+      {err.message}
+    </Typography>
+  )), [authErrors, classes.errorMessage])
+
+  const handleSubmit = React.useCallback(async () => {
     const loginBody = loginQuery({ email, password })
     const signupBody = signUp({ email, password })
 
@@ -77,11 +79,14 @@ const Auth: React.FC = () => {
           token: tokenValue,
           userId: userIdValue,
           tokenExpiration: tokenExpirationValue,
-        } = result?.data?.login
-        login({
-          token: tokenValue,
-          userId: userIdValue,
-          tokenExpiration: tokenExpirationValue,
+        } = result.data.login
+        dispatch({
+          type: EAuthContextActions.LOGIN,
+          payload: {
+            token: tokenValue,
+            userId: userIdValue,
+            tokenExpiration: tokenExpirationValue,
+          },
         })
         storage.set('token', tokenValue)
         storage.set('userId', userIdValue)
@@ -89,15 +94,18 @@ const Auth: React.FC = () => {
         history.push('/')
       }
     } catch (err) {
-      console.log(err)
+      dispatch({
+        type: EAuthContextActions.ERRORS,
+        payload: { errors: [err] },
+      })
     }
-  }
+  }, [authState, history, apiUrl, dispatch, email, password])
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && !disableSubmit) {
       handleSubmit()
     }
-  }
+  }, [handleSubmit, disableSubmit])
 
   return (
     <Grid
@@ -121,6 +129,7 @@ const Auth: React.FC = () => {
               value={email}
               onChange={handleTextField('email')}
               onKeyDown={handleKeyDown}
+              type="email"
             />
           </Grid>
           <Grid item>
@@ -133,6 +142,9 @@ const Auth: React.FC = () => {
               onKeyDown={handleKeyDown}
               type="password"
             />
+          </Grid>
+          <Grid item>
+            {errorMessages}
           </Grid>
           <Grid item container justify="space-between">
             <Button onClick={toggleAuthState}>

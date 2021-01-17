@@ -7,6 +7,8 @@ import Layout from '_/containers/Layout'
 import SnackbarComp from '_/components/UI/Snackbar'
 import BreadcrumbsComp from '_/components/UI/Breadcrumbs'
 import Backdrop from '_/components/UI/Backdrop'
+// model
+import { EAuthContextActions } from '_/model/context/auth';
 // helpers
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
@@ -16,17 +18,20 @@ import useStyles from './styles'
 
 const Root: React.FC = () => {
   // theme
-  const { token, login } = React.useContext(AuthContext)
+  const { token, dispatch } = React.useContext(AuthContext)
   // styles
   const classes = useStyles()
 
   if (!token && storage.get('token')) {
-    login({
-      token: storage.get('token') as string,
-      userId: storage.get('userId') as string,
-      tokenExpiration: +((storage.get(
-        'tokenExpirationtoken',
-      ) as unknown) as number),
+    dispatch({
+      type: EAuthContextActions.LOGIN,
+      payload: {
+        token: storage.get('token') as string,
+        userId: storage.get('userId') as string,
+        tokenExpiration: +((storage.get(
+          'tokenExpirationtoken',
+        ) as unknown) as number),
+      },
     })
   }
 

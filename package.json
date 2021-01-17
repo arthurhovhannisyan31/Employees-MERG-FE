@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "webpack serve",
+    "build": "webpack",
     "watch": "tsc -w",
     "codegen": "graphql-codegen --config codegen.yml",
     "lint": "eslint src/",
@@ -20,6 +21,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "^3.2.10",
+    "@material-ui/system": "^4.11.2",
     "axios": "^0.21.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.16.1",

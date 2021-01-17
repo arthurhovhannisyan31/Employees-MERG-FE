@@ -15,7 +15,10 @@ import LogOut from '@material-ui/icons/ExitToApp'
 import PersonIcon from '@material-ui/icons/Person'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
-// local
+// components
+// model
+import { EAuthContextActions } from '_/model/context/auth';
+// helpers
 import { AuthContext, ThemeContext } from '_/context'
 import storage from '_/utils/storage'
 
@@ -28,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Header: React.FC = () => {
   // context
   const { darkMode, toggleTheme } = React.useContext(ThemeContext)
-  const { token, logout, userId } = useContext(AuthContext)
+  const { token, dispatch: authDispatch, userId } = useContext(AuthContext)
   // state
   const classes = useStyles()
   const history = useHistory()
@@ -39,7 +42,7 @@ const Header: React.FC = () => {
   }
 
   const handleLogout = () => {
-    logout()
+    authDispatch({ type: EAuthContextActions.LOGOUT })
     storage.clear()
     history.push('/auth')
   }
