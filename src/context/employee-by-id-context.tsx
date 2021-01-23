@@ -40,6 +40,10 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
           [payload.key as string]: payload.data as Employee,
         },
       }
+    case 'updateItem':
+      return {
+        ...state,
+      }
     default:
       return state
   }

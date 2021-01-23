@@ -21,6 +21,7 @@ import { EmployeeByIdContext } from '_/context'
 import { AuthContext } from '_/context/auth-context'
 import { getEmployee } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
+import DetailsModal from '_/containers/Employee/components/DetailsModal'
 import { a11yProps } from './helpers'
 import useStyles from './style'
 
@@ -36,6 +37,7 @@ const EmployeePage: React.FC = () => {
   // state
   const [tab, setTab] = React.useState<number>(0)
   const employeeData = data?.[idParam]
+  const [currentModal, setCurrentModal] = React.useState('')
   // memo
   const handleChangeTab = React.useCallback(
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
@@ -79,6 +81,12 @@ const EmployeePage: React.FC = () => {
     },
     [apiUrl, dispatch, headers, idParam],
   )
+  const handleSetModal = React.useCallback(
+    (val: string) => () => {
+      setCurrentModal(val)
+    },
+    [],
+  )
 
   // todo update fields and delete profile
   // todo error message
@@ -91,6 +99,10 @@ const EmployeePage: React.FC = () => {
 
   return (
     <Grid container item className={classes.container} direction="column">
+      <DetailsModal
+        isOpen={currentModal === 'details'}
+        handleClose={handleSetModal('')}
+      />
       <Grid>
         {loading ? (
           <Grid container justify="center" className={classes.loadingIndicator}>

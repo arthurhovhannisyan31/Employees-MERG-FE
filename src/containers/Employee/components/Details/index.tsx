@@ -4,7 +4,10 @@ import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
 import format from 'date-fns/format'
+import cn from 'clsx'
 // components
 // model
 import { Employee } from '_/model/generated/graphql'
@@ -25,13 +28,18 @@ const Details: React.FC<TDetailsProps> = ({
 }) => {
   // utils
   const classes = useStyles()
-  console.log(hire_date)
-  console.log()
-
   return (
     <Grid container className={classes.container}>
       <Grid xs={4} className={classes.personal} container>
         <Paper>
+          <IconButton
+            className={cn(classes.editButton, '.editButton')}
+            onClick={() => {
+              console.log('IconButton click')
+            }}
+          >
+            <EditIcon />
+          </IconButton>
           <Grid container justify="center" className={classes.avatarContainer}>
             <Avatar
               alt={`${first_name} ${last_name}`}
