@@ -7,7 +7,7 @@
     "start:dev": "webpack serve",
     "build": "webpack",
     "watch": "tsc -w",
-    "codegen": "graphql-codegen --config codegen.yml",
+    "gentypes": "graphql-codegen --config codegen.yml",
     "lint": "eslint src/",
     "format": "eslint src/ --fix"
   },
