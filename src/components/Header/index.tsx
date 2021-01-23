@@ -35,7 +35,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Header: React.FC = () => {
   // context
   const { darkMode, toggleTheme } = React.useContext(ThemeContext)
-  const { token, dispatch: authDispatch, userId } = useContext(AuthContext)
+  const {
+    token,
+    dispatch: authDispatch,
+    userCredentials: { email },
+  } = useContext(AuthContext)
   // state
   const classes = useStyles()
   const history = useHistory()
@@ -95,7 +99,7 @@ const Header: React.FC = () => {
           </Grid>
           <Grid item>
             <Grid container alignItems="center">
-              <Typography>{userId}</Typography>
+              <Typography>{email}</Typography>
               <Switch checked={darkMode} onChange={toggleTheme} />
               {token ? (
                 <Tooltip title="Logout">

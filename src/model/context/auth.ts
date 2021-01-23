@@ -1,4 +1,7 @@
+// deps
 import React from 'react'
+// model
+import { AuthData } from '_/model/generated/graphql'
 
 export enum EAuthContextActions {
   LOGIN = 'LOGIN',
@@ -6,10 +9,8 @@ export enum EAuthContextActions {
   ERRORS = 'ERRORS',
 }
 
-export interface IAuthState {
-  token: string
-  userId: string
-  tokenExpiration: number
+export interface IAuthState
+  extends Pick<AuthData, 'token' | 'tokenExpiration' | 'userCredentials'> {
   errors?: Error[]
 }
 

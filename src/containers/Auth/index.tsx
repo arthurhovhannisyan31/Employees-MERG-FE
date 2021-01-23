@@ -83,19 +83,19 @@ const Auth: React.FC = () => {
       if (result?.data?.login?.token) {
         const {
           token: tokenValue,
-          userId: userIdValue,
+          userCredentials,
           tokenExpiration: tokenExpirationValue,
         } = result.data.login
         dispatch({
           type: EAuthContextActions.LOGIN,
           payload: {
             token: tokenValue,
-            userId: userIdValue,
+            userCredentials,
             tokenExpiration: tokenExpirationValue,
           },
         })
         storage.set('token', tokenValue)
-        storage.set('userId', userIdValue)
+        storage.set('userCredentials', JSON.stringify(userCredentials))
         storage.set('tokenExpiration', tokenExpirationValue)
         history.push('/')
       }

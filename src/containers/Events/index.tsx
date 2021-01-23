@@ -21,7 +21,10 @@ const Events: React.FC = () => {
   // useStyles
   const classes = useStyles()
   // useContext
-  const { token, userId } = React.useContext(AuthContext)
+  const {
+    token,
+    userCredentials: { id },
+  } = React.useContext(AuthContext)
   const {
     dispatch,
     state: { eventForm, eventDetails, events, loading },
@@ -68,7 +71,7 @@ const Events: React.FC = () => {
             ...createdEventData,
             creator: {
               ...createdEventData.creator,
-              _id: userId,
+              _id: id,
             },
           },
         })
@@ -78,7 +81,7 @@ const Events: React.FC = () => {
       }
       dispatch({ type: 'eventForm', prop: 'loading', payload: false })
     },
-    [apiUrl, headers, userId, dispatch],
+    [apiUrl, headers, id, dispatch],
   )
 
   const toggleModal = React.useCallback(

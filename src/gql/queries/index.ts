@@ -17,7 +17,10 @@ export const loginQuery = ({ email, password }: UserInput) => ({
           login(
             email: $email, 
             password: $password){
-              userId
+              userCredentials{
+                id
+                email
+              }
               token
               tokenExpiration
             } 

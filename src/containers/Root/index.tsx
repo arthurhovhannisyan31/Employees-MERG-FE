@@ -9,6 +9,7 @@ import BreadcrumbsComp from '_/components/UI/Breadcrumbs'
 import Backdrop from '_/components/UI/Backdrop'
 // model
 import { EAuthContextActions } from '_/model/context/auth'
+import { AuthData } from '_/model/generated/graphql'
 // helpers
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
@@ -23,15 +24,14 @@ const Root: React.FC = () => {
   const classes = useStyles()
 
   if (!token && storage.get('token')) {
+    const data: AuthData = {
+      token: storage.get('token') || '',
+      userCredentials: JSON.parse(storage.get('userCredentials') || ''),
+      tokenExpiration: +(storage.get('tokenExpirationtoken') || 0),
+    }
     dispatch({
       type: EAuthContextActions.LOGIN,
-      payload: {
-        token: storage.get('token') as string,
-        userId: storage.get('userId') as string,
-        tokenExpiration: +((storage.get(
-          'tokenExpirationtoken',
-        ) as unknown) as number),
-      },
+      payload: data,
     })
   }
 

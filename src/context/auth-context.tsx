@@ -11,7 +11,10 @@ import {
 
 const authContextInitValue: IAuthContext = {
   token: '',
-  userId: '',
+  userCredentials: {
+    email: '',
+    id: '',
+  },
   tokenExpiration: 0,
   headers: {},
   errors: [],
@@ -27,7 +30,10 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
       return {
         ...state,
         token: payload?.token ?? '',
-        userId: payload?.userId ?? '',
+        userCredentials: {
+          id: payload?.userCredentials?.id ?? '',
+          email: payload?.userCredentials?.email ?? '',
+        },
         tokenExpiration: payload?.tokenExpiration ?? 0,
       }
     }
@@ -35,7 +41,10 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
       return {
         ...state,
         token: '',
-        userId: '',
+        userCredentials: {
+          id: '',
+          email: '',
+        },
         tokenExpiration: 0,
       }
     }
@@ -57,7 +66,7 @@ const AuthContextContainer: React.FC = ({ children }) => {
     authContextInitValue,
   )
 
-  const { token, errors, tokenExpiration, userId } = state
+  const { token, errors, tokenExpiration, userCredentials } = state
 
   const headers = React.useMemo(
     () => ({
@@ -74,7 +83,7 @@ const AuthContextContainer: React.FC = ({ children }) => {
         dispatch,
         errors,
         tokenExpiration,
-        userId,
+        userCredentials,
         token,
       }}
     >
