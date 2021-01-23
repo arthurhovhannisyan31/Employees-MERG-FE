@@ -8,7 +8,7 @@ import SnackbarComp from '_/components/UI/Snackbar'
 import BreadcrumbsComp from '_/components/UI/Breadcrumbs'
 import Backdrop from '_/components/UI/Backdrop'
 // model
-import { EAuthContextActions } from '_/model/context/auth';
+import { EAuthContextActions } from '_/model/context/auth'
 // helpers
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
@@ -40,12 +40,17 @@ const Root: React.FC = () => {
       <SnackbarComp />
       <BreadcrumbsComp />
       <React.Suspense
-        fallback={(
-          <Grid container justify="center" alignItems="center" className={classes.loadingFallback}>
+        fallback={
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            className={classes.loadingFallback}
+          >
             <Backdrop />
             <CircularProgress />
           </Grid>
-        )}
+        }
       >
         <Switch>{routes}</Switch>
       </React.Suspense>

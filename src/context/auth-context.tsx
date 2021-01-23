@@ -4,10 +4,12 @@ import React from 'react'
 import {
   EAuthContextActions,
   IAuthContext,
-  IAuthReducerAction, IAuthState, TAuthReducer,
-} from '_/model/context/auth';
+  IAuthReducerAction,
+  IAuthState,
+  TAuthReducer,
+} from '_/model/context/auth'
 
-const authContextInitValue:IAuthContext = {
+const authContextInitValue: IAuthContext = {
   token: '',
   userId: '',
   tokenExpiration: 0,
@@ -18,10 +20,7 @@ const authContextInitValue:IAuthContext = {
 
 const AuthContext = React.createContext<IAuthContext>(authContextInitValue)
 
-const authContextReducer = (
-  state: IAuthState,
-  action: IAuthReducerAction,
-) => {
+const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
   const { type, payload } = action
   switch (type) {
     case EAuthContextActions.LOGIN: {
@@ -58,9 +57,7 @@ const AuthContextContainer: React.FC = ({ children }) => {
     authContextInitValue,
   )
 
-  const {
-    token, errors, tokenExpiration, userId,
-  } = state
+  const { token, errors, tokenExpiration, userId } = state
 
   const headers = React.useMemo(
     () => ({
@@ -73,7 +70,12 @@ const AuthContextContainer: React.FC = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        headers, dispatch, errors, tokenExpiration, userId, token,
+        headers,
+        dispatch,
+        errors,
+        tokenExpiration,
+        userId,
+        token,
       }}
     >
       {children}

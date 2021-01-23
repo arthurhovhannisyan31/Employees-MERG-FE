@@ -24,9 +24,7 @@ const Events: React.FC = () => {
   const { token, userId } = React.useContext(AuthContext)
   const {
     dispatch,
-    state: {
-      eventForm, eventDetails, events, loading,
-    },
+    state: { eventForm, eventDetails, events, loading },
   } = React.useContext(EventsContext)
 
   const headers = {
@@ -37,9 +35,7 @@ const Events: React.FC = () => {
 
   const handleConfirmEventForm = React.useCallback(
     async (
-      {
-        date, description, price, title,
-      }: IEventFormFields,
+      { date, description, price, title }: IEventFormFields,
       resetForm,
     ) => {
       dispatch({ type: 'eventForm', prop: 'loading', payload: true })

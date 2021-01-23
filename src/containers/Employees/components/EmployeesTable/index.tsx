@@ -17,11 +17,11 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Avatar from '@material-ui/core/Avatar'
 // components
 import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/components/CustomPagingPanel'
-import Backdrop from '_/components/UI/Backdrop';
+import Backdrop from '_/components/UI/Backdrop'
 // model
 import { IEmployeesTableRow } from '_/containers/Employees/types'
-import { TEmployeesAction } from '_/model/context/employees';
-import { Employee } from '_/model/generated/graphql';
+import { TEmployeesAction } from '_/model/context/employees'
+import { Employee } from '_/model/generated/graphql'
 // helpers
 import {
   initColumns,
@@ -55,7 +55,7 @@ const EmployeesTable: React.FC<IProps> = ({
   data,
 }) => {
   // styles
-  const cls = useStyles();
+  const cls = useStyles()
   // route
   const history = useHistory()
 
@@ -63,7 +63,9 @@ const EmployeesTable: React.FC<IProps> = ({
 
   // state
   const [columns] = React.useState(initColumns)
-  const [rows, setRows] = React.useState<IEmployeesTableRow[]>(data?.map(rowsSelector))
+  const [rows, setRows] = React.useState<IEmployeesTableRow[]>(
+    data?.map(rowsSelector),
+  )
   const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>(
     initColumnExtensions,
   )
@@ -80,7 +82,10 @@ const EmployeesTable: React.FC<IProps> = ({
   const handleChangeColumnOrder = React.useCallback(setColumnOrder, [
     setColumnOrder,
   ])
-  const handleRedirectProfile = React.useCallback((id: string) => () => history.push(`/employees/${id}`), [history])
+  const handleRedirectProfile = React.useCallback(
+    (id: string) => () => history.push(`/employees/${id}`),
+    [history],
+  )
   // containers
   const pagingContainer = React.useCallback(
     (props: PagingPanel.ContainerProps) => {
@@ -88,11 +93,7 @@ const EmployeesTable: React.FC<IProps> = ({
         ...props,
         totalCount: count,
       }
-      return (
-        <CustomPagingPanel
-          {...newProps}
-        />
-      )
+      return <CustomPagingPanel {...newProps} />
     },
     [count],
   )
@@ -106,7 +107,11 @@ const EmployeesTable: React.FC<IProps> = ({
       case 'avatar':
         return (
           <Table.Cell {...props}>
-            <Avatar variant="rounded" onClick={handleRedirectProfile(id)} className={cls.avatar}>
+            <Avatar
+              variant="rounded"
+              onClick={handleRedirectProfile(id)}
+              className={cls.avatar}
+            >
               {getAvatarLetters(firstName, lastName)}
             </Avatar>
           </Table.Cell>
@@ -118,14 +123,19 @@ const EmployeesTable: React.FC<IProps> = ({
 
   React.useEffect(() => {
     if (data.length) {
-      setRows(data?.map(rowsSelector));
+      setRows(data?.map(rowsSelector))
     }
   }, [data])
 
   return (
     <Paper className={cls.container}>
       {loading && (
-        <MUIGrid container justify="center" className={cls.loadingSplash} alignItems="center">
+        <MUIGrid
+          container
+          justify="center"
+          className={cls.loadingSplash}
+          alignItems="center"
+        >
           <Backdrop isAbsolute />
           <CircularProgress />
         </MUIGrid>

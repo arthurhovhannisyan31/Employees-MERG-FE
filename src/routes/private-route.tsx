@@ -20,13 +20,15 @@ const PrivateRoute: React.FC<IRoute> = ({
   return (
     <Route
       {...params}
-      render={(props) => (isAuthorized ? (
-      // eslint-disable-next-line
+      render={(props) =>
+        isAuthorized ? (
+          // eslint-disable-next-line
           // @ts-ignore
-        <Component {...props} />
-      ) : (
-        <Redirect to={CONSTANTS.ROUTES.AUTH} />
-      ))}
+          <Component {...props} />
+        ) : (
+          <Redirect to={CONSTANTS.ROUTES.AUTH} />
+        )
+      }
     />
   )
 }

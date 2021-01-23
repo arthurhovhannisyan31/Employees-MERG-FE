@@ -13,8 +13,11 @@ import BookingList from '_/containers/Bookings/components/BookingList'
 import BookingCharts from '_/containers/Bookings/components/BookingCharts'
 // helpers
 import { IBookingAction, IBookingsState } from '_/containers/Bookings/types'
+// @ts-ignore
 import { IBooking } from '_/types'
+// @ts-ignore
 import { getBookings } from '_/gql/queries'
+// @ts-ignore
 import { cancelBooking } from '_/gql/mutations'
 import { AuthContext } from '_/context'
 import { a11yProps } from '_/containers/Bookings/helpers'

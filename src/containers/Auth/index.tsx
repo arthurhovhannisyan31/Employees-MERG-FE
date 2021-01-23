@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 // components
 // model
-import { EAuthContextActions } from '_/model/context/auth';
+import { EAuthContextActions } from '_/model/context/auth'
 // helpers
 import { AuthContext } from '_/context'
 import storage from '_/utils/storage'
@@ -33,29 +33,35 @@ const Auth: React.FC = () => {
   // styles
   const classes = useStyles({ hasError: !!authErrors?.length })
 
-  const handleTextField = React.useCallback((type: string) => (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    switch (type) {
-      case 'email':
-        setEmail(event.target.value)
-        break
-      case 'password':
-        setPassword(event.target.value)
-        break
-      default:
-        break
-    }
-  }, [])
+  const handleTextField = React.useCallback(
+    (type: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      switch (type) {
+        case 'email':
+          setEmail(event.target.value)
+          break
+        case 'password':
+          setPassword(event.target.value)
+          break
+        default:
+          break
+      }
+    },
+    [],
+  )
 
   const apiUrl = process?.env?.API_URL || ''
-  const disableSubmit = React.useMemo(() => !email?.trim() || !password?.trim(), [email, password])
+  const disableSubmit = React.useMemo(
+    () => !email?.trim() || !password?.trim(),
+    [email, password],
+  )
 
-  const errorMessages = React.useMemo(() => authErrors?.map((err) => (
-    <Typography className={classes.errorMessage}>
-      {err.message}
-    </Typography>
-  )), [authErrors, classes.errorMessage])
+  const errorMessages = React.useMemo(
+    () =>
+      authErrors?.map((err) => (
+        <Typography className={classes.errorMessage}>{err.message}</Typography>
+      )),
+    [authErrors, classes.errorMessage],
+  )
 
   const handleSubmit = React.useCallback(async () => {
     const loginBody = loginQuery({ email, password })
@@ -101,11 +107,14 @@ const Auth: React.FC = () => {
     }
   }, [authState, history, apiUrl, dispatch, email, password])
 
-  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' && !disableSubmit) {
-      handleSubmit()
-    }
-  }, [handleSubmit, disableSubmit])
+  const handleKeyDown = React.useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === 'Enter' && !disableSubmit) {
+        handleSubmit()
+      }
+    },
+    [handleSubmit, disableSubmit],
+  )
 
   return (
     <Grid
@@ -143,9 +152,7 @@ const Auth: React.FC = () => {
               type="password"
             />
           </Grid>
-          <Grid item>
-            {errorMessages}
-          </Grid>
+          <Grid item>{errorMessages}</Grid>
           <Grid item container justify="space-between">
             <Button onClick={toggleAuthState}>
               {authState ? 'Login' : 'Sign up'}

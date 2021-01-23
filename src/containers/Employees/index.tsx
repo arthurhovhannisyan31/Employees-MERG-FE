@@ -16,14 +16,15 @@ const EmployeesPage: React.FC = () => {
   // context
   const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
-  const {
-    error, loading, data, count,
-  } = state
+  const { error, loading, data, count } = state
   // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
   // memo
-  const key = React.useMemo(() => `${pageSize}-${currentPage}`, [pageSize, currentPage]);
+  const key = React.useMemo(() => `${pageSize}-${currentPage}`, [
+    pageSize,
+    currentPage,
+  ])
   const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
@@ -38,8 +39,11 @@ const EmployeesPage: React.FC = () => {
           headers,
         })
         fetchResponseCheck(res?.status)
-        const { data: { employees: { nodes, count: quantity } } }: TEmployeesFetchResponse =
-          await res.json()
+        const {
+          data: {
+            employees: { nodes, count: quantity },
+          },
+        }: TEmployeesFetchResponse = await res.json()
         dispatch({
           type: 'data',
           payload: {
@@ -64,7 +68,7 @@ const EmployeesPage: React.FC = () => {
     },
     [apiUrl, dispatch, headers, key],
   )
-  const slice = React.useMemo(() => data?.[key] || [], [key, data]);
+  const slice = React.useMemo(() => data?.[key] || [], [key, data])
 
   React.useEffect(() => {
     if (!slice.length) {

@@ -17,15 +17,19 @@ import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
 // components
 // model
-import { EAuthContextActions } from '_/model/context/auth';
+import { EAuthContextActions } from '_/model/context/auth'
 // helpers
 import { AuthContext, ThemeContext } from '_/context'
 import storage from '_/utils/storage'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {},
-  link: { color: 'white' },
-  activeLink: { color: theme.palette.secondary.main },
+  link: {
+    color: 'white',
+  },
+  activeLink: {
+    color: theme.palette.secondary.main,
+  },
 }))
 
 const Header: React.FC = () => {
@@ -42,7 +46,9 @@ const Header: React.FC = () => {
   }
 
   const handleLogout = () => {
-    authDispatch({ type: EAuthContextActions.LOGOUT })
+    authDispatch({
+      type: EAuthContextActions.LOGOUT,
+    })
     storage.clear()
     history.push('/auth')
   }
@@ -58,7 +64,9 @@ const Header: React.FC = () => {
               <Tooltip title="Home">
                 <Button
                   onClick={() => history.push('/')}
-                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/' })}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/',
+                  })}
                 >
                   <HomeIcon />
                 </Button>
@@ -66,7 +74,9 @@ const Header: React.FC = () => {
               <Tooltip title="Employees">
                 <Button
                   onClick={() => history.push('/employees')}
-                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/employees' })}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/employees',
+                  })}
                 >
                   <PeopleIcon />
                 </Button>
@@ -74,7 +84,9 @@ const Header: React.FC = () => {
               <Tooltip title="About">
                 <Button
                   onClick={() => history.push('/about')}
-                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/about' })}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/about',
+                  })}
                 >
                   <AboutIcon />
                 </Button>

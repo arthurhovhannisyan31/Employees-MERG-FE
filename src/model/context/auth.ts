@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 export enum EAuthContextActions {
-  LOGIN= 'LOGIN',
+  LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
   ERRORS = 'ERRORS',
 }
@@ -18,7 +18,10 @@ export interface IAuthContext extends IAuthState {
   dispatch: React.Dispatch<IAuthReducerAction>
 }
 
-export type TAuthReducer = (prevState: IAuthState, action: IAuthReducerAction) => IAuthState
+export type TAuthReducer = (
+  prevState: IAuthState,
+  action: IAuthReducerAction,
+) => IAuthState
 
 export interface IAuthReducerAction {
   type: EAuthContextActions

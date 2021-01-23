@@ -6,17 +6,19 @@ import { IAction } from '_/model/store'
 
 export interface IEmployeesState {
   loading: boolean
-  error: Record<string, string>|null
+  error: Record<string, string> | null
   data: Record<string, Employee[]>
   count: number
 }
 // todo refactor types
 export type TEmployeesAction = IAction<
-Partial<Omit<IEmployeesState, 'data'>&{data: Employee[], key: string}>
+  Partial<Omit<IEmployeesState, 'data'> & { data: Employee[]; key: string }>
 >
 
-export type TEmployeesReducer =
-  (prevState: IEmployeesState, action: TEmployeesAction) => IEmployeesState
+export type TEmployeesReducer = (
+  prevState: IEmployeesState,
+  action: TEmployeesAction,
+) => IEmployeesState
 
 export interface IEmployeesContext {
   state: IEmployeesState

@@ -1,5 +1,9 @@
 // model
-import { GetEmployeeInput, GetEmployeesInput, UserInput } from '_/model/generated/graphql'
+import {
+  GetEmployeeInput,
+  GetEmployeesInput,
+  UserInput,
+} from '_/model/generated/graphql'
 // helpers
 import {
   employeeFragment,

@@ -1,8 +1,12 @@
 // deps
 import React from 'react'
 // model
-import { IEmployeeByIdState, IEmployeeByIdContext, TEmployeeByIdReducer } from '_/model/context/employee'
-import { Employee } from '_/model/generated/graphql';
+import {
+  IEmployeeByIdState,
+  IEmployeeByIdContext,
+  TEmployeeByIdReducer,
+} from '_/model/context/employee'
+import { Employee } from '_/model/generated/graphql'
 
 const employeeByIdInitState: IEmployeeByIdState = {
   loading: false,
@@ -15,11 +19,11 @@ const EmployeeByIdContextInitState: IEmployeeByIdContext = {
   dispatch: () => {},
 }
 
-const EmployeeByIdContext = React.createContext<IEmployeeByIdContext>(EmployeeByIdContextInitState)
+const EmployeeByIdContext = React.createContext<IEmployeeByIdContext>(
+  EmployeeByIdContextInitState,
+)
 // todo refactor types
-const employeeByIdReducer: TEmployeeByIdReducer = (
-  state, action,
-) => {
+const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
     case 'loading':
