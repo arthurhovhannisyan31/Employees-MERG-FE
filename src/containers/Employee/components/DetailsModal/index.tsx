@@ -8,6 +8,7 @@ import { useFormik } from 'formik'
 // components
 import NumberFormatCustom from '_/containers/Events/components/NumberFormatCustom'
 import Modal from '_/components/UI/Modal'
+import Dialog from '_/components/UI/Dialog'
 // model
 // helpers
 import useStyles from './styles'
@@ -21,12 +22,19 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
   isOpen,
   handleClose,
 }) => {
-  const classes = useStyles()
+  const cls = useStyles()
 
   return (
-    <>
-      <span>modal</span>
-    </>
+    <Modal isOpen={isOpen} onClose={handleClose}>
+      <Dialog onCancel={handleClose}>
+        <Grid container className={cls.container}>
+          <Typography>Employee form</Typography>
+          <div className={cls.fieldsGrid}>
+            <span>fields goes here</span>
+          </div>
+        </Grid>
+      </Dialog>
+    </Modal>
   )
 }
 

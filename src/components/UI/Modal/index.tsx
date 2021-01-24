@@ -7,12 +7,12 @@ import Backdrop from '_/components/UI/Backdrop'
 // helpers
 import useStyles from './style'
 
-interface IProps {
+interface IModalProps {
   isOpen?: boolean
   onClose?: () => void
 }
 
-const Modal: React.FC<IProps> = ({ isOpen, children, onClose }) => {
+const Modal: React.FC<IModalProps> = ({ isOpen, children, onClose }) => {
   const [openState, setOpenState] = React.useState(isOpen)
   const cls = useStyles()
   const handleClose = () => {

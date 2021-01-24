@@ -127,7 +127,10 @@ const EmployeePage: React.FC = () => {
                   </Tabs>
                 </AppBar>
                 <TabPanel value={tab} index={0}>
-                  <Details {...employeeData} />
+                  <Details
+                    handleOpenModal={handleSetModal('details')}
+                    {...employeeData}
+                  />
                 </TabPanel>
                 <TabPanel value={tab} index={1}>
                   <Paychecks />

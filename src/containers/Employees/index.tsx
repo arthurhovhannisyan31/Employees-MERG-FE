@@ -8,7 +8,7 @@ import EmployeesTable from '_/containers/Employees/components/EmployeesTable'
 import { GetEmployeesInput } from '_/model/generated/graphql'
 import { TEmployeesFetchResponse } from '_/containers/Employees/types'
 // helpers
-import { AuthContext, EmployeesContext } from '_/context'
+import { AuthContext, EmployeesContext, SnackbarContext } from '_/context'
 import { getEmployees } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
 
@@ -17,6 +17,7 @@ const EmployeesPage: React.FC = () => {
   const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
   const { error, loading, data, count } = state
+  const { setSnackbarState } = React.useContext(SnackbarContext)
   // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
@@ -56,6 +57,11 @@ const EmployeesPage: React.FC = () => {
           payload: { count: quantity },
         })
       } catch (err) {
+        setSnackbarState({
+          type: 'error',
+          message: err.message,
+          open: true,
+        })
         dispatch({
           type: 'error',
           payload: { error: err },
@@ -69,6 +75,8 @@ const EmployeesPage: React.FC = () => {
     [apiUrl, dispatch, headers, key],
   )
   const slice = React.useMemo(() => data?.[key] || [], [key, data])
+
+  console.log(error)
 
   React.useEffect(() => {
     if (!slice.length) {

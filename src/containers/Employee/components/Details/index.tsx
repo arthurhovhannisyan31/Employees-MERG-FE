@@ -15,9 +15,12 @@ import { Employee } from '_/model/generated/graphql'
 import { getFirstLastNameLetters } from '_/utils/string'
 import useStyles from './style'
 
-type TDetailsProps = Omit<Employee, 'titles' | 'paychecks' | 'employments'>
+interface IDetailsProps
+  extends Omit<Employee, 'titles' | 'paychecks' | 'employments'> {
+  handleOpenModal: () => void
+}
 
-const Details: React.FC<TDetailsProps> = ({
+const Details: React.FC<IDetailsProps> = ({
   title,
   birth_date,
   department,
@@ -25,6 +28,7 @@ const Details: React.FC<TDetailsProps> = ({
   gender,
   hire_date,
   last_name,
+  handleOpenModal,
 }) => {
   // utils
   const classes = useStyles()
@@ -34,9 +38,7 @@ const Details: React.FC<TDetailsProps> = ({
         <Paper>
           <IconButton
             className={cn(classes.editButton, '.editButton')}
-            onClick={() => {
-              console.log('IconButton click')
-            }}
+            onClick={handleOpenModal}
           >
             <EditIcon />
           </IconButton>
