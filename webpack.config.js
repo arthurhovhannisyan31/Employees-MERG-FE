@@ -29,7 +29,15 @@ module.exports = {
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
     realContentHash: true,
-    splitChunks: { chunks: 'all' },
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
   devServer: {
     host: 'localhost',
@@ -47,7 +55,7 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /node_modules|lib/,
+        exclude: [/node_modules/],
         test: /\.(ts|js)x?$/,
         use: { loader: 'babel-loader' },
       },
@@ -80,6 +88,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
       cache: false,
+      favicon: path.resolve(__dirname, 'src/static/img', 'favicon.ico'),
     }),
     new webpack.EnvironmentPlugin(['API_URL']),
     new webpack.ProvidePlugin({ process: 'process/browser' }),

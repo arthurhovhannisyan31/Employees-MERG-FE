@@ -14,14 +14,11 @@ import Employments from '_/containers/Employee/components/Employments'
 import Paychecks from '_/containers/Employee/components/Paychecks'
 import Titles from '_/containers/Employee/components/Titles'
 // model
-import { GetEmployeeInput } from '_/model/generated/graphql'
-import { TEmployeeFetchResponse } from '_/containers/Employee/types'
 // helpers
 import { EmployeeByIdContext } from '_/context'
-import { AuthContext } from '_/context/auth-context'
-import { getEmployee } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
 import DetailsModal from '_/containers/Employee/components/DetailsModal'
+import { useGetEmployee } from '_/containers/Employee/hooks'
+import { useSubmitEmployeeModal } from '_/containers/Employee/hooks/useSubmitEmployeeModal'
 import { a11yProps } from './helpers'
 import useStyles from './style'
 
@@ -29,9 +26,7 @@ const EmployeePage: React.FC = () => {
   // utils
   const classes = useStyles()
   const { id: idParam } = useParams<Record<'id', string>>()
-  const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
   // context
-  const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeeByIdContext)
   const { data, loading, error } = state
   // state
@@ -45,48 +40,15 @@ const EmployeePage: React.FC = () => {
     },
     [],
   )
-  const handleGetEmployee = React.useCallback(
-    async ({ id }: GetEmployeeInput) => {
-      dispatch({
-        type: 'loading',
-        payload: { loading: true },
-      })
-      try {
-        const res = await fetch(apiUrl, {
-          method: 'POST',
-          body: JSON.stringify(getEmployee({ id })),
-          headers,
-        })
-        fetchResponseCheck(res?.status)
-        const {
-          data: { employee },
-        }: TEmployeeFetchResponse = await res.json()
-        dispatch({
-          type: 'data',
-          payload: {
-            data: employee,
-            key: idParam,
-          },
-        })
-      } catch (err) {
-        dispatch({
-          type: 'error',
-          payload: { error: err },
-        })
-      }
-      dispatch({
-        type: 'loading',
-        payload: { loading: false },
-      })
-    },
-    [apiUrl, dispatch, headers, idParam],
-  )
   const handleSetModal = React.useCallback(
     (val: string) => () => {
       setCurrentModal(val)
     },
     [],
   )
+
+  const [handleGetEmployee] = useGetEmployee({ dispatch })
+  const [handleEmployeeSubmit] = useSubmitEmployeeModal()
 
   // todo update fields and delete profile
   // todo error message
@@ -99,12 +61,8 @@ const EmployeePage: React.FC = () => {
 
   return (
     <Grid container item className={classes.container} direction="column">
-      <DetailsModal
-        isOpen={currentModal === 'details'}
-        handleClose={handleSetModal('')}
-      />
       <Grid>
-        {loading ? (
+        {loading || !employeeData ? (
           <Grid container justify="center" className={classes.loadingIndicator}>
             <CircularProgress size={20} />
           </Grid>
@@ -114,6 +72,12 @@ const EmployeePage: React.FC = () => {
               <Typography>Error message</Typography>
             ) : (
               <>
+                <DetailsModal
+                  isOpen={currentModal === 'details'}
+                  handleClose={handleSetModal('')}
+                  data={employeeData}
+                  onSubmit={handleEmployeeSubmit}
+                />
                 <AppBar position="static">
                   <Tabs
                     value={tab}

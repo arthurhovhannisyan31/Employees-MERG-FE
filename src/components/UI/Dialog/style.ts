@@ -4,7 +4,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 export default makeStyles((theme: Theme) => ({
   container: {
     maxWidth: '90vw',
-    width: theme.spacing(50),
+  },
+  paper: {
+    width: '100%',
   },
   content: { padding: theme.spacing(1) },
   header: {

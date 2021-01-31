@@ -32,7 +32,7 @@ const Dialog: React.FC<IDialogProps> = ({
 
   return (
     <Grid container className={cls.container}>
-      <Paper>
+      <Paper className={cls.paper}>
         <Grid container direction="column">
           {title && (
             <header className={cls.header}>

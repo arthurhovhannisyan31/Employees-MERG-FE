@@ -5,8 +5,9 @@
 
 // todo add husky and pre-commit formatting
 
+// todo cut build time
 // todo add token expiration
-
+// todo add tests
 // todo exclude fetch to custom function
 
 // todo analytics
@@ -24,5 +25,3 @@
 // new route, get design from material-ui examples page
 // add google login form:
 // todo update styles
-
-// todo remove all old types, use generated types

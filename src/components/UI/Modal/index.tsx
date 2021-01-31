@@ -10,15 +10,23 @@ import useStyles from './style'
 interface IModalProps {
   isOpen?: boolean
   onClose?: () => void
+  disableClickAway: boolean
 }
 
-const Modal: React.FC<IModalProps> = ({ isOpen, children, onClose }) => {
+const Modal: React.FC<IModalProps> = ({
+  isOpen,
+  children,
+  onClose,
+  disableClickAway,
+}) => {
   const [openState, setOpenState] = React.useState(isOpen)
   const cls = useStyles()
   const handleClose = () => {
-    setOpenState(false)
-    if (onClose) {
-      onClose()
+    if (!disableClickAway) {
+      setOpenState(false)
+      if (onClose) {
+        onClose()
+      }
     }
   }
 
