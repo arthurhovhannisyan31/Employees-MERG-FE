@@ -54,14 +54,11 @@ const EmployeesTable: React.FC<IProps> = ({
   count,
   data,
 }) => {
-  // styles
   const cls = useStyles()
-  // route
+
   const history = useHistory()
 
   // todo add create an employee
-
-  // state
   const [columns] = React.useState(initColumns)
   const [rows, setRows] = React.useState<IEmployeesTableRow[]>(
     data?.map(rowsSelector),
@@ -69,12 +66,12 @@ const EmployeesTable: React.FC<IProps> = ({
   const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>(
     initColumnExtensions,
   )
-  // memo
+
   const initColumnsOrder = React.useMemo(() => getInitColumnsOrder(), [])
   const [columnOrder, setColumnOrder] = React.useState<string[]>(
     initColumnsOrder,
   )
-  // handlers
+
   const handleChangePageSize = React.useCallback(setPageSize, [setPageSize])
   const handleChangeCurrentPage = React.useCallback(setCurrentPage, [
     setCurrentPage,
@@ -86,7 +83,7 @@ const EmployeesTable: React.FC<IProps> = ({
     (id: string) => () => history.push(`/employees/${id}`),
     [history],
   )
-  // containers
+
   const pagingContainer = React.useCallback(
     (props: PagingPanel.ContainerProps) => {
       const newProps = {

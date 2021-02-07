@@ -29,15 +29,12 @@ interface IProps {
 }
 
 const EventsList: React.FC<IProps> = ({ events, handleOpenDetails }) => {
-  // useContext
   const {
     userCredentials: { id },
   } = React.useContext(AuthContext)
 
-  // useStyles
   const classes = useStyles()
 
-  // useState
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
 

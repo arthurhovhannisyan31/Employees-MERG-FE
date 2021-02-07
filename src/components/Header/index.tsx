@@ -33,14 +33,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Header: React.FC = () => {
-  // context
   const { darkMode, toggleTheme } = React.useContext(ThemeContext)
   const {
     token,
     dispatch: authDispatch,
     userCredentials: { email },
   } = useContext(AuthContext)
-  // state
+
   const classes = useStyles()
   const history = useHistory()
   const location = useLocation()

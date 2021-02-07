@@ -17,20 +17,16 @@ import { signUp } from '_/gql/mutations'
 import useStyles from './style'
 
 const Auth: React.FC = () => {
-  // router
   const history = useHistory()
 
-  // context
   const { dispatch, errors: authErrors } = React.useContext(AuthContext)
 
-  // state
   const [authState, setAuthState] = React.useState<boolean>(false)
   const toggleAuthState = () => setAuthState((val: boolean) => !val)
 
   const [email, setEmail] = React.useState<string>('')
   const [password, setPassword] = React.useState<string>('')
 
-  // styles
   const classes = useStyles({ hasError: !!authErrors?.length })
 
   const handleTextField = React.useCallback(

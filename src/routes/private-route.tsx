@@ -12,7 +12,6 @@ const PrivateRoute: React.FC<IRoute> = ({
   component: Component,
   ...params
 }) => {
-  // context
   const { token } = useContext(AuthContext)
 
   const isAuthorized = token || storage.get('token')

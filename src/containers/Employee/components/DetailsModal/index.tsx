@@ -78,6 +78,36 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     },
   })
 
+  const handleChangeText = React.useCallback(
+    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFieldValue(field, event.target.value)
+    },
+    [setFieldValue],
+  )
+
+  const handleChangeDate = React.useCallback(
+    (field: string) => (dateValue: Date | null) => {
+      setFieldValue(field, dateValue)
+    },
+    [setFieldValue],
+  )
+
+  //   const handleSaveOnBlur = React.useCallback(
+  //     (e: React.FocusEvent<never>) => {
+  //       handleBlur(e)
+  //       dispatch({ type: 'eventForm', payload: values })
+  //     },
+  //     [handleBlur, dispatch, values],
+  //   )
+
+  //   const handleCancel = React.useCallback(() => {
+  //     handleClose()
+  //     dispatch({ type: 'eventFormReset' })
+  //     resetForm({})
+  //   }, [handleClose, dispatch, resetForm])
+
+  // const disableConfirm = !(isValid && values?.title)
+
   return (
     <Modal isOpen={isOpen} onClose={handleClose} disableClickAway>
       <Dialog onCancel={handleClose}>
@@ -157,6 +187,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               // onChange={handleChange}
               error={!!(errors.title && touched.title)}
               helperText={errors.title}
+              variant="outlined"
               SelectProps={{
                 MenuProps: {
                   anchorOrigin: {
@@ -182,6 +213,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               // onChange={handleChange}
               error={!!(errors.department && touched.department)}
               helperText={errors.department}
+              variant="outlined"
               SelectProps={{
                 MenuProps: {
                   anchorOrigin: {
