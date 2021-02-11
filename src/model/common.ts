@@ -3,3 +3,8 @@ export interface IModule extends NodeModule {
     accept: (str: string, node: () => void) => void
   }
 }
+
+export interface IFetchError {
+  message: string
+  statusCode: number
+}

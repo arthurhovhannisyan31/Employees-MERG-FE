@@ -15,6 +15,7 @@ import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
 import storage from '_/utils/storage'
 import Grid from '@material-ui/core/Grid'
+import { useCheckAuthorization } from '_/containers/Root/hooks'
 import useStyles from './styles'
 
 const Root: React.FC = () => {
@@ -22,17 +23,24 @@ const Root: React.FC = () => {
 
   const classes = useStyles()
 
+  const [handleCheckAuthorization] = useCheckAuthorization()
+
   if (!token && storage.get('token')) {
     const data: AuthData = {
       token: storage.get('token') || '',
       userCredentials: JSON.parse(storage.get('userCredentials') || ''),
-      tokenExpiration: +(storage.get('tokenExpirationtoken') || 0),
     }
     dispatch({
       type: EAuthContextActions.LOGIN,
       payload: data,
     })
   }
+
+  React.useEffect(() => {
+    if (token) {
+      handleCheckAuthorization()
+    }
+  }, [token])
 
   return (
     <Layout>

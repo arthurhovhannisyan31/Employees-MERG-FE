@@ -9,6 +9,7 @@ import {
   employeeFragment,
   genderFragment,
   employeeDetailsFragment,
+  userCredentials,
 } from '_/gql/fragments'
 
 export const loginQuery = ({ email, password }: UserInput) => ({
@@ -17,13 +18,12 @@ export const loginQuery = ({ email, password }: UserInput) => ({
           login(
             email: $email, 
             password: $password){
-              userCredentials{
-                id
-                email
-              }
-              token
-              tokenExpiration
-            } 
+            userCredentials{
+              id
+              email
+            }
+            token
+          } 
         }
       `,
   variables: {
@@ -62,4 +62,12 @@ export const getEmployee = ({ id }: GetEmployeeInput) => ({
     }
   `,
   variables: { id },
+})
+
+export const getMe = () => ({
+  query: `
+    query me {
+      ${userCredentials}
+    }
+  `,
 })

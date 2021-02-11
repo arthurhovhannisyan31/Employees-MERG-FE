@@ -87,7 +87,6 @@ const Auth: React.FC = () => {
           payload: {
             token: tokenValue,
             userCredentials,
-            tokenExpiration: tokenExpirationValue,
           },
         })
         storage.set('token', tokenValue)

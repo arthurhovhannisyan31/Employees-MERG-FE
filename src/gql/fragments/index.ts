@@ -48,6 +48,12 @@ export const employmentsFragment = `
     ${employmentFragment}
   }
 `
+export const userCredentials = `
+  me {
+    id
+    email
+  }
+`
 export const employeeDetailsFragment = `
   ${employeeFragment}
   ${genderFragment}

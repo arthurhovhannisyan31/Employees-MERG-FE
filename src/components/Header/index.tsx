@@ -1,5 +1,5 @@
 // deps
-import React, { useContext } from 'react'
+import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
@@ -15,12 +15,9 @@ import LogOut from '@material-ui/icons/ExitToApp'
 import PersonIcon from '@material-ui/icons/Person'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
-// components
-// model
-import { EAuthContextActions } from '_/model/context/auth'
 // helpers
 import { AuthContext, ThemeContext } from '_/context'
-import storage from '_/utils/storage'
+import { useLogout } from '_/utils/hooks'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {},
@@ -36,26 +33,18 @@ const Header: React.FC = () => {
   const { darkMode, toggleTheme } = React.useContext(ThemeContext)
   const {
     token,
-    dispatch: authDispatch,
     userCredentials: { email },
-  } = useContext(AuthContext)
+  } = React.useContext(AuthContext)
 
   const classes = useStyles()
   const history = useHistory()
   const location = useLocation()
 
+  const [handleLogout] = useLogout()
+
   const handleLogin = () => {
     history.push('/auth')
   }
-
-  const handleLogout = () => {
-    authDispatch({
-      type: EAuthContextActions.LOGOUT,
-    })
-    storage.clear()
-    history.push('/auth')
-  }
-
   // todo nav bar props array
 
   return (

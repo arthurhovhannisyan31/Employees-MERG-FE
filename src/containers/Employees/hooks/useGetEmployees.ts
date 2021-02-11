@@ -2,13 +2,12 @@
 import React from 'react'
 // model
 import { GetEmployeesInput } from '_/model/generated/graphql'
-import { TEmployeesFetchResponse } from '_/containers/Employees/types'
+import { IEmployeesFetchResponse } from '_/containers/Employees/types'
 import { TEmployeesAction } from '_/model/context/employees'
 // helpers
 import { getEmployees } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
-import { AuthContext } from '../../../context/auth-context'
-import { SnackbarContext } from '../../../context/snackbar-context'
+import { AuthContext } from '_/context/auth-context'
+import { SnackbarContext } from '_/context/snackbar-context'
 
 interface IUseGetEmployees {
   dispatch: React.Dispatch<TEmployeesAction>
@@ -40,12 +39,11 @@ export const useGetEmployees = ({
           body: JSON.stringify(getEmployees({ offset, limit })),
           headers,
         })
-        fetchResponseCheck(res?.status)
+        const { data, errors }: IEmployeesFetchResponse = await res.json()
+        if (errors?.length) return
         const {
-          data: {
-            employees: { nodes, count: quantity },
-          },
-        }: TEmployeesFetchResponse = await res.json()
+          employees: { nodes, count: quantity },
+        } = data
         dispatch({
           type: 'data',
           payload: {

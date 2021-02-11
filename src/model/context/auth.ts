@@ -10,7 +10,7 @@ export enum EAuthContextActions {
 }
 
 export interface IAuthState
-  extends Pick<AuthData, 'token' | 'tokenExpiration' | 'userCredentials'> {
+  extends Pick<AuthData, 'token' | 'userCredentials'> {
   errors?: Error[]
 }
 
@@ -27,4 +27,11 @@ export type TAuthReducer = (
 export interface IAuthReducerAction {
   type: EAuthContextActions
   payload?: Partial<IAuthState>
+}
+
+export interface IDecodedToken {
+  email: string
+  exp: number
+  iat: number
+  userId: string
 }
