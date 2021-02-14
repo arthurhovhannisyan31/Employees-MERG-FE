@@ -8,7 +8,7 @@ import { TEmployeeByIdAction } from '_/model/context/employee'
 import { getEmployee } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
 import { useParams } from 'react-router-dom'
-import { AuthContext } from '../../../context/auth-context'
+import { AuthContext } from '../../../context/auth'
 
 interface IUseGetEmployeeProps {
   dispatch: React.Dispatch<TEmployeeByIdAction>

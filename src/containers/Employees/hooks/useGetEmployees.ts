@@ -6,8 +6,8 @@ import { IEmployeesFetchResponse } from '_/containers/Employees/types'
 import { TEmployeesAction } from '_/model/context/employees'
 // helpers
 import { getEmployees } from '_/gql/queries'
-import { AuthContext } from '_/context/auth-context'
-import { SnackbarContext } from '_/context/snackbar-context'
+import { AuthContext } from '_/context/auth'
+import { SnackbarContext } from '_/context/snackbar'
 
 interface IUseGetEmployees {
   dispatch: React.Dispatch<TEmployeesAction>

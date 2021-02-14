@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { EAuthContextActions } from '_/model/context/auth'
 // helpers
 import storage from '_/utils/storage'
-import { AuthContext } from '_/context/auth-context'
+import { AuthContext } from '_/context/auth'
 
 export const useLogout = () => {
   const history = useHistory()

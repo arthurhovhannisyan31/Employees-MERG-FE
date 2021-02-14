@@ -6,7 +6,6 @@ import {
   IEventFormAction,
   IEventsState,
 } from '_/containers/Events/types'
-import { IEventsContext } from '_/model/context/events'
 
 const eventFormInitState: IEventForm = {
   isOpen: false,
@@ -36,7 +35,7 @@ const contextInitState = {
   dispatch: () => {},
 }
 
-const EventsContext = React.createContext<IEventsContext>(contextInitState)
+const EventsContext = React.createContext<{}>(contextInitState)
 
 const eventsReducer = (state: IEventsState, action: IEventFormAction) => {
   const { type, prop, payload } = action
