@@ -1,24 +1,16 @@
 // deps
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
-// components
-// model
-import { EAuthContextActions } from '_/model/context/auth'
 // helpers
 import { AuthContext } from '_/context'
-import storage from '_/utils/storage'
-import { loginQuery } from '_/gql/queries'
-import { signUp } from '_/gql/mutations'
+import { useHandleSubmit } from '_/containers/Auth/hooks'
 import useStyles from './style'
 
 const Auth: React.FC = () => {
-  const history = useHistory()
-
   const { dispatch, errors: authErrors } = React.useContext(AuthContext)
 
   const [authState, setAuthState] = React.useState<boolean>(false)
@@ -45,7 +37,6 @@ const Auth: React.FC = () => {
     [],
   )
 
-  const apiUrl = process?.env?.API_URL || ''
   const disableSubmit = React.useMemo(
     () => !email?.trim() || !password?.trim(),
     [email, password],
@@ -59,48 +50,12 @@ const Auth: React.FC = () => {
     [authErrors, classes.errorMessage],
   )
 
-  const handleSubmit = React.useCallback(async () => {
-    const loginBody = loginQuery({ email, password })
-    const signupBody = signUp({ email, password })
-
-    try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        body: JSON.stringify(authState ? signupBody : loginBody),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      if (![200, 201].includes(res?.status)) {
-        throw new Error('Failed!')
-      }
-      const result = await res.json()
-      if (result?.data?.login?.token) {
-        const {
-          token: tokenValue,
-          userCredentials,
-          tokenExpiration: tokenExpirationValue,
-        } = result.data.login
-        dispatch({
-          type: EAuthContextActions.LOGIN,
-          payload: {
-            token: tokenValue,
-            userCredentials,
-          },
-        })
-        storage.set('token', tokenValue)
-        storage.set('userCredentials', JSON.stringify(userCredentials))
-        storage.set('tokenExpiration', tokenExpirationValue)
-        history.push('/')
-      }
-    } catch (err) {
-      dispatch({
-        type: EAuthContextActions.ERRORS,
-        payload: { errors: [err] },
-      })
-    }
-  }, [authState, history, apiUrl, dispatch, email, password])
+  const [handleSubmit] = useHandleSubmit({
+    email,
+    password,
+    authState,
+    dispatch,
+  })
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent) => {

@@ -98,6 +98,6 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-    alias: { _: path.resolve(__dirname, 'src') },
+    alias: { "_": path.resolve(__dirname, 'src') },
   },
 }

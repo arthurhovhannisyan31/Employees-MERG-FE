@@ -8,7 +8,7 @@ import { TEmployeeByIdAction } from '_/model/context/employee'
 import { getEmployee } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
 import { useParams } from 'react-router-dom'
-import { AuthContext } from '../../../context/auth'
+import { AuthContext } from '_/context/auth'
 
 interface IUseGetEmployeeProps {
   dispatch: React.Dispatch<TEmployeeByIdAction>
@@ -57,4 +57,9 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   )
 
   return [handleGetEmployee]
+}
+
+export const useSubmitEmployeeModal = () => {
+  const test = () => {}
+  return [test]
 }

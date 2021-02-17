@@ -1,1 +1,0 @@
-export { useGetEmployee } from './useGetEmployee'

@@ -1,5 +1,5 @@
 // deps
-import React, { useContext } from 'react'
+import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 // model
 import { IRoute } from '_/routes/app-routes'
@@ -12,7 +12,7 @@ const PrivateRoute: React.FC<IRoute> = ({
   component: Component,
   ...params
 }) => {
-  const { token } = useContext(AuthContext)
+  const { token } = React.useContext(AuthContext)
 
   const isAuthorized = token || storage.get('token')
 

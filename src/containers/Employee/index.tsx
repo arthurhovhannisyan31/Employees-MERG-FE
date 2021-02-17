@@ -17,8 +17,10 @@ import Titles from '_/containers/Employee/components/Titles'
 // helpers
 import { EmployeeByIdContext } from '_/context'
 import DetailsModal from '_/containers/Employee/components/DetailsModal'
-import { useGetEmployee } from '_/containers/Employee/hooks'
-import { useSubmitEmployeeModal } from '_/containers/Employee/hooks/useSubmitEmployeeModal'
+import {
+  useSubmitEmployeeModal,
+  useGetEmployee,
+} from '_/containers/Employee/hooks'
 import { a11yProps } from './helpers'
 import useStyles from './style'
 
