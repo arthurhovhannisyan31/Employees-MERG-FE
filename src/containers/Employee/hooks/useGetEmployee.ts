@@ -1,5 +1,6 @@
 // deps
 import React from 'react'
+import { useParams } from 'react-router-dom'
 // model
 import { GetEmployeeInput } from '_/model/generated/graphql'
 import { TEmployeeFetchResponse } from '_/containers/Employee/types'
@@ -7,8 +8,8 @@ import { TEmployeeByIdAction } from '_/model/context/employee'
 // helpers
 import { getEmployee } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
-import { useParams } from 'react-router-dom'
 import { AuthContext } from '_/context/auth'
+import { useFetch } from '_/utils/hooks'
 
 interface IUseGetEmployeeProps {
   dispatch: React.Dispatch<TEmployeeByIdAction>
@@ -18,6 +19,7 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   const { id: idParam } = useParams<Record<'id', string>>()
   const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
   const { headers } = React.useContext(AuthContext)
+  const [handleFetch] = useFetch()
 
   const handleGetEmployee = React.useCallback(
     async ({ id }: GetEmployeeInput) => {
@@ -26,11 +28,7 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
         payload: { loading: true },
       })
       try {
-        const res = await fetch(apiUrl, {
-          method: 'POST',
-          body: JSON.stringify(getEmployee({ id })),
-          headers,
-        })
+        const res = await handleFetch(getEmployee({ id }))
         fetchResponseCheck(res?.status)
         const {
           data: { employee },
@@ -57,9 +55,4 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   )
 
   return [handleGetEmployee]
-}
-
-export const useSubmitEmployeeModal = () => {
-  const test = () => {}
-  return [test]
 }

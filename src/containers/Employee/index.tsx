@@ -15,7 +15,7 @@ import Paychecks from '_/containers/Employee/components/Paychecks'
 import Titles from '_/containers/Employee/components/Titles'
 // model
 // helpers
-import { EmployeeByIdContext } from '_/context'
+import { EmployeeByIdContext, CatalogsContext } from '_/context'
 import DetailsModal from '_/containers/Employee/components/DetailsModal'
 import {
   useSubmitEmployeeModal,
@@ -29,11 +29,22 @@ const EmployeePage: React.FC = () => {
   const classes = useStyles()
   const { id: idParam } = useParams<Record<'id', string>>()
   // context
-  const { dispatch, state } = React.useContext(EmployeeByIdContext)
-  const { data, loading, error } = state
+  const {
+    state: employeeStateById,
+    dispatch: employeeByIdDispatch,
+  } = React.useContext(EmployeeByIdContext)
+  const { state: catalogsState, dispatch: catalogsDispatch } = React.useContext(
+    CatalogsContext,
+  )
+  console.log(catalogsState, catalogsDispatch)
+  const {
+    data: employeeByIdData,
+    loading: employeeByIdLoading,
+    error: employeeByIdError,
+  } = employeeStateById
   // state
   const [tab, setTab] = React.useState<number>(0)
-  const employeeData = data?.[idParam]
+  const employeeData = employeeByIdData?.[idParam]
   const [currentModal, setCurrentModal] = React.useState('')
   // memo
   const handleChangeTab = React.useCallback(
@@ -49,7 +60,7 @@ const EmployeePage: React.FC = () => {
     [],
   )
 
-  const [handleGetEmployee] = useGetEmployee({ dispatch })
+  const [handleGetEmployee] = useGetEmployee({ dispatch: employeeByIdDispatch })
   const [handleEmployeeSubmit] = useSubmitEmployeeModal()
 
   // todo update fields and delete profile
@@ -64,13 +75,13 @@ const EmployeePage: React.FC = () => {
   return (
     <Grid container item className={classes.container} direction="column">
       <Grid>
-        {loading || !employeeData ? (
+        {employeeByIdLoading || !employeeData ? (
           <Grid container justify="center" className={classes.loadingIndicator}>
             <CircularProgress size={20} />
           </Grid>
         ) : (
           <>
-            {error ? (
+            {employeeByIdError ? (
               <Typography>Error message</Typography>
             ) : (
               <>

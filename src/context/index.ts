@@ -4,6 +4,7 @@ import { ThemeContext } from '_/context/theme'
 import { EmployeesContext } from '_/context/employees'
 import { EmployeeByIdContext } from '_/context/employee-by-id'
 import { SnackbarContext } from '_/context/snackbar'
+import { CatalogsContext } from '_/context/catalogs'
 
 export {
   ContextCompose as default,
@@ -12,4 +13,5 @@ export {
   EmployeesContext,
   SnackbarContext,
   EmployeeByIdContext,
+  CatalogsContext,
 }
