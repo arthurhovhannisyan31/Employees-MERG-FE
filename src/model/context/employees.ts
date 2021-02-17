@@ -10,7 +10,7 @@ export interface IEmployeesState {
   data: Record<string, Employee[]>
   count: number
 }
-// todo refactor types
+
 export type TEmployeesAction = IAction<
   Partial<Omit<IEmployeesState, 'data'> & { data: Employee[]; key: string }>
 >
@@ -20,6 +20,12 @@ export type TEmployeesReducer = (
   action: TEmployeesAction,
 ) => IEmployeesState
 
+export enum EActionTypes {
+  LOADING = 'loading',
+  ERROR = 'error',
+  COUNT = 'count',
+  DATA = 'data',
+}
 export interface IEmployeesContext {
   state: IEmployeesState
   initState: IEmployeesState

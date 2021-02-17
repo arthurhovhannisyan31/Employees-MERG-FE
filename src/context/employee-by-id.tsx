@@ -5,6 +5,7 @@ import {
   IEmployeeByIdState,
   IEmployeeByIdContext,
   TEmployeeByIdReducer,
+  EActionTypes,
 } from '_/model/context/employee'
 import { Employee } from '_/model/generated/graphql'
 
@@ -22,17 +23,17 @@ const EmployeeByIdContextInitState: IEmployeeByIdContext = {
 const EmployeeByIdContext = React.createContext<IEmployeeByIdContext>(
   EmployeeByIdContextInitState,
 )
-// todo refactor types
+
 const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case 'loading':
-    case 'error':
+    case EActionTypes.LOADING:
+    case EActionTypes.ERROR:
       return {
         ...state,
         [type]: payload[type],
       }
-    case 'data':
+    case EActionTypes.DATA:
       return {
         ...state,
         data: {
@@ -40,7 +41,7 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
           [payload.key as string]: payload.data as Employee,
         },
       }
-    case 'updateItem':
+    case EActionTypes.UPDATE_ITEM:
       return {
         ...state,
       }
@@ -54,7 +55,6 @@ const EmployeeContextContainer: React.FC = ({ children }) => {
     employeeByIdReducer,
     employeeByIdInitState,
   )
-
   return (
     <EmployeeByIdContext.Provider
       value={{

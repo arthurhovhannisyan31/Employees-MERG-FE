@@ -19,6 +19,13 @@ export type TEmployeeByIdReducer = (
   action: TEmployeeByIdAction,
 ) => IEmployeeByIdState
 
+export enum EActionTypes {
+  LOADING = 'loading',
+  ERROR = 'error',
+  DATA = 'data',
+  UPDATE_ITEM = 'updateItem',
+}
+
 export interface IEmployeeByIdContext {
   state: IEmployeeByIdState
   dispatch: React.Dispatch<TEmployeeByIdAction>
