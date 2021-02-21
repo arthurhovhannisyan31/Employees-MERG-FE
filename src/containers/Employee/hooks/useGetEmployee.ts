@@ -3,24 +3,22 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 // model
 import { GetEmployeeInput } from '_/model/generated/graphql'
-import { TEmployeeFetchResponse } from '_/containers/Employee/types'
-import { TEmployeeByIdAction } from '_/model/context/employee'
+import {
+  TEmployeeByIdAction,
+  TEmployeeFetchResponse,
+} from '_/model/context/employee'
 // helpers
 import { getEmployee } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
-import { AuthContext } from '_/context/auth'
 import { useFetch } from '_/utils/hooks'
 
-interface IUseGetEmployeeProps {
+export interface IUseGetEmployeeProps {
   dispatch: React.Dispatch<TEmployeeByIdAction>
 }
 
 export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   const { id: idParam } = useParams<Record<'id', string>>()
-  const apiUrl = React.useMemo<string>(() => process?.env?.API_URL || '', [])
-  const { headers } = React.useContext(AuthContext)
   const [handleFetch] = useFetch()
-
   const handleGetEmployee = React.useCallback(
     async ({ id }: GetEmployeeInput) => {
       dispatch({
@@ -51,8 +49,7 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
         payload: { loading: false },
       })
     },
-    [apiUrl, dispatch, headers, idParam],
+    [dispatch, idParam],
   )
-
   return [handleGetEmployee]
 }

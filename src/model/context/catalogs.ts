@@ -2,7 +2,7 @@
 import React from 'react'
 // model
 import { Department, Gender, Title } from '_/model/generated/graphql'
-import { IAction } from '_/model/store'
+import { IAction } from '_/model/common'
 
 export interface ICatalogEntries {
   departments: Department[]
@@ -32,4 +32,22 @@ export enum EActionTypes {
 export interface ICatalogsContext {
   state: ICatalogsState
   dispatch: React.Dispatch<TCatalogsAction>
+}
+
+export type TDepartmentsFetchResponse = {
+  data: {
+    departments: Omit<Department, '__typename'>
+  }
+}
+
+export type TGendersFetchResponse = {
+  data: {
+    genders: Omit<Gender, '__typename'>
+  }
+}
+
+export type TTitleFetchResponse = {
+  data: {
+    titles: Omit<Title, '__typename'>
+  }
 }

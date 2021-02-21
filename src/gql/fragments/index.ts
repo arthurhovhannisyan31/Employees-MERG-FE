@@ -8,16 +8,19 @@ export const employeeFragment = `
 
 export const genderFragment = `
   gender{
+    _id
     name
   }
 `
 export const departmentFragment = `
   department{
+    _id
     name  
   }
 `
 export const titleFragment = `
   title{
+    _id
     name
   }
 `

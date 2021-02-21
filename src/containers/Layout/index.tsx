@@ -1,6 +1,6 @@
 // deps
 import React from 'react'
-import themeCreator from '_/theme'
+import themeCreator from '_/utils/theme'
 import { CssBaseline } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Header from '_/components/Header'

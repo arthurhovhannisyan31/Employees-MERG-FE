@@ -6,8 +6,8 @@ import { IEmployeesFetchResponse } from '_/containers/Employees/types'
 import { TEmployeesAction } from '_/model/context/employees'
 // helpers
 import { getEmployees } from '_/gql/queries'
-import { AuthContext } from '_/context/auth'
 import { SnackbarContext } from '_/context/snackbar'
+import { useFetch } from '_/utils/hooks'
 
 interface IUseGetEmployees {
   dispatch: React.Dispatch<TEmployeesAction>
@@ -20,13 +20,12 @@ export const useGetEmployees = ({
   currentPage,
   pageSize,
 }: IUseGetEmployees) => {
-  const { headers } = React.useContext(AuthContext)
-  const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
   const key = React.useMemo(() => `${pageSize}-${currentPage}`, [
     pageSize,
     currentPage,
   ])
   const { setSnackbarState } = React.useContext(SnackbarContext)
+  const [handleFetch] = useFetch()
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({
@@ -34,11 +33,7 @@ export const useGetEmployees = ({
         payload: { loading: true },
       })
       try {
-        const res = await fetch(apiUrl, {
-          method: 'POST',
-          body: JSON.stringify(getEmployees({ offset, limit })),
-          headers,
-        })
+        const res = await handleFetch(getEmployees({ offset, limit }))
         const { data, errors }: IEmployeesFetchResponse = await res.json()
         if (errors?.length) return
         const {
@@ -71,8 +66,7 @@ export const useGetEmployees = ({
         payload: { loading: false },
       })
     },
-    [apiUrl, dispatch, headers, key],
+    [dispatch, key],
   )
-
   return [handleGetEmployees]
 }

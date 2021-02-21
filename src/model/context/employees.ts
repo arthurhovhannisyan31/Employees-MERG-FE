@@ -2,7 +2,7 @@
 import React from 'react'
 // model
 import { Employee } from '_/model/generated/graphql'
-import { IAction } from '_/model/store'
+import { IAction } from '_/model/common'
 
 export interface IEmployeesState {
   loading: boolean

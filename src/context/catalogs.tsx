@@ -7,7 +7,6 @@ import {
   TCatalogsReducer,
   EActionTypes,
 } from '_/model/context/catalogs'
-// helpers
 
 const catalogsInitState: ICatalogsState = {
   loading: false,
