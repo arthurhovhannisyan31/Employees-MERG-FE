@@ -49,7 +49,7 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
         payload: { loading: false },
       })
     },
-    [dispatch, idParam],
+    [dispatch, idParam, handleFetch],
   )
   return [handleGetEmployee]
 }

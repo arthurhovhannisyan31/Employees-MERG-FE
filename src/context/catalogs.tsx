@@ -6,6 +6,7 @@ import {
   ICatalogsState,
   TCatalogsReducer,
   EActionTypes,
+  ICatalogEntries,
 } from '_/model/context/catalogs'
 
 const catalogsInitState: ICatalogsState = {
@@ -38,7 +39,7 @@ const catalogsReducer: TCatalogsReducer = (state, action) => {
         ...state,
         data: {
           ...state.data,
-          [prop as string]: payload,
+          [prop as string]: payload.data?.[prop as keyof ICatalogEntries],
         },
       }
     default:
@@ -51,7 +52,6 @@ const CatalogsContextContainer: React.FC = ({ children }) => {
     catalogsReducer,
     catalogsInitState,
   )
-
   return (
     <CatalogsContext.Provider
       value={{

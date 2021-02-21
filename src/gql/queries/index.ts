@@ -48,7 +48,9 @@ export const getEmployees = ({
       }) {
         nodes {
           ${employeeFragment}
-          ${genderFragment}
+          gender{
+            ${genderFragment}
+          }
         }
         count
       }
@@ -81,18 +83,30 @@ export const getMe = (): IQueryProps => ({
 
 export const getDepartments = (): IQueryProps => ({
   query: `
-    ${departmentFragment}
+    query departments{
+      departments{
+        ${departmentFragment}
+      }
+    }
   `,
 })
 
 export const getTitles = (): IQueryProps => ({
   query: `
-    ${titleFragment}
+    query titles {
+      titles{
+        ${titleFragment}
+      }
+    }
   `,
 })
 
 export const getGenders = (): IQueryProps => ({
   query: `
-    ${titleFragment}
+    query genders {
+      genders{
+        ${genderFragment}
+      }
+    }
   `,
 })

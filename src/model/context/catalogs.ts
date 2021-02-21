@@ -13,10 +13,16 @@ export interface ICatalogEntries {
 export interface ICatalogsState {
   loading: boolean
   error: Record<string, string> | null
-  data: ICatalogEntries
+  data: Partial<ICatalogEntries>
 }
 
-export type TCatalogsAction = IAction<Partial<ICatalogsState>>
+export type TCatalogsAction = IAction<
+  Partial<
+    Omit<ICatalogsState, 'data'> & {
+      data: Partial<ICatalogEntries>
+    }
+  >
+>
 
 export type TCatalogsReducer = (
   prevState: ICatalogsState,
@@ -36,18 +42,18 @@ export interface ICatalogsContext {
 
 export type TDepartmentsFetchResponse = {
   data: {
-    departments: Omit<Department, '__typename'>
+    departments: Omit<Department, '__typename'>[]
   }
 }
 
 export type TGendersFetchResponse = {
   data: {
-    genders: Omit<Gender, '__typename'>
+    genders: Omit<Gender, '__typename'>[]
   }
 }
 
 export type TTitleFetchResponse = {
   data: {
-    titles: Omit<Title, '__typename'>
+    titles: Omit<Title, '__typename'>[]
   }
 }

@@ -23,12 +23,18 @@ export const useGetDepartments = ({ dispatch }: IUseGetDepartments) => {
     try {
       const res = await handleFetch(getDepartments())
       fetchResponseCheck(res?.status)
-      const props: TDepartmentsFetchResponse = await res.json()
-      console.log(props)
+      const {
+        data: { departments },
+      }: TDepartmentsFetchResponse = await res.json()
+      dispatch({
+        type: EActionTypes.DATA,
+        payload: { data: { departments } },
+        prop: 'departments',
+      })
     } catch (error) {
       dispatch({ type: EActionTypes.ERROR, payload: { error } })
     }
     dispatch({ type: EActionTypes.LOADING, payload: { loading: false } })
-  }, [])
+  }, [handleFetch])
   return [handleGetDepartments]
 }

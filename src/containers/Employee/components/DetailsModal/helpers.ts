@@ -1,7 +1,7 @@
 // deps
 import * as yup from 'yup'
 // model
-import { Employee } from '_/model/generated/graphql'
+import { Employee, Title } from '_/model/generated/graphql'
 import { IEmployeeModalProps } from '_/containers/Employee/components/DetailsModal/types'
 
 export const initStateSelector = ({
@@ -12,10 +12,10 @@ export const initStateSelector = ({
   first_name,
   last_name,
 }: Employee): IEmployeeModalProps => ({
-  title: title.name,
+  title: title._id,
   birth_date,
   hire_date,
-  department: department.name,
+  department: department._id,
   first_name,
   last_name,
 })
@@ -60,3 +60,6 @@ export const validationSchema = yup.object().shape({
     .min(2, 'Too short')
     .max(255, 'Too long'),
 })
+
+export const sortByName = (a: Pick<Title, 'name'>, b: Pick<Title, 'name'>) =>
+  a.name.localeCompare(b.name)

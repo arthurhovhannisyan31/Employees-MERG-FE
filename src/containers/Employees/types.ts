@@ -1,6 +1,5 @@
 // model
-import { Employees, Employee } from '_/model/generated/graphql'
-import { IFetchError } from '_/model/common'
+import { Employee } from '_/model/generated/graphql'
 
 export interface IEmployeesTableRow {
   _id: string
@@ -16,10 +15,3 @@ export type TEmployeesTableRow = Pick<
   Employee,
   '_id' | 'hire_date' | 'last_name' | 'first_name' | 'gender' | 'birth_date'
 >
-
-export interface IEmployeesFetchResponse {
-  data: {
-    employees: Omit<Employees, '__typename'>
-  }
-  errors?: IFetchError[]
-}

@@ -2,8 +2,10 @@
 import React from 'react'
 // model
 import { GetEmployeesInput } from '_/model/generated/graphql'
-import { IEmployeesFetchResponse } from '_/containers/Employees/types'
-import { TEmployeesAction } from '_/model/context/employees'
+import {
+  TEmployeesAction,
+  IEmployeesFetchResponse,
+} from '_/model/context/employees'
 // helpers
 import { getEmployees } from '_/gql/queries'
 import { SnackbarContext } from '_/context/snackbar'

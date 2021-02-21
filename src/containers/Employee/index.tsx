@@ -21,6 +21,8 @@ import {
   useSubmitEmployeeModal,
   useGetEmployee,
 } from '_/containers/Employee/hooks'
+import { useGetDepartments } from '_/containers/Employee/hooks/useGetDepartments'
+import { useGetTitles } from '_/containers/Employee/hooks/useGetTitles'
 import { a11yProps } from './helpers'
 import useStyles from './style'
 
@@ -30,18 +32,19 @@ const EmployeePage: React.FC = () => {
   const { id: idParam } = useParams<Record<'id', string>>()
   // context
   const {
-    state: employeeStateById,
+    state: {
+      data: employeeByIdData,
+      loading: employeeByIdLoading,
+      error: employeeByIdError,
+    },
     dispatch: employeeByIdDispatch,
   } = React.useContext(EmployeeByIdContext)
-  const { state: catalogsState, dispatch: catalogsDispatch } = React.useContext(
-    CatalogsContext,
-  )
-  console.log(catalogsState, catalogsDispatch)
   const {
-    data: employeeByIdData,
-    loading: employeeByIdLoading,
-    error: employeeByIdError,
-  } = employeeStateById
+    state: {
+      data: { departments, titles },
+    },
+    dispatch: catalogsDispatch,
+  } = React.useContext(CatalogsContext)
   // state
   const [tab, setTab] = React.useState<number>(0)
   const employeeData = employeeByIdData?.[idParam]
@@ -62,15 +65,33 @@ const EmployeePage: React.FC = () => {
 
   const [handleGetEmployee] = useGetEmployee({ dispatch: employeeByIdDispatch })
   const [handleEmployeeSubmit] = useSubmitEmployeeModal()
+  const [handleGetDepartments] = useGetDepartments({
+    dispatch: catalogsDispatch,
+  })
+  const [handleGetTitles] = useGetTitles({ dispatch: catalogsDispatch })
 
   // todo update fields and delete profile
   // todo error message
 
-  React.useEffect(() => {
-    if (!employeeData) {
+  const fetchEmployeeInitData = React.useCallback(() => {
+    if (!employeeData && !employeeByIdLoading) {
       handleGetEmployee({ id: idParam })
     }
   }, [idParam, handleGetEmployee, employeeData])
+  const fetchDepartmentsInitData = React.useCallback(() => {
+    if (!departments?.length) {
+      handleGetDepartments()
+    }
+  }, [])
+  const fetchTitlesInitData = React.useCallback(() => {
+    if (!titles?.length) {
+      handleGetTitles()
+    }
+  }, [])
+
+  React.useEffect(fetchEmployeeInitData, [fetchEmployeeInitData])
+  React.useEffect(fetchDepartmentsInitData, [fetchDepartmentsInitData])
+  React.useEffect(fetchTitlesInitData, [fetchTitlesInitData])
 
   return (
     <Grid container item className={classes.container} direction="column">
@@ -90,6 +111,8 @@ const EmployeePage: React.FC = () => {
                   handleClose={handleSetModal('')}
                   data={employeeData}
                   onSubmit={handleEmployeeSubmit}
+                  titles={titles}
+                  departments={departments}
                 />
                 <AppBar position="static">
                   <Tabs

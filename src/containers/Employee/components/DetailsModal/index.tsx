@@ -10,11 +10,12 @@ import { FormikState, useFormik } from 'formik'
 import Modal from '_/components/UI/Modal'
 import Dialog from '_/components/UI/Dialog'
 // model
-import { Employee } from '_/model/generated/graphql'
+import { Employee, Department, Title } from '_/model/generated/graphql'
 import { IEmployeeModalProps } from '_/containers/Employee/components/DetailsModal/types'
 // helpers
 import {
   initStateSelector,
+  sortByName,
   validationSchema,
 } from '_/containers/Employee/components/DetailsModal/helpers'
 import useStyles from './styles'
@@ -29,32 +30,17 @@ interface IDetailsModalProps {
       nextState?: Partial<FormikState<IEmployeeModalProps>> | undefined,
     ) => void,
   ) => void
+  departments?: Omit<Department, '__typename'>[]
+  titles?: Omit<Title, '__typename'>[]
 }
-
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-]
 
 const DetailsModal: React.FC<IDetailsModalProps> = ({
   isOpen,
   handleClose,
   data,
   onSubmit,
+  titles,
+  departments,
 }) => {
   const cls = useStyles()
   const initState: IEmployeeModalProps = initStateSelector(data)
@@ -92,14 +78,6 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     [setFieldValue],
   )
 
-  //   const handleSaveOnBlur = React.useCallback(
-  //     (e: React.FocusEvent<never>) => {
-  //       handleBlur(e)
-  //       dispatch({ type: 'eventForm', payload: values })
-  //     },
-  //     [handleBlur, dispatch, values],
-  //   )
-
   //   const handleCancel = React.useCallback(() => {
   //     handleClose()
   //     dispatch({ type: 'eventFormReset' })
@@ -107,6 +85,26 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
   //   }, [handleClose, dispatch, resetForm])
 
   // const disableConfirm = !(isValid && values?.title)
+
+  const titleOptions = React.useMemo(
+    () =>
+      titles?.sort(sortByName).map((option) => (
+        <MenuItem key={option._id} value={option._id}>
+          {option.name}
+        </MenuItem>
+      )),
+    [titles],
+  )
+
+  const departmentOptions = React.useMemo(
+    () =>
+      departments?.sort(sortByName).map((option) => (
+        <MenuItem key={option._id} value={option._id}>
+          {option.name}
+        </MenuItem>
+      )),
+    [departments],
+  )
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} disableClickAway>
@@ -121,7 +119,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               variant="outlined"
               value={values.first_name}
               // onChange={handleChangeText('title')}
-              // onBlur={handleSaveOnBlur}
+              onBlur={handleBlur}
               error={!!(errors.first_name && touched.first_name)}
               helperText={errors.first_name}
             />
@@ -132,7 +130,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               variant="outlined"
               value={values.last_name}
               // onChange={handleChangeText('title')}
-              // onBlur={handleSaveOnBlur}
+              onBlur={handleBlur}
               error={!!(errors.last_name && touched.last_name)}
               helperText={errors.last_name}
             />
@@ -145,15 +143,14 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               margin="normal"
               id="hire_date-date-picker-dialog"
               format="dd/MM/yyyy"
-              // value={values.date}
-              value={null}
+              value={values.hire_date}
               // onChange={handleChangeDate('date')}
               onChange={() => {}}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}
               className={cls.keyboardDatePicker}
-              // onBlur={handleSaveOnBlur}
+              onBlur={handleBlur}
               error={!!(errors.hire_date && touched.hire_date)}
               helperText={errors.hire_date}
             />
@@ -166,15 +163,14 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               margin="normal"
               id="birth_date-date-picker-dialog"
               format="dd/MM/yyyy"
-              // value={values.date}
-              value={null}
+              value={values.birth_date}
               // onChange={handleChangeDate('date')}
               onChange={() => {}}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}
               className={cls.keyboardDatePicker}
-              // onBlur={handleSaveOnBlur}
+              onBlur={handleBlur}
               error={!!(errors.birth_date && touched.birth_date)}
               helperText={errors.birth_date}
             />
@@ -183,7 +179,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               name="title"
               select
               label="Select"
-              // value={currency}
+              value={values.title}
               // onChange={handleChange}
               error={!!(errors.title && touched.title)}
               helperText={errors.title}
@@ -197,19 +193,16 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
                   getContentAnchorEl: null,
                 },
               }}
+              onBlur={handleBlur}
             >
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
+              {titleOptions}
             </TextField>
             <TextField
               id="standard-select-currency"
               name="department"
               select
               label="Select"
-              // value={currency}
+              value={values.department}
               // onChange={handleChange}
               error={!!(errors.department && touched.department)}
               helperText={errors.department}
@@ -223,12 +216,9 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
                   getContentAnchorEl: null,
                 },
               }}
+              onBlur={handleBlur}
             >
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
+              {departmentOptions}
             </TextField>
           </div>
         </Grid>

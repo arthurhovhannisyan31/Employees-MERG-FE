@@ -9,7 +9,6 @@ export interface IEmployeeByIdState {
   error: boolean
   data: Record<string, Employee>
 }
-// todo refactor types
 export type TEmployeeByIdAction = IAction<
   Partial<Omit<IEmployeeByIdState, 'data'> & { data: Employee; key: string }>
 >
