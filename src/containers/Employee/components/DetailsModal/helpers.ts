@@ -1,8 +1,11 @@
 // deps
 import * as yup from 'yup'
+import differenceInYears from 'date-fns/differenceInYears'
 // model
 import { Employee, Title } from '_/model/generated/graphql'
 import { IEmployeeModalProps } from '_/containers/Employee/components/DetailsModal/types'
+// helpers
+import { ADULT_AGE } from '_/utils/constants'
 
 export const initStateSelector = ({
   title,
@@ -35,20 +38,21 @@ export const validationSchema = yup.object().shape({
     .required('Please fill birth date'),
   hire_date: yup
     .date()
-    .nullable()
     .typeError('Please fill correct birth date')
     .required('Please fill birth date')
-    // todo check 18 yo
-    .test('min-age', 'Must be at least 18 y.o.', (value) => {
-      console.log(value)
-      return true
-    }),
+    .test(
+      'min-age',
+      'Must be at least 18 y.o.',
+      (hire_date, { parent: { birth_date } }) =>
+        differenceInYears(
+          new Date((hire_date as unknown) as string),
+          new Date(birth_date),
+        ) >= ADULT_AGE,
+    ),
   department: yup.string().nullable().required('Please fill department'),
-  gender: yup.string().nullable().required('Please fill gender'),
   first_name: yup
     .string()
     .trim()
-    .nullable()
     .required('Please fill first name')
     .min(2, 'Too short')
     .max(255, 'Too long'),

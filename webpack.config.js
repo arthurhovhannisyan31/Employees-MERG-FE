@@ -22,6 +22,7 @@ module.exports = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
+        parallel: true,
         test: /\.(ts|js)x?$/,
         exclude: [/\/node_modules/, /\/dist/],
       }),
@@ -29,15 +30,6 @@ module.exports = {
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
     realContentHash: true,
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /node_modules/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
   },
   devServer: {
     host: 'localhost',

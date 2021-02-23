@@ -20,3 +20,8 @@ export const signUp = ({ email, password }: UserInput) => ({
     password,
   },
 })
+
+export const updateEmployee = () => ({
+  query: '',
+  variables: {},
+})

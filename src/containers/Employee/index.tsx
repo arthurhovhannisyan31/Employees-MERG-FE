@@ -42,6 +42,7 @@ const EmployeePage: React.FC = () => {
   const {
     state: {
       data: { departments, titles },
+      loading: catalogsLoading,
     },
     dispatch: catalogsDispatch,
   } = React.useContext(CatalogsContext)
@@ -64,7 +65,9 @@ const EmployeePage: React.FC = () => {
   )
 
   const [handleGetEmployee] = useGetEmployee({ dispatch: employeeByIdDispatch })
-  const [handleEmployeeSubmit] = useSubmitEmployeeModal()
+  const [handleEmployeeSubmit] = useSubmitEmployeeModal({
+    dispatch: employeeByIdDispatch,
+  })
   const [handleGetDepartments] = useGetDepartments({
     dispatch: catalogsDispatch,
   })
@@ -113,6 +116,7 @@ const EmployeePage: React.FC = () => {
                   onSubmit={handleEmployeeSubmit}
                   titles={titles}
                   departments={departments}
+                  isLoading={catalogsLoading}
                 />
                 <AppBar position="static">
                   <Tabs

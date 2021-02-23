@@ -32,6 +32,7 @@ interface IDetailsModalProps {
   ) => void
   departments?: Omit<Department, '__typename'>[]
   titles?: Omit<Title, '__typename'>[]
+  isLoading: boolean
 }
 
 const DetailsModal: React.FC<IDetailsModalProps> = ({
@@ -78,13 +79,10 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     [setFieldValue],
   )
 
-  //   const handleCancel = React.useCallback(() => {
-  //     handleClose()
-  //     dispatch({ type: 'eventFormReset' })
-  //     resetForm({})
-  //   }, [handleClose, dispatch, resetForm])
-
-  // const disableConfirm = !(isValid && values?.title)
+  const handleCancel = React.useCallback(() => {
+    handleClose()
+    resetForm({})
+  }, [handleClose, resetForm])
 
   const titleOptions = React.useMemo(
     () =>
@@ -106,9 +104,17 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     [departments],
   )
 
+  const disableConfirm = !(isValid && values?.first_name)
+
   return (
     <Modal isOpen={isOpen} onClose={handleClose} disableClickAway>
-      <Dialog onCancel={handleClose}>
+      <Dialog
+        onCancel={handleCancel}
+        cancelLabel="Cancel"
+        confirmLabel="Save"
+        onConfirm={handleSubmit}
+        disableConfirm={disableConfirm}
+      >
         <Grid container className={cls.container} direction="column">
           <Typography className={cls.label}>Employee form</Typography>
           <div className={cls.fieldsGrid}>
@@ -118,7 +124,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               label="First name"
               variant="outlined"
               value={values.first_name}
-              // onChange={handleChangeText('title')}
+              onChange={handleChangeText('first_name')}
               onBlur={handleBlur}
               error={!!(errors.first_name && touched.first_name)}
               helperText={errors.first_name}
@@ -129,30 +135,10 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               label="Last name"
               variant="outlined"
               value={values.last_name}
-              // onChange={handleChangeText('title')}
+              onChange={handleChangeText('last_name')}
               onBlur={handleBlur}
               error={!!(errors.last_name && touched.last_name)}
               helperText={errors.last_name}
-            />
-            <KeyboardDatePicker
-              name="hire_date"
-              label="Hire date"
-              inputVariant="outlined"
-              clearable
-              autoOk
-              margin="normal"
-              id="hire_date-date-picker-dialog"
-              format="dd/MM/yyyy"
-              value={values.hire_date}
-              // onChange={handleChangeDate('date')}
-              onChange={() => {}}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-              className={cls.keyboardDatePicker}
-              onBlur={handleBlur}
-              error={!!(errors.hire_date && touched.hire_date)}
-              helperText={errors.hire_date}
             />
             <KeyboardDatePicker
               name="birth_date"
@@ -164,8 +150,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               id="birth_date-date-picker-dialog"
               format="dd/MM/yyyy"
               value={values.birth_date}
-              // onChange={handleChangeDate('date')}
-              onChange={() => {}}
+              onChange={handleChangeDate('birth_date')}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}
@@ -174,13 +159,32 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               error={!!(errors.birth_date && touched.birth_date)}
               helperText={errors.birth_date}
             />
+            <KeyboardDatePicker
+              name="hire_date"
+              label="Hire date"
+              inputVariant="outlined"
+              clearable
+              autoOk
+              margin="normal"
+              id="hire_date-date-picker-dialog"
+              format="dd/MM/yyyy"
+              value={values.hire_date}
+              onChange={handleChangeDate('hire_date')}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+              className={cls.keyboardDatePicker}
+              onBlur={handleBlur}
+              error={!!(errors.hire_date && touched.hire_date)}
+              helperText={errors.hire_date}
+            />
             <TextField
               id="-title-select"
               name="title"
               select
-              label="Select"
+              label="Title"
               value={values.title}
-              // onChange={handleChange}
+              onChange={handleChangeText('title')}
               error={!!(errors.title && touched.title)}
               helperText={errors.title}
               variant="outlined"
@@ -201,9 +205,9 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
               id="standard-select-currency"
               name="department"
               select
-              label="Select"
+              label="Department"
               value={values.department}
-              // onChange={handleChange}
+              onChange={handleChangeText('department')}
               error={!!(errors.department && touched.department)}
               helperText={errors.department}
               variant="outlined"
