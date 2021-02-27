@@ -7,18 +7,26 @@ import Backdrop from '_/components/UI/Backdrop'
 // helpers
 import useStyles from './style'
 
-interface IProps {
+interface IModalProps {
   isOpen?: boolean
   onClose?: () => void
+  disableClickAway: boolean
 }
 
-const Modal: React.FC<IProps> = ({ isOpen, children, onClose }) => {
+const Modal: React.FC<IModalProps> = ({
+  isOpen,
+  children,
+  onClose,
+  disableClickAway,
+}) => {
   const [openState, setOpenState] = React.useState(isOpen)
   const cls = useStyles()
   const handleClose = () => {
-    setOpenState(false)
-    if (onClose) {
-      onClose()
+    if (!disableClickAway) {
+      setOpenState(false)
+      if (onClose) {
+        onClose()
+      }
     }
   }
 
@@ -32,9 +40,7 @@ const Modal: React.FC<IProps> = ({ isOpen, children, onClose }) => {
         <>
           <Backdrop />
           <ClickAwayListener onClickAway={handleClose}>
-            <Grid className={cls.container}>
-              {children}
-            </Grid>
+            <Grid className={cls.container}>{children}</Grid>
           </ClickAwayListener>
         </>
       ) : null}

@@ -7,7 +7,7 @@ import { KeyboardDatePicker } from '@material-ui/pickers'
 import { useFormik } from 'formik'
 // components
 import NumberFormatCustom from '_/containers/Events/components/NumberFormatCustom'
-import Modal from '_/components/Modal'
+import Modal from '_/components/UI/Modal'
 // helpers
 import {
   getInitState,

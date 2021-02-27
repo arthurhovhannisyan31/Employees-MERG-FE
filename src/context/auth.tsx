@@ -2,43 +2,54 @@
 import React from 'react'
 // model
 import {
+  EAuthContextActions,
   IAuthContext,
   IAuthReducerAction,
   IAuthState,
+  TAuthReducer,
 } from '_/model/context/auth'
 
-const authContextInitValue = {
+const authContextInitValue: IAuthContext = {
   token: '',
-  userId: '',
-  tokenExpiration: 0,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  login: (_: IAuthState) => {},
-  logout: () => {},
+  userCredentials: {
+    email: '',
+    id: '',
+  },
   headers: {},
+  errors: [],
+  dispatch: () => {},
 }
 
 const AuthContext = React.createContext<IAuthContext>(authContextInitValue)
 
-const authContextReducer = (
-  state: IAuthContext,
-  action: IAuthReducerAction,
-) => {
+const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
   const { type, payload } = action
   switch (type) {
-    case 'login': {
+    case EAuthContextActions.LOGIN: {
       return {
         ...state,
         token: payload?.token ?? '',
-        userId: payload?.userId ?? '',
-        tokenExpiration: payload?.tokenExpiration ?? 0,
+        userCredentials: {
+          id: payload?.userCredentials?.id ?? '',
+          email: payload?.userCredentials?.email ?? '',
+        },
       }
     }
-    case 'logout': {
+    case EAuthContextActions.LOGOUT: {
       return {
         ...state,
         token: '',
-        userId: '',
+        userCredentials: {
+          id: '',
+          email: '',
+        },
         tokenExpiration: 0,
+      }
+    }
+    case EAuthContextActions.ERRORS: {
+      return {
+        ...state,
+        errors: payload?.errors,
       }
     }
     default: {
@@ -48,15 +59,12 @@ const authContextReducer = (
 }
 
 const AuthContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer(
+  const [state, dispatch] = React.useReducer<TAuthReducer>(
     authContextReducer,
     authContextInitValue,
   )
 
-  const login = (payload: IAuthState) => dispatch({ type: 'login', payload })
-  const logout = () => dispatch({ type: 'logout' })
-
-  const { token, userId, tokenExpiration } = state
+  const { token, errors, userCredentials } = state
 
   const headers = React.useMemo(
     () => ({
@@ -69,7 +77,11 @@ const AuthContextContainer: React.FC = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        login, logout, token, userId, tokenExpiration, headers,
+        headers,
+        dispatch,
+        errors,
+        userCredentials,
+        token,
       }}
     >
       {children}

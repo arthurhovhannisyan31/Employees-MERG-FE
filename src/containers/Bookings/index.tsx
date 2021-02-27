@@ -10,11 +10,13 @@ import AppBar from '@material-ui/core/AppBar'
 // components
 import TabPanel from '_/containers/Bookings/components/TabPanel'
 import BookingList from '_/containers/Bookings/components/BookingList'
-import BookingCharts from '_/containers/Bookings/components/BookingCharts'
 // helpers
 import { IBookingAction, IBookingsState } from '_/containers/Bookings/types'
+// @ts-ignore
 import { IBooking } from '_/types'
+// @ts-ignore
 import { getBookings } from '_/gql/queries'
+// @ts-ignore
 import { cancelBooking } from '_/gql/mutations'
 import { AuthContext } from '_/context'
 import { a11yProps } from '_/containers/Bookings/helpers'
@@ -155,9 +157,7 @@ const Bookings: React.FC = () => {
             <TabPanel value={tab} index={0}>
               <BookingList bookings={bookings} onDelete={handleDeleteBooking} />
             </TabPanel>
-            <TabPanel value={tab} index={1}>
-              <BookingCharts bookings={bookings} />
-            </TabPanel>
+            <TabPanel value={tab} index={1} />
           </>
         )}
       </Grid>

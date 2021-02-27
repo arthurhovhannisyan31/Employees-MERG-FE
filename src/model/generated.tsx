@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -29,11 +30,16 @@ export type User = {
   createdEvents?: Maybe<Array<Event>>;
 };
 
+export type UserCredentials = {
+  __typename?: 'UserCredentials';
+  id: Scalars['String'];
+  email: Scalars['String'];
+};
+
 export type AuthData = {
   __typename?: 'AuthData';
-  userId: Scalars['ID'];
+  userCredentials: UserCredentials;
   token: Scalars['String'];
-  tokenExpiration: Scalars['Int'];
 };
 
 export type UserInput = {
@@ -84,9 +90,9 @@ export type Employee = {
   first_name: Scalars['String'];
   last_name: Scalars['String'];
   hire_date: Scalars['String'];
-  gender: Gender;
-  department: Department;
-  title: Title;
+  gender: Scalars['ID'];
+  department: Scalars['ID'];
+  title: Scalars['ID'];
   paychecks: Array<Maybe<Paycheck>>;
   titles: Array<Maybe<EmployeeTitle>>;
   employments: Array<Maybe<Employment>>;
@@ -104,6 +110,16 @@ export type CreateEmployeeInput = {
   last_name: Scalars['String'];
   hire_date: Scalars['String'];
   gender: Scalars['ID'];
+  department: Scalars['ID'];
+  title: Scalars['ID'];
+};
+
+export type UpdateEmployeeInput = {
+  id: Scalars['ID'];
+  birth_date: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  hire_date: Scalars['String'];
   department: Scalars['ID'];
   title: Scalars['ID'];
 };
@@ -179,6 +195,7 @@ export type RootQuery = {
   __typename?: 'RootQuery';
   departments: Array<Department>;
   login: AuthData;
+  me: UserCredentials;
   genders: Array<Gender>;
   titles: Array<Title>;
   employments: Array<Employment>;
@@ -190,14 +207,17 @@ export type RootQuery = {
   events: Array<Event>;
 };
 
+
 export type RootQueryLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
+
 export type RootQueryEmployeesArgs = {
   input?: Maybe<GetEmployeesInput>;
 };
+
 
 export type RootQueryEmployeeArgs = {
   input: GetEmployeeInput;
@@ -211,6 +231,7 @@ export type RootMutation = {
   createTitle: Title;
   createEmployment: Employment;
   createEmployee: Employee;
+  updateEmployee: Employee;
   createEmployeeTitle: EmployeeTitle;
   createPaycheck: Paycheck;
   bookEvent: Booking;
@@ -218,45 +239,61 @@ export type RootMutation = {
   createEvent?: Maybe<Event>;
 };
 
+
 export type RootMutationCreateDepartmentArgs = {
   input: CreateDepartmentInput;
 };
+
 
 export type RootMutationCreateUserArgs = {
   userInput: UserInput;
 };
 
+
 export type RootMutationCreateGenderArgs = {
   input: CreateGenderInput;
 };
+
 
 export type RootMutationCreateTitleArgs = {
   input: CreateTitleInput;
 };
 
+
 export type RootMutationCreateEmploymentArgs = {
   input: CreateEmploymentInput;
 };
+
 
 export type RootMutationCreateEmployeeArgs = {
   input: CreateEmployeeInput;
 };
 
+
+export type RootMutationUpdateEmployeeArgs = {
+  input: UpdateEmployeeInput;
+};
+
+
 export type RootMutationCreateEmployeeTitleArgs = {
   input: CreateEmployeeTitleInput;
 };
+
 
 export type RootMutationCreatePaycheckArgs = {
   input: CreatePaycheckInput;
 };
 
+
 export type RootMutationBookEventArgs = {
   eventId: Scalars['ID'];
 };
 
+
 export type RootMutationCancelBookingArgs = {
   bookingId: Scalars['ID'];
 };
+
 
 export type RootMutationCreateEventArgs = {
   eventInput: EventInput;

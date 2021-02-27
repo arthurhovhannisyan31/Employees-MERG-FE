@@ -35,9 +35,9 @@ const CustomPagingPanel: React.FC<IProps> = ({
     if (currentPage === 0) {
       return pageSize
     }
-    return pageSize * (currentPage + 1) > totalCount ?
-      totalCount :
-      pageSize * (currentPage + 1)
+    return pageSize * (currentPage + 1) > totalCount
+      ? totalCount
+      : pageSize * (currentPage + 1)
   }
   const rangeEnd = getRangeEnd()
 

@@ -5,11 +5,13 @@ export const useFileUploadSizeValidation = (arr: any[], limit: number) => {
 }
 
 export const useFileUploadFormatValidation = (
-  arr: {type: string}[],
+  arr: { type: string }[],
   excludedFormats: string[],
 ) => {
   if (!arr.length || !excludedFormats.length) return false
-  const invalid = arr.filter((el) => excludedFormats.includes(el.type.split('/')[0]))
+  const invalid = arr.filter((el) =>
+    excludedFormats.includes(el.type.split('/')[0]),
+  )
   return [!invalid.length, invalid]
 }
 

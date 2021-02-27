@@ -4,25 +4,23 @@
 // helpers
 
 // todo add husky and pre-commit formatting
-
+// todo cut build time
 // todo add token expiration
-
-// todo exclude fetch to custom function
-
+// todo add tests
 // todo analytics
-// todo CRUD for employees, title, payoff, salary
-// hire employee
-// fire employeeqq
-// promote employee
-// downgrade employee
-// change salary salary
-// make payoff
 // todo remove bookings
 // todo remove events
-
-// todo employee detail
 // new route, get design from material-ui examples page
 // add google login form:
 // todo update styles
 
-// todo remove all old types, use generated types
+release 0.1
+as is, editing employees
+release 0.2
+add CRUD for employees, title, payoff, salary, hire/fire employee
+release 0.3
+add tests
+release 0.4
+design improvements
+release 0.5
+advanced authorization

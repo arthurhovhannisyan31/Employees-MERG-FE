@@ -34,9 +34,7 @@ interface IProps extends IBooking {
   onDelete: (val: string) => void
 }
 
-const BookingItem: React.FC<IProps> = ({
-  event, createdAt, onDelete, _id,
-}) => {
+const BookingItem: React.FC<IProps> = ({ event, createdAt, onDelete, _id }) => {
   const classes = useStyles()
   const bull = <span className={classes.bullet}>•</span>
   const handleDelete = () => {

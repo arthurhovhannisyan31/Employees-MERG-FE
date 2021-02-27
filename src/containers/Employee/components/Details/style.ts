@@ -8,6 +8,13 @@ export default makeStyles((theme: Theme) => ({
   personal: {
     display: 'flex',
     flexFlow: 'column',
+    position: 'relative',
+    '&:hover': {
+      '& $editButton': {
+        display: 'block',
+        opacity: 1,
+      },
+    },
   },
   avatarContainer: {
     display: 'flex',
@@ -32,5 +39,11 @@ export default makeStyles((theme: Theme) => ({
     gridTemplateColumns: '1fr 1fr',
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     borderBottom: `1px solid ${theme.palette.divider}`,
+  },
+  editButton: {
+    position: 'absolute',
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+    opacity: 0.5,
   },
 }))

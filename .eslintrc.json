@@ -1,15 +1,12 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "tsconfig.json"
+    "project": "./tsconfig.json"
   },
   "extends": [
-    "plugin:@typescript-eslint/recommended",
+    "airbnb-typescript",
     "prettier",
-    "prettier/@typescript-eslint",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "airbnb-typescript"
+    "prettier/react"
   ],
   "plugins": [
     "@typescript-eslint",
@@ -20,34 +17,34 @@
     "jest": true
   },
   "rules": {
-    "no-console": 0,
-    "@typescript-eslint/semi": 0,
-    "react/jsx-filename-extension": [
-      1,
+    "prettier/prettier": [
+      2,
       {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
+        "trailingComma": "all",
+        "tabWidth": 2,
+        "semi": false,
+        "singleQuote": true
       }
     ],
-    "react/prop-types": 0,
-    "no-underscore-dangle": 0,
+    "import/newline-after-import": "error",
+    "import/named": 0,
+    "import/prefer-default-export": 0,
     "import/imports-first": [
       "error",
       "absolute-first"
     ],
-    "import/newline-after-import": "error",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-underscore-dangle": 0,
+    "no-console": 0,
+    "@typescript-eslint/semi": 0,
+    "@typescript-eslint/indent": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-props-no-spreading": 0,
-    "import/named": 0,
-    "react/jsx-curly-newline": "warn",
-    "@typescript-eslint/explicit-module-boundary-types": 0,
-    "import/prefer-default-export": 0,
+    "react/jsx-curly-newline": 0,
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "operator-linebreak": ["error", "after"],
-    "react/display-name": 0
+    "react/display-name": 0,
+    "react/prop-types": 0
   },
   "globals": {
     "window": true,

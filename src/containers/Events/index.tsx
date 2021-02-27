@@ -21,12 +21,13 @@ const Events: React.FC = () => {
   // useStyles
   const classes = useStyles()
   // useContext
-  const { token, userId } = React.useContext(AuthContext)
+  const {
+    token,
+    userCredentials: { id },
+  } = React.useContext(AuthContext)
   const {
     dispatch,
-    state: {
-      eventForm, eventDetails, events, loading,
-    },
+    state: { eventForm, eventDetails, events, loading },
   } = React.useContext(EventsContext)
 
   const headers = {
@@ -37,9 +38,7 @@ const Events: React.FC = () => {
 
   const handleConfirmEventForm = React.useCallback(
     async (
-      {
-        date, description, price, title,
-      }: IEventFormFields,
+      { date, description, price, title }: IEventFormFields,
       resetForm,
     ) => {
       dispatch({ type: 'eventForm', prop: 'loading', payload: true })
@@ -72,7 +71,7 @@ const Events: React.FC = () => {
             ...createdEventData,
             creator: {
               ...createdEventData.creator,
-              _id: userId,
+              _id: id,
             },
           },
         })
@@ -82,7 +81,7 @@ const Events: React.FC = () => {
       }
       dispatch({ type: 'eventForm', prop: 'loading', payload: false })
     },
-    [apiUrl, headers, userId, dispatch],
+    [apiUrl, headers, id, dispatch],
   )
 
   const toggleModal = React.useCallback(
