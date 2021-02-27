@@ -1,11 +1,12 @@
 // deps
 import React from 'react'
 // model
-import { IEmployeeModalProps } from '_/containers/Employee/components/DetailsModal/types'
-import { FormikState } from 'formik'
-import { TEmployeeByIdAction } from '_/model/context/employee'
+import { UpdateEmployeeInput } from '_/model/generated'
+import { EActionTypes, TEmployeeByIdAction } from '_/model/context/employee'
 // helpers
 import { useFetch } from '_/utils/hooks'
+import { updateEmployee } from '_/gql/mutations'
+import { fetchResponseCheck } from '_/utils/auth'
 
 interface IUseSubmitEmployeeModalProps {
   dispatch: React.Dispatch<TEmployeeByIdAction>
@@ -17,16 +18,25 @@ export const useSubmitEmployeeModal = ({
   const [handleFetch] = useFetch()
 
   const handleSubmit = async (
-    props: IEmployeeModalProps,
-    resetForm: (
-      nextState?: Partial<FormikState<IEmployeeModalProps>> | undefined,
-    ) => void,
+    props: UpdateEmployeeInput,
+    resetForm: () => void,
   ) => {
     dispatch({
       type: 'loading',
       payload: { loading: true },
     })
     try {
+      const res = await handleFetch(updateEmployee(props))
+      fetchResponseCheck(res?.status)
+      resetForm()
+      const { id, ...rest } = props
+      dispatch({
+        type: EActionTypes.UPDATE_ITEM,
+        payload: {
+          data: rest,
+          key: id,
+        },
+      })
     } catch (err) {
       dispatch({
         type: 'error',
@@ -37,8 +47,6 @@ export const useSubmitEmployeeModal = ({
       type: 'loading',
       payload: { loading: false },
     })
-    console.log(props)
-    console.log(resetForm)
   }
 
   return [handleSubmit]

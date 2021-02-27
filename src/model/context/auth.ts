@@ -1,7 +1,7 @@
 // deps
 import React from 'react'
 // model
-import { AuthData } from '_/model/generated/graphql'
+import { AuthData } from '_/model/generated'
 
 export enum EAuthContextActions {
   LOGIN = 'LOGIN',

@@ -1,7 +1,7 @@
 // deps
 import React from 'react'
 // model
-import { Employee, Employees } from '_/model/generated/graphql'
+import { Employee, Employees } from '_/model/generated'
 import { IAction, IFetchError } from '_/model/common'
 
 export interface IEmployeesState {

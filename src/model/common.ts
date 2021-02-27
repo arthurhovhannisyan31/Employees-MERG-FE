@@ -17,5 +17,8 @@ export interface IAction<T> {
 
 export interface IQueryProps {
   query: string
-  variables?: Record<string, string | number>
+  variables?: Record<
+    string,
+    string | number | Record<string, string | number | null>
+  >
 }

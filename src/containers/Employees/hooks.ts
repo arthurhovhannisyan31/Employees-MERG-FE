@@ -1,7 +1,7 @@
 // deps
 import React from 'react'
 // model
-import { GetEmployeesInput } from '_/model/generated/graphql'
+import { GetEmployeesInput } from '_/model/generated'
 import {
   TEmployeesAction,
   IEmployeesFetchResponse,

@@ -23,6 +23,7 @@ import {
 } from '_/containers/Employee/hooks'
 import { useGetDepartments } from '_/containers/Employee/hooks/useGetDepartments'
 import { useGetTitles } from '_/containers/Employee/hooks/useGetTitles'
+import { useGetGenders } from '_/containers/Employee/hooks/useGetGenders'
 import { a11yProps } from './helpers'
 import useStyles from './style'
 
@@ -41,8 +42,7 @@ const EmployeePage: React.FC = () => {
   } = React.useContext(EmployeeByIdContext)
   const {
     state: {
-      data: { departments, titles },
-      loading: catalogsLoading,
+      data: { departments, titles, genders },
     },
     dispatch: catalogsDispatch,
   } = React.useContext(CatalogsContext)
@@ -72,8 +72,10 @@ const EmployeePage: React.FC = () => {
     dispatch: catalogsDispatch,
   })
   const [handleGetTitles] = useGetTitles({ dispatch: catalogsDispatch })
+  const [handleGetGenders] = useGetGenders({ dispatch: catalogsDispatch })
 
-  // todo update fields and delete profile
+  // todo update fields
+  // todo add delete profile
   // todo error message
 
   const fetchEmployeeInitData = React.useCallback(() => {
@@ -91,15 +93,21 @@ const EmployeePage: React.FC = () => {
       handleGetTitles()
     }
   }, [])
+  const fetchGendersInitData = React.useCallback(() => {
+    if (!genders?.length) {
+      handleGetGenders()
+    }
+  }, [])
 
   React.useEffect(fetchEmployeeInitData, [fetchEmployeeInitData])
   React.useEffect(fetchDepartmentsInitData, [fetchDepartmentsInitData])
   React.useEffect(fetchTitlesInitData, [fetchTitlesInitData])
+  React.useEffect(fetchGendersInitData, [fetchGendersInitData])
 
   return (
     <Grid container item className={classes.container} direction="column">
       <Grid>
-        {employeeByIdLoading || !employeeData ? (
+        {employeeByIdLoading && !employeeData ? (
           <Grid container justify="center" className={classes.loadingIndicator}>
             <CircularProgress size={20} />
           </Grid>
@@ -109,15 +117,17 @@ const EmployeePage: React.FC = () => {
               <Typography>Error message</Typography>
             ) : (
               <>
-                <DetailsModal
-                  isOpen={currentModal === 'details'}
-                  handleClose={handleSetModal('')}
-                  data={employeeData}
-                  onSubmit={handleEmployeeSubmit}
-                  titles={titles}
-                  departments={departments}
-                  isLoading={catalogsLoading}
-                />
+                {currentModal === 'details' && (
+                  <DetailsModal
+                    isOpen={currentModal === 'details'}
+                    handleClose={handleSetModal('')}
+                    data={employeeData}
+                    onSubmit={handleEmployeeSubmit}
+                    titles={titles}
+                    departments={departments}
+                    isLoading={employeeByIdLoading}
+                  />
+                )}
                 <AppBar position="static">
                   <Tabs
                     value={tab}

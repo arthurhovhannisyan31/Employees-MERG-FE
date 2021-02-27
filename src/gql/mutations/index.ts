@@ -1,5 +1,5 @@
 // model
-import { UserInput } from '_/model/generated/graphql'
+import { UpdateEmployeeInput, UserInput } from '_/model/generated'
 
 export const createUser = () => ({})
 
@@ -21,7 +21,15 @@ export const signUp = ({ email, password }: UserInput) => ({
   },
 })
 
-export const updateEmployee = () => ({
-  query: '',
-  variables: {},
+export const updateEmployee = (input: UpdateEmployeeInput) => ({
+  query: `
+    mutation updateEmployeeMutation($input: UpdateEmployeeInput!) {
+      updateEmployee(input: $input){
+        _id
+      }
+    }
+  `,
+  variables: {
+    input,
+  },
 })

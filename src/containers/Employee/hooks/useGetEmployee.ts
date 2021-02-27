@@ -2,8 +2,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 // model
-import { GetEmployeeInput } from '_/model/generated/graphql'
+import { GetEmployeeInput } from '_/model/generated'
 import {
+  EActionTypes,
   TEmployeeByIdAction,
   TEmployeeFetchResponse,
 } from '_/model/context/employee'
@@ -22,7 +23,7 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   const handleGetEmployee = React.useCallback(
     async ({ id }: GetEmployeeInput) => {
       dispatch({
-        type: 'loading',
+        type: EActionTypes.LOADING,
         payload: { loading: true },
       })
       try {
@@ -32,7 +33,7 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
           data: { employee },
         }: TEmployeeFetchResponse = await res.json()
         dispatch({
-          type: 'data',
+          type: EActionTypes.ADD_ITEM,
           payload: {
             data: employee,
             key: idParam,
@@ -40,12 +41,12 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
         })
       } catch (err) {
         dispatch({
-          type: 'error',
+          type: EActionTypes.ERROR,
           payload: { error: err },
         })
       }
       dispatch({
-        type: 'loading',
+        type: EActionTypes.LOADING,
         payload: { loading: false },
       })
     },

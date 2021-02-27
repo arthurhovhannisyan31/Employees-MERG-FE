@@ -90,9 +90,9 @@ export type Employee = {
   first_name: Scalars['String'];
   last_name: Scalars['String'];
   hire_date: Scalars['String'];
-  gender: Gender;
-  department: Department;
-  title: Title;
+  gender: Scalars['ID'];
+  department: Scalars['ID'];
+  title: Scalars['ID'];
   paychecks: Array<Maybe<Paycheck>>;
   titles: Array<Maybe<EmployeeTitle>>;
   employments: Array<Maybe<Employment>>;
@@ -110,6 +110,16 @@ export type CreateEmployeeInput = {
   last_name: Scalars['String'];
   hire_date: Scalars['String'];
   gender: Scalars['ID'];
+  department: Scalars['ID'];
+  title: Scalars['ID'];
+};
+
+export type UpdateEmployeeInput = {
+  id: Scalars['ID'];
+  birth_date: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  hire_date: Scalars['String'];
   department: Scalars['ID'];
   title: Scalars['ID'];
 };
@@ -221,6 +231,7 @@ export type RootMutation = {
   createTitle: Title;
   createEmployment: Employment;
   createEmployee: Employee;
+  updateEmployee: Employee;
   createEmployeeTitle: EmployeeTitle;
   createPaycheck: Paycheck;
   bookEvent: Booking;
@@ -256,6 +267,11 @@ export type RootMutationCreateEmploymentArgs = {
 
 export type RootMutationCreateEmployeeArgs = {
   input: CreateEmployeeInput;
+};
+
+
+export type RootMutationUpdateEmployeeArgs = {
+  input: UpdateEmployeeInput;
 };
 
 

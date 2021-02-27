@@ -2,7 +2,7 @@
 import format from 'date-fns/format'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
 // helpers
-import { Employee } from '_/model/generated/graphql'
+import { Employee } from '_/model/generated'
 
 export const rowIdSelector = ({ _id }: Omit<Employee, '__typename'>) => _id
 

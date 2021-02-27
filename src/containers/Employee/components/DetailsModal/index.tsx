@@ -6,12 +6,17 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { FormikState, useFormik } from 'formik'
+import isEqual from 'lodash.isequal'
 // components
 import Modal from '_/components/UI/Modal'
 import Dialog from '_/components/UI/Dialog'
 // model
-import { Employee, Department, Title } from '_/model/generated/graphql'
-import { IEmployeeModalProps } from '_/containers/Employee/components/DetailsModal/types'
+import {
+  Employee,
+  Department,
+  Title,
+  UpdateEmployeeInput,
+} from '_/model/generated'
 // helpers
 import {
   initStateSelector,
@@ -25,9 +30,9 @@ interface IDetailsModalProps {
   handleClose: () => void
   data: Employee
   onSubmit: (
-    props: IEmployeeModalProps,
+    props: UpdateEmployeeInput,
     resetForm: (
-      nextState?: Partial<FormikState<IEmployeeModalProps>> | undefined,
+      nextState?: Partial<FormikState<UpdateEmployeeInput>> | undefined,
     ) => void,
   ) => void
   departments?: Omit<Department, '__typename'>[]
@@ -42,9 +47,10 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
   onSubmit,
   titles,
   departments,
+  isLoading,
 }) => {
   const cls = useStyles()
-  const initState: IEmployeeModalProps = initStateSelector(data)
+  const initState: UpdateEmployeeInput = initStateSelector(data)
 
   const {
     values,
@@ -60,7 +66,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     validateOnMount: true,
     enableReinitialize: true,
     validationSchema,
-    onSubmit: (submitValues: IEmployeeModalProps) => {
+    onSubmit: (submitValues: UpdateEmployeeInput) => {
       onSubmit(submitValues, resetForm)
     },
   })
@@ -104,7 +110,13 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     [departments],
   )
 
-  const disableConfirm = !(isValid && values?.first_name)
+  const disableConfirm = React.useMemo<boolean>(
+    () =>
+      !(isValid && values?.first_name) ||
+      isEqual(values, initState) ||
+      isLoading,
+    [isValid, values, initState],
+  )
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} disableClickAway>
@@ -114,6 +126,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
         confirmLabel="Save"
         onConfirm={handleSubmit}
         disableConfirm={disableConfirm}
+        isLoading={isLoading}
       >
         <Grid container className={cls.container} direction="column">
           <Typography className={cls.label}>Employee form</Typography>

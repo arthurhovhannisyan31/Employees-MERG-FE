@@ -1,7 +1,7 @@
 // deps
 import React from 'react'
 // model
-import { Employee } from '_/model/generated/graphql'
+import { Employee, UpdateEmployeeInput } from '_/model/generated'
 import { IAction } from '_/model/common'
 
 export interface IEmployeeByIdState {
@@ -10,7 +10,12 @@ export interface IEmployeeByIdState {
   data: Record<string, Employee>
 }
 export type TEmployeeByIdAction = IAction<
-  Partial<Omit<IEmployeeByIdState, 'data'> & { data: Employee; key: string }>
+  Partial<
+    Omit<IEmployeeByIdState, 'data'> & {
+      data: Employee | Omit<UpdateEmployeeInput, 'id'>
+      key?: string
+    }
+  >
 >
 
 export type TEmployeeByIdReducer = (
@@ -22,6 +27,7 @@ export enum EActionTypes {
   LOADING = 'loading',
   ERROR = 'error',
   DATA = 'data',
+  ADD_ITEM = 'addItem',
   UPDATE_ITEM = 'updateItem',
 }
 

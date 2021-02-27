@@ -21,7 +21,7 @@ import Backdrop from '_/components/UI/Backdrop'
 // model
 import { IEmployeesTableRow } from '_/containers/Employees/types'
 import { TEmployeesAction } from '_/model/context/employees'
-import { Employee } from '_/model/generated/graphql'
+import { Employee } from '_/model/generated'
 // helpers
 import {
   initColumns,

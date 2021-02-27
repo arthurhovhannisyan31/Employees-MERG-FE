@@ -10,9 +10,10 @@ import format from 'date-fns/format'
 import cn from 'clsx'
 // components
 // model
-import { Employee } from '_/model/generated/graphql'
+import { Employee } from '_/model/generated'
 // helpers
 import { getFirstLastNameLetters } from '_/utils/string'
+import { CatalogsContext } from '../../../../context/catalogs'
 import useStyles from './style'
 
 interface IDetailsProps
@@ -32,6 +33,17 @@ const Details: React.FC<IDetailsProps> = ({
 }) => {
   // utils
   const classes = useStyles()
+  const {
+    state: {
+      data: { departments, titles, genders },
+    },
+  } = React.useContext(CatalogsContext)
+
+  const genderName = genders?.find((el) => el?._id === gender)?.name || ''
+  const departmentName =
+    departments?.find((el) => el?._id === department)?.name || ''
+  const titleName = titles?.find((el) => el?._id === title)?.name || ''
+
   return (
     <Grid container className={classes.container}>
       <Grid xs={4} className={classes.personal} container>
@@ -68,15 +80,15 @@ const Details: React.FC<IDetailsProps> = ({
             </Grid>
             <Grid container className={classes.row}>
               <Typography>Gender</Typography>
-              <Typography>{gender?.name}</Typography>
+              <Typography>{genderName}</Typography>
             </Grid>
             <Grid container className={classes.row}>
               <Typography>Title</Typography>
-              <Typography>{title?.name}</Typography>
+              <Typography>{titleName}</Typography>
             </Grid>
             <Grid container className={classes.row}>
               <Typography>Department</Typography>
-              <Typography>{department?.name}</Typography>
+              <Typography>{departmentName}</Typography>
             </Grid>
           </Grid>
         </Paper>

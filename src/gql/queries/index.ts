@@ -3,7 +3,7 @@ import {
   GetEmployeeInput,
   GetEmployeesInput,
   UserInput,
-} from '_/model/generated/graphql'
+} from '_/model/generated'
 // model
 import { IQueryProps } from '_/model/common'
 // helpers
@@ -48,9 +48,7 @@ export const getEmployees = ({
       }) {
         nodes {
           ${employeeFragment}
-          gender{
-            ${genderFragment}
-          }
+          gender
         }
         count
       }

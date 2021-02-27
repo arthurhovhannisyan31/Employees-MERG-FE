@@ -9,7 +9,7 @@ import BreadcrumbsComp from '_/components/UI/Breadcrumbs'
 import Backdrop from '_/components/UI/Backdrop'
 // model
 import { EAuthContextActions } from '_/model/context/auth'
-import { AuthData } from '_/model/generated/graphql'
+import { AuthData } from '_/model/generated'
 // helpers
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'

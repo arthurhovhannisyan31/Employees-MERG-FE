@@ -18,7 +18,14 @@ export default makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
-  controls: { margin: `0 ${theme.spacing(1)}px` },
+  controls: { margin: `0 ${theme.spacing(1)}px`, position: 'relative' },
   backDrop: { zIndex: 10 },
-  circularProgress: { marginLeft: theme.spacing(1) },
+  circularProgress: {
+    display: 'flex',
+    alignItems: 'center',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
 }))

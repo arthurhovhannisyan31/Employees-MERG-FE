@@ -7,7 +7,7 @@ import {
   TEmployeeByIdReducer,
   EActionTypes,
 } from '_/model/context/employee'
-import { Employee } from '_/model/generated/graphql'
+import { Employee } from '_/model/generated'
 
 const employeeByIdInitState: IEmployeeByIdState = {
   loading: false,
@@ -33,7 +33,7 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
         ...state,
         [type]: payload[type],
       }
-    case EActionTypes.DATA:
+    case EActionTypes.ADD_ITEM:
       return {
         ...state,
         data: {
@@ -42,8 +42,17 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
         },
       }
     case EActionTypes.UPDATE_ITEM:
+      console.log(payload)
+      console.log(state.data)
       return {
         ...state,
+        data: {
+          ...state.data,
+          [payload.key as string]: {
+            ...state.data[payload.key as string],
+            ...payload.data,
+          },
+        },
       }
     default:
       return state

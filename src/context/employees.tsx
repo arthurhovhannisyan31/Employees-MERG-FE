@@ -7,7 +7,7 @@ import {
   TEmployeesReducer,
   EActionTypes,
 } from '_/model/context/employees'
-import { Employee } from '_/model/generated/graphql'
+import { Employee } from '_/model/generated'
 
 const employeesInitState: IEmployeesState = {
   loading: false,

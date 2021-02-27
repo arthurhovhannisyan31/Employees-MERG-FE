@@ -1,7 +1,7 @@
 // deps
 import React from 'react'
 // model
-import { Department, Gender, Title } from '_/model/generated/graphql'
+import { Department, Gender, Title } from '_/model/generated'
 import { IAction } from '_/model/common'
 
 export interface ICatalogEntries {

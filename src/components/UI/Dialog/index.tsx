@@ -57,10 +57,9 @@ const Dialog: React.FC<IDialogProps> = ({
                 >
                   {confirmLabel}
                   {isLoading && (
-                    <CircularProgress
-                      size={15}
-                      className={cls.circularProgress}
-                    />
+                    <span className={cls.circularProgress}>
+                      <CircularProgress size={16} color="secondary" />
+                    </span>
                   )}
                 </Button>
               )}

@@ -42,15 +42,9 @@ export const userCredentials = `
 `
 export const employeeDetailsFragment = `
   ${employeeFragment}
-  gender{
-    ${genderFragment}
-  }
-  department{
-    ${departmentFragment}
-  }
-  title{
-    ${titleFragment}
-  }
+  gender
+  department
+  title
   paychecks{
     ${paycheckFragment}
   }
