@@ -5,41 +5,27 @@ export const employeeFragment = `
   first_name
   last_name
 `
-
 export const genderFragment = `
-  gender{
-    name
-  }
+  _id
+  name
 `
 export const departmentFragment = `
-  department{
-    name  
-  }
+  _id
+  name  
 `
 export const titleFragment = `
-  title{
-    name
-  }
-`
-export const titlesFragment = `
-  titles{
-    ${titleFragment}
-    start_date
-    end_date
-  }
+  _id
+  name
 `
 export const paycheckFragment = `
   salary
   start_date
   end_date
 `
-export const paychecksFragment = `
-  paychecks{
-    ${paycheckFragment}
-  }
-`
 export const employmentFragment = `
-  ${departmentFragment}
+  department{
+    ${departmentFragment}
+  }
   start_date
   end_date
 `
@@ -48,12 +34,26 @@ export const employmentsFragment = `
     ${employmentFragment}
   }
 `
+export const userCredentials = `
+  me {
+    id
+    email
+  }
+`
 export const employeeDetailsFragment = `
   ${employeeFragment}
-  ${genderFragment}
-  ${departmentFragment}
-  ${titleFragment}
-  ${paychecksFragment}
-  ${titlesFragment}
+  gender
+  department
+  title
+  paychecks{
+    ${paycheckFragment}
+  }
+  titles{
+    title{
+      ${titleFragment}
+    }
+    start_date
+    end_date
+  }
   ${employmentsFragment}
 `

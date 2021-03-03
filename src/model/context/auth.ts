@@ -1,16 +1,37 @@
-export interface IAuthState {
-  token: string
-  userId: string
-  tokenExpiration: number
+// deps
+import React from 'react'
+// model
+import { AuthData } from '_/model/generated'
+
+export enum EAuthContextActions {
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
+  ERRORS = 'ERRORS',
+}
+
+export interface IAuthState
+  extends Pick<AuthData, 'token' | 'userCredentials'> {
+  errors?: Error[]
 }
 
 export interface IAuthContext extends IAuthState {
-  login: (_: IAuthState) => void
-  logout: () => void
   headers: Record<string, string>
+  dispatch: React.Dispatch<IAuthReducerAction>
 }
 
+export type TAuthReducer = (
+  prevState: IAuthState,
+  action: IAuthReducerAction,
+) => IAuthState
+
 export interface IAuthReducerAction {
-  type: string
-  payload?: IAuthState
+  type: EAuthContextActions
+  payload?: Partial<IAuthState>
+}
+
+export interface IDecodedToken {
+  email: string
+  exp: number
+  iat: number
+  userId: string
 }

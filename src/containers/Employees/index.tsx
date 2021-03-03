@@ -5,66 +5,29 @@ import Typography from '@material-ui/core/Typography'
 // components
 import EmployeesTable from '_/containers/Employees/components/EmployeesTable'
 // model
-import { GetEmployeesInput } from '_/model/generated/graphql'
-import { TEmployeesFetchResponse } from '_/containers/Employees/types'
 // helpers
-import { AuthContext, EmployeesContext } from '_/context'
-import { getEmployees } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
+import { EmployeesContext } from '_/context'
+import { useGetEmployees } from '_/containers/Employees/hooks'
 
 const EmployeesPage: React.FC = () => {
   // context
-  const { headers } = React.useContext(AuthContext)
   const { dispatch, state } = React.useContext(EmployeesContext)
-  const {
-    error, loading, data, count,
-  } = state
+  const { error, loading, data, count } = state
   // state
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
   // memo
-  const key = React.useMemo(() => `${pageSize}-${currentPage}`, [pageSize, currentPage]);
-  const apiUrl = React.useMemo(() => process?.env?.API_URL || '', [])
-  const handleGetEmployees = React.useCallback(
-    async ({ offset, limit }: GetEmployeesInput) => {
-      dispatch({
-        type: 'loading',
-        payload: { loading: true },
-      })
-      try {
-        const res = await fetch(apiUrl, {
-          method: 'POST',
-          body: JSON.stringify(getEmployees({ offset, limit })),
-          headers,
-        })
-        fetchResponseCheck(res?.status)
-        const { data: { employees: { nodes, count: quantity } } }: TEmployeesFetchResponse =
-          await res.json()
-        dispatch({
-          type: 'data',
-          payload: {
-            data: nodes,
-            key,
-          },
-        })
-        dispatch({
-          type: 'count',
-          payload: { count: quantity },
-        })
-      } catch (err) {
-        dispatch({
-          type: 'error',
-          payload: { error: err },
-        })
-      }
-      dispatch({
-        type: 'loading',
-        payload: { loading: false },
-      })
-    },
-    [apiUrl, dispatch, headers, key],
-  )
-  const slice = React.useMemo(() => data?.[key] || [], [key, data]);
+  const key = React.useMemo(() => `${pageSize}-${currentPage}`, [
+    pageSize,
+    currentPage,
+  ])
+
+  const [handleGetEmployees] = useGetEmployees({
+    pageSize,
+    currentPage,
+    dispatch,
+  })
+  const slice = React.useMemo(() => data?.[key] || [], [key, data])
 
   React.useEffect(() => {
     if (!slice.length) {

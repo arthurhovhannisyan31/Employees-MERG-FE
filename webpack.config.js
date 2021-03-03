@@ -2,6 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const TerserPlugin = require('terser-webpack-plugin')
 
 require('dotenv').config()
 
@@ -11,11 +13,24 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[chunkhash].bundle.js',
+    filename: '[name].[contenthash].js',
     publicPath: '/',
-    chunkFilename: '[name].[chunkhash].bundle.js',
+    chunkFilename: '[name].[contenthash].chunk.js',
   },
-  optimization: { splitChunks: { chunks: 'all' } },
+  optimization: {
+    moduleIds: 'deterministic',
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        test: /\.(ts|js)x?$/,
+        exclude: [/\/node_modules/, /\/dist/],
+      }),
+    ],
+    removeEmptyChunks: true,
+    mergeDuplicateChunks: true,
+    realContentHash: true,
+  },
   devServer: {
     host: 'localhost',
     hot: true,
@@ -32,7 +47,7 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /node_modules|lib/,
+        exclude: [/node_modules/],
         test: /\.(ts|js)x?$/,
         use: { loader: 'babel-loader' },
       },
@@ -65,12 +80,16 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
       cache: false,
+      favicon: path.resolve(__dirname, 'src/static/img', 'favicon.ico'),
     }),
     new webpack.EnvironmentPlugin(['API_URL']),
     new webpack.ProvidePlugin({ process: 'process/browser' }),
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false,
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-    alias: { _: path.resolve(__dirname, 'src') },
+    alias: { "_": path.resolve(__dirname, 'src') },
   },
 }

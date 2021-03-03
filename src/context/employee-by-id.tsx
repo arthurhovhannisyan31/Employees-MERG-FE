@@ -1,8 +1,13 @@
 // deps
 import React from 'react'
 // model
-import { IEmployeeByIdState, IEmployeeByIdContext, TEmployeeByIdReducer } from '_/model/context/employee'
-import { Employee } from '_/model/generated/graphql';
+import {
+  IEmployeeByIdState,
+  IEmployeeByIdContext,
+  TEmployeeByIdReducer,
+  EActionTypes,
+} from '_/model/context/employee'
+import { Employee } from '_/model/generated'
 
 const employeeByIdInitState: IEmployeeByIdState = {
   loading: false,
@@ -15,25 +20,38 @@ const EmployeeByIdContextInitState: IEmployeeByIdContext = {
   dispatch: () => {},
 }
 
-const EmployeeByIdContext = React.createContext<IEmployeeByIdContext>(EmployeeByIdContextInitState)
-// todo refactor types
-const employeeByIdReducer: TEmployeeByIdReducer = (
-  state, action,
-) => {
+const EmployeeByIdContext = React.createContext<IEmployeeByIdContext>(
+  EmployeeByIdContextInitState,
+)
+
+const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case 'loading':
-    case 'error':
+    case EActionTypes.LOADING:
+    case EActionTypes.ERROR:
       return {
         ...state,
         [type]: payload[type],
       }
-    case 'data':
+    case EActionTypes.ADD_ITEM:
       return {
         ...state,
         data: {
           ...state.data,
           [payload.key as string]: payload.data as Employee,
+        },
+      }
+    case EActionTypes.UPDATE_ITEM:
+      console.log(payload)
+      console.log(state.data)
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [payload.key as string]: {
+            ...state.data[payload.key as string],
+            ...payload.data,
+          },
         },
       }
     default:
@@ -46,7 +64,6 @@ const EmployeeContextContainer: React.FC = ({ children }) => {
     employeeByIdReducer,
     employeeByIdInitState,
   )
-
   return (
     <EmployeeByIdContext.Provider
       value={{

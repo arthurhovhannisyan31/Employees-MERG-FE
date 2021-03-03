@@ -17,11 +17,11 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Avatar from '@material-ui/core/Avatar'
 // components
 import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/components/CustomPagingPanel'
-import Backdrop from '_/components/UI/Backdrop';
+import Backdrop from '_/components/UI/Backdrop'
 // model
 import { IEmployeesTableRow } from '_/containers/Employees/types'
-import { TEmployeesAction } from '_/model/context/employees';
-import { Employee } from '_/model/generated/graphql';
+import { TEmployeesAction } from '_/model/context/employees'
+import { Employee } from '_/model/generated'
 // helpers
 import {
   initColumns,
@@ -54,25 +54,24 @@ const EmployeesTable: React.FC<IProps> = ({
   count,
   data,
 }) => {
-  // styles
-  const cls = useStyles();
-  // route
+  const cls = useStyles()
+
   const history = useHistory()
 
   // todo add create an employee
-
-  // state
   const [columns] = React.useState(initColumns)
-  const [rows, setRows] = React.useState<IEmployeesTableRow[]>(data?.map(rowsSelector))
+  const [rows, setRows] = React.useState<IEmployeesTableRow[]>(
+    data?.map(rowsSelector),
+  )
   const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>(
     initColumnExtensions,
   )
-  // memo
+
   const initColumnsOrder = React.useMemo(() => getInitColumnsOrder(), [])
   const [columnOrder, setColumnOrder] = React.useState<string[]>(
     initColumnsOrder,
   )
-  // handlers
+
   const handleChangePageSize = React.useCallback(setPageSize, [setPageSize])
   const handleChangeCurrentPage = React.useCallback(setCurrentPage, [
     setCurrentPage,
@@ -80,19 +79,18 @@ const EmployeesTable: React.FC<IProps> = ({
   const handleChangeColumnOrder = React.useCallback(setColumnOrder, [
     setColumnOrder,
   ])
-  const handleRedirectProfile = React.useCallback((id: string) => () => history.push(`/employees/${id}`), [history])
-  // containers
+  const handleRedirectProfile = React.useCallback(
+    (id: string) => () => history.push(`/employees/${id}`),
+    [history],
+  )
+
   const pagingContainer = React.useCallback(
     (props: PagingPanel.ContainerProps) => {
       const newProps = {
         ...props,
         totalCount: count,
       }
-      return (
-        <CustomPagingPanel
-          {...newProps}
-        />
-      )
+      return <CustomPagingPanel {...newProps} />
     },
     [count],
   )
@@ -106,7 +104,11 @@ const EmployeesTable: React.FC<IProps> = ({
       case 'avatar':
         return (
           <Table.Cell {...props}>
-            <Avatar variant="rounded" onClick={handleRedirectProfile(id)} className={cls.avatar}>
+            <Avatar
+              variant="rounded"
+              onClick={handleRedirectProfile(id)}
+              className={cls.avatar}
+            >
               {getAvatarLetters(firstName, lastName)}
             </Avatar>
           </Table.Cell>
@@ -118,14 +120,19 @@ const EmployeesTable: React.FC<IProps> = ({
 
   React.useEffect(() => {
     if (data.length) {
-      setRows(data?.map(rowsSelector));
+      setRows(data?.map(rowsSelector))
     }
   }, [data])
 
   return (
     <Paper className={cls.container}>
       {loading && (
-        <MUIGrid container justify="center" className={cls.loadingSplash} alignItems="center">
+        <MUIGrid
+          container
+          justify="center"
+          className={cls.loadingSplash}
+          alignItems="center"
+        >
           <Backdrop isAbsolute />
           <CircularProgress />
         </MUIGrid>

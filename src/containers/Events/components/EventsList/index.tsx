@@ -29,13 +29,12 @@ interface IProps {
 }
 
 const EventsList: React.FC<IProps> = ({ events, handleOpenDetails }) => {
-  // useContext
-  const { userId } = React.useContext(AuthContext)
+  const {
+    userCredentials: { id },
+  } = React.useContext(AuthContext)
 
-  // useStyles
   const classes = useStyles()
 
-  // useState
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
 
@@ -63,7 +62,7 @@ const EventsList: React.FC<IProps> = ({ events, handleOpenDetails }) => {
     ?.map((el: IEvent) => (
       <EventItem
         key={el._id}
-        isOwner={el?.creator?._id === userId}
+        isOwner={el?.creator?._id === id}
         handleOpenDetails={handleOpenDetails}
         {...el}
       />

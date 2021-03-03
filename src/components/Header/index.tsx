@@ -1,5 +1,5 @@
 // deps
-import React, { useContext } from 'react'
+import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
@@ -15,35 +15,36 @@ import LogOut from '@material-ui/icons/ExitToApp'
 import PersonIcon from '@material-ui/icons/Person'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
-// local
+// helpers
 import { AuthContext, ThemeContext } from '_/context'
-import storage from '_/utils/storage'
+import { useLogout } from '_/utils/hooks'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {},
-  link: { color: 'white' },
-  activeLink: { color: theme.palette.secondary.main },
+  link: {
+    color: 'white',
+  },
+  activeLink: {
+    color: theme.palette.secondary.main,
+  },
 }))
 
 const Header: React.FC = () => {
-  // context
   const { darkMode, toggleTheme } = React.useContext(ThemeContext)
-  const { token, logout, userId } = useContext(AuthContext)
-  // state
+  const {
+    token,
+    userCredentials: { email },
+  } = React.useContext(AuthContext)
+
   const classes = useStyles()
   const history = useHistory()
   const location = useLocation()
 
+  const [handleLogout] = useLogout()
+
   const handleLogin = () => {
     history.push('/auth')
   }
-
-  const handleLogout = () => {
-    logout()
-    storage.clear()
-    history.push('/auth')
-  }
-
   // todo nav bar props array
 
   return (
@@ -55,7 +56,9 @@ const Header: React.FC = () => {
               <Tooltip title="Home">
                 <Button
                   onClick={() => history.push('/')}
-                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/' })}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/',
+                  })}
                 >
                   <HomeIcon />
                 </Button>
@@ -63,7 +66,9 @@ const Header: React.FC = () => {
               <Tooltip title="Employees">
                 <Button
                   onClick={() => history.push('/employees')}
-                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/employees' })}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/employees',
+                  })}
                 >
                   <PeopleIcon />
                 </Button>
@@ -71,7 +76,9 @@ const Header: React.FC = () => {
               <Tooltip title="About">
                 <Button
                   onClick={() => history.push('/about')}
-                  className={clsx(classes.link, { [classes.activeLink]: location?.pathname === '/about' })}
+                  className={clsx(classes.link, {
+                    [classes.activeLink]: location?.pathname === '/about',
+                  })}
                 >
                   <AboutIcon />
                 </Button>
@@ -80,7 +87,7 @@ const Header: React.FC = () => {
           </Grid>
           <Grid item>
             <Grid container alignItems="center">
-              <Typography>{userId}</Typography>
+              <Typography>{email}</Typography>
               <Switch checked={darkMode} onChange={toggleTheme} />
               {token ? (
                 <Tooltip title="Logout">

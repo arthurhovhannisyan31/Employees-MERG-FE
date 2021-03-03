@@ -11,3 +11,5 @@ export const ROUTES = {
 const CONSTANTS = { ROUTES }
 
 export default CONSTANTS
+
+export const ADULT_AGE = 18

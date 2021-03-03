@@ -32,7 +32,7 @@ const Dialog: React.FC<IDialogProps> = ({
 
   return (
     <Grid container className={cls.container}>
-      <Paper>
+      <Paper className={cls.paper}>
         <Grid container direction="column">
           {title && (
             <header className={cls.header}>
@@ -57,10 +57,9 @@ const Dialog: React.FC<IDialogProps> = ({
                 >
                   {confirmLabel}
                   {isLoading && (
-                    <CircularProgress
-                      size={15}
-                      className={cls.circularProgress}
-                    />
+                    <span className={cls.circularProgress}>
+                      <CircularProgress size={16} color="secondary" />
+                    </span>
                   )}
                 </Button>
               )}
