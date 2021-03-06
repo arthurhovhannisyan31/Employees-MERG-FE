@@ -25,14 +25,18 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: { limit: 8192 },
-          },
-        ],
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource',
       },
+      // {
+      //   test: /\.(png|jpg|jpeg|gif|svg)$/i,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: { limit: 8192 },
+      //     },
+      //   ],
+      // },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
@@ -53,6 +57,7 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin(['API_URL', 'PORT']),
     new webpack.ProvidePlugin({ process: 'process/browser' }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
