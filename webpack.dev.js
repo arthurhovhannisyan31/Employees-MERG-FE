@@ -25,7 +25,5 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(),
     new webpack.ProgressPlugin({ percentBy: 'entries' }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.EnvironmentPlugin(['API_URL', 'PORT']),
-    new webpack.ProvidePlugin({ process: 'process/browser' }),
   ]
 })

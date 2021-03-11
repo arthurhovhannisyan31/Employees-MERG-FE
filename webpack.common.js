@@ -1,5 +1,5 @@
+const webpack = require('webpack')
 const path = require('path')
-
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 require('dotenv').config()
 
@@ -44,6 +44,8 @@ module.exports = {
       cache: false,
       favicon: path.resolve(__dirname, 'src/static/img', 'favicon.ico'),
     }),
+    new webpack.EnvironmentPlugin(['API_URL', 'PORT']),
+    new webpack.ProvidePlugin({ process: 'process/browser' }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
