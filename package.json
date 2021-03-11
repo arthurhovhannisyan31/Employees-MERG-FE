@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "start:dev": "webpack serve --open --config webpack.dev.js",
+    "start:dev": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "watch": "tsc -w",
     "gentypes": "graphql-codegen --config codegen.yml",

@@ -27,7 +27,6 @@ export type User = {
   _id: Scalars['ID'];
   email: Scalars['String'];
   password?: Maybe<Scalars['String']>;
-  createdEvents?: Maybe<Array<Event>>;
 };
 
 export type UserCredentials = {
@@ -165,32 +164,6 @@ export type CreatePaycheckInput = {
   end_date: Scalars['String'];
 };
 
-export type Booking = {
-  __typename?: 'Booking';
-  _id: Scalars['ID'];
-  event: Event;
-  user: User;
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
-};
-
-export type Event = {
-  __typename?: 'Event';
-  _id: Scalars['ID'];
-  title: Scalars['String'];
-  description: Scalars['String'];
-  price: Scalars['Float'];
-  date: Scalars['String'];
-  creator: User;
-};
-
-export type EventInput = {
-  title: Scalars['String'];
-  description: Scalars['String'];
-  price: Scalars['Float'];
-  date: Scalars['String'];
-};
-
 export type RootQuery = {
   __typename?: 'RootQuery';
   departments: Array<Department>;
@@ -203,8 +176,6 @@ export type RootQuery = {
   employee: Employee;
   employeesTitles: Array<EmployeeTitle>;
   paychecks: Array<Paycheck>;
-  bookings: Array<Booking>;
-  events: Array<Event>;
 };
 
 
@@ -234,9 +205,6 @@ export type RootMutation = {
   updateEmployee: Employee;
   createEmployeeTitle: EmployeeTitle;
   createPaycheck: Paycheck;
-  bookEvent: Booking;
-  cancelBooking: Event;
-  createEvent?: Maybe<Event>;
 };
 
 
@@ -282,19 +250,4 @@ export type RootMutationCreateEmployeeTitleArgs = {
 
 export type RootMutationCreatePaycheckArgs = {
   input: CreatePaycheckInput;
-};
-
-
-export type RootMutationBookEventArgs = {
-  eventId: Scalars['ID'];
-};
-
-
-export type RootMutationCancelBookingArgs = {
-  bookingId: Scalars['ID'];
-};
-
-
-export type RootMutationCreateEventArgs = {
-  eventInput: EventInput;
 };
