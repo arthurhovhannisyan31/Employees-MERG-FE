@@ -13,7 +13,7 @@ import PeopleIcon from '@material-ui/icons/People'
 import PersonIcon from '@material-ui/icons/Person'
 import clsx from 'clsx'
 import React, { FC, useContext } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, useCallback } from 'react-router-dom'
 
 import { useLogout } from 'containers/Auth/hooks/useLogout'
 import { AuthContext, ThemeContext } from 'context'
@@ -41,9 +41,9 @@ const Header: FC = () => {
 
   const handleLogout = useLogout()
 
-  const handleLogin = (): void => {
+  const handleLogin = useCallback((): void => {
     history.push('/auth')
-  }
+  }, [])
 
   return (
     <AppBar position="static">
@@ -53,6 +53,7 @@ const Header: FC = () => {
             <Grid item container alignItems="center">
               <Tooltip title="Home">
                 <Button
+                  disabled={!token}
                   onClick={() => history.push('/')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/',
@@ -63,6 +64,7 @@ const Header: FC = () => {
               </Tooltip>
               <Tooltip title="Employees">
                 <Button
+                  disabled={!token}
                   onClick={() => history.push('/employees')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/employees',
@@ -73,6 +75,7 @@ const Header: FC = () => {
               </Tooltip>
               <Tooltip title="About">
                 <Button
+                  disabled={!token}
                   onClick={() => history.push('/about')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/about',
