@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import MUIGrid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -59,30 +59,26 @@ const EmployeesTable: React.FC<IProps> = ({
   const history = useHistory()
 
   // todo add create an employee
-  const [columns] = React.useState(initColumns)
-  const [rows, setRows] = React.useState<IEmployeesTableRow[]>(
+  const [columns] = useState(initColumns)
+  const [rows, setRows] = useState<IEmployeesTableRow[]>(
     data?.map(rowsSelector),
   )
-  const [tableColumnExtensions] =
-    React.useState<Table.ColumnExtension[]>(initColumnExtensions)
+  const [tableColumnExtensions] = useState<Table.ColumnExtension[]>(
+    initColumnExtensions,
+  )
 
-  const initColumnsOrder = React.useMemo(() => getInitColumnsOrder(), [])
-  const [columnOrder, setColumnOrder] =
-    React.useState<string[]>(initColumnsOrder)
+  const initColumnsOrder = useMemo(() => getInitColumnsOrder(), [])
+  const [columnOrder, setColumnOrder] = useState<string[]>(initColumnsOrder)
 
-  const handleChangePageSize = React.useCallback(setPageSize, [setPageSize])
-  const handleChangeCurrentPage = React.useCallback(setCurrentPage, [
-    setCurrentPage,
-  ])
-  const handleChangeColumnOrder = React.useCallback(setColumnOrder, [
-    setColumnOrder,
-  ])
-  const handleRedirectProfile = React.useCallback(
+  const handleChangePageSize = useCallback(setPageSize, [setPageSize])
+  const handleChangeCurrentPage = useCallback(setCurrentPage, [setCurrentPage])
+  const handleChangeColumnOrder = useCallback(setColumnOrder, [setColumnOrder])
+  const handleRedirectProfile = useCallback(
     (id: string) => () => history.push(`/employees/${id}`),
     [history],
   )
 
-  const pagingContainer = React.useCallback(
+  const pagingContainer = useCallback(
     (props: PagingPanel.ContainerProps) => {
       const newProps = {
         ...props,
@@ -116,7 +112,7 @@ const EmployeesTable: React.FC<IProps> = ({
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.length) {
       setRows(data?.map(rowsSelector))
     }

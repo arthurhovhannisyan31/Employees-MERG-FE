@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useReducer } from 'react'
 // model
 import {
   IEmployeeByIdState,
@@ -58,7 +58,7 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
 }
 
 const EmployeeContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer<TEmployeeByIdReducer>(
+  const [state, dispatch] = useReducer<TEmployeeByIdReducer>(
     employeeByIdReducer,
     employeeByIdInitState,
   )

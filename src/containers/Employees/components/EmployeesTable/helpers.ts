@@ -11,14 +11,14 @@ export const rowsSelector = ({
   hire_date,
   last_name,
   first_name,
-  gender: { name: genderName },
+  gender,
   birth_date,
 }: Omit<Employee, '__typename'>) => ({
   _id,
   hire_date: format(new Date(hire_date), 'dd-MMM-yyyy'),
   last_name,
   first_name,
-  gender: genderName,
+  gender,
   birth_date: format(new Date(birth_date), 'dd-MMM-yyyy'),
 })
 

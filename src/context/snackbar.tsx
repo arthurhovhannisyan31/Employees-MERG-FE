@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useState } from 'react'
 // model
 import { ISnackbarContext, ISnackbar } from '_/model/context/snackbar'
 
@@ -15,7 +15,7 @@ const SnackbarContext = React.createContext<ISnackbarContext>({
 })
 
 const SnackbarContextContainer: React.FC = ({ children }) => {
-  const [snackbarState, setSnackbarState] = React.useState(snackbarInitState)
+  const [snackbarState, setSnackbarState] = useState(snackbarInitState)
 
   const handleChange = (props: Partial<ISnackbar>) => {
     setSnackbarState((state: ISnackbar) => ({

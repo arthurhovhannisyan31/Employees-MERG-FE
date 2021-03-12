@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -39,25 +39,25 @@ const EmployeePage: React.FC = () => {
       error: employeeByIdError,
     },
     dispatch: employeeByIdDispatch,
-  } = React.useContext(EmployeeByIdContext)
+  } = useContext(EmployeeByIdContext)
   const {
     state: {
       data: { departments, titles, genders },
     },
     dispatch: catalogsDispatch,
-  } = React.useContext(CatalogsContext)
+  } = useContext(CatalogsContext)
   // state
-  const [tab, setTab] = React.useState<number>(0)
+  const [tab, setTab] = useState<number>(0)
   const employeeData = employeeByIdData?.[idParam]
-  const [currentModal, setCurrentModal] = React.useState('')
+  const [currentModal, setCurrentModal] = useState('')
   // memo
-  const handleChangeTab = React.useCallback(
+  const handleChangeTab = useCallback(
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
       setTab(newValue)
     },
     [],
   )
-  const handleSetModal = React.useCallback(
+  const handleSetModal = useCallback(
     (val: string) => () => {
       setCurrentModal(val)
     },
@@ -80,31 +80,31 @@ const EmployeePage: React.FC = () => {
   // todo add delete profile
   // todo error message
 
-  const fetchEmployeeInitData = React.useCallback(() => {
+  const fetchEmployeeInitData = useCallback(() => {
     if (!employeeData && !employeeByIdLoading) {
       handleGetEmployee({ id: idParam })
     }
   }, [employeeData, employeeByIdLoading, handleGetEmployee, idParam])
-  const fetchDepartmentsInitData = React.useCallback(() => {
+  const fetchDepartmentsInitData = useCallback(() => {
     if (!departments?.length) {
       handleGetDepartments()
     }
   }, [departments, handleGetDepartments])
-  const fetchTitlesInitData = React.useCallback(() => {
+  const fetchTitlesInitData = useCallback(() => {
     if (!titles?.length) {
       handleGetTitles()
     }
   }, [handleGetTitles, titles])
-  const fetchGendersInitData = React.useCallback(() => {
+  const fetchGendersInitData = useCallback(() => {
     if (!genders?.length) {
       handleGetGenders()
     }
   }, [genders, handleGetGenders])
 
-  React.useEffect(fetchEmployeeInitData, [fetchEmployeeInitData])
-  React.useEffect(fetchDepartmentsInitData, [fetchDepartmentsInitData])
-  React.useEffect(fetchTitlesInitData, [fetchTitlesInitData])
-  React.useEffect(fetchGendersInitData, [fetchGendersInitData])
+  useEffect(fetchEmployeeInitData, [fetchEmployeeInitData])
+  useEffect(fetchDepartmentsInitData, [fetchDepartmentsInitData])
+  useEffect(fetchTitlesInitData, [fetchTitlesInitData])
+  useEffect(fetchGendersInitData, [fetchGendersInitData])
 
   return (
     <Grid container item className={classes.container} direction="column">

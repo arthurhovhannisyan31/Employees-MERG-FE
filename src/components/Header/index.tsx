@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Header: React.FC = () => {
-  const { darkMode, toggleTheme } = React.useContext(ThemeContext)
+  // context
+  const { darkMode, toggleTheme } = useContext(ThemeContext)
   const {
     userCredentials: { email, _id: id },
   } = React.useContext(AuthContext)
@@ -42,6 +43,7 @@ const Header: React.FC = () => {
 
   const handleLogout = useLogout()
 
+  // memo
   const handleLogin = () => {
     history.push('/auth')
   }
@@ -95,7 +97,7 @@ const Header: React.FC = () => {
                   </Button>
                 </Tooltip>
               ) : (
-                <Tooltip title="Logout">
+                <Tooltip title="Login">
                   <Button onClick={handleLogin} className={clsx(classes.link)}>
                     <PersonIcon />
                   </Button>

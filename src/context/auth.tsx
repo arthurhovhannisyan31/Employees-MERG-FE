@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useMemo, useReducer } from 'react'
 // model
 import {
   EAuthContextActions,
@@ -58,7 +58,7 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
 }
 
 const AuthContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer<TAuthReducer>(
+  const [state, dispatch] = useReducer<TAuthReducer>(
     authContextReducer,
     authContextInitValue,
   )

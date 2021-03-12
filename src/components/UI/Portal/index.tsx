@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useMemo } from 'react'
 import ReactDOM from 'react-dom'
 
 interface IPortalProps {
@@ -13,11 +13,11 @@ const Portal: React.FC<IPortalProps> = React.forwardRef<
   HTMLDivElement,
   IPortalProps
 >(({ children, selector = '', className = '', style, ...props }, _ref) => {
-  const mountNode: HTMLElement = React.useMemo(
+  const mountNode: HTMLElement = useMemo(
     () => document.querySelector(selector) || document.body,
     [selector],
   )
-  const container: JSX.Element = React.useMemo(
+  const container: JSX.Element = useMemo(
     () => (
       <div ref={_ref} className={className} style={style} {...props}>
         {children}

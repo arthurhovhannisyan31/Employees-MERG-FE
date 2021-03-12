@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 // components
@@ -11,11 +11,11 @@ import { useGetEmployees } from '_/containers/Employees/hooks'
 
 const EmployeesPage: React.FC = () => {
   // context
-  const { dispatch, state } = React.useContext(EmployeesContext)
+  const { dispatch, state } = useContext(EmployeesContext)
   const { error, loading, data, count } = state
   // state
-  const [currentPage, setCurrentPage] = React.useState(0)
-  const [pageSize, setPageSize] = React.useState(5)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [pageSize, setPageSize] = useState(5)
   // memo
   const key = React.useMemo(
     () => `${pageSize}-${currentPage}`,
@@ -27,9 +27,9 @@ const EmployeesPage: React.FC = () => {
     currentPage,
     dispatch,
   })
-  const slice = React.useMemo(() => data?.[key] || [], [key, data])
+  const slice = useMemo(() => data?.[key] || [], [key, data])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!slice.length) {
       handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
     }

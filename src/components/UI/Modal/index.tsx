@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 // components
@@ -19,7 +19,7 @@ const Modal: React.FC<IModalProps> = ({
   onClose,
   disableClickAway,
 }) => {
-  const [openState, setOpenState] = React.useState(isOpen)
+  const [openState, setOpenState] = useState(isOpen)
   const cls = useStyles()
   const handleClose = () => {
     if (!disableClickAway) {
@@ -30,7 +30,7 @@ const Modal: React.FC<IModalProps> = ({
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setOpenState(isOpen)
   }, [isOpen])
 

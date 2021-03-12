@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useContext } from 'react'
 import themeCreator from '_/utils/theme'
 import { CssBaseline } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
@@ -11,7 +11,7 @@ import useStyles from '_/containers/Layout/style'
 
 const Layout: React.FC = ({ children }) => {
   // context
-  const { darkMode } = React.useContext(ThemeContext)
+  const { darkMode } = useContext(ThemeContext)
   // styles
   const classes = useStyles()
 

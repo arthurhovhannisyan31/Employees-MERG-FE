@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useContext } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
@@ -37,7 +37,7 @@ const Details: React.FC<IDetailsProps> = ({
     state: {
       data: { departments, titles, genders },
     },
-  } = React.useContext(CatalogsContext)
+  } = useContext(CatalogsContext)
 
   const genderName = genders?.find((el) => el?._id === gender)?.name || ''
   const departmentName =
