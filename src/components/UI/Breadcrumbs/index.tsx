@@ -23,7 +23,11 @@ const BreadcrumbsComp: React.FC = () => {
 
   const links = paths.map((el: string, idx: number) => {
     if (idx + 1 === paths.length) {
-      return <Typography className={classes.link}>{el}</Typography>
+      return (
+        <Typography key={el} className={classes.link}>
+          {el}
+        </Typography>
+      )
     }
     const path = idx === 0 ? el : paths.slice(0, idx + 1).join('/')
     return (

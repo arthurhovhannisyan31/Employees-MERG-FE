@@ -46,7 +46,7 @@ const Details: React.FC<IDetailsProps> = ({
 
   return (
     <Grid container className={classes.container}>
-      <Grid xs={4} className={classes.personal} container>
+      <Grid item xs={4} className={classes.personal} container>
         <Paper>
           <IconButton
             className={cn(classes.editButton, '.editButton')}

@@ -1,7 +1,6 @@
 // deps
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
 
 interface IProps {
   value: number
@@ -15,11 +14,7 @@ const TabPanel: React.FC<IProps> = ({ children, value, index }) => (
     id={`simple-tabpanel-${index}`}
     aria-labelledby={`simple-tab-${index}`}
   >
-    {value === index && (
-      <Box p={3}>
-        <Typography>{children}</Typography>
-      </Box>
-    )}
+    {value === index && <Box p={3}>{children}</Box>}
   </div>
 )
 

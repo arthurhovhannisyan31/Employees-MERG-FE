@@ -8,9 +8,10 @@ import { IModule } from '_/model/common'
 
 const renderApp = () =>
   render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
+    // TODO 12.03.2021 Return after update material-ui to v5
+    // <React.StrictMode>
+    <App />,
+    // </React.StrictMode>
     document.getElementById('root'),
   )
 

@@ -3,17 +3,6 @@
 // model
 // helpers
 
-// todo add husky and pre-commit formatting
-// todo cut build time
-// todo add token expiration
-// todo add tests
-// todo analytics
-// todo remove bookings
-// todo remove events
-// new route, get design from material-ui examples page
-// add google login form:
-// todo update styles
-
 release 0.1
 as is, editing employees
 release 0.2
@@ -24,3 +13,12 @@ release 0.4
 design improvements
 release 0.5
 advanced authorization
+
+// todo add husky and pre-commit formatting
+// todo add token expiration
+// todo add tests
+// todo analytics
+// new route, get design from material-ui examples page
+// add google login form:
+// todo update styles
+// todo add react helmet
