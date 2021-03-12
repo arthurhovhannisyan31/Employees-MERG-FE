@@ -1,5 +1,5 @@
 // deps
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
   const handleLogout = useLogout()
 
   // memo
-  const handleLogin = () => {
+  const handleLogin = useCallback(() => {
     history.push('/auth')
   }
 
@@ -56,6 +56,7 @@ const Header: React.FC = () => {
             <Grid item container alignItems="center">
               <Tooltip title="Home">
                 <Button
+                  disabled={!token}
                   onClick={() => history.push('/')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/',
@@ -66,6 +67,7 @@ const Header: React.FC = () => {
               </Tooltip>
               <Tooltip title="Employees">
                 <Button
+                  disabled={!token}
                   onClick={() => history.push('/employees')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/employees',
@@ -76,6 +78,7 @@ const Header: React.FC = () => {
               </Tooltip>
               <Tooltip title="About">
                 <Button
+                  disabled={!token}
                   onClick={() => history.push('/about')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/about',
