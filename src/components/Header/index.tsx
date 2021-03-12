@@ -94,7 +94,7 @@ const Header: FC = () => {
                   </Button>
                 </Tooltip>
               ) : (
-                <Tooltip title="Logout">
+                <Tooltip title="Login">
                   <Button onClick={handleLogin} className={clsx(classes.link)}>
                     <PersonIcon />
                   </Button>
