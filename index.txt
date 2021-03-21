@@ -13,6 +13,21 @@ release 0.4
 design improvements
 release 0.5
 advanced authorization
+google login form
+token expiration
+add husky and pre-commit formatting
+add react helmet
+analytics: table, graphs, reports
+// todo nav bar props array
+
+add registration
+registration password validation
+
+add features from material-ui project
+
+registration
+forgot email form
+email reset uniq link
 
 // todo add husky and pre-commit formatting
 // todo add token expiration
