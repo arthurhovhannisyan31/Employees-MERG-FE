@@ -1,4 +1,4 @@
-export interface IModule extends NodeModule {
+export interface IModule {
   hot: {
     accept: (str: string, node: () => void) => void
   }
@@ -23,6 +23,18 @@ export interface IQueryProps {
   >
 }
 
+export enum ERoutes {
+  HOME = 'HOME',
+  AUTH = 'AUTH',
+  ABOUT = 'ABOUT',
+  EMPLOYEES = 'EMPLOYEES',
+  EMPLOYEE = 'EMPLOYEE',
+  NOT_FOUND = 'NOT_FOUND',
+}
+
+export type IRouteMapItem = Record<'url' | 'label', string>
+export type IRouteMap = Record<ERoutes, IRouteMapItem>
+
 export interface IQueryResponse<T> {
   data: T | null
   errors: IFetchError[]
@@ -30,7 +42,7 @@ export interface IQueryResponse<T> {
 
 export type OmitTypeName<T> = Omit<T, '__typename'>
 
-export enum EROUTES {
+export enum ERoutesPaths {
   HOME = '',
   AUTH = 'auth',
   ABOUT = 'about',

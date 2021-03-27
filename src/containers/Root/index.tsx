@@ -14,6 +14,7 @@ import { EROUTES } from '_/model/common'
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
 import { useCheckAuthorization } from '_/containers/Root/hooks'
+
 import useStyles from './styles'
 
 const Root: React.FC = () => {

@@ -6,7 +6,6 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Switch from '@material-ui/core/Switch'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles, Theme } from '@material-ui/core/styles'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/Info'
 import PeopleIcon from '@material-ui/icons/People'
@@ -19,18 +18,9 @@ import clsx from 'clsx'
 import { AuthContext, ThemeContext } from '_/context'
 import { useLogout } from '_/containers/Auth/hooks/useLogout'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {},
-  link: {
-    color: 'white',
-  },
-  activeLink: {
-    color: theme.palette.secondary.main,
-  },
-}))
+import useStyles from './styles'
 
 const Header: React.FC = () => {
-  // context
   const { darkMode, toggleTheme } = useContext(ThemeContext)
   const {
     userCredentials: { email, _id: id },
@@ -43,13 +33,12 @@ const Header: React.FC = () => {
 
   const handleLogout = useLogout()
 
-  // memo
   const handleLogin = useCallback(() => {
     history.push('/auth')
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" className={classes.appBar}>
       <Toolbar variant="dense">
         <Grid container justify="space-between" className={classes.container}>
           <Grid item>

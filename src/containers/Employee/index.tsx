@@ -28,10 +28,9 @@ import { a11yProps } from './helpers'
 import useStyles from './style'
 
 const EmployeePage: React.FC = () => {
-  // utils
   const classes = useStyles()
   const { id: idParam } = useParams<Record<'id', string>>()
-  // context
+
   const {
     state: {
       data: employeeByIdData,
@@ -46,11 +45,11 @@ const EmployeePage: React.FC = () => {
     },
     dispatch: catalogsDispatch,
   } = useContext(CatalogsContext)
-  // state
+
   const [tab, setTab] = useState<number>(0)
   const employeeData = employeeByIdData?.[idParam]
   const [currentModal, setCurrentModal] = useState('')
-  // memo
+
   const handleChangeTab = useCallback(
     (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
       setTab(newValue)

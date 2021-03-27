@@ -1,8 +1,5 @@
 // deps
 import React from 'react'
-// components
-// model
-// helpers
 
 export const SVG404 = () => (
   <svg
