@@ -30,7 +30,6 @@ const Details: FC<IDetailsProps> = ({
   last_name,
   handleOpenModal,
 }) => {
-  // utils
   const classes = useStyles()
   const {
     state: {

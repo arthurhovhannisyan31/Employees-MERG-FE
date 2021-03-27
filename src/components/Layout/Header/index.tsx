@@ -18,15 +18,7 @@ import { useHistory, useLocation, useCallback } from 'react-router-dom'
 import { useLogout } from 'containers/Auth/hooks/useLogout'
 import { AuthContext, ThemeContext } from 'context'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {},
-  link: {
-    color: 'white',
-  },
-  activeLink: {
-    color: theme.palette.secondary.main,
-  },
-}))
+import useStyles from './styles'
 
 const Header: FC = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext)
@@ -46,7 +38,7 @@ const Header: FC = () => {
   }, [])
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" className={classes.appBar}>
       <Toolbar variant="dense">
         <Grid container justify="space-between" className={classes.container}>
           <Grid item>
