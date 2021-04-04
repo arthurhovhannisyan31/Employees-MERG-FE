@@ -3,37 +3,42 @@
 // model
 // helpers
 
-release 0.1
-as is, editing employees
 release 0.2
-add CRUD for employees, title, payoff, salary, hire/fire employee
-release 0.3
-add tests
-release 0.4
-design improvements
-release 0.5
-advanced authorization
-google login form
+add proxy for be queries
+add token transport via cookies
 token expiration
-add husky and pre-commit formatting
-add react helmet
-analytics: table, graphs, reports
-// todo nav bar props array
 
-add registration
+release 0. - ui-improvements
+design improvements
+remove half of loading indicators
+
+release 0. - registration
+add registration and forgot password
 registration password validation
-
-add features from material-ui project
-
-registration
 forgot email form
 email reset uniq link
 
-// todo add husky and pre-commit formatting
-// todo add token expiration
-// todo add tests
-// todo analytics
-// new route, get design from material-ui examples page
-// add google login form:
-// todo update styles
-// todo add react helmet
+isAuthenticated
+new Date().getTime() / 1000 < authState.expiresAt
+
+форма логин/регистрации на 2 таба
+add cookies and sessions on BE
+
+
+add CRUD for employees, title, payoff, salary, hire/fire employee
+advanced authorization
+add husky and pre-commit formatting
+add features from material-ui project
+add tests
+new route, get design from material-ui examples page
+update styles
+google login form
+add react helmet
+analytics: table, graphs, reports
+nav bar props array
+add proxy
+add fonts
+indexeddb
+
+
+

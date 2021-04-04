@@ -1,14 +1,14 @@
-const webpack = require('webpack')
-const path = require('path')
-const { merge } = require('webpack-merge')
-const common = require('./webpack.common')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const webpack = require("webpack");
+const path = require("path");
+const { merge } = require("webpack-merge");
+const common = require("./webpack.common");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = merge(common, {
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: "development",
+  devtool: "inline-source-map",
   devServer: {
-    host: 'localhost',
+    host: process.env.APP_URL_DEV,
     hot: true,
     port: process.env.PORT || 3000,
     inline: true,
@@ -16,14 +16,18 @@ module.exports = merge(common, {
     historyApiFallback: true,
     watchOptions: {
       poll: 1000,
-      ignored: ['node_modules'],
+      ignored: ["node_modules"],
     },
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, "dist"),
+    proxy: {
+      [process.env
+        .API_URL]: `${process.env.PROXY_URL_DEV}${process.env.API_URL}`,
+    },
   },
   plugins: [
     ...common.plugins,
     new CleanWebpackPlugin(),
-    new webpack.ProgressPlugin({ percentBy: 'entries' }),
+    new webpack.ProgressPlugin({ percentBy: "entries" }),
     new webpack.HotModuleReplacementPlugin(),
-  ]
-})
+  ],
+});
