@@ -44,8 +44,14 @@ module.exports = {
       cache: false,
       favicon: path.resolve(__dirname, 'src/static/img', 'favicon.ico'),
     }),
-    new webpack.EnvironmentPlugin(['API_URL', 'PORT']),
-    new webpack.ProvidePlugin({ process: 'process/browser' }),
+    new webpack.EnvironmentPlugin([
+      "API_URL",
+      "PROXY_URL_DEV",
+      "PROXY_URL_PROD",
+      "APP_URL_DEV",
+      "PORT",
+    ]),
+    new webpack.ProvidePlugin({ process: "process/browser" }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],

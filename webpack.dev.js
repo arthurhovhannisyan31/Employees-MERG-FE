@@ -18,7 +18,11 @@ module.exports = merge(common, {
       poll: 1000,
       ignored: ['node_modules'],
     },
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, "dist"),
+    proxy: {
+      [process.env
+        .API_URL]: `${process.env.PROXY_URL_DEV}${process.env.API_URL}`,
+    },
   },
   plugins: [
     ...common.plugins,
