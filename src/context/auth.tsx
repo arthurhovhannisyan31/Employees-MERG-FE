@@ -8,6 +8,8 @@ import {
   IAuthState,
   TAuthReducer,
 } from '_/model/context/auth'
+// helpers
+import { API_URL } from '_/constants/config'
 
 const authContextInitValue: IAuthContext = {
   token: '',
@@ -15,6 +17,7 @@ const authContextInitValue: IAuthContext = {
     email: '',
     id: '',
   },
+  apiUrl: '',
   headers: {},
   errors: [],
   dispatch: () => {},
@@ -82,6 +85,7 @@ const AuthContextContainer: React.FC = ({ children }) => {
         errors,
         userCredentials,
         token,
+        apiUrl: API_URL,
       }}
     >
       {children}

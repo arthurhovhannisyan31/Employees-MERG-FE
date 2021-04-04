@@ -16,6 +16,7 @@ export interface IAuthState
 
 export interface IAuthContext extends IAuthState {
   headers: Record<string, string>
+  apiUrl: string
   dispatch: React.Dispatch<IAuthReducerAction>
 }
 

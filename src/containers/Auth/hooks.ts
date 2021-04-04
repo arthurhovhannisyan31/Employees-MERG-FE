@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 // model
 import { IAuthReducerAction, EAuthContextActions } from '_/model/context/auth'
@@ -7,7 +7,9 @@ import { IAuthReducerAction, EAuthContextActions } from '_/model/context/auth'
 import { signUp } from '_/gql/mutations'
 import { loginQuery } from '_/gql/queries'
 import storage from '_/utils/storage'
-import { SnackbarContext } from '../../context/snackbar'
+import { AuthContext } from '_/context'
+import { useFetch } from '_/utils/hooks'
+import { SnackbarContext } from '_/context/snackbar'
 
 export interface IUseHandleSubmitProps {
   email: string
@@ -22,23 +24,17 @@ export const useHandleSubmit = ({
   authState,
   dispatch,
 }: IUseHandleSubmitProps) => {
-  const apiUrl = process?.env?.API_URL || ''
   const history = useHistory()
-  const { setSnackbarState } = React.useContext(SnackbarContext)
+  const { apiUrl } = useContext(AuthContext)
+  const { setSnackbarState } = useContext(SnackbarContext)
+  const [handleFetch] = useFetch()
 
-  const handleSubmit = React.useCallback(async () => {
+  const handleSubmit = useCallback(async () => {
     const loginBody = loginQuery({ email, password })
     const signupBody = signUp({ email, password })
 
     try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        body: JSON.stringify(authState ? signupBody : loginBody),
-        headers: { 'Content-Type': 'application/json' },
-      })
+      const res = await handleFetch(authState ? signupBody : loginBody)
       if (![200, 201].includes(res?.status)) {
         throw new Error('Failed!')
       }
