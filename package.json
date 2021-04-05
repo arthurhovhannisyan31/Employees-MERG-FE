@@ -77,7 +77,6 @@
     "file-loader": "^6.2.0",
     "nodemon": "^2.0.4",
     "html-webpack-plugin": "^5.3.1",
-    "http-proxy-middleware": "^1.1.0",
     "prettier": "^2.2.1",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.1.1",
