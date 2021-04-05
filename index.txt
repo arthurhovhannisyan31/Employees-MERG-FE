@@ -3,42 +3,36 @@
 // model
 // helpers
 
-release 0.2
-add proxy for be queries
+-- release 0.2
++ add proxy for BE queries
 add token transport via cookies
 token expiration
 
-release 0. - ui-improvements
+-- release 0. - ui-improvements
 design improvements
 remove half of loading indicators
+update styles
+add react helmet
+add fonts
+nav bar props array
 
-release 0. - registration
+-- release 0. - registration
 add registration and forgot password
 registration password validation
 forgot email form
 email reset uniq link
 
-isAuthenticated
-new Date().getTime() / 1000 < authState.expiresAt
+-- release 0. - add jest, write test
+
+-- release 0. - advanced authorization
+google login form
 
 форма логин/регистрации на 2 таба
-add cookies and sessions on BE
-
-
 add CRUD for employees, title, payoff, salary, hire/fire employee
-advanced authorization
 add husky and pre-commit formatting
 add features from material-ui project
-add tests
 new route, get design from material-ui examples page
-update styles
-google login form
-add react helmet
 analytics: table, graphs, reports
-nav bar props array
-add proxy
-add fonts
 indexeddb
-
-
-
+isAuthenticated
+new Date().getTime() / 1000 < authState.expiresAt
