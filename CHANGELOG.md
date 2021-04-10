@@ -1,3 +1,9 @@
+# v0.1.1 (2021)
+
+## Authorization improvements
+
+- Add proxy for BE queries
+
 # v0.1.0 (Sun Mar 21 2021)
 
 ## Init release

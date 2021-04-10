@@ -23,7 +23,7 @@ export const loginQuery = ({ email, password }: UserInput): IQueryProps => ({
             email: $email, 
             password: $password){
             userCredentials{
-              id
+              _id
               email
             }
             token

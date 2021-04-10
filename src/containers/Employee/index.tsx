@@ -64,7 +64,9 @@ const EmployeePage: React.FC = () => {
     [],
   )
 
-  const [handleGetEmployee] = useGetEmployee({ dispatch: employeeByIdDispatch })
+  const [handleGetEmployee] = useGetEmployee({
+    dispatch: employeeByIdDispatch,
+  })
   const [handleEmployeeSubmit] = useSubmitEmployeeModal({
     dispatch: employeeByIdDispatch,
   })

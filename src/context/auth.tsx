@@ -15,7 +15,7 @@ const authContextInitValue: IAuthContext = {
   token: '',
   userCredentials: {
     email: '',
-    id: '',
+    _id: '',
   },
   apiUrl: '',
   headers: {},
@@ -33,7 +33,7 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
         ...state,
         token: payload?.token ?? '',
         userCredentials: {
-          id: payload?.userCredentials?.id ?? '',
+          _id: payload?.userCredentials?._id ?? '',
           email: payload?.userCredentials?.email ?? '',
         },
       }
@@ -43,7 +43,7 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
         ...state,
         token: '',
         userCredentials: {
-          id: '',
+          _id: '',
           email: '',
         },
         tokenExpiration: 0,

@@ -159,7 +159,7 @@
         "description": null,
         "fields": [
           {
-            "name": "id",
+            "name": "_id",
             "description": null,
             "args": [],
             "type": {
