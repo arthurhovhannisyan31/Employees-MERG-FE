@@ -6,21 +6,20 @@ import { IRoute } from '_/routes/app-routes'
 // local
 import CONSTANTS from '_/utils/constants'
 import { AuthContext } from '_/context'
-import storage from '_/utils/storage'
 
 const PrivateRoute: React.FC<IRoute> = ({
   component: Component,
   ...params
 }) => {
-  const { token } = React.useContext(AuthContext)
-
-  const isAuthorized = token || storage.get('token')
+  const { userCredentials } = React.useContext(AuthContext)
+  const isAuthorized = userCredentials?._id
 
   return (
     <Route
       {...params}
       render={(props) =>
         isAuthorized ? (
+          // todo fix types
           // eslint-disable-next-line
           // @ts-ignore
           <Component {...props} />

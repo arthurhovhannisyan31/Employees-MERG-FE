@@ -26,7 +26,6 @@ export const loginQuery = ({ email, password }: UserInput): IQueryProps => ({
               _id
               email
             }
-            token
           } 
         }
       `,
@@ -34,6 +33,14 @@ export const loginQuery = ({ email, password }: UserInput): IQueryProps => ({
     email,
     password,
   },
+})
+
+export const logoutQuery = () => ({
+  query: `
+        query logout {
+          logout
+        }
+  `,
 })
 
 export const getEmployees = ({

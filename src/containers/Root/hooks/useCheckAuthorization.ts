@@ -6,13 +6,14 @@ import { IMeFetchResponse } from '_/containers/Root/types'
 // helpers
 import { SnackbarContext } from '_/context'
 import { getMe } from '_/gql/queries'
-import { useFetch, useLogout } from '_/utils/hooks'
+import { useFetch } from '_/utils/hooks'
+import { useLogout } from '_/containers/Auth/hooks/useLogout'
 
 export const useCheckAuthorization = () => {
   const location = useLocation()
   const { setSnackbarState } = React.useContext(SnackbarContext)
   const [handleFetch] = useFetch()
-  const [handleLogout] = useLogout()
+  const handleLogout = useLogout()
 
   const handleCheckAuthorization = async () => {
     try {

@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
 // helpers
 import { AuthContext, ThemeContext } from '_/context'
-import { useLogout } from '_/utils/hooks'
+import { useLogout } from '_/containers/Auth/hooks/useLogout'
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {},
@@ -32,20 +32,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Header: React.FC = () => {
   const { darkMode, toggleTheme } = React.useContext(ThemeContext)
   const {
-    token,
-    userCredentials: { email },
+    userCredentials: { email, _id: id },
   } = React.useContext(AuthContext)
+  const isAuth = !!id
 
   const classes = useStyles()
   const history = useHistory()
   const location = useLocation()
 
-  const [handleLogout] = useLogout()
+  const handleLogout = useLogout()
 
   const handleLogin = () => {
     history.push('/auth')
   }
-  // todo nav bar props array
 
   return (
     <AppBar position="static">
@@ -89,7 +88,7 @@ const Header: React.FC = () => {
             <Grid container alignItems="center">
               <Typography>{email}</Typography>
               <Switch checked={darkMode} onChange={toggleTheme} />
-              {token ? (
+              {isAuth ? (
                 <Tooltip title="Logout">
                   <Button onClick={handleLogout} className={clsx(classes.link)}>
                     <LogOut />
