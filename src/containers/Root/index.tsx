@@ -17,17 +17,19 @@ import useStyles from './styles'
 const Root: React.FC = () => {
   const classes = useStyles()
 
-  const { userCredentials } = React.useContext(AuthContext)
+  const { dispatch, next } = React.useContext(AuthContext)
 
-  const [handleCheckAuthorization] = useCheckAuthorization()
+  const [handleCheckAuthorization] = useCheckAuthorization({ dispatch })
 
   useEffect(() => {
-    if (!userCredentials?._id) {
-      handleCheckAuthorization()
-    }
-  }, [userCredentials, handleCheckAuthorization])
+    handleCheckAuthorization()
+  }, [])
 
-  // todo fetch on mount also
+  // useEffect(() => {
+  //   if (prevUrl) {
+  //     console.log('redirect to ', prevUrl, 'and clear')
+  //   }
+  // }, [prevUrl])
 
   return (
     <Layout>

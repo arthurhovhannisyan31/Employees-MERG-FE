@@ -16,9 +16,9 @@ import {
   titleFragment,
 } from '_/gql/fragments'
 
-export const loginQuery = ({ email, password }: UserInput): IQueryProps => ({
+export const queryLogin = ({ email, password }: UserInput): IQueryProps => ({
   query: `
-        query loginQuery($email: String!, $password: String!) {
+        query login($email: String!, $password: String!) {
           login(
             email: $email, 
             password: $password){
@@ -35,7 +35,7 @@ export const loginQuery = ({ email, password }: UserInput): IQueryProps => ({
   },
 })
 
-export const logoutQuery = () => ({
+export const queryLogout = () => ({
   query: `
         query logout {
           logout
@@ -43,7 +43,7 @@ export const logoutQuery = () => ({
   `,
 })
 
-export const getEmployees = ({
+export const queryEmployees = ({
   limit,
   offset,
 }: GetEmployeesInput): IQueryProps => ({
@@ -67,7 +67,7 @@ export const getEmployees = ({
   },
 })
 
-export const getEmployee = ({ id }: GetEmployeeInput): IQueryProps => ({
+export const queryEmployee = ({ id }: GetEmployeeInput): IQueryProps => ({
   query: `
     query employee($id: ID!){
       employee(input:{id: $id}){
@@ -78,7 +78,7 @@ export const getEmployee = ({ id }: GetEmployeeInput): IQueryProps => ({
   variables: { id },
 })
 
-export const getMe = (): IQueryProps => ({
+export const queryMe = (): IQueryProps => ({
   query: `
     query me {
       ${userCredentials}
@@ -86,7 +86,7 @@ export const getMe = (): IQueryProps => ({
   `,
 })
 
-export const getDepartments = (): IQueryProps => ({
+export const queryDepartments = (): IQueryProps => ({
   query: `
     query departments{
       departments{
@@ -96,7 +96,7 @@ export const getDepartments = (): IQueryProps => ({
   `,
 })
 
-export const getTitles = (): IQueryProps => ({
+export const queryTitles = (): IQueryProps => ({
   query: `
     query titles {
       titles{
@@ -106,7 +106,7 @@ export const getTitles = (): IQueryProps => ({
   `,
 })
 
-export const getGenders = (): IQueryProps => ({
+export const queryGenders = (): IQueryProps => ({
   query: `
     query genders {
       genders{

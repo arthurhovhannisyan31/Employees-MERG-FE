@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 export const ROUTES = {
   HOME: '/',
-  AUTH: '/auth',
+  AUTH: '/auth/:next?',
   ABOUT: '/about',
   EMPLOYEES: '/employees',
   EMPLOYEE: '/employees/:id',

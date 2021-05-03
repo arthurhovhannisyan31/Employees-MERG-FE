@@ -8,7 +8,7 @@ import {
 } from '_/model/context/catalogs'
 // helpers
 import { useFetch } from '_/utils/hooks'
-import { getGenders } from '_/gql/queries'
+import { queryGenders } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
 
 export interface IUseGetGenders {
@@ -23,7 +23,7 @@ export const useGetGenders = ({ dispatch }: IUseGetGenders) => {
       payload: { loading: true },
     })
     try {
-      const res = await handleFetch(getGenders())
+      const res = await handleFetch(queryGenders())
       fetchResponseCheck(res?.status)
       const {
         data: { genders },

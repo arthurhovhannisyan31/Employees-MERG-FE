@@ -9,7 +9,7 @@ import {
 } from '_/model/context/catalogs'
 // helpers
 import { useFetch } from '_/utils/hooks'
-import { getTitles } from '_/gql/queries'
+import { queryTitles } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
 
 export interface IUseGetDepartments {
@@ -21,7 +21,7 @@ export const useGetTitles = ({ dispatch }: IUseGetDepartments) => {
   const handleGetTitles = React.useCallback(async () => {
     dispatch({ type: EActionTypes.LOADING, payload: { loading: true } })
     try {
-      const res = await handleFetch(getTitles())
+      const res = await handleFetch(queryTitles())
       fetchResponseCheck(res?.status)
       const {
         data: { titles },

@@ -9,7 +9,7 @@ import {
   TAuthReducer,
 } from '_/model/context/auth'
 // helpers
-import { API_URL } from '_/constants/config'
+import { API_URL } from '_/utils/constants/config'
 
 const authContextInitValue: IAuthContext = {
   userCredentials: {
@@ -26,6 +26,7 @@ const AuthContext = React.createContext<IAuthContext>(authContextInitValue)
 
 const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
   const { type, payload } = action
+  console.log(type, payload)
   switch (type) {
     case EAuthContextActions.LOGIN: {
       return {
