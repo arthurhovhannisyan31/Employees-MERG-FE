@@ -6,19 +6,19 @@
   "ignorePatterns": ["/*.*"],
   "extends": [
     "airbnb-typescript",
-    "prettier"
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
-    "react",
-    "prettier"
+    "react"
   ],
   "env": {
     "jest": true
   },
   "rules": {
     "prettier/prettier": [
-      2,
+      "error",
       {
         "trailingComma": "all",
         "tabWidth": 2,
@@ -35,7 +35,7 @@
     ],
     "@typescript-eslint/no-unused-vars": "warn",
     "no-underscore-dangle": 0,
-    "no-console": 0,
+    "no-console": "warn",
     "@typescript-eslint/semi": 0,
     "@typescript-eslint/indent": 0,
     "react/jsx-one-expression-per-line": 0,

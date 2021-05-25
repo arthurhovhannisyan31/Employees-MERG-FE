@@ -42,3 +42,5 @@ fix fetch response types result?.data?.login?.userCredentials
 - get rid of html file
 
 -- loading spinner to loading window
+
+-- replace all reducers with objects
