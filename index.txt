@@ -36,3 +36,10 @@ analytics: table, graphs, reports
 indexeddb
 isAuthenticated
 new Date().getTime() / 1000 < authState.expiresAt
+
+- // local storage userInfo, expiresAt
+fix fetch response types result?.data?.login?.userCredentials
+
+- get rid of html file
+
+-- loading spinner to loading window
