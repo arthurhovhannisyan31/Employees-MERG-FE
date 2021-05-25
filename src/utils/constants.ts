@@ -1,15 +1,12 @@
-// eslint-disable-next-line
-export const ROUTES = {
-  HOME: '/',
-  AUTH: '/auth/:next?',
-  ABOUT: '/about',
-  EMPLOYEES: '/employees',
-  EMPLOYEE: '/employees/:id',
-  NOT_FOUND: '*',
-}
-
-const CONSTANTS = { ROUTES }
-
-export default CONSTANTS
+import { EROUTES } from '_/model/common'
 
 export const ADULT_AGE = 18
+
+export const ROUTES: Record<keyof typeof EROUTES, string> = {
+  HOME: '/',
+  AUTH: `/${EROUTES.AUTH}/:next?`,
+  ABOUT: `/${EROUTES.ABOUT}`,
+  EMPLOYEES: `/${EROUTES.EMPLOYEES}`,
+  EMPLOYEE: `/${EROUTES.EMPLOYEE}/:id`,
+  NOT_FOUND: EROUTES.NOT_FOUND,
+}

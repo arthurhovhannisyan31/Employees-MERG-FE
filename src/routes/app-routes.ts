@@ -3,7 +3,7 @@ import React from 'react'
 import { RouteComponentProps, RouteProps } from 'react-router-dom'
 // helpers
 import { routeMaker } from '_/routes/helpers'
-import CONSTANTS from '_/utils/constants'
+import { ROUTES } from '_/utils/constants'
 
 const Home = React.lazy(() => import('_/containers/Home'))
 const About = React.lazy(() => import('_/containers/About'))
@@ -25,37 +25,37 @@ const routes: IRoute[] = [
   {
     exact: true,
     isPrivate: false,
-    path: CONSTANTS.ROUTES.HOME,
+    path: ROUTES.HOME,
     component: Home,
   },
   {
     exact: true,
     isPrivate: false,
-    path: CONSTANTS.ROUTES.ABOUT,
+    path: ROUTES.ABOUT,
     component: About,
   },
   {
     exact: false,
     isPrivate: false,
-    path: CONSTANTS.ROUTES.AUTH,
+    path: ROUTES.AUTH,
     component: Auth,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.EMPLOYEE,
+    path: ROUTES.EMPLOYEE,
     component: Employee,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.EMPLOYEES,
+    path: ROUTES.EMPLOYEES,
     component: Employees,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.NOT_FOUND,
+    path: ROUTES.NOT_FOUND,
     component: NotFound,
   },
 ]

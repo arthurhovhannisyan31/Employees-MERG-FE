@@ -29,3 +29,12 @@ export interface IQueryResponse<T> {
 }
 
 export type OmitTypeName<T> = Omit<T, '__typename'>
+
+export enum EROUTES {
+  HOME = '',
+  AUTH = 'auth',
+  ABOUT = 'about',
+  EMPLOYEES = 'employees',
+  EMPLOYEE = 'employees',
+  NOT_FOUND = '*',
+}

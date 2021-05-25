@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import Button from '@material-ui/core/Button'
@@ -12,12 +12,12 @@ const BreadcrumbsComp: React.FC = () => {
   const location = useLocation()
   const history = useHistory()
   const classes = useStyles()
-  const paths = React.useMemo(
+  const paths = useMemo(
     () => location?.pathname?.split('/').filter((el: string) => el),
     [location],
   )
 
-  const handleHistory = React.useCallback(
+  const handleHistory = useCallback(
     (str: string) => history.push(str),
     [history],
   )

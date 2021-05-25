@@ -14,8 +14,6 @@ import useStyles from './style'
 const Auth: React.FC = () => {
   const history = useHistory()
   const { next = '' } = useParams<Record<'next', string>>()
-  console.log(next)
-
   const {
     userCredentials,
     dispatch,
