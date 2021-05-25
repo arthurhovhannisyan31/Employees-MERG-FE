@@ -1,5 +1,5 @@
 // deps
-import { useContext } from 'react'
+import { useContext, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
 // model
 import { EAuthContextActions, IAuthReducerAction } from '_/model/context/auth'
@@ -22,7 +22,7 @@ export const useCheckAuthorization = ({
   const handleFetch = useFetch()
   const handleLogout = useLogout()
 
-  const handleCheckAuthorization = async () => {
+  return useCallback(async () => {
     try {
       const res = await handleFetch(queryMe())
       const { errors, data }: IQueryMeResponse = await res.json()
@@ -51,7 +51,5 @@ export const useCheckAuthorization = ({
         open: true,
       })
     }
-  }
-
-  return [handleCheckAuthorization]
+  }, [dispatch, handleFetch, handleLogout, location.pathname, setSnackbarState])
 }

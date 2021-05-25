@@ -44,3 +44,5 @@ fix fetch response types result?.data?.login?.userCredentials
 -- loading spinner to loading window
 
 -- replace all reducers with objects
+
+-- add auth context loading state, hide login page when fetching me status

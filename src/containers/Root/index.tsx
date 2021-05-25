@@ -23,7 +23,7 @@ const Root: React.FC = () => {
   const { dispatch } = React.useContext(AuthContext)
   const showBreadcrumbs = !location.pathname.includes(EROUTES.AUTH)
 
-  const [handleCheckAuthorization] = useCheckAuthorization({ dispatch })
+  const handleCheckAuthorization = useCheckAuthorization({ dispatch })
 
   useEffect(() => {
     handleCheckAuthorization()
