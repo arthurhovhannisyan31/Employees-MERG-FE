@@ -18,13 +18,7 @@
   },
   "rules": {
     "prettier/prettier": [
-      "error",
-      {
-        "trailingComma": "all",
-        "tabWidth": 2,
-        "semi": false,
-        "singleQuote": true
-      }
+      "error"
     ],
     "import/newline-after-import": "error",
     "import/named": 0,
