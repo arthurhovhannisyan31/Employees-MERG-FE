@@ -35,6 +35,6 @@ export const useGetTitles = ({ dispatch }: IUseGetDepartments) => {
       dispatch({ type: EActionTypes.ERROR, payload: { error } })
     }
     dispatch({ type: EActionTypes.LOADING, payload: { loading: false } })
-  }, [])
+  }, [dispatch, handleFetch])
   return [handleGetTitles]
 }

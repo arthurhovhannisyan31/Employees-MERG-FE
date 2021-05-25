@@ -26,7 +26,6 @@ const AuthContext = React.createContext<IAuthContext>(authContextInitValue)
 
 const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
   const { type, payload } = action
-  console.log(type, payload)
   switch (type) {
     case EAuthContextActions.LOGIN: {
       return {

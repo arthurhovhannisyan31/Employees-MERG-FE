@@ -49,6 +49,6 @@ export const useGetGenders = ({ dispatch }: IUseGetGenders) => {
       type: EActionTypes.LOADING,
       payload: { loading: false },
     })
-  }, [])
+  }, [dispatch, handleFetch])
   return [handleGetGenders]
 }

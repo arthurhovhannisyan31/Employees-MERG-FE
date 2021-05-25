@@ -1,6 +1,6 @@
 // deps
 import React from 'react'
-import { RouteProps } from 'react-router-dom'
+import { RouteComponentProps, RouteProps } from 'react-router-dom'
 // helpers
 import { routeMaker } from '_/routes/helpers'
 import CONSTANTS from '_/utils/constants'
@@ -16,13 +16,15 @@ export interface IRoute extends RouteProps {
   exact?: boolean
   isPrivate?: boolean
   path: string
-  component: React.ComponentClass | React.FunctionComponent
+  component:
+    | React.ComponentClass<RouteComponentProps<Record<string, never>>>
+    | React.FunctionComponent<RouteComponentProps<Record<string, never>>>
 }
 
 const routes: IRoute[] = [
   {
     exact: true,
-    isPrivate: true,
+    isPrivate: false,
     path: CONSTANTS.ROUTES.HOME,
     component: Home,
   },

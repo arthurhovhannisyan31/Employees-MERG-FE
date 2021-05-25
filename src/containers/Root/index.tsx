@@ -17,19 +17,14 @@ import useStyles from './styles'
 const Root: React.FC = () => {
   const classes = useStyles()
 
-  const { dispatch, next } = React.useContext(AuthContext)
+  const { dispatch } = React.useContext(AuthContext)
 
   const [handleCheckAuthorization] = useCheckAuthorization({ dispatch })
 
   useEffect(() => {
     handleCheckAuthorization()
+    // eslint-disable-next-line
   }, [])
-
-  // useEffect(() => {
-  //   if (prevUrl) {
-  //     console.log('redirect to ', prevUrl, 'and clear')
-  //   }
-  // }, [prevUrl])
 
   return (
     <Layout>

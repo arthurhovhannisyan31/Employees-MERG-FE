@@ -68,7 +68,7 @@ export const useGetEmployees = ({
         payload: { loading: false },
       })
     },
-    [dispatch, key],
+    [dispatch, handleFetch, key, setSnackbarState],
   )
   return [handleGetEmployees]
 }

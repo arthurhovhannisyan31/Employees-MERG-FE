@@ -84,22 +84,22 @@ const EmployeePage: React.FC = () => {
     if (!employeeData && !employeeByIdLoading) {
       handleGetEmployee({ id: idParam })
     }
-  }, [idParam, handleGetEmployee, employeeData])
+  }, [employeeData, employeeByIdLoading, handleGetEmployee, idParam])
   const fetchDepartmentsInitData = React.useCallback(() => {
     if (!departments?.length) {
       handleGetDepartments()
     }
-  }, [])
+  }, [departments, handleGetDepartments])
   const fetchTitlesInitData = React.useCallback(() => {
     if (!titles?.length) {
       handleGetTitles()
     }
-  }, [])
+  }, [handleGetTitles, titles])
   const fetchGendersInitData = React.useCallback(() => {
     if (!genders?.length) {
       handleGetGenders()
     }
-  }, [])
+  }, [genders, handleGetGenders])
 
   React.useEffect(fetchEmployeeInitData, [fetchEmployeeInitData])
   React.useEffect(fetchDepartmentsInitData, [fetchDepartmentsInitData])

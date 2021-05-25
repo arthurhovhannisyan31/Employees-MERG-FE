@@ -35,6 +35,6 @@ export const useGetDepartments = ({ dispatch }: IUseGetDepartments) => {
       dispatch({ type: EActionTypes.ERROR, payload: { error } })
     }
     dispatch({ type: EActionTypes.LOADING, payload: { loading: false } })
-  }, [handleFetch])
+  }, [dispatch, handleFetch])
   return [handleGetDepartments]
 }

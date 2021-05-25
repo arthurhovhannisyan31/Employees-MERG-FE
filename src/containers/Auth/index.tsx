@@ -1,5 +1,6 @@
 // deps
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -11,7 +12,15 @@ import { useLogin } from '_/containers/Auth/hooks'
 import useStyles from './style'
 
 const Auth: React.FC = () => {
-  const { dispatch, errors: authErrors } = React.useContext(AuthContext)
+  const history = useHistory()
+  const { next = '' } = useParams<Record<'next', string>>()
+  console.log(next)
+
+  const {
+    userCredentials,
+    dispatch,
+    errors: authErrors,
+  } = React.useContext(AuthContext)
 
   const [authState, setAuthState] = React.useState<boolean>(false)
   const toggleAuthState = () => setAuthState((val: boolean) => !val)
@@ -70,6 +79,13 @@ const Auth: React.FC = () => {
     },
     [handleLogin, disableSubmit],
   )
+
+  useEffect(() => {
+    if (userCredentials?._id) {
+      console.log('here')
+      history.push(`/${next}`)
+    }
+  }, [history, next, userCredentials])
 
   return (
     <Grid

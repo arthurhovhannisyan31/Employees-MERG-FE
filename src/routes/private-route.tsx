@@ -1,11 +1,9 @@
 // deps
 import React from 'react'
-import { Redirect, Route, useLocation, useHistory } from 'react-router-dom'
-
+import { Route, useLocation, useHistory } from 'react-router-dom'
 // model
 import { IRoute } from '_/routes/app-routes'
-// local
-import CONSTANTS from '_/utils/constants'
+// helpers
 import { AuthContext } from '_/context'
 
 const PrivateRoute: React.FC<IRoute> = ({
@@ -19,34 +17,9 @@ const PrivateRoute: React.FC<IRoute> = ({
   const history = useHistory()
 
   if (!isAuthorized) {
-    history.replace(`/auth${location.pathname}`)
+    history.push(`/auth${location.pathname}`)
   }
-
-  // return (
-  //   <Route
-  //     {...params}
-  //     render={(props) =>
-  //       isAuthorized ? (
-  //         // todo fix types***********
-  //         // eslint-disable-next-line
-  //         // @ts-ignore
-  //         <Component {...props} />
-  //       ) : (
-  //         <Redirect to={CONSTANTS.ROUTES.AUTH} />
-  //       )
-  //     }
-  //   />
-  // )
-  return (
-    <Route
-      {...params}
-      render={(props) => (
-        // eslint-disable-next-line
-        // @ts-ignore
-        <Component {...props} />
-      )}
-    />
-  )
+  return <Route {...params} render={(props) => <Component {...props} />} />
 }
 
 export default PrivateRoute
