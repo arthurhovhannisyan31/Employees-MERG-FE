@@ -22,10 +22,10 @@ export const useGetEmployees = ({
   currentPage,
   pageSize,
 }: IUseGetEmployees) => {
-  const key = React.useMemo(() => `${pageSize}-${currentPage}`, [
-    pageSize,
-    currentPage,
-  ])
+  const key = React.useMemo(
+    () => `${pageSize}-${currentPage}`,
+    [pageSize, currentPage],
+  )
   const { setSnackbarState } = React.useContext(SnackbarContext)
   const [handleFetch] = useFetch()
   const handleGetEmployees = React.useCallback(

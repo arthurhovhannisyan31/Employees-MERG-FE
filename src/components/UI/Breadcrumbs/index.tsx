@@ -17,9 +17,10 @@ const BreadcrumbsComp: React.FC = () => {
     [location],
   )
 
-  const handleHistory = React.useCallback((str: string) => history.push(str), [
-    history,
-  ])
+  const handleHistory = React.useCallback(
+    (str: string) => history.push(str),
+    [history],
+  )
 
   const links = paths.map((el: string, idx: number) => {
     if (idx + 1 === paths.length) {

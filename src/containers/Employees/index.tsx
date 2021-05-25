@@ -17,10 +17,10 @@ const EmployeesPage: React.FC = () => {
   const [currentPage, setCurrentPage] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
   // memo
-  const key = React.useMemo(() => `${pageSize}-${currentPage}`, [
-    pageSize,
-    currentPage,
-  ])
+  const key = React.useMemo(
+    () => `${pageSize}-${currentPage}`,
+    [pageSize, currentPage],
+  )
 
   const [handleGetEmployees] = useGetEmployees({
     pageSize,

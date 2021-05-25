@@ -29,7 +29,6 @@ google login form
 
 форма логин/регистрации на 2 таба
 add CRUD for employees, title, payoff, salary, hire/fire employee
-add husky and pre-commit formatting
 add features from material-ui project
 new route, get design from material-ui examples page
 analytics: table, graphs, reports
