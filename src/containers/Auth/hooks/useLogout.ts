@@ -14,7 +14,7 @@ import storage from '_/utils/storage'
 export const useLogout = () => {
   const history = useHistory()
   const { dispatch } = React.useContext(AuthContext)
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
 
   return useCallback(async () => {
     try {

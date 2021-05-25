@@ -16,7 +16,7 @@ export interface IUseGetGenders {
 }
 
 export const useGetGenders = ({ dispatch }: IUseGetGenders) => {
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
   const handleGetGenders = React.useCallback(async () => {
     dispatch({
       type: EActionTypes.LOADING,

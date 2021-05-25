@@ -15,7 +15,7 @@ interface IUseSubmitEmployeeModalProps {
 export const useSubmitEmployeeModal = ({
   dispatch,
 }: IUseSubmitEmployeeModalProps) => {
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
 
   const handleSubmit = async (
     props: UpdateEmployeeInput,

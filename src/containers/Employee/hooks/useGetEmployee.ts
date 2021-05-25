@@ -19,7 +19,7 @@ export interface IUseGetEmployeeProps {
 
 export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   const { id: idParam } = useParams<Record<'id', string>>()
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
   const handleGetEmployee = React.useCallback(
     async ({ id }: GetEmployeeInput) => {
       dispatch({

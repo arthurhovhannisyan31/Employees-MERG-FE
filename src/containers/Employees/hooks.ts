@@ -27,7 +27,7 @@ export const useGetEmployees = ({
     [pageSize, currentPage],
   )
   const { setSnackbarState } = React.useContext(SnackbarContext)
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({
@@ -68,7 +68,7 @@ export const useGetEmployees = ({
         payload: { loading: false },
       })
     },
-    [dispatch, handleFetch, key, setSnackbarState],
+    [dispatch, key, handleFetch, setSnackbarState],
   )
   return [handleGetEmployees]
 }

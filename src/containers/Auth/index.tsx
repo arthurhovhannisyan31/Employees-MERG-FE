@@ -80,7 +80,6 @@ const Auth: React.FC = () => {
 
   useEffect(() => {
     if (userCredentials?._id) {
-      console.log('here')
       history.push(`/${next}`)
     }
   }, [history, next, userCredentials])

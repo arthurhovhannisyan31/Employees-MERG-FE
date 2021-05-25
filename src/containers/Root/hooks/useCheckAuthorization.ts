@@ -19,7 +19,7 @@ export const useCheckAuthorization = ({
 }: IUseCheckAuthorizationProps) => {
   const location = useLocation()
   const { setSnackbarState } = useContext(SnackbarContext)
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
   const handleLogout = useLogout()
 
   const handleCheckAuthorization = async () => {

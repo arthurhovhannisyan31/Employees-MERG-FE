@@ -26,7 +26,7 @@ export const useLogin = ({
 }: IUseHandleSubmitProps) => {
   const history = useHistory()
   const { setSnackbarState } = useContext(SnackbarContext)
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
 
   return useCallback(async () => {
     const loginBody = queryLogin({ email, password })

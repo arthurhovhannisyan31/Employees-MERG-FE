@@ -17,7 +17,7 @@ export interface IUseGetDepartments {
 }
 
 export const useGetTitles = ({ dispatch }: IUseGetDepartments) => {
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
   const handleGetTitles = React.useCallback(async () => {
     dispatch({ type: EActionTypes.LOADING, payload: { loading: true } })
     try {
