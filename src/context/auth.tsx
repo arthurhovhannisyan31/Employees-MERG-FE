@@ -9,13 +9,12 @@ import {
   TAuthReducer,
 } from '_/model/context/auth'
 // helpers
-import { API_URL } from '_/constants/config'
+import { API_URL } from '_/utils/constants/config'
 
 const authContextInitValue: IAuthContext = {
-  token: '',
   userCredentials: {
     email: '',
-    id: '',
+    _id: '',
   },
   apiUrl: '',
   headers: {},
@@ -31,9 +30,8 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
     case EAuthContextActions.LOGIN: {
       return {
         ...state,
-        token: payload?.token ?? '',
         userCredentials: {
-          id: payload?.userCredentials?.id ?? '',
+          _id: payload?.userCredentials?._id ?? '',
           email: payload?.userCredentials?.email ?? '',
         },
       }
@@ -41,12 +39,10 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
     case EAuthContextActions.LOGOUT: {
       return {
         ...state,
-        token: '',
         userCredentials: {
-          id: '',
+          _id: '',
           email: '',
         },
-        tokenExpiration: 0,
       }
     }
     case EAuthContextActions.ERRORS: {
@@ -67,15 +63,11 @@ const AuthContextContainer: React.FC = ({ children }) => {
     authContextInitValue,
   )
 
-  const { token, errors, userCredentials } = state
+  const { errors, userCredentials } = state
 
-  const headers = React.useMemo(
-    () => ({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    }),
-    [token],
-  )
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
 
   return (
     <AuthContext.Provider
@@ -84,7 +76,6 @@ const AuthContextContainer: React.FC = ({ children }) => {
         dispatch,
         errors,
         userCredentials,
-        token,
         apiUrl: API_URL,
       }}
     >

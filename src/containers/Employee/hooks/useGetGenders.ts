@@ -8,7 +8,7 @@ import {
 } from '_/model/context/catalogs'
 // helpers
 import { useFetch } from '_/utils/hooks'
-import { getGenders } from '_/gql/queries'
+import { queryGenders } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
 
 export interface IUseGetGenders {
@@ -16,14 +16,14 @@ export interface IUseGetGenders {
 }
 
 export const useGetGenders = ({ dispatch }: IUseGetGenders) => {
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
   const handleGetGenders = React.useCallback(async () => {
     dispatch({
       type: EActionTypes.LOADING,
       payload: { loading: true },
     })
     try {
-      const res = await handleFetch(getGenders())
+      const res = await handleFetch(queryGenders())
       fetchResponseCheck(res?.status)
       const {
         data: { genders },
@@ -49,6 +49,6 @@ export const useGetGenders = ({ dispatch }: IUseGetGenders) => {
       type: EActionTypes.LOADING,
       payload: { loading: false },
     })
-  }, [])
+  }, [dispatch, handleFetch])
   return [handleGetGenders]
 }

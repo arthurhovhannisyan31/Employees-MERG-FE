@@ -7,7 +7,7 @@ import {
   IEmployeesFetchResponse,
 } from '_/model/context/employees'
 // helpers
-import { getEmployees } from '_/gql/queries'
+import { queryEmployees } from '_/gql/queries'
 import { SnackbarContext } from '_/context/snackbar'
 import { useFetch } from '_/utils/hooks'
 
@@ -27,7 +27,7 @@ export const useGetEmployees = ({
     [pageSize, currentPage],
   )
   const { setSnackbarState } = React.useContext(SnackbarContext)
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
   const handleGetEmployees = React.useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({
@@ -35,7 +35,7 @@ export const useGetEmployees = ({
         payload: { loading: true },
       })
       try {
-        const res = await handleFetch(getEmployees({ offset, limit }))
+        const res = await handleFetch(queryEmployees({ offset, limit }))
         const { data, errors }: IEmployeesFetchResponse = await res.json()
         if (errors?.length) return
         const {
@@ -68,7 +68,7 @@ export const useGetEmployees = ({
         payload: { loading: false },
       })
     },
-    [dispatch, key],
+    [dispatch, key, handleFetch, setSnackbarState],
   )
   return [handleGetEmployees]
 }

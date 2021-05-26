@@ -9,8 +9,7 @@ export enum EAuthContextActions {
   ERRORS = 'ERRORS',
 }
 
-export interface IAuthState
-  extends Pick<AuthData, 'token' | 'userCredentials'> {
+export interface IAuthState extends Pick<AuthData, 'userCredentials'> {
   errors?: Error[]
 }
 

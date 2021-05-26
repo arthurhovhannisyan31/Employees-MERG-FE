@@ -5,6 +5,7 @@ require("dotenv").config();
 
 module.exports = {
   mode: "production",
+  target: ["web", "es2020"],
   entry: [path.resolve(__dirname, "src", "index.tsx")],
   output: {
     path: path.resolve(__dirname, "dist"),

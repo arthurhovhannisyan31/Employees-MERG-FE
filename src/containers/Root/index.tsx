@@ -1,51 +1,39 @@
 // deps
-import React from 'react'
+import React, { useEffect } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { Switch } from 'react-router-dom'
+import { Switch, useLocation } from 'react-router-dom'
+import Grid from '@material-ui/core/Grid'
 // components
 import Layout from '_/containers/Layout'
 import SnackbarComp from '_/components/UI/Snackbar'
 import BreadcrumbsComp from '_/components/UI/Breadcrumbs'
 import Backdrop from '_/components/UI/Backdrop'
 // model
-import { EAuthContextActions } from '_/model/context/auth'
-import { AuthData } from '_/model/generated'
+import { EROUTES } from '_/model/common'
 // helpers
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
-import storage from '_/utils/storage'
-import Grid from '@material-ui/core/Grid'
 import { useCheckAuthorization } from '_/containers/Root/hooks'
 import useStyles from './styles'
 
 const Root: React.FC = () => {
-  const { token, dispatch } = React.useContext(AuthContext)
-
   const classes = useStyles()
+  const location = useLocation()
 
-  const [handleCheckAuthorization] = useCheckAuthorization()
+  const { dispatch } = React.useContext(AuthContext)
+  const showBreadcrumbs = !location.pathname.includes(EROUTES.AUTH)
 
-  if (!token && storage.get('token')) {
-    const data: AuthData = {
-      token: storage.get('token') || '',
-      userCredentials: JSON.parse(storage.get('userCredentials') || ''),
-    }
-    dispatch({
-      type: EAuthContextActions.LOGIN,
-      payload: data,
-    })
-  }
+  const handleCheckAuthorization = useCheckAuthorization({ dispatch })
 
-  React.useEffect(() => {
-    if (token) {
-      handleCheckAuthorization()
-    }
-  }, [token])
+  useEffect(() => {
+    handleCheckAuthorization()
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <Layout>
       <SnackbarComp />
-      <BreadcrumbsComp />
+      {showBreadcrumbs && <BreadcrumbsComp />}
       <React.Suspense
         fallback={
           <Grid

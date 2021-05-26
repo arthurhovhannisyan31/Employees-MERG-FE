@@ -3,11 +3,6 @@
 // model
 // helpers
 
--- release 0.2
-+ add proxy for BE queries
-add token transport via cookies
-token expiration
-
 -- release 0. - ui-improvements
 design improvements
 remove half of loading indicators
@@ -44,3 +39,5 @@ fix fetch response types result?.data?.login?.userCredentials
 -- loading spinner to loading window
 
 -- replace all reducers with objects
+
+-- add auth context loading state, hide login page when fetching me status

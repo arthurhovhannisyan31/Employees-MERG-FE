@@ -9,7 +9,7 @@ import {
   TEmployeeFetchResponse,
 } from '_/model/context/employee'
 // helpers
-import { getEmployee } from '_/gql/queries'
+import { queryEmployee } from '_/gql/queries'
 import { fetchResponseCheck } from '_/utils/auth'
 import { useFetch } from '_/utils/hooks'
 
@@ -19,7 +19,7 @@ export interface IUseGetEmployeeProps {
 
 export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   const { id: idParam } = useParams<Record<'id', string>>()
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
   const handleGetEmployee = React.useCallback(
     async ({ id }: GetEmployeeInput) => {
       dispatch({
@@ -27,7 +27,7 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
         payload: { loading: true },
       })
       try {
-        const res = await handleFetch(getEmployee({ id }))
+        const res = await handleFetch(queryEmployee({ id }))
         fetchResponseCheck(res?.status)
         const {
           data: { employee },

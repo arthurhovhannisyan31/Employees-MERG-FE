@@ -38,7 +38,9 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "react/display-name": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "globals": {
     "window": true,
