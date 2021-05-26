@@ -22,3 +22,19 @@ export interface IQueryProps {
     string | number | Record<string, string | number | null>
   >
 }
+
+export interface IQueryResponse<T> {
+  data: T | null
+  errors: IFetchError[]
+}
+
+export type OmitTypeName<T> = Omit<T, '__typename'>
+
+export enum EROUTES {
+  HOME = '',
+  AUTH = 'auth',
+  ABOUT = 'about',
+  EMPLOYEES = 'employees',
+  EMPLOYEE = 'employees',
+  NOT_FOUND = '*',
+}

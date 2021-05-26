@@ -47,7 +47,7 @@ export const validationSchema = yup.object().shape({
       'Must be at least 18 y.o.',
       (hire_date, { parent: { birth_date } }) =>
         differenceInYears(
-          new Date((hire_date as unknown) as string),
+          new Date(hire_date as unknown as string),
           new Date(birth_date),
         ) >= ADULT_AGE,
     ),

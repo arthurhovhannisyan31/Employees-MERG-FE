@@ -36,7 +36,7 @@ export const employmentsFragment = `
 `
 export const userCredentials = `
   me {
-    id
+    _id
     email
   }
 `

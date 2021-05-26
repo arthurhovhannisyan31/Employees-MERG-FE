@@ -6,25 +6,19 @@
   "ignorePatterns": ["/*.*"],
   "extends": [
     "airbnb-typescript",
-    "prettier"
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
-    "react",
-    "prettier"
+    "react"
   ],
   "env": {
     "jest": true
   },
   "rules": {
     "prettier/prettier": [
-      2,
-      {
-        "trailingComma": "all",
-        "tabWidth": 2,
-        "semi": false,
-        "singleQuote": true
-      }
+      "error"
     ],
     "import/newline-after-import": "error",
     "import/named": 0,
@@ -35,7 +29,7 @@
     ],
     "@typescript-eslint/no-unused-vars": "warn",
     "no-underscore-dangle": 0,
-    "no-console": 0,
+    "no-console": "warn",
     "@typescript-eslint/semi": 0,
     "@typescript-eslint/indent": 0,
     "react/jsx-one-expression-per-line": 0,
@@ -44,7 +38,9 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "react/display-name": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "globals": {
     "window": true,

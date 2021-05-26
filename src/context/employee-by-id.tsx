@@ -42,8 +42,6 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
         },
       }
     case EActionTypes.UPDATE_ITEM:
-      console.log(payload)
-      console.log(state.data)
       return {
         ...state,
         data: {

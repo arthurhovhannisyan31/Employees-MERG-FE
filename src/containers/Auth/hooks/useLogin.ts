@@ -3,13 +3,13 @@ import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 // model
 import { IAuthReducerAction, EAuthContextActions } from '_/model/context/auth'
+import { IQueryLoginResponse } from '_/model/queries/auth'
 // helpers
 import { signUp } from '_/gql/mutations'
-import { loginQuery } from '_/gql/queries'
-import storage from '_/utils/storage'
-import { AuthContext } from '_/context'
+import { queryLogin } from '_/gql/queries'
 import { useFetch } from '_/utils/hooks'
 import { SnackbarContext } from '_/context/snackbar'
+import { fetchResponseCheck } from '_/utils/auth'
 
 export interface IUseHandleSubmitProps {
   email: string
@@ -18,37 +18,29 @@ export interface IUseHandleSubmitProps {
   dispatch: (value: IAuthReducerAction) => void
 }
 
-export const useHandleSubmit = ({
+export const useLogin = ({
   email,
   password,
   authState,
   dispatch,
 }: IUseHandleSubmitProps) => {
   const history = useHistory()
-  const { apiUrl } = useContext(AuthContext)
   const { setSnackbarState } = useContext(SnackbarContext)
-  const [handleFetch] = useFetch()
+  const handleFetch = useFetch()
 
-  const handleSubmit = useCallback(async () => {
-    const loginBody = loginQuery({ email, password })
+  return useCallback(async () => {
+    const loginBody = queryLogin({ email, password })
     const signupBody = signUp({ email, password })
 
     try {
       const res = await handleFetch(authState ? signupBody : loginBody)
-      if (![200, 201].includes(res?.status)) {
-        throw new Error('Failed!')
-      }
-      const result = await res.json()
-      if (result?.data?.login?.token) {
-        const {
-          token: tokenValue,
-          userCredentials,
-          tokenExpiration: tokenExpirationValue,
-        } = result.data.login
+      fetchResponseCheck(res?.status)
+      const result: IQueryLoginResponse = await res.json()
+      if (result?.data?.login?.userCredentials) {
+        const { userCredentials } = result.data.login
         dispatch({
           type: EAuthContextActions.LOGIN,
           payload: {
-            token: tokenValue,
             userCredentials,
           },
         })
@@ -57,9 +49,6 @@ export const useHandleSubmit = ({
           message: 'Hello!',
           open: true,
         })
-        storage.set('token', tokenValue)
-        storage.set('userCredentials', JSON.stringify(userCredentials))
-        storage.set('tokenExpiration', tokenExpirationValue)
         history.push('/')
       }
     } catch (err) {
@@ -68,6 +57,13 @@ export const useHandleSubmit = ({
         payload: { errors: [err] },
       })
     }
-  }, [authState, apiUrl, dispatch, email, password])
-  return [handleSubmit]
+  }, [
+    email,
+    password,
+    handleFetch,
+    authState,
+    dispatch,
+    setSnackbarState,
+    history,
+  ])
 }

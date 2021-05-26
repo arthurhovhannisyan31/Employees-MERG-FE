@@ -31,14 +31,13 @@ export type User = {
 
 export type UserCredentials = {
   __typename?: 'UserCredentials';
-  id: Scalars['String'];
+  _id: Scalars['String'];
   email: Scalars['String'];
 };
 
 export type AuthData = {
   __typename?: 'AuthData';
   userCredentials: UserCredentials;
-  token: Scalars['String'];
 };
 
 export type UserInput = {
@@ -168,6 +167,7 @@ export type RootQuery = {
   __typename?: 'RootQuery';
   departments: Array<Department>;
   login: AuthData;
+  logout?: Maybe<Scalars['Boolean']>;
   me: UserCredentials;
   genders: Array<Gender>;
   titles: Array<Title>;

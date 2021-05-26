@@ -27,7 +27,7 @@ const CustomPagingPanel: React.FC<IProps> = ({
   }
   const handleChangePageSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     onCurrentPageChange(0)
-    onPageSizeChange((event.target.value as never) as number)
+    onPageSizeChange(event.target.value as never as number)
   }
 
   const rangeStart = currentPage === 0 ? 1 : currentPage * pageSize

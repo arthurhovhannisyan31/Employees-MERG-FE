@@ -63,14 +63,12 @@ const EmployeesTable: React.FC<IProps> = ({
   const [rows, setRows] = React.useState<IEmployeesTableRow[]>(
     data?.map(rowsSelector),
   )
-  const [tableColumnExtensions] = React.useState<Table.ColumnExtension[]>(
-    initColumnExtensions,
-  )
+  const [tableColumnExtensions] =
+    React.useState<Table.ColumnExtension[]>(initColumnExtensions)
 
   const initColumnsOrder = React.useMemo(() => getInitColumnsOrder(), [])
-  const [columnOrder, setColumnOrder] = React.useState<string[]>(
-    initColumnsOrder,
-  )
+  const [columnOrder, setColumnOrder] =
+    React.useState<string[]>(initColumnsOrder)
 
   const handleChangePageSize = React.useCallback(setPageSize, [setPageSize])
   const handleChangeCurrentPage = React.useCallback(setCurrentPage, [

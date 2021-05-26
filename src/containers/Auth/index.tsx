@@ -1,5 +1,6 @@
 // deps
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -7,11 +8,17 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 // helpers
 import { AuthContext } from '_/context'
-import { useHandleSubmit } from '_/containers/Auth/hooks'
+import { useLogin } from '_/containers/Auth/hooks'
 import useStyles from './style'
 
 const Auth: React.FC = () => {
-  const { dispatch, errors: authErrors } = React.useContext(AuthContext)
+  const history = useHistory()
+  const { next = '' } = useParams<Record<'next', string>>()
+  const {
+    userCredentials,
+    dispatch,
+    errors: authErrors,
+  } = React.useContext(AuthContext)
 
   const [authState, setAuthState] = React.useState<boolean>(false)
   const toggleAuthState = () => setAuthState((val: boolean) => !val)
@@ -45,12 +52,17 @@ const Auth: React.FC = () => {
   const errorMessages = React.useMemo(
     () =>
       authErrors?.map((err) => (
-        <Typography className={classes.errorMessage}>{err.message}</Typography>
+        <Typography
+          key={`${err.name}-${err.message}`}
+          className={classes.errorMessage}
+        >
+          {err.message}
+        </Typography>
       )),
     [authErrors, classes.errorMessage],
   )
 
-  const [handleSubmit] = useHandleSubmit({
+  const handleLogin = useLogin({
     email,
     password,
     authState,
@@ -60,11 +72,17 @@ const Auth: React.FC = () => {
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter' && !disableSubmit) {
-        handleSubmit()
+        handleLogin()
       }
     },
-    [handleSubmit, disableSubmit],
+    [handleLogin, disableSubmit],
   )
+
+  useEffect(() => {
+    if (userCredentials?._id) {
+      history.push(`/${next}`)
+    }
+  }, [history, next, userCredentials])
 
   return (
     <Grid
@@ -107,7 +125,7 @@ const Auth: React.FC = () => {
             <Button onClick={toggleAuthState}>
               {authState ? 'Login' : 'Sign up'}
             </Button>
-            <Button onClick={handleSubmit} disabled={disableSubmit}>
+            <Button onClick={handleLogin} disabled={disableSubmit}>
               Submit
             </Button>
           </Grid>

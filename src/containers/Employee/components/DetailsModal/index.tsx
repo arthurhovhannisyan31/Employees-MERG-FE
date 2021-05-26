@@ -115,7 +115,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
       !(isValid && values?.first_name) ||
       isEqual(values, initState) ||
       isLoading,
-    [isValid, values, initState],
+    [isValid, values, initState, isLoading],
   )
 
   return (

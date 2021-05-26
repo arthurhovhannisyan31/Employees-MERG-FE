@@ -1,9 +1,9 @@
 // deps
 import React from 'react'
-import { RouteProps } from 'react-router-dom'
+import { RouteComponentProps, RouteProps } from 'react-router-dom'
 // helpers
 import { routeMaker } from '_/routes/helpers'
-import CONSTANTS from '_/utils/constants'
+import { ROUTES } from '_/utils/constants'
 
 const Home = React.lazy(() => import('_/containers/Home'))
 const About = React.lazy(() => import('_/containers/About'))
@@ -16,44 +16,46 @@ export interface IRoute extends RouteProps {
   exact?: boolean
   isPrivate?: boolean
   path: string
-  component: React.ComponentClass | React.FunctionComponent
+  component:
+    | React.ComponentClass<RouteComponentProps<Record<string, never>>>
+    | React.FunctionComponent<RouteComponentProps<Record<string, never>>>
 }
 
 const routes: IRoute[] = [
   {
     exact: true,
-    isPrivate: true,
-    path: CONSTANTS.ROUTES.HOME,
+    isPrivate: false,
+    path: ROUTES.HOME,
     component: Home,
   },
   {
     exact: true,
     isPrivate: false,
-    path: CONSTANTS.ROUTES.ABOUT,
+    path: ROUTES.ABOUT,
     component: About,
   },
   {
-    exact: true,
+    exact: false,
     isPrivate: false,
-    path: CONSTANTS.ROUTES.AUTH,
+    path: ROUTES.AUTH,
     component: Auth,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.EMPLOYEE,
+    path: ROUTES.EMPLOYEE,
     component: Employee,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.EMPLOYEES,
+    path: ROUTES.EMPLOYEES,
     component: Employees,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.NOT_FOUND,
+    path: ROUTES.NOT_FOUND,
     component: NotFound,
   },
 ]
