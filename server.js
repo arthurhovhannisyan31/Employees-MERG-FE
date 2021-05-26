@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, 'dist')))
 
 app.use(process.env.API_URL,
     createProxyMiddleware({
-      target: `${process.env.PROXY_URL_PROD}${process.env.API_URL}`,
+      target: `${process.env.PROXY_URL}${process.env.API_URL}`,
       changeOrigin: true
     })
   )

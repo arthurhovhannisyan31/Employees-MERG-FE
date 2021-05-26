@@ -1,6 +1,7 @@
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common");
 const TerserPlugin = require("terser-webpack-plugin");
+require("dotenv").config({path: '.env'});
 
 module.exports = merge(common, {
   mode: "production",

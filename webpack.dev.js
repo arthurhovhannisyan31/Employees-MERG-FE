@@ -3,6 +3,7 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+require("dotenv").config({path: '.env-dev'});
 
 module.exports = merge(common, {
   mode: "development",
@@ -21,7 +22,7 @@ module.exports = merge(common, {
     contentBase: path.join(__dirname, "dist"),
     proxy: {
       [process.env
-        .API_URL]: `${process.env.PROXY_URL_DEV}${process.env.API_URL}`,
+        .API_URL]: `${process.env.PROXY_URL}${process.env.API_URL}`,
     },
   },
   plugins: [
