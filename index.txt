@@ -3,11 +3,6 @@
 // model
 // helpers
 
--- release 0.2
-+ add proxy for BE queries
-add token transport via cookies
-token expiration
-
 -- release 0. - ui-improvements
 design improvements
 remove half of loading indicators
