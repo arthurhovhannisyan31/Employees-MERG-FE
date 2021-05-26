@@ -1,7 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-require("dotenv").config();
 
 module.exports = {
   mode: "production",
@@ -47,8 +46,7 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin([
       "API_URL",
-      "PROXY_URL_DEV",
-      "PROXY_URL_PROD",
+      "PROXY_URL",
       "APP_URL_DEV",
       "PORT",
     ]),
