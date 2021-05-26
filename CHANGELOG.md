@@ -1,10 +1,18 @@
-# v0.1.1 (2021)
+# v0.1.1
+
+## Authorization improvements
+- Add cookies authorization
+- Add husky pre-commit check
+- Add readme
+
+
+# v0.1.1
 
 ## Authorization improvements
 
 - Add proxy for BE queries
 
-# v0.1.0 (Sun Mar 21 2021)
+# v0.1.0
 
 ## Init release
 
