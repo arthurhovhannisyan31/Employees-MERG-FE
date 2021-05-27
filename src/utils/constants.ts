@@ -1,45 +1,31 @@
 // model
-import { ERoutes, IRouteMap } from 'model/common'
-import { ERoutesPaths } from 'model/common'
+import { ERouteName, ERoutePath, IRouteMap } from 'model/common'
 
 export const ROUTES: IRouteMap = {
-  [ERoutes.HOME]: {
+  [ERouteName.HOME]: {
     label: 'Home',
-    url: '/',
+    url: ERoutePath.HOME,
   },
-  [ERoutes.AUTH]: {
+  [ERouteName.AUTH]: {
     label: 'Auth',
-    url: '/auth',
+    url: `${ERoutePath.AUTH}/:next?`,
   },
-  [ERoutes.ABOUT]: {
+  [ERouteName.ABOUT]: {
     label: 'About',
-    url: '/about',
+    url: ERoutePath.ABOUT,
   },
-  [ERoutes.EMPLOYEES]: {
+  [ERouteName.EMPLOYEES]: {
     label: 'Employees',
-    url: '/employees',
+    url: ERoutePath.EMPLOYEES,
   },
-  [ERoutes.EMPLOYEE]: {
+  [ERouteName.EMPLOYEE]: {
     label: 'Employee',
-    url: '/employees/:id',
+    url: `${ERoutePath.EMPLOYEES}/:id`,
   },
-  [ERoutes.NOT_FOUND]: {
+  [ERouteName.NOT_FOUND]: {
     label: 'Not found',
-    url: '*',
+    url: ERoutePath.NOT_FOUND,
   },
 }
-
-const CONSTANTS = { ROUTES }
-
-export default CONSTANTS
 
 export const ADULT_AGE = 18
-
-export const ROUTES: Record<keyof typeof EROUTES, string> = {
-  HOME: '/',
-  AUTH: `/${EROUTES.AUTH}/:next?`,
-  ABOUT: `/${EROUTES.ABOUT}`,
-  EMPLOYEES: `/${EROUTES.EMPLOYEES}`,
-  EMPLOYEE: `/${EROUTES.EMPLOYEE}/:id`,
-  NOT_FOUND: EROUTES.NOT_FOUND,
-}

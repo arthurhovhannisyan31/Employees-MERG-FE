@@ -35,7 +35,7 @@ const Header: FC = () => {
 
   const handleLogin = useCallback((): void => {
     history.push('/auth')
-  }, [])
+  }, [history])
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -45,7 +45,7 @@ const Header: FC = () => {
             <Grid item container alignItems="center">
               <Tooltip title="Home">
                 <Button
-                  disabled={!token}
+                  disabled={!isAuth}
                   onClick={() => history.push('/')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/',
@@ -56,7 +56,7 @@ const Header: FC = () => {
               </Tooltip>
               <Tooltip title="Employees">
                 <Button
-                  disabled={!token}
+                  disabled={!isAuth}
                   onClick={() => history.push('/employees')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/employees',
@@ -67,7 +67,7 @@ const Header: FC = () => {
               </Tooltip>
               <Tooltip title="About">
                 <Button
-                  disabled={!token}
+                  disabled={!isAuth}
                   onClick={() => history.push('/about')}
                   className={clsx(classes.link, {
                     [classes.activeLink]: location?.pathname === '/about',
