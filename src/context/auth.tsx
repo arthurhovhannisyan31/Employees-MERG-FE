@@ -1,5 +1,5 @@
 // deps
-import React, { useMemo, useReducer } from 'react'
+import React, { createContext, useReducer } from 'react'
 // model
 import {
   EAuthContextActions,
@@ -22,7 +22,7 @@ const authContextInitValue: IAuthContext = {
   dispatch: () => {},
 }
 
-const AuthContext = React.createContext<IAuthContext>(authContextInitValue)
+const AuthContext = createContext<IAuthContext>(authContextInitValue)
 
 const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
   const { type, payload } = action

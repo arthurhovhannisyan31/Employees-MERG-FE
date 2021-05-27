@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useCallback } from 'react'
 // components
 // model
 import {
@@ -18,7 +18,7 @@ export interface IUseGetDepartments {
 
 export const useGetTitles = ({ dispatch }: IUseGetDepartments) => {
   const handleFetch = useFetch()
-  const handleGetTitles = React.useCallback(async () => {
+  const handleGetTitles = useCallback(async () => {
     dispatch({ type: EActionTypes.LOADING, payload: { loading: true } })
     try {
       const res = await handleFetch(queryTitles())

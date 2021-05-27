@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useCallback } from 'react'
 // model
 import {
   TCatalogsAction,
@@ -17,7 +17,7 @@ export interface IUseGetGenders {
 
 export const useGetGenders = ({ dispatch }: IUseGetGenders) => {
   const handleFetch = useFetch()
-  const handleGetGenders = React.useCallback(async () => {
+  const handleGetGenders = useCallback(async () => {
     dispatch({
       type: EActionTypes.LOADING,
       payload: { loading: true },

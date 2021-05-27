@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 // model
 import { IQueryMeResponse } from '_/model/queries/auth'
@@ -11,7 +11,7 @@ import { useLogout } from '_/containers/Auth/hooks/useLogout'
 
 export const useCheckAuthorization = () => {
   const location = useLocation()
-  const { setSnackbarState } = React.useContext(SnackbarContext)
+  const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
   const handleLogout = useLogout()
 

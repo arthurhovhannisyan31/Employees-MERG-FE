@@ -1,5 +1,5 @@
 // deps
-import React, { useReducer } from 'react'
+import React, { useReducer, createContext } from 'react'
 // model
 import {
   ICatalogsContext,
@@ -22,7 +22,7 @@ const catalogsContextInitState: ICatalogsContext = {
   state: catalogsInitState,
   dispatch: () => {},
 }
-const CatalogsContext = React.createContext<ICatalogsContext>(
+const CatalogsContext = createContext<ICatalogsContext>(
   catalogsContextInitState,
 )
 const catalogsReducer: TCatalogsReducer = (state, action) => {

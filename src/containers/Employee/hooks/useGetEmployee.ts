@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 // model
 import { GetEmployeeInput } from '_/model/generated'
@@ -20,7 +20,7 @@ export interface IUseGetEmployeeProps {
 export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   const { id: idParam } = useParams<Record<'id', string>>()
   const handleFetch = useFetch()
-  const handleGetEmployee = React.useCallback(
+  const handleGetEmployee = useCallback(
     async ({ id }: GetEmployeeInput) => {
       dispatch({
         type: EActionTypes.LOADING,

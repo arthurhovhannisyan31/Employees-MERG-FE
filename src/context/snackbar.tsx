@@ -1,5 +1,5 @@
 // deps
-import React, { useState } from 'react'
+import React, { useState, createContext } from 'react'
 // model
 import { ISnackbarContext, ISnackbar } from '_/model/context/snackbar'
 
@@ -9,7 +9,7 @@ const snackbarInitState: ISnackbar = {
   message: '',
 }
 
-const SnackbarContext = React.createContext<ISnackbarContext>({
+const SnackbarContext = createContext<ISnackbarContext>({
   snackbarState: snackbarInitState,
   setSnackbarState: () => {},
 })

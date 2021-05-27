@@ -52,3 +52,6 @@ fix fetch response types result?.data?.login?.userCredentials
 
 -- add explicit isAuthenticated state
 -- add X-CSRF-Token
+
+https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
+https://cheatsheetseries.owasp.org/

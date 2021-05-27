@@ -63,9 +63,8 @@ const EmployeesTable: React.FC<IProps> = ({
   const [rows, setRows] = useState<IEmployeesTableRow[]>(
     data?.map(rowsSelector),
   )
-  const [tableColumnExtensions] = useState<Table.ColumnExtension[]>(
-    initColumnExtensions,
-  )
+  const [tableColumnExtensions] =
+    useState<Table.ColumnExtension[]>(initColumnExtensions)
 
   const initColumnsOrder = useMemo(() => getInitColumnsOrder(), [])
   const [columnOrder, setColumnOrder] = useState<string[]>(initColumnsOrder)

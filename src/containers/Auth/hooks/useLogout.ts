@@ -1,5 +1,5 @@
 // deps
-import React, { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 // model
 import { EAuthContextActions } from '_/model/context/auth'
@@ -13,7 +13,7 @@ import storage from '_/utils/storage'
 
 export const useLogout = () => {
   const history = useHistory()
-  const { dispatch } = React.useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext)
   const handleFetch = useFetch()
 
   return useCallback(async () => {

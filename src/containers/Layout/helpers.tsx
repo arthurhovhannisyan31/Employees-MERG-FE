@@ -2,13 +2,13 @@
 import React from 'react'
 import { Home, People, Info } from '@material-ui/icons'
 // model
-import { ERoutes, IRouteMap } from '_/model/common'
+import { ERouteName, IRouteMap } from '_/model/common'
 import { IMenuDrawerItem, TRouteIconMap } from '_/containers/Layout/types'
 
 export const routesIconMap: TRouteIconMap = {
-  [ERoutes.HOME]: <Home />,
-  [ERoutes.EMPLOYEES]: <People />,
-  [ERoutes.ABOUT]: <Info />,
+  [ERouteName.HOME]: <Home />,
+  [ERouteName.EMPLOYEES]: <People />,
+  [ERouteName.ABOUT]: <Info />,
 }
 
 export const getMenuDrawerItems = (
@@ -18,7 +18,7 @@ export const getMenuDrawerItems = (
   Object.entries(iconMap).reduce((acc: IMenuDrawerItem[], [key, icon]) => {
     if (key in routes) {
       acc.push({
-        ...routes[key as ERoutes],
+        ...routes[key as ERouteName],
         icon,
       })
     }

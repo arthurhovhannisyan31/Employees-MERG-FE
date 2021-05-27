@@ -1,5 +1,11 @@
 // deps
-import React, { useEffect } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+} from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
@@ -18,17 +24,17 @@ const Auth: React.FC = () => {
     userCredentials,
     dispatch,
     errors: authErrors,
-  } = React.useContext(AuthContext)
+  } = useContext(AuthContext)
 
-  const [authState, setAuthState] = React.useState<boolean>(false)
+  const [authState, setAuthState] = useState<boolean>(false)
   const toggleAuthState = () => setAuthState((val: boolean) => !val)
 
-  const [email, setEmail] = React.useState<string>('')
-  const [password, setPassword] = React.useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   const classes = useStyles({ hasError: !!authErrors?.length })
 
-  const handleTextField = React.useCallback(
+  const handleTextField = useCallback(
     (type: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
       switch (type) {
         case 'email':
@@ -44,12 +50,12 @@ const Auth: React.FC = () => {
     [],
   )
 
-  const disableSubmit = React.useMemo(
+  const disableSubmit = useMemo(
     () => !email?.trim() || !password?.trim(),
     [email, password],
   )
 
-  const errorMessages = React.useMemo(
+  const errorMessages = useMemo(
     () =>
       authErrors?.map((err) => (
         <Typography
@@ -69,7 +75,7 @@ const Auth: React.FC = () => {
     dispatch,
   })
 
-  const handleKeyDown = React.useCallback(
+  const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter' && !disableSubmit) {
         handleLogin()

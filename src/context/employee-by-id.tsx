@@ -1,5 +1,5 @@
 // deps
-import React, { useReducer } from 'react'
+import React, { useReducer, createContext } from 'react'
 // model
 import {
   IEmployeeByIdState,
@@ -20,7 +20,7 @@ const EmployeeByIdContextInitState: IEmployeeByIdContext = {
   dispatch: () => {},
 }
 
-const EmployeeByIdContext = React.createContext<IEmployeeByIdContext>(
+const EmployeeByIdContext = createContext<IEmployeeByIdContext>(
   EmployeeByIdContextInitState,
 )
 

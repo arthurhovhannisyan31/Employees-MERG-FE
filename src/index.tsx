@@ -17,7 +17,7 @@ const renderApp = () =>
 
 renderApp()
 
-const hmodule: IModule = module as IModule
-if (hmodule.hot) {
-  hmodule.hot.accept('./App', renderApp)
+const hm: IModule = module as unknown as IModule
+if (hm.hot) {
+  hm.hot.accept('./App', renderApp)
 }

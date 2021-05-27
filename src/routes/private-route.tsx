@@ -1,5 +1,5 @@
 // deps
-import React from 'react'
+import React, { useContext } from 'react'
 import { Route, useLocation, useHistory } from 'react-router-dom'
 // model
 import { IRoute } from '_/routes/app-routes'
@@ -10,7 +10,7 @@ const PrivateRoute: React.FC<IRoute> = ({
   component: Component,
   ...params
 }) => {
-  const { userCredentials } = React.useContext(AuthContext)
+  const { userCredentials } = useContext(AuthContext)
   const isAuthorized = userCredentials?._id
 
   const location = useLocation()

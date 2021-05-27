@@ -1,5 +1,5 @@
 // deps
-import React, { useCallback, useContext, useMemo } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 // model
 import { GetEmployeesInput } from '_/model/generated'
 import {
@@ -22,13 +22,13 @@ export const useGetEmployees = ({
   currentPage,
   pageSize,
 }: IUseGetEmployees) => {
-  const key = React.useMemo(
+  const key = useMemo(
     () => `${pageSize}-${currentPage}`,
     [pageSize, currentPage],
   )
-  const { setSnackbarState } = React.useContext(SnackbarContext)
+  const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
-  const handleGetEmployees = React.useCallback(
+  const handleGetEmployees = useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({
         type: 'loading',

@@ -23,7 +23,7 @@ export interface IQueryProps {
   >
 }
 
-export enum ERoutes {
+export enum ERouteName {
   HOME = 'HOME',
   AUTH = 'AUTH',
   ABOUT = 'ABOUT',
@@ -32,8 +32,17 @@ export enum ERoutes {
   NOT_FOUND = 'NOT_FOUND',
 }
 
+export enum ERoutePath {
+  HOME = '/',
+  AUTH = '/auth',
+  ABOUT = '/about',
+  EMPLOYEES = '/employees',
+  EMPLOYEE = '/employees',
+  NOT_FOUND = '*',
+}
+
 export type IRouteMapItem = Record<'url' | 'label', string>
-export type IRouteMap = Record<ERoutes, IRouteMapItem>
+export type IRouteMap = Record<ERouteName, IRouteMapItem>
 
 export interface IQueryResponse<T> {
   data: T | null
@@ -41,12 +50,3 @@ export interface IQueryResponse<T> {
 }
 
 export type OmitTypeName<T> = Omit<T, '__typename'>
-
-export enum ERoutesPaths {
-  HOME = '',
-  AUTH = 'auth',
-  ABOUT = 'about',
-  EMPLOYEES = 'employees',
-  EMPLOYEE = 'employees',
-  NOT_FOUND = '*',
-}

@@ -1,16 +1,16 @@
 // deps
-import React from 'react'
+import React, { lazy } from 'react'
 import { RouteProps, RouteComponentProps } from 'react-router-dom'
 // helpers
 import { routeMaker } from '_/routes/helpers'
 import { ROUTES } from '_/utils/constants'
 
-const Home = React.lazy(() => import('_/containers/Home'))
-const About = React.lazy(() => import('_/containers/About'))
-const Auth = React.lazy(() => import('_/containers/Auth'))
-const NotFound = React.lazy(() => import('_/containers/NotFound'))
-const Employees = React.lazy(() => import('_/containers/Employees'))
-const Employee = React.lazy(() => import('_/containers/Employee'))
+const Home = lazy(() => import('_/containers/Home'))
+const About = lazy(() => import('_/containers/About'))
+const Auth = lazy(() => import('_/containers/Auth'))
+const NotFound = lazy(() => import('_/containers/NotFound'))
+const Employees = lazy(() => import('_/containers/Employees'))
+const Employee = lazy(() => import('_/containers/Employee'))
 
 export interface IRoute extends RouteProps {
   exact?: boolean
@@ -27,43 +27,43 @@ const routes: IRoute[] = [
   {
     exact: true,
     isPrivate: false,
-    path: CONSTANTS.ROUTES.HOME.url,
-    label: CONSTANTS.ROUTES.HOME.label,
+    path: ROUTES.HOME.url,
+    label: ROUTES.HOME.label,
     component: Home,
   },
   {
     exact: true,
     isPrivate: false,
-    path: CONSTANTS.ROUTES.ABOUT.url,
-    label: CONSTANTS.ROUTES.ABOUT.label,
+    path: ROUTES.ABOUT.url,
+    label: ROUTES.ABOUT.label,
     component: About,
   },
   {
     exact: false,
     isPrivate: false,
-    path: CONSTANTS.ROUTES.AUTH.url,
-    label: CONSTANTS.ROUTES.AUTH.label,
+    path: ROUTES.AUTH.url,
+    label: ROUTES.AUTH.label,
     component: Auth,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.EMPLOYEE.url,
-    label: CONSTANTS.ROUTES.EMPLOYEE.label,
+    path: ROUTES.EMPLOYEE.url,
+    label: ROUTES.EMPLOYEE.label,
     component: Employee,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.EMPLOYEES.url,
-    label: CONSTANTS.ROUTES.EMPLOYEES.label,
+    path: ROUTES.EMPLOYEES.url,
+    label: ROUTES.EMPLOYEES.label,
     component: Employees,
   },
   {
     exact: true,
     isPrivate: true,
-    path: CONSTANTS.ROUTES.NOT_FOUND.url,
-    label: CONSTANTS.ROUTES.NOT_FOUND.label,
+    path: ROUTES.NOT_FOUND.url,
+    label: ROUTES.NOT_FOUND.label,
     component: NotFound,
   },
 ]

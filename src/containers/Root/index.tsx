@@ -1,5 +1,5 @@
 // deps
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Switch, useLocation } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
@@ -9,7 +9,7 @@ import SnackbarComp from '_/components/UI/Snackbar'
 import BreadcrumbsComp from '_/components/UI/Breadcrumbs'
 import Backdrop from '_/components/UI/Backdrop'
 // model
-import { EROUTES } from '_/model/common'
+import { ERoutePath } from '_/model/common'
 // helpers
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
@@ -21,8 +21,9 @@ const Root: React.FC = () => {
   const classes = useStyles()
   const location = useLocation()
 
-  const { dispatch } = React.useContext(AuthContext)
-  const showBreadcrumbs = !location.pathname.includes(EROUTES.AUTH)
+  const { dispatch } = useContext(AuthContext)
+  console.log(location.pathname, location.pathname.includes(ERoutePath.AUTH))
+  const showBreadcrumbs = !location.pathname.includes(ERoutePath.AUTH)
 
   const handleCheckAuthorization = useCheckAuthorization({ dispatch })
 
