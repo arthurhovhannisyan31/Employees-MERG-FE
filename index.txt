@@ -4,8 +4,12 @@
 // helpers
 
 -- release 0. - ui-improvements
-design improvements
+https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
+https://cheatsheetseries.owasp.org/
+
+loading spinner to loading window
 remove half of loading indicators
+add nav bar collapsing
 update styles
 add react helmet
 add fonts
@@ -28,6 +32,9 @@ google login form
   - create, update, delete employee titles
   - create, update, delete employee employments
 
+-- release reducers improvements
+replace all reducers with objects
+
 форма логин/регистрации на 2 таба
 add CRUD for employees, title, payoff, salary, hire/fire employee
 add features from material-ui project
@@ -37,10 +44,6 @@ indexeddb
 
 - // local storage userInfo, expiresAt
 fix fetch response types result?.data?.login?.userCredentials
-
--- loading spinner to loading window
-
--- replace all reducers with objects
 
 -- add auth context loading state, hide login page when fetching me status
 
