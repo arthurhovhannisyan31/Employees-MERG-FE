@@ -24,7 +24,7 @@ import {
 import { useGetDepartments } from '_/containers/Employee/hooks/useGetDepartments'
 import { useGetTitles } from '_/containers/Employee/hooks/useGetTitles'
 import { useGetGenders } from '_/containers/Employee/hooks/useGetGenders'
-import { a11yProps } from './helpers'
+import { a11yProps } from '_/utils/helpers'
 import useStyles from './style'
 
 const EmployeePage: React.FC = () => {
@@ -135,10 +135,16 @@ const EmployeePage: React.FC = () => {
                     onChange={handleChangeTab}
                     aria-label="simple tabs employee"
                   >
-                    <Tab label="Details" {...a11yProps(0)} />
-                    <Tab label="Paychecks" {...a11yProps(1)} />
-                    <Tab label="Titles" {...a11yProps(2)} />
-                    <Tab label="Employments" {...a11yProps(3)} />
+                    <Tab label="Details" {...a11yProps(`employee-tab-${0}`)} />
+                    <Tab
+                      label="Paychecks"
+                      {...a11yProps(`employee-tab-${1}`)}
+                    />
+                    <Tab label="Titles" {...a11yProps(`employee-tab-${2}`)} />
+                    <Tab
+                      label="Employments"
+                      {...a11yProps(`employee-tab-${3}`)}
+                    />
                   </Tabs>
                 </AppBar>
                 <TabPanel value={tab} index={0}>

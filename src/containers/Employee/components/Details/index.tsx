@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 import format from 'date-fns/format'
 import cn from 'clsx'
-// components
 // model
 import { Employee } from '_/model/generated'
 // helpers

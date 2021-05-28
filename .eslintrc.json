@@ -32,6 +32,9 @@
     "no-console": "warn",
     "@typescript-eslint/semi": 0,
     "@typescript-eslint/indent": 0,
+    "@typescript-eslint/explicit-function-return-type": ["error", {
+      "allowExpressions": true
+    }],
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-curly-newline": 0,
