@@ -18,6 +18,21 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useLogin } from 'containers/Auth/hooks'
 import { AuthContext } from 'context'
 
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+import AppBar from '@material-ui/core/AppBar'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import SignIn from 'containers/Auth/components/singIn'
+import SignUp from 'containers/Auth/components/signUp'
+import { AuthContext } from 'context'
+import { useLogin } from 'containers/Auth/hooks'
+import { a11yProps } from 'utils/helpers'
+import TabPanel from 'components/UI/TabPanel'
+
 import useStyles from './style'
 
 const Auth: FC = () => {
@@ -29,6 +44,8 @@ const Auth: FC = () => {
     errors: authErrors,
   } = useContext(AuthContext)
 
+  const [tab, setTab] = useState(0)
+
   const [authState, setAuthState] = useState<boolean>(false)
   const toggleAuthState = (): void => setAuthState((val: boolean) => !val)
 
@@ -37,8 +54,14 @@ const Auth: FC = () => {
 
   const classes = useStyles({ hasError: !!authErrors?.length })
 
+  const handleChange = useCallback(
+    (_: React.ChangeEvent<{}>, newValue: number) => {
+      setTab(newValue)
+    },
+    [],
+  )
   const handleTextField = useCallback(
-    (type: string) => (event: ChangeEvent<HTMLInputElement>) => {
+    (type: string) => (event: ChangeEvent<HTMLInputElement>): void => {
       switch (type) {
         case 'email':
           setEmail(event.target.value)
@@ -72,19 +95,21 @@ const Auth: FC = () => {
   )
 
   const handleLogin = useLogin({
-    email,
-    password,
     authState,
     dispatch,
   })
 
+  const handleSubmit = useCallback(() => {
+    handleLogin({ email, password })
+  }, [email, handleLogin, password])
+
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       if (event.key === 'Enter' && !disableSubmit) {
-        handleLogin()
+        handleSubmit()
       }
     },
-    [handleLogin, disableSubmit],
+    [disableSubmit, handleSubmit],
   )
 
   useEffect(() => {
@@ -96,10 +121,30 @@ const Auth: FC = () => {
   return (
     <Grid
       container
+      direction="row"
       justify="center"
       alignItems="center"
       className={classes.container}
     >
+      <Grid direction="column" spacing={2}>
+        <AppBar position="static" color="transparent">
+          <Tabs
+            indicatorColor="primary"
+            value={tab}
+            onChange={handleChange}
+            aria-label="simple tabs example"
+          >
+            <Tab label="Sign In" {...a11yProps('sign in')} />
+            <Tab label="Sign Up" {...a11yProps('sign up')} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={tab} index={0}>
+          <SignIn handleSubmit={handleSubmit} />
+        </TabPanel>
+        <TabPanel value={tab} index={1}>
+          <SignUp handleSubmit={handleSubmit} />
+        </TabPanel>
+      </Grid>
       <Paper className={classes.paper}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
@@ -134,7 +179,7 @@ const Auth: FC = () => {
             <Button onClick={toggleAuthState}>
               {authState ? 'Login' : 'Sign up'}
             </Button>
-            <Button onClick={handleLogin} disabled={disableSubmit}>
+            <Button onClick={handleSubmit} disabled={disableSubmit}>
               Submit
             </Button>
           </Grid>

@@ -11,6 +11,7 @@ export default makeStyles<Theme, IProps>((theme) => ({
   paper: {
     padding: theme.spacing(2),
     border: ({ hasError }) => (hasError ? '1px solid red' : 'none'),
+    boxSizing: 'border-box',
   },
   headTitle: { textAlign: 'center' },
   errorMessage: {
