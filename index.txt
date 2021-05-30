@@ -41,3 +41,5 @@ fix fetch response types result?.data?.login?.userCredentials
 -- replace all reducers with objects
 
 -- add auth context loading state, hide login page when fetching me status
+
+-- add service worker
