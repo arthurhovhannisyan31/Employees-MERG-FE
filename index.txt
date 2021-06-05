@@ -43,3 +43,12 @@ fix fetch response types result?.data?.login?.userCredentials
 -- add auth context loading state, hide login page when fetching me status
 
 -- add service worker
+-- separate vendor chunks
+-- add service worker
+
+-- run localhost on http + https
+
+-- add a main loading spinner on reload while fetching user data
+
+-- add explicit isAuthenticated state
+-- add X-CSRF-Token
