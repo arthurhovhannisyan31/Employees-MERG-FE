@@ -5,9 +5,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "production",
   target: ["web", "es2020"],
-  entry: [path.resolve(__dirname, "src", "index.tsx")],
+  entry: [path.resolve( "src", "index.tsx")],
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve("dist"),
     filename: "[name].[contenthash].js",
     publicPath: "/",
     chunkFilename: "[name].[contenthash].chunk.js",
@@ -40,9 +40,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", "index.html"),
+      template: path.resolve("src", "index.html"),
       cache: false,
-      favicon: path.resolve(__dirname, "src/static/img", "favicon.ico"),
+      favicon: path.resolve( "src/static/img", "favicon.ico"),
     }),
     new webpack.EnvironmentPlugin([
       "API_URL",
@@ -54,6 +54,6 @@ module.exports = {
   ],
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
-    alias: { _: path.resolve(__dirname, "src") },
+    alias: { _: path.resolve("src") },
   },
 };
