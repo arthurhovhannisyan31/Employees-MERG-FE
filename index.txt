@@ -52,3 +52,5 @@ Releases:
 https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
 https://cheatsheetseries.owasp.org/
 
+eslint import, error
+eslint cycle dependencies
