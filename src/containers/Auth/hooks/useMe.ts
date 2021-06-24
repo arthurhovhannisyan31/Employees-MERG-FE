@@ -6,9 +6,7 @@ import { SnackbarContext } from 'context'
 import { queryMe } from 'gql/queries'
 import { useFetch } from 'utils/hooks'
 
-import { IQueryMeResponse } from 'model/queries/auth'
-
-export const useCheckAuthorization = (): [() => Promise<void>] => {
+export const useCheckAuthorization = (): [() => void] => {
   const location = useLocation()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()

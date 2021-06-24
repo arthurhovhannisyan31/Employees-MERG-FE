@@ -1,14 +1,15 @@
-import React, { createContext, useState, FC } from 'react'
+// deps
+import React, { useState, createContext } from 'react'
+// model
+import { SnackbarContextProps, SnackbarProps } from 'model/context/snackbar'
 
-import { ISnackbarContext, ISnackbar } from 'model/context/snackbar'
-
-const snackbarInitState: ISnackbar = {
+const snackbarInitState: SnackbarProps = {
   open: false,
   type: 'success',
   message: '',
 }
 
-const SnackbarContext = createContext<ISnackbarContext>({
+const SnackbarContext = createContext<SnackbarContextProps>({
   snackbarState: snackbarInitState,
   setSnackbarState: () => null,
 })
@@ -16,8 +17,8 @@ const SnackbarContext = createContext<ISnackbarContext>({
 const SnackbarContextContainer: FC = ({ children }) => {
   const [snackbarState, setSnackbarState] = useState(snackbarInitState)
 
-  const handleChange = (props: Partial<ISnackbar>): void => {
-    setSnackbarState((state: ISnackbar) => ({
+  const handleChange = (props: Partial<SnackbarProps>): void => {
+    setSnackbarState((state: SnackbarProps) => ({
       ...state,
       ...props,
     }))

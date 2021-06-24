@@ -1,73 +1,65 @@
+// deps
 import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+// model
+import { AuthReducerAction, AuthContextActions } from '_/model/context/auth'
+import { IQueryLoginResponse } from '_/model/queries/auth'
+// helpers
+import { queryLogin } from '_/gql/queries'
+import { useFetch } from '_/utils/hooks'
+import { SnackbarContext } from '_/context/snackbar'
+import { checkResponse } from '_/utils/auth'
 
-import { SnackbarContext } from 'context/snackbar'
-import { signUp } from 'gql/mutations'
-import { queryLogin } from 'gql/queries'
-import { fetchResponseCheck } from 'utils/auth'
-import { useFetch } from 'utils/hooks'
-
-import { IAuthReducerAction, EAuthContextActions } from 'model/context/auth'
-import { IQueryLoginResponse } from 'model/queries/auth'
-
-// TODO move to model
-export interface IUseLoginProps {
-  authState: boolean
-  dispatch: (value: IAuthReducerAction) => void
+export interface UseLoginProps {
+  dispatch: (value: AuthReducerAction) => void
 }
 
-export interface IUseLoginReturnProps {
+export interface UseLoginReturnProps {
   email: string
   password: string
 }
 
 export const useLogin = ({
-  authState,
   dispatch,
-}: IUseLoginProps): ((props: IUseLoginReturnProps) => void) => {
+}: UseLoginProps): ((props: UseLoginReturnProps) => void) => {
   const history = useHistory()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
 
   return useCallback(
     async ({ email, password }) => {
-      const loginBody = queryLogin({ email, password })
-      const signupBody = signUp({ email, password })
-
       try {
-        const res = await handleFetch(authState ? signupBody : loginBody)
-        fetchResponseCheck(res?.status)
+        const res = await handleFetch(queryLogin({ email, password }))
+        checkResponse(res?.status)
         const result: IQueryLoginResponse = await res.json()
         if (result?.data?.login?.userCredentials) {
           const { userCredentials } = result.data.login
           dispatch({
-            type: EAuthContextActions.LOGIN,
+            type: AuthContextActions.LOGIN,
             payload: {
               userCredentials,
             },
           })
           setSnackbarState({
             type: 'success',
-            message: 'Hello!',
+            message: 'Welcome back!',
             open: true,
           })
           history.push('/')
         }
       } catch (err) {
         dispatch({
-          type: EAuthContextActions.ERRORS,
-          payload: { errors: [err as Error] },
+          type: AuthContextActions.ERRORS,
+          payload: { errors: [err] },
         })
       }
     },
-    [
-      email,
+    [      email,
       password,
       handleFetch,
       authState,
       dispatch,
       setSnackbarState,
-      history,
-    ],
+      history,],
   )
 }

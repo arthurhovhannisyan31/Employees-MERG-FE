@@ -5,32 +5,34 @@ import { fetchResponseCheck } from 'utils/auth'
 import { useFetch } from 'utils/hooks'
 
 import {
-  TCatalogsAction,
-  EActionTypes,
-  TGendersFetchResponse,
-} from 'model/context/catalogs'
+  CatalogsAction,
+  ActionTypes,
+  GendersFetchResponse,
+} from '_/model/context/catalogs'
+// helpers
+import { useFetch } from '_/utils/hooks'
+import { queryGenders } from '_/gql/queries'
+import { checkResponse } from '_/utils/auth'
 
 export interface IUseGetGenders {
   dispatch: (val: TCatalogsAction) => void
 }
 
-export const useGetGenders = ({
-  dispatch,
-}: IUseGetGenders): [() => Promise<void>] => {
+export const useGetGenders = ({ dispatch }: IUseGetGenders): [() => Promise<void>] => {
   const handleFetch = useFetch()
   const handleGetGenders = useCallback(async () => {
     dispatch({
-      type: EActionTypes.LOADING,
+      type: ActionTypes.LOADING,
       payload: { loading: true },
     })
     try {
       const res = await handleFetch(queryGenders())
-      fetchResponseCheck(res?.status)
+      checkResponse(res?.status)
       const {
         data: { genders },
-      }: TGendersFetchResponse = await res.json()
+      }: GendersFetchResponse = await res.json()
       dispatch({
-        type: EActionTypes.DATA,
+        type: ActionTypes.DATA,
         payload: {
           data: {
             genders,
@@ -40,14 +42,14 @@ export const useGetGenders = ({
       })
     } catch (error) {
       dispatch({
-        type: EActionTypes.ERROR,
+        type: ActionTypes.ERROR,
         payload: {
-          error: error as Record<string, string>,
+          error,
         },
       })
     }
     dispatch({
-      type: EActionTypes.LOADING,
+      type: ActionTypes.LOADING,
       payload: { loading: false },
     })
   }, [dispatch, handleFetch])

@@ -1,57 +1,57 @@
 import React from 'react'
-
-import { IAction } from 'model/common'
+// model
 import { Department, Gender, Title } from 'model/generated'
+import { Action } from 'model/common'
 
-export interface ICatalogEntries {
+export interface CatalogEntries {
   departments: Department[]
   genders: Gender[]
   titles: Title[]
 }
 
-export interface ICatalogsState {
+export interface CatalogsState {
   loading: boolean
   error: Record<string, string> | null
-  data: Partial<ICatalogEntries>
+  data: Partial<CatalogEntries>
 }
 
-export type TCatalogsAction = IAction<
+export type CatalogsAction = Action<
   Partial<
-    Omit<ICatalogsState, 'data'> & {
-      data: Partial<ICatalogEntries>
+    Omit<CatalogsState, 'data'> & {
+      data: Partial<CatalogEntries>
     }
   >
 >
 
-export type TCatalogsReducer = (
-  prevState: ICatalogsState,
-  action: TCatalogsAction,
-) => ICatalogsState
+export type CatalogsReducer = (
+  prevState: CatalogsState,
+  action: CatalogsAction,
+) => CatalogsState
 
-export enum EActionTypes {
+export enum ActionTypes {
   LOADING = 'loading',
   ERROR = 'error',
   DATA = 'data',
 }
 
-export interface ICatalogsContext {
-  state: ICatalogsState
-  dispatch: React.Dispatch<TCatalogsAction>
+export interface CatalogsContextProps {
+  state: CatalogsState
+  dispatch: React.Dispatch<CatalogsAction>
 }
 
-export type TDepartmentsFetchResponse = {
+export type DepartmentsFetchResponse = {
   data: {
     departments: Omit<Department, '__typename'>[]
   }
 }
 
-export type TGendersFetchResponse = {
+export type GendersFetchResponse = {
   data: {
     genders: Omit<Gender, '__typename'>[]
   }
 }
 
-export type TTitleFetchResponse = {
+export type TitleFetchResponse = {
   data: {
     titles: Omit<Title, '__typename'>[]
   }

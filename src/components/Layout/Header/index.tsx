@@ -44,37 +44,43 @@ const Header: FC = () => {
           <Grid item>
             <Grid item container alignItems="center">
               <Tooltip title="Home">
-                <Button
-                  disabled={!isAuth}
-                  onClick={() => history.push('/')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/',
-                  })}
-                >
-                  <HomeIcon />
-                </Button>
+                <span>
+                  <Button
+                    disabled={!isAuth}
+                    onClick={() => history.push('/')}
+                    className={clsx(classes.link, {
+                      [classes.activeLink]: location?.pathname === '/',
+                    })}
+                  >
+                    <HomeIcon />
+                  </Button>
+                </span>
               </Tooltip>
               <Tooltip title="Employees">
-                <Button
-                  disabled={!isAuth}
-                  onClick={() => history.push('/employees')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/employees',
-                  })}
-                >
-                  <PeopleIcon />
-                </Button>
+                <span>
+                  <Button
+                    disabled={!isAuth}
+                    onClick={() => history.push('/employees')}
+                    className={clsx(classes.link, {
+                      [classes.activeLink]: location?.pathname === '/employees',
+                    })}
+                  >
+                    <PeopleIcon />
+                  </Button>
+                </span>
               </Tooltip>
               <Tooltip title="About">
-                <Button
-                  disabled={!isAuth}
-                  onClick={() => history.push('/about')}
-                  className={clsx(classes.link, {
-                    [classes.activeLink]: location?.pathname === '/about',
-                  })}
-                >
-                  <AboutIcon />
-                </Button>
+                <span>
+                  <Button
+                    disabled={!isAuth}
+                    onClick={() => history.push('/about')}
+                    className={clsx(classes.link, {
+                      [classes.activeLink]: location?.pathname === '/about',
+                    })}
+                  >
+                    <AboutIcon />
+                  </Button>
+                </span>
               </Tooltip>
             </Grid>
           </Grid>

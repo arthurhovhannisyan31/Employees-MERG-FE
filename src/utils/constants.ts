@@ -1,30 +1,30 @@
 // model
-import { ERouteName, ERoutePath, IRouteMap } from 'model/common'
+import { RouteName, RoutePath, RouteMap } from 'model/common'
 
-export const ROUTES: IRouteMap = {
-  [ERouteName.HOME]: {
+export const ROUTES: RouteMap = {
+  [RouteName.HOME]: {
     label: 'Home',
-    url: ERoutePath.HOME,
+    url: RoutePath.HOME,
   },
-  [ERouteName.AUTH]: {
+  [RouteName.AUTH]: {
     label: 'Auth',
-    url: `${ERoutePath.AUTH}/:next?`,
+    url: `${RoutePath.AUTH}/:next?`,
   },
-  [ERouteName.ABOUT]: {
+  [RouteName.ABOUT]: {
     label: 'About',
-    url: ERoutePath.ABOUT,
+    url: RoutePath.ABOUT,
   },
-  [ERouteName.EMPLOYEES]: {
+  [RouteName.EMPLOYEES]: {
     label: 'Employees',
-    url: ERoutePath.EMPLOYEES,
+    url: RoutePath.EMPLOYEES,
   },
-  [ERouteName.EMPLOYEE]: {
+  [RouteName.EMPLOYEE]: {
     label: 'Employee',
-    url: `${ERoutePath.EMPLOYEES}/:id`,
+    url: `${RoutePath.EMPLOYEES}/:id`,
   },
-  [ERouteName.NOT_FOUND]: {
+  [RouteName.NOT_FOUND]: {
     label: 'Not found',
-    url: ERoutePath.NOT_FOUND,
+    url: RoutePath.NOT_FOUND,
   },
 }
 

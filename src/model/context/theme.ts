@@ -1,4 +1,4 @@
-export interface IThemeContext {
+export interface ThemeContextProps {
   darkMode: boolean
   toggleTheme: () => void
 }

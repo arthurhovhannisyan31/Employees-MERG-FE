@@ -11,7 +11,7 @@ import { useCheckAuthorization } from 'containers/Root/hooks'
 import { AuthContext } from 'context'
 import routes from 'routes/app-routes'
 
-import { ERoutePath } from 'model/common'
+import { RoutePath } from 'model/common'
 
 import useStyles from './styles'
 
@@ -20,8 +20,8 @@ const Root: FC = () => {
   const location = useLocation()
 
   const { dispatch } = useContext(AuthContext)
-  console.log(location.pathname, location.pathname.includes(ERoutePath.AUTH))
-  const showBreadcrumbs = !location.pathname.includes(ERoutePath.AUTH)
+  console.log(location.pathname, location.pathname.includes(RoutePath.AUTH))
+  const showBreadcrumbs = !location.pathname.includes(RoutePath.AUTH)
 
   const handleCheckAuthorization = useCheckAuthorization({ dispatch })
 

@@ -1,16 +1,16 @@
 import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+// model
+import { AuthContextActions } from '_/model/context/auth'
+import { IQueryLogoutResponse } from '_/model/queries/auth'
+// helpers
+import { AuthContext } from '_/context/auth'
+import { useFetch } from '_/utils/hooks'
+import { queryLogout } from '_/gql/queries'
+import { checkResponse } from '_/utils/auth'
+import storage from '_/utils/storage'
 
-import { AuthContext } from 'context/auth'
-import { queryLogout } from 'gql/queries'
-import { fetchResponseCheck } from 'utils/auth'
-import { useFetch } from 'utils/hooks'
-import storage from 'utils/storage'
-
-import { EAuthContextActions } from 'model/context/auth'
-import { IQueryLogoutResponse } from 'model/queries/auth'
-
-export const useLogout = (): (() => Promise<void>) => {
+export const useLogout = (): (() => void) => {
   const history = useHistory()
   const { dispatch } = useContext(AuthContext)
   const handleFetch = useFetch()
@@ -18,24 +18,24 @@ export const useLogout = (): (() => Promise<void>) => {
   return useCallback(async () => {
     try {
       const res = await handleFetch(queryLogout())
-      fetchResponseCheck(res?.status)
+      checkResponse(res?.status)
       const result: IQueryLogoutResponse = await res.json()
       if (result?.data?.logout) {
         dispatch({
-          type: EAuthContextActions.LOGOUT,
+          type: AuthContextActions.LOGOUT,
         })
         storage.clear()
         history.push('/auth')
       } else {
         dispatch({
-          type: EAuthContextActions.ERRORS,
+          type: AuthContextActions.ERRORS,
           payload: { errors: [new Error('Logout failed')] },
         })
       }
     } catch (err) {
       dispatch({
-        type: EAuthContextActions.ERRORS,
-        payload: { errors: [err as Error] },
+        type: AuthContextActions.ERRORS,
+        payload: { errors: [err] },
       })
     }
   }, [dispatch, handleFetch, history])

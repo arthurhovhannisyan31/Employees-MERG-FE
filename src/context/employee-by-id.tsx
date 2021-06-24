@@ -1,38 +1,38 @@
 import React, { createContext, useReducer, FC } from 'react'
 
 import {
-  IEmployeeByIdState,
-  IEmployeeByIdContext,
-  TEmployeeByIdReducer,
-  EActionTypes,
+  EmployeeByIdState,
+  EmployeeByIdContextProps,
+  EmployeeByIdReducerProps,
+  ActionTypes,
 } from 'model/context/employee'
 import { Employee } from 'model/generated'
 
-const employeeByIdInitState: IEmployeeByIdState = {
+const employeeByIdInitState: EmployeeByIdState = {
   loading: false,
   error: false,
   data: {},
 }
 
-const EmployeeByIdContextInitState: IEmployeeByIdContext = {
+const EmployeeByIdContextInitState: EmployeeByIdContextProps = {
   state: employeeByIdInitState,
   dispatch: () => null,
 }
 
-const EmployeeByIdContext = createContext<IEmployeeByIdContext>(
+const EmployeeByIdContext = createContext<EmployeeByIdContextProps>(
   EmployeeByIdContextInitState,
 )
 
-const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
+const employeeByIdReducer: EmployeeByIdReducerProps = (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case EActionTypes.LOADING:
-    case EActionTypes.ERROR:
+    case ActionTypes.LOADING:
+    case ActionTypes.ERROR:
       return {
         ...state,
         [type]: payload[type],
       }
-    case EActionTypes.ADD_ITEM:
+    case ActionTypes.ADD_ITEM:
       return {
         ...state,
         data: {
@@ -40,7 +40,7 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
           [payload.key as string]: payload.data as Employee,
         },
       }
-    case EActionTypes.UPDATE_ITEM:
+    case ActionTypes.UPDATE_ITEM:
       return {
         ...state,
         data: {
@@ -57,7 +57,7 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
 }
 
 const EmployeeContextContainer: FC = ({ children }) => {
-  const [state, dispatch] = useReducer<TEmployeeByIdReducer>(
+  const [state, dispatch] = useReducer<EmployeeByIdReducerProps>(
     employeeByIdReducer,
     employeeByIdInitState,
   )

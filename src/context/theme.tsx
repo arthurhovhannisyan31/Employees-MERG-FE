@@ -1,13 +1,14 @@
-import React, { useState, createContext, FC } from 'react'
-
-import { IThemeContext } from 'model/context/theme'
+// deps
+import React, { useState, createContext } from 'react'
+// model
+import { ThemeContextProps } from '_/model/context/theme'
 
 const themeInitState = {
   darkMode: true,
   toggleTheme: () => null,
 }
 
-const ThemeContext = createContext<IThemeContext>(themeInitState)
+const ThemeContext = createContext<ThemeContextProps>(themeInitState)
 
 const ThemeContextContainer: FC = ({ children }) => {
   const [darkMode, setDarkMode] = useState(true)

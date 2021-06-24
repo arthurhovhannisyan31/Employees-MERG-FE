@@ -1,26 +1,29 @@
-import { IAction } from 'model/common'
+// deps
+import React from 'react'
+// model
 import { Employee, UpdateEmployeeInput } from 'model/generated'
+import { Action } from 'model/common'
 
-export interface IEmployeeByIdState {
+export interface EmployeeByIdState {
   loading: boolean
-  error: Record<string, string>
+  error: boolean
   data: Record<string, Employee>
 }
-export type TEmployeeByIdAction = IAction<
+export type EmployeeByIdAction = Action<
   Partial<
-    Omit<IEmployeeByIdState, 'data'> & {
+    Omit<EmployeeByIdState, 'data'> & {
       data: Employee | Omit<UpdateEmployeeInput, 'id'>
       key?: string
     }
   >
 >
 
-export type TEmployeeByIdReducer = (
-  prevState: IEmployeeByIdState,
-  action: TEmployeeByIdAction,
-) => IEmployeeByIdState
+export type EmployeeByIdReducerProps = (
+  prevState: EmployeeByIdState,
+  action: EmployeeByIdAction,
+) => EmployeeByIdState
 
-export enum EActionTypes {
+export enum ActionTypes {
   LOADING = 'loading',
   ERROR = 'error',
   DATA = 'data',
@@ -28,12 +31,12 @@ export enum EActionTypes {
   UPDATE_ITEM = 'updateItem',
 }
 
-export interface IEmployeeByIdContext {
-  state: IEmployeeByIdState
-  dispatch: (val: TEmployeeByIdAction) => void
+export interface EmployeeByIdContextProps {
+  state: EmployeeByIdState
+  dispatch: React.Dispatch<EmployeeByIdAction>
 }
 
-export type TEmployeeFetchResponse = {
+export type EmployeeFetchResponse = {
   data: {
     employee: Omit<Employee, '__typename'>
   }

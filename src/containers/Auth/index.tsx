@@ -95,7 +95,6 @@ const Auth: FC = () => {
   )
 
   const handleLogin = useLogin({
-    authState,
     dispatch,
   })
 
@@ -126,7 +125,7 @@ const Auth: FC = () => {
       alignItems="center"
       className={classes.container}
     >
-      <Grid direction="column" spacing={2}>
+      <Grid>
         <AppBar position="static" color="transparent">
           <Tabs
             indicatorColor="primary"
@@ -139,10 +138,10 @@ const Auth: FC = () => {
           </Tabs>
         </AppBar>
         <TabPanel value={tab} index={0}>
-          <SignIn handleSubmit={handleSubmit} />
+          <SignIn handleSubmit={handleSubmit} handleKeyDown={handleKeyDown} />
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          <SignUp handleSubmit={handleSubmit} />
+          <SignUp handleSubmit={handleSubmit} handleKeyDown={handleKeyDown} />
         </TabPanel>
       </Grid>
       <Paper className={classes.paper}>

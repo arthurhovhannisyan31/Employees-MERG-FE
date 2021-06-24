@@ -15,12 +15,12 @@ interface IUseGetEmployees {
   pageSize: number
   currentPage: number
 }
-
+type GetEmployeesProps = (props: GetEmployeesInput) => void
 export const useGetEmployees = ({
   dispatch,
   currentPage,
   pageSize,
-}: IUseGetEmployees) => {
+}: IUseGetEmployees): [GetEmployeesProps] => {
   const key = useMemo(
     () => `${pageSize}-${currentPage}`,
     [pageSize, currentPage],

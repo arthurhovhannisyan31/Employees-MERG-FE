@@ -1,10 +1,10 @@
+// model
 import { UpdateEmployeeInput, UserInput } from 'model/generated'
+import { QueryProps } from 'model/common'
 
-import { IQueryProps } from '../../model/common'
+// export const createUser = (): void => ({})
 
-// export const createUser = () => {}
-
-export const signUp = ({ email, password }: UserInput): IQueryProps => ({
+export const mutationSignUp = ({ email, password }: UserInput): QueryProps => ({
   query: `
     mutation signUpMutation($email: String!, $password: String!) {
       createUser(userInput: {
@@ -22,7 +22,9 @@ export const signUp = ({ email, password }: UserInput): IQueryProps => ({
   },
 })
 
-export const updateEmployee = (input: UpdateEmployeeInput): IQueryProps => ({
+export const mutationUpdateEmployee = (
+  input: UpdateEmployeeInput,
+): QueryProps => ({
   query: `
     mutation updateEmployeeMutation($input: UpdateEmployeeInput!) {
       updateEmployee(input: $input){

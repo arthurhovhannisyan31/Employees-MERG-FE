@@ -2,33 +2,33 @@ import React from 'react'
 
 import { AuthData } from 'model/generated'
 
-export enum EAuthContextActions {
+export enum AuthContextActions {
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
   ERRORS = 'ERRORS',
 }
 
-export interface IAuthState extends Pick<AuthData, 'userCredentials'> {
+export interface AuthState extends Pick<AuthData, 'userCredentials'> {
   errors?: Error[]
 }
 
-export interface IAuthContext extends IAuthState {
+export interface AuthContextProps extends AuthState {
   headers: Record<string, string>
   apiUrl: string
-  dispatch: React.Dispatch<IAuthReducerAction>
+  dispatch: React.Dispatch<AuthReducerAction>
 }
 
-export type TAuthReducer = (
-  prevState: IAuthState,
-  action: IAuthReducerAction,
-) => IAuthState
+export type AuthReducerProps = (
+  prevState: AuthState,
+  action: AuthReducerAction,
+) => AuthState
 
-export interface IAuthReducerAction {
-  type: EAuthContextActions
-  payload?: Partial<IAuthState>
+export interface AuthReducerAction {
+  type: AuthContextActions
+  payload?: Partial<AuthState>
 }
 
-export interface IDecodedToken {
+export interface DecodedToken {
   email: string
   exp: number
   iat: number
