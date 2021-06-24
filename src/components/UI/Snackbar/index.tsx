@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
 // model
-import { ISnackbarContext } from '_/model/context/snackbar'
+import { SnackbarContextProps } from '_/model/context/snackbar'
 // helpers
 import { SnackbarContext } from '_/context'
 
@@ -11,9 +11,9 @@ const SnackbarComp: React.FC = () => {
   const {
     snackbarState: { message, open, type },
     setSnackbarState,
-  } = useContext<ISnackbarContext>(SnackbarContext)
+  } = useContext<SnackbarContextProps>(SnackbarContext)
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setSnackbarState({ open: false })
   }
   // todo notistack

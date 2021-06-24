@@ -2,7 +2,7 @@
 import React from 'react'
 // model
 import { Employee, Employees } from '_/model/generated'
-import { IAction, IFetchError } from '_/model/common'
+import { Action, FetchError } from '_/model/common'
 
 export interface IEmployeesState {
   loading: boolean
@@ -10,14 +10,14 @@ export interface IEmployeesState {
   data: Record<string, Employee[]>
   count: number
 }
-export type TEmployeesAction = IAction<
+export type TEmployeesAction = Action<
   Partial<Omit<IEmployeesState, 'data'> & { data: Employee[]; key: string }>
 >
 export type TEmployeesReducer = (
   prevState: IEmployeesState,
   action: TEmployeesAction,
 ) => IEmployeesState
-export enum EActionTypes {
+export enum ActionTypes {
   LOADING = 'loading',
   ERROR = 'error',
   COUNT = 'count',
@@ -32,5 +32,5 @@ export interface IEmployeesFetchResponse {
   data: {
     employees: Omit<Employees, '__typename'>
   }
-  errors?: IFetchError[]
+  errors?: FetchError[]
 }

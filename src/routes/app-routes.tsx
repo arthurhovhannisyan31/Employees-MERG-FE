@@ -12,18 +12,22 @@ const NotFound = lazy(() => import('_/containers/NotFound'))
 const Employees = lazy(() => import('_/containers/Employees'))
 const Employee = lazy(() => import('_/containers/Employee'))
 
-export interface IRoute extends RouteProps {
+export interface CustomRoute extends RouteProps {
   exact?: boolean
   isPrivate?: boolean
   path: string
   label: string
   icon?: React.ReactNode
   component:
-    | React.ComponentClass<RouteComponentProps<Record<string, never>>>
-    | React.FunctionComponent<RouteComponentProps<Record<string, never>>>
+    | React.ComponentClass<
+        RouteComponentProps<Record<string, string | undefined>>
+      >
+    | React.FunctionComponent<
+        RouteComponentProps<Record<string, string | undefined>>
+      >
 }
 
-const routes: IRoute[] = [
+const routes: CustomRoute[] = [
   {
     exact: true,
     isPrivate: false,

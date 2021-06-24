@@ -1,7 +1,7 @@
 // deps
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme, Theme } from '@material-ui/core/styles'
 
-const theme = (props: Record<string, string | number | boolean>) =>
+const theme = (props: Record<string, string | number | boolean>): Theme =>
   createMuiTheme({
     palette: {
       type: props.darkMode ? 'dark' : 'light',

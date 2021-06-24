@@ -5,7 +5,7 @@ import {
   IEmployeesContext,
   IEmployeesState,
   TEmployeesReducer,
-  EActionTypes,
+  ActionTypes,
 } from '_/model/context/employees'
 import { Employee } from '_/model/generated'
 
@@ -29,14 +29,14 @@ const EmployeesContext = createContext<IEmployeesContext>(
 const employeesReducer: TEmployeesReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case EActionTypes.LOADING:
-    case EActionTypes.ERROR:
-    case EActionTypes.COUNT:
+    case ActionTypes.LOADING:
+    case ActionTypes.ERROR:
+    case ActionTypes.COUNT:
       return {
         ...state,
         [type]: payload[type],
       }
-    case EActionTypes.DATA:
+    case ActionTypes.DATA:
       return {
         ...state,
         data: {

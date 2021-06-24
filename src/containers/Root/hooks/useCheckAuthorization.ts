@@ -2,7 +2,7 @@
 import { useContext, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
 // model
-import { EAuthContextActions, IAuthReducerAction } from '_/model/context/auth'
+import { AuthContextActions, AuthReducerAction } from '_/model/context/auth'
 import { IQueryMeResponse } from '_/model/queries/auth'
 // helpers
 import { SnackbarContext } from '_/context'
@@ -11,12 +11,12 @@ import { useFetch } from '_/utils/hooks'
 import { useLogout } from '_/containers/Auth/hooks/useLogout'
 
 export interface IUseCheckAuthorizationProps {
-  dispatch: (value: IAuthReducerAction) => void
+  dispatch: (value: AuthReducerAction) => void
 }
 
 export const useCheckAuthorization = ({
   dispatch,
-}: IUseCheckAuthorizationProps) => {
+}: IUseCheckAuthorizationProps): (() => void) => {
   const location = useLocation()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
@@ -28,7 +28,7 @@ export const useCheckAuthorization = ({
       const { errors, data }: IQueryMeResponse = await res.json()
       if (data?.me) {
         dispatch({
-          type: EAuthContextActions.LOGIN,
+          type: AuthContextActions.LOGIN,
           payload: {
             userCredentials: data.me,
           },

@@ -1,9 +1,10 @@
 // model
 import { UpdateEmployeeInput, UserInput } from '_/model/generated'
+import { QueryProps } from '_/model/common'
 
-export const createUser = () => ({})
+// export const createUser = (): void => ({})
 
-export const signUp = ({ email, password }: UserInput) => ({
+export const mutationSignUp = ({ email, password }: UserInput): QueryProps => ({
   query: `
     mutation signUpMutation($email: String!, $password: String!) {
       createUser(userInput: {
@@ -21,7 +22,9 @@ export const signUp = ({ email, password }: UserInput) => ({
   },
 })
 
-export const updateEmployee = (input: UpdateEmployeeInput) => ({
+export const mutationUpdateEmployee = (
+  input: UpdateEmployeeInput,
+): QueryProps => ({
   query: `
     mutation updateEmployeeMutation($input: UpdateEmployeeInput!) {
       updateEmployee(input: $input){

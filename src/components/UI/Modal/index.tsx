@@ -21,7 +21,7 @@ const Modal: React.FC<IModalProps> = ({
 }) => {
   const [openState, setOpenState] = useState(isOpen)
   const cls = useStyles()
-  const handleClose = () => {
+  const handleClose = (): void => {
     if (!disableClickAway) {
       setOpenState(false)
       if (onClose) {

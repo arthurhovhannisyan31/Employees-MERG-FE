@@ -2,16 +2,16 @@
 import React, { createContext, useReducer } from 'react'
 // model
 import {
-  EAuthContextActions,
-  IAuthContext,
-  IAuthReducerAction,
-  IAuthState,
-  TAuthReducer,
+  AuthContextActions,
+  AuthContextProps,
+  AuthReducerAction,
+  AuthState,
+  AuthReducerProps,
 } from '_/model/context/auth'
 // helpers
 import { API_URL } from '_/utils/constants/config'
 
-const authContextInitValue: IAuthContext = {
+const authContextInitValue: AuthContextProps = {
   userCredentials: {
     email: '',
     _id: '',
@@ -22,12 +22,15 @@ const authContextInitValue: IAuthContext = {
   dispatch: () => {},
 }
 
-const AuthContext = createContext<IAuthContext>(authContextInitValue)
+const AuthContext = createContext<AuthContextProps>(authContextInitValue)
 
-const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
+const authContextReducer = (
+  state: AuthState,
+  action: AuthReducerAction,
+): AuthState => {
   const { type, payload } = action
   switch (type) {
-    case EAuthContextActions.LOGIN: {
+    case AuthContextActions.LOGIN: {
       return {
         ...state,
         userCredentials: {
@@ -36,7 +39,7 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
         },
       }
     }
-    case EAuthContextActions.LOGOUT: {
+    case AuthContextActions.LOGOUT: {
       return {
         ...state,
         userCredentials: {
@@ -45,7 +48,7 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
         },
       }
     }
-    case EAuthContextActions.ERRORS: {
+    case AuthContextActions.ERRORS: {
       return {
         ...state,
         errors: payload?.errors,
@@ -58,7 +61,7 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
 }
 
 const AuthContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer<TAuthReducer>(
+  const [state, dispatch] = useReducer<AuthReducerProps>(
     authContextReducer,
     authContextInitValue,
   )

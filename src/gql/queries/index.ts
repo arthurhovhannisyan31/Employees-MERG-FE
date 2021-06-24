@@ -5,7 +5,7 @@ import {
   UserInput,
 } from '_/model/generated'
 // model
-import { IQueryProps } from '_/model/common'
+import { QueryProps } from '_/model/common'
 // helpers
 import {
   employeeFragment,
@@ -16,7 +16,7 @@ import {
   titleFragment,
 } from '_/gql/fragments'
 
-export const queryLogin = ({ email, password }: UserInput): IQueryProps => ({
+export const queryLogin = ({ email, password }: UserInput): QueryProps => ({
   query: `
         query login($email: String!, $password: String!) {
           login(
@@ -35,7 +35,7 @@ export const queryLogin = ({ email, password }: UserInput): IQueryProps => ({
   },
 })
 
-export const queryLogout = () => ({
+export const queryLogout = (): QueryProps => ({
   query: `
         query logout {
           logout
@@ -46,7 +46,7 @@ export const queryLogout = () => ({
 export const queryEmployees = ({
   limit,
   offset,
-}: GetEmployeesInput): IQueryProps => ({
+}: GetEmployeesInput): QueryProps => ({
   query: `
     query employees($limit: Int!, $offset: Int!) {
       employees(input:{
@@ -67,7 +67,7 @@ export const queryEmployees = ({
   },
 })
 
-export const queryEmployee = ({ id }: GetEmployeeInput): IQueryProps => ({
+export const queryEmployee = ({ id }: GetEmployeeInput): QueryProps => ({
   query: `
     query employee($id: ID!){
       employee(input:{id: $id}){
@@ -78,7 +78,7 @@ export const queryEmployee = ({ id }: GetEmployeeInput): IQueryProps => ({
   variables: { id },
 })
 
-export const queryMe = (): IQueryProps => ({
+export const queryMe = (): QueryProps => ({
   query: `
     query me {
       ${userCredentials}
@@ -86,7 +86,7 @@ export const queryMe = (): IQueryProps => ({
   `,
 })
 
-export const queryDepartments = (): IQueryProps => ({
+export const queryDepartments = (): QueryProps => ({
   query: `
     query departments{
       departments{
@@ -96,7 +96,7 @@ export const queryDepartments = (): IQueryProps => ({
   `,
 })
 
-export const queryTitles = (): IQueryProps => ({
+export const queryTitles = (): QueryProps => ({
   query: `
     query titles {
       titles{
@@ -106,7 +106,7 @@ export const queryTitles = (): IQueryProps => ({
   `,
 })
 
-export const queryGenders = (): IQueryProps => ({
+export const queryGenders = (): QueryProps => ({
   query: `
     query genders {
       genders{

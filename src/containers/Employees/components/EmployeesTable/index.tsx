@@ -88,7 +88,7 @@ const EmployeesTable: React.FC<IProps> = ({
     [count],
   )
 
-  const tableCellContainer = (props: Table.DataCellProps) => {
+  const tableCellContainer = (props: Table.DataCellProps): JSX.Element => {
     const {
       column: { name },
       row: { _id: id, first_name: firstName, last_name: lastName },

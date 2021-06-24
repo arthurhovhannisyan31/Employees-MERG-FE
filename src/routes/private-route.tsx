@@ -2,11 +2,11 @@
 import React, { useContext } from 'react'
 import { Route, useLocation, useHistory } from 'react-router-dom'
 // model
-import { IRoute } from '_/routes/app-routes'
+import { CustomRoute } from '_/routes/app-routes'
 // helpers
 import { AuthContext } from '_/context'
 
-const PrivateRoute: React.FC<IRoute> = ({
+const PrivateRoute: React.FC<CustomRoute> = ({
   component: Component,
   ...params
 }) => {

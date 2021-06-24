@@ -2,34 +2,34 @@
 import React, { useCallback } from 'react'
 // model
 import {
-  TCatalogsAction,
-  EActionTypes,
-  TGendersFetchResponse,
+  CatalogsAction,
+  ActionTypes,
+  GendersFetchResponse,
 } from '_/model/context/catalogs'
 // helpers
 import { useFetch } from '_/utils/hooks'
 import { queryGenders } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
+import { checkResponse } from '_/utils/auth'
 
 export interface IUseGetGenders {
-  dispatch: React.Dispatch<TCatalogsAction>
+  dispatch: React.Dispatch<CatalogsAction>
 }
 
-export const useGetGenders = ({ dispatch }: IUseGetGenders) => {
+export const useGetGenders = ({ dispatch }: IUseGetGenders): [() => void] => {
   const handleFetch = useFetch()
   const handleGetGenders = useCallback(async () => {
     dispatch({
-      type: EActionTypes.LOADING,
+      type: ActionTypes.LOADING,
       payload: { loading: true },
     })
     try {
       const res = await handleFetch(queryGenders())
-      fetchResponseCheck(res?.status)
+      checkResponse(res?.status)
       const {
         data: { genders },
-      }: TGendersFetchResponse = await res.json()
+      }: GendersFetchResponse = await res.json()
       dispatch({
-        type: EActionTypes.DATA,
+        type: ActionTypes.DATA,
         payload: {
           data: {
             genders,
@@ -39,14 +39,14 @@ export const useGetGenders = ({ dispatch }: IUseGetGenders) => {
       })
     } catch (error) {
       dispatch({
-        type: EActionTypes.ERROR,
+        type: ActionTypes.ERROR,
         payload: {
           error,
         },
       })
     }
     dispatch({
-      type: EActionTypes.LOADING,
+      type: ActionTypes.LOADING,
       payload: { loading: false },
     })
   }, [dispatch, handleFetch])

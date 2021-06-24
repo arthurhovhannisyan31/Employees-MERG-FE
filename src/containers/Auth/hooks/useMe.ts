@@ -9,13 +9,13 @@ import { queryMe } from '_/gql/queries'
 import { useFetch } from '_/utils/hooks'
 import { useLogout } from '_/containers/Auth/hooks/useLogout'
 
-export const useCheckAuthorization = () => {
+export const useCheckAuthorization = (): [() => void] => {
   const location = useLocation()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
   const handleLogout = useLogout()
 
-  const handleCheckAuthorization = async () => {
+  const handleCheckAuthorization = async (): Promise<void> => {
     try {
       const res = await handleFetch(queryMe())
       const { errors }: IQueryMeResponse = await res.json()

@@ -9,7 +9,7 @@ import SnackbarComp from '_/components/UI/Snackbar'
 import BreadcrumbsComp from '_/components/UI/Breadcrumbs'
 import Backdrop from '_/components/UI/Backdrop'
 // model
-import { ERoutePath } from '_/model/common'
+import { RoutePath } from '_/model/common'
 // helpers
 import routes from '_/routes/app-routes'
 import { AuthContext } from '_/context'
@@ -22,8 +22,8 @@ const Root: React.FC = () => {
   const location = useLocation()
 
   const { dispatch } = useContext(AuthContext)
-  console.log(location.pathname, location.pathname.includes(ERoutePath.AUTH))
-  const showBreadcrumbs = !location.pathname.includes(ERoutePath.AUTH)
+  console.log(location.pathname, location.pathname.includes(RoutePath.AUTH))
+  const showBreadcrumbs = !location.pathname.includes(RoutePath.AUTH)
 
   const handleCheckAuthorization = useCheckAuthorization({ dispatch })
 

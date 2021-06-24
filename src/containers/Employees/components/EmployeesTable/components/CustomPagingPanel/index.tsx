@@ -22,16 +22,21 @@ const CustomPagingPanel: React.FC<IProps> = ({
 }) => {
   const classes = useStyles()
 
-  const handleChangePage = (_: React.ChangeEvent<unknown>, value: number) => {
+  const handleChangePage = (
+    _: React.ChangeEvent<unknown>,
+    value: number,
+  ): void => {
     onCurrentPageChange(value - 1)
   }
-  const handleChangePageSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangePageSize = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     onCurrentPageChange(0)
     onPageSizeChange(event.target.value as never as number)
   }
 
   const rangeStart = currentPage === 0 ? 1 : currentPage * pageSize
-  const getRangeEnd = () => {
+  const getRangeEnd = (): number => {
     if (currentPage === 0) {
       return pageSize
     }

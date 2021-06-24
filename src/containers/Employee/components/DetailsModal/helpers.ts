@@ -67,5 +67,7 @@ export const validationSchema = yup.object().shape({
     .max(255, 'Too long'),
 })
 
-export const sortByName = (a: Pick<Title, 'name'>, b: Pick<Title, 'name'>) =>
-  a.name.localeCompare(b.name)
+export const sortByName = (
+  a: Pick<Title, 'name'>,
+  b: Pick<Title, 'name'>,
+): number => a.name.localeCompare(b.name)

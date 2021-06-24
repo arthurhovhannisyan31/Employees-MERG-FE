@@ -5,13 +5,18 @@ import TextField from '@material-ui/core/TextField'
 // components
 import Dialog from '_/components/UI/Dialog'
 // model
-import { IUseLoginReturnProps } from '_/containers/Auth/hooks'
+import { UseLoginReturnProps } from '_/containers/Auth/hooks'
+// helpers
+import useStyles from './styles'
 
 interface ISignUpProps {
-  handleSubmit: (props: IUseLoginReturnProps) => void
+  handleSubmit: (props: UseLoginReturnProps) => void
+  handleKeyDown: (event: React.KeyboardEvent) => void
 }
 
 const SignUp: React.FC<ISignUpProps> = () => {
+  const classes = useStyles()
+
   return (
     <Dialog
       confirmLabel="Submit"
@@ -24,7 +29,24 @@ const SignUp: React.FC<ISignUpProps> = () => {
         console.log('SignUp clear')
       }}
     >
-      <Grid container direction="column" spacing={2}>
+      <Grid
+        container
+        direction="column"
+        spacing={2}
+        className={classes.container}
+      >
+        <Grid item>
+          <TextField
+            id="outlined-basic-password"
+            label="Name"
+            variant="outlined"
+            value="name"
+            onChange={() => null}
+            onKeyDown={() => null}
+            type="text"
+            fullWidth
+          />
+        </Grid>
         <Grid item>
           <TextField
             id="outlined-basic-email"
@@ -34,6 +56,7 @@ const SignUp: React.FC<ISignUpProps> = () => {
             onChange={() => null}
             onKeyDown={() => null}
             type="email"
+            fullWidth
           />
         </Grid>
         <Grid item>
@@ -45,8 +68,9 @@ const SignUp: React.FC<ISignUpProps> = () => {
             onChange={() => null}
             onKeyDown={() => null}
             type="password"
+            fullWidth
           />
-        </Grid>
+        </Grid>{' '}
       </Grid>
     </Dialog>
   )

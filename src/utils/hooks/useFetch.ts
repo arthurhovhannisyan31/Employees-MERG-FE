@@ -1,14 +1,14 @@
 // deps
 import { useContext, useCallback } from 'react'
 // model
-import { IQueryProps } from '_/model/common'
+import { QueryProps } from '_/model/common'
 // helpers
 import { AuthContext } from '_/context/auth'
 
-export const useFetch = () => {
+export const useFetch = (): ((props: QueryProps) => Promise<Response>) => {
   const { headers, apiUrl } = useContext(AuthContext)
   return useCallback(
-    async ({ query, variables }: IQueryProps) =>
+    async ({ query, variables }: QueryProps) =>
       fetch(apiUrl, {
         method: 'POST',
         body: JSON.stringify({ query, variables }),
