@@ -26,13 +26,14 @@ import Button from '@material-ui/core/Button'
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import SignIn from 'containers/Auth/components/singIn'
-import SignUp from 'containers/Auth/components/signUp'
+// components
+import SignIn from 'containers/Auth/components/SingIn'
+import SignUp from 'containers/Auth/components/SignUp'
+// helpers
 import { AuthContext } from 'context'
 import { useLogin } from 'containers/Auth/hooks'
-import { a11yProps } from 'utils/helpers'
+import { a11yProps } from 'utils/a11y'
 import TabPanel from 'components/UI/TabPanel'
-
 import useStyles from './style'
 
 const Auth: FC = () => {

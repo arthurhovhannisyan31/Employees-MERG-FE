@@ -37,7 +37,6 @@ const SignUp: React.FC<ISignUpProps> = () => {
       >
         <Grid item>
           <TextField
-            id="outlined-basic-password"
             label="Name"
             variant="outlined"
             value="name"
@@ -49,7 +48,6 @@ const SignUp: React.FC<ISignUpProps> = () => {
         </Grid>
         <Grid item>
           <TextField
-            id="outlined-basic-email"
             label="Email"
             variant="outlined"
             value="email"

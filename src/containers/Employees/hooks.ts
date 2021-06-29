@@ -7,11 +7,14 @@ import { useFetch } from 'utils/hooks'
 import {
   TEmployeesAction,
   IEmployeesFetchResponse,
-} from 'model/context/employees'
-import { GetEmployeesInput } from 'model/generated'
+} from '_/model/context/employees'
+// helpers
+import { queryEmployees } from '_/gql/queries'
+import { SnackbarContext } from '_/context/snackbar'
+import { useFetch } from '_/hooks'
 
 interface IUseGetEmployees {
-  dispatch: Dispatch<TEmployeesAction>
+  dispatch: (val: TEmployeesAction) => void
   pageSize: number
   currentPage: number
 }
@@ -54,12 +57,12 @@ export const useGetEmployees = ({
       } catch (err) {
         setSnackbarState({
           type: 'error',
-          message: (err as Error).message,
+          message: err.message,
           open: true,
         })
         dispatch({
           type: 'error',
-          payload: { error: err as Record<string, string> },
+          payload: { error: err },
         })
       }
       dispatch({

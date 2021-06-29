@@ -10,7 +10,7 @@ import {
   DepartmentsFetchResponse,
 } from 'model/context/catalogs'
 // helpers
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
 import { queryDepartments } from 'gql/queries'
 import { checkResponse } from 'utils/auth'
 

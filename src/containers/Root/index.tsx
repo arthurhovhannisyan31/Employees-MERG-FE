@@ -20,7 +20,6 @@ const Root: FC = () => {
   const location = useLocation()
 
   const { dispatch } = useContext(AuthContext)
-  console.log(location.pathname, location.pathname.includes(RoutePath.AUTH))
   const showBreadcrumbs = !location.pathname.includes(RoutePath.AUTH)
 
   const handleCheckAuthorization = useCheckAuthorization({ dispatch })

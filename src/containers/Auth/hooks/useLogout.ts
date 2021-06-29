@@ -5,10 +5,9 @@ import { AuthContextActions } from '_/model/context/auth'
 import { IQueryLogoutResponse } from '_/model/queries/auth'
 // helpers
 import { AuthContext } from '_/context/auth'
-import { useFetch } from '_/utils/hooks'
+import { useFetch } from '_/hooks'
 import { queryLogout } from '_/gql/queries'
 import { checkResponse } from '_/utils/auth'
-import storage from '_/utils/storage'
 
 export const useLogout = (): (() => void) => {
   const history = useHistory()
@@ -24,7 +23,6 @@ export const useLogout = (): (() => void) => {
         dispatch({
           type: AuthContextActions.LOGOUT,
         })
-        storage.clear()
         history.push('/auth')
       } else {
         dispatch({

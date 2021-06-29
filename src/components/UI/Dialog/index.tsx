@@ -14,6 +14,7 @@ interface IDialogProps {
   onCancel?: () => void
   cancelLabel?: string
   disableConfirm?: boolean
+  disableCancel?: boolean
   isLoading?: boolean
 }
 
@@ -25,6 +26,7 @@ const Dialog: FC<IDialogProps> = ({
   title,
   children,
   disableConfirm,
+  disableCancel,
   isLoading,
 }) => {
   const cls = useStyles()
@@ -44,7 +46,11 @@ const Dialog: FC<IDialogProps> = ({
           <section className={cls.actions}>
             <Grid container justify="flex-end" alignItems="center">
               {onCancel && cancelLabel && (
-                <Button onClick={onCancel} className={cls.controls}>
+                <Button
+                  onClick={onCancel}
+                  className={cls.controls}
+                  disabled={disableCancel}
+                >
                   {cancelLabel}
                 </Button>
               )}

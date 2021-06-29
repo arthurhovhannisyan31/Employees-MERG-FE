@@ -13,7 +13,7 @@ import {
 // helpers
 import { queryEmployee } from 'gql/queries'
 import { checkResponse } from 'utils/auth'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
 
 export interface IUseGetEmployeeProps {
   dispatch: (val: TEmployeeByIdAction) => void

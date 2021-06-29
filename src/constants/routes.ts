@@ -27,5 +27,3 @@ export const ROUTES: RouteMap = {
     url: RoutePath.NOT_FOUND,
   },
 }
-
-export const ADULT_AGE = 18

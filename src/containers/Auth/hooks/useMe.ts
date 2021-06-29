@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
-
-import { useLogout } from 'containers/Auth/hooks/useLogout'
+// model
+import { IQueryMeResponse } from 'model/queries/auth'
+// helpers
 import { SnackbarContext } from 'context'
 import { queryMe } from 'gql/queries'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
+import { useLogout } from 'containers/Auth/hooks/useLogout'
 
 export const useCheckAuthorization = (): [() => void] => {
   const location = useLocation()
@@ -32,7 +34,7 @@ export const useCheckAuthorization = (): [() => void] => {
     } catch (err) {
       setSnackbarState({
         type: 'error',
-        message: (err as Error).message,
+        message: err.message,
         open: true,
       })
     }

@@ -4,7 +4,7 @@ import React from 'react'
 import { UpdateEmployeeInput } from 'model/generated'
 import { ActionTypes, EmployeeByIdAction } from 'model/context/employee'
 // helpers
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
 import { mutationUpdateEmployee } from 'gql/mutations'
 import { checkResponse } from 'utils/auth'
 

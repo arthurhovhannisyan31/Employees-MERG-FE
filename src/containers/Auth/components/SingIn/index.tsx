@@ -1,14 +1,17 @@
 // deps
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 // components
 import Dialog from '_/components/UI/Dialog'
 // model
-import { UseLoginReturnProps } from '_/containers/Auth/hooks'
+import { useLogin, UseLoginReturnProps } from '_/containers/Auth/hooks'
 // helpers
 import { getFieldsHandlers } from '_/containers/Auth/components/helpers'
+import { regExp } from '_/constants/regExp'
+import { AuthContext } from '_/context/auth'
+import { handleEnterKeyDown } from '_/utils/keyboard'
 import useStyles from './styles'
 
 interface ISignInProps {
@@ -17,6 +20,8 @@ interface ISignInProps {
 }
 
 const SignIn: React.FC<ISignInProps> = () => {
+  const { dispatch } = useContext(AuthContext)
+
   const classes = useStyles()
 
   const [email, setEmail] = useState<string>('')
@@ -38,20 +43,48 @@ const SignIn: React.FC<ISignInProps> = () => {
     [handlersMap],
   )
 
+  const handleLogin = useLogin({
+    dispatch,
+  })
+
+  const handleClear = useCallback(() => {
+    setEmail('')
+    setPassword('')
+  }, [])
+
+  const handleSubmit = useCallback(() => {
+    console.log(email.match(regExp.email))
+    console.log(regExp.email.exec(email))
+    console.log(regExp.email.test(email))
+    // handleLogin({ email, password })
+  }, [email, handleLogin, password])
+
+  const submitDisabled = false
+  const clearDisabled = false
+
+  const handleKeyDownSubmit = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (!submitDisabled) {
+        handleEnterKeyDown(handleSubmit)(event)
+      }
+    },
+    [handleSubmit, submitDisabled],
+  )
+
   // TODO email validation
   // TODO password strengths with rate indicator, pass only strong
 
+  // const emailIsValid = email.match(regExp.email)
+
   return (
     <Dialog
+      disableConfirm={submitDisabled}
       confirmLabel="Submit"
-      onConfirm={() => {
-        console.log('SignUp confirm')
-      }}
+      onConfirm={handleSubmit}
       isLoading={false}
       cancelLabel="Clear"
-      onCancel={() => {
-        console.log('SignUp clear')
-      }}
+      onCancel={handleClear}
+      disableCancel={clearDisabled}
     >
       <Grid
         container
@@ -61,24 +94,22 @@ const SignIn: React.FC<ISignInProps> = () => {
       >
         <Grid item>
           <TextField
-            id="outlined-basic-email"
             label="Email"
             variant="outlined"
             value={email}
             onChange={handleTextField('email')}
-            onKeyDown={() => null}
+            onKeyDown={handleKeyDownSubmit}
             type="email"
             fullWidth
           />
         </Grid>
         <Grid item>
           <TextField
-            id="outlined-basic-password"
             label="Password"
             variant="outlined"
             value={password}
             onChange={handleTextField('password')}
-            onKeyDown={() => null}
+            onKeyDown={handleKeyDownSubmit}
             type="password"
             fullWidth
           />

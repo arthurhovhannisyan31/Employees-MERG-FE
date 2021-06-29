@@ -1,7 +1,10 @@
-import { lazy } from 'react'
+// deps
+import React, { lazy } from 'react'
+import { RouteProps, RouteComponentProps } from 'react-router-dom'
+// helpers
+import { routeMaker } from '_/routes/helpers'
+import { ROUTES } from 'constants/routes'
 
-import { routeMaker } from 'routes/helpers'
-import { ROUTES } from 'utils/constants'
 
 import { IRoute } from './types'
 
