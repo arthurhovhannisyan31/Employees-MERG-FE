@@ -1,12 +1,12 @@
 const webpack = require('webpack')
 const path = require('path')
 const { merge } = require('webpack-merge')
-const common = require('./webpack.common')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const common = require('./webpack.common.config')
 require('dotenv').config({ path: '.env-dev' })
 
 module.exports = merge(common, {
-  target: "web",
+  target: 'web',
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
