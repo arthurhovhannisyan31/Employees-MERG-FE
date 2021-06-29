@@ -4,7 +4,7 @@ import differenceInYears from 'date-fns/differenceInYears'
 // model
 import { Employee, Title, UpdateEmployeeInput } from '_/model/generated'
 // helpers
-import { ADULT_AGE } from '_/utils/constants'
+import { ADULT_AGE } from '_/constants/common'
 
 export const initStateSelector = ({
   _id,

@@ -24,7 +24,7 @@ import {
 import { useGetDepartments } from '_/containers/Employee/hooks/useGetDepartments'
 import { useGetTitles } from '_/containers/Employee/hooks/useGetTitles'
 import { useGetGenders } from '_/containers/Employee/hooks/useGetGenders'
-import { a11yProps } from '_/utils/helpers'
+import { a11yProps } from '_/utils/a11y'
 import useStyles from './style'
 
 const EmployeePage: React.FC = () => {

@@ -6,7 +6,7 @@ import { IQueryMeResponse } from '_/model/queries/auth'
 // helpers
 import { SnackbarContext } from '_/context'
 import { queryMe } from '_/gql/queries'
-import { useFetch } from '_/utils/hooks'
+import { useFetch } from '_/hooks'
 import { useLogout } from '_/containers/Auth/hooks/useLogout'
 
 export const useCheckAuthorization = (): [() => void] => {

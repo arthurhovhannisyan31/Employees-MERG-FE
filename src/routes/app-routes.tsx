@@ -3,7 +3,7 @@ import React, { lazy } from 'react'
 import { RouteProps, RouteComponentProps } from 'react-router-dom'
 // helpers
 import { routeMaker } from '_/routes/helpers'
-import { ROUTES } from '_/utils/constants'
+import { ROUTES } from '_/constants/routes'
 
 const Home = lazy(() => import('_/containers/Home'))
 const About = lazy(() => import('_/containers/About'))

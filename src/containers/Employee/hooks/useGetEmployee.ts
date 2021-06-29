@@ -11,7 +11,7 @@ import {
 // helpers
 import { queryEmployee } from '_/gql/queries'
 import { checkResponse } from '_/utils/auth'
-import { useFetch } from '_/utils/hooks'
+import { useFetch } from '_/hooks'
 
 export interface IUseGetEmployeeProps {
   dispatch: React.Dispatch<EmployeeByIdAction>

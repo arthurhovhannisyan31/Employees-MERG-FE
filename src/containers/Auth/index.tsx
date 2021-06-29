@@ -16,12 +16,12 @@ import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 // components
-import SignIn from '_/containers/Auth/components/singIn'
-import SignUp from '_/containers/Auth/components/signUp'
+import SignIn from '_/containers/Auth/components/SingIn'
+import SignUp from '_/containers/Auth/components/SignUp'
 // helpers
 import { AuthContext } from '_/context'
 import { useLogin } from '_/containers/Auth/hooks'
-import { a11yProps } from '_/utils/helpers'
+import { a11yProps } from '_/utils/a11y'
 import TabPanel from '_/components/UI/TabPanel'
 import useStyles from './style'
 

@@ -9,7 +9,7 @@ import {
 // helpers
 import { queryEmployees } from '_/gql/queries'
 import { SnackbarContext } from '_/context/snackbar'
-import { useFetch } from '_/utils/hooks'
+import { useFetch } from '_/hooks'
 
 interface IUseGetEmployees {
   dispatch: React.Dispatch<TEmployeesAction>

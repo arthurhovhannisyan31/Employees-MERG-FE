@@ -12,7 +12,7 @@ import MenuDrawer from '_/components/Layout/MenuDrawer'
 import themeCreator from '_/utils/theme'
 import { ThemeContext } from '_/context'
 import { getMenuDrawerItems, routesIconMap } from '_/containers/Layout/helpers'
-import { ROUTES } from '_/utils/constants'
+import { ROUTES } from '_/constants/routes'
 
 import useStyles from '_/containers/Layout/style'
 

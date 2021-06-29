@@ -9,7 +9,7 @@ import {
   AuthReducerProps,
 } from '_/model/context/auth'
 // helpers
-import { API_URL } from '_/utils/constants/config'
+import { API_URL } from '_/constants/config'
 
 const authContextInitValue: AuthContextProps = {
   userCredentials: {

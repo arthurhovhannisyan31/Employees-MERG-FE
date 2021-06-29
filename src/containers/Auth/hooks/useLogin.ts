@@ -6,7 +6,7 @@ import { AuthReducerAction, AuthContextActions } from '_/model/context/auth'
 import { IQueryLoginResponse } from '_/model/queries/auth'
 // helpers
 import { queryLogin } from '_/gql/queries'
-import { useFetch } from '_/utils/hooks'
+import { useFetch } from '_/hooks'
 import { SnackbarContext } from '_/context/snackbar'
 import { checkResponse } from '_/utils/auth'
 
