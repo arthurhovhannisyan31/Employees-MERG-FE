@@ -35,10 +35,8 @@ export const employmentsFragment = `
   }
 `
 export const userCredentials = `
-  me {
-    _id
-    email
-  }
+  _id
+  email
 `
 export const employeeDetailsFragment = `
   ${employeeFragment}

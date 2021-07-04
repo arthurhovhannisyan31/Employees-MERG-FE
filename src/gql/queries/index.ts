@@ -22,10 +22,16 @@ export const queryLogin = ({ email, password }: UserInput): QueryProps => ({
           login(
             email: $email, 
             password: $password){
-            userCredentials{
-              _id
-              email
-            }
+              errors{
+                field
+                message
+              }
+              data{
+                userCredentials{
+                  _id
+                  email
+                }
+             }
           } 
         }
       `,
@@ -81,7 +87,15 @@ export const queryEmployee = ({ id }: GetEmployeeInput): QueryProps => ({
 export const queryMe = (): QueryProps => ({
   query: `
     query me {
-      ${userCredentials}
+      me {
+        errors{
+          field
+          message
+        }
+        data{
+          ${userCredentials}
+        }
+      }
     }
   `,
 })

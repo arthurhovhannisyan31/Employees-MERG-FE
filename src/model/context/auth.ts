@@ -1,6 +1,7 @@
+// deps
 import React from 'react'
-
-import { AuthData } from 'model/generated'
+// model
+import { AuthData, FieldError } from 'model/generated'
 
 export enum AuthContextActions {
   LOGIN = 'LOGIN',
@@ -9,7 +10,7 @@ export enum AuthContextActions {
 }
 
 export interface AuthState extends Pick<AuthData, 'userCredentials'> {
-  errors?: Error[]
+  errors?: FieldError[]
 }
 
 export interface AuthContextProps extends AuthState {

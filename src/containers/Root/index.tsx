@@ -14,7 +14,7 @@ import { RoutePath } from 'model/common'
 // helpers
 import routes from 'routes/app-routes'
 import { AuthContext, ThemeContext } from 'context'
-import { useCheckAuthorization } from 'containers/Root/hooks'
+import { useMe } from 'containers/Auth/hooks'
 
 import themeCreator from 'utils/theme'
 import useStyles from './styles'
@@ -28,7 +28,7 @@ const Root: FC = () => {
   const { dispatch } = useContext(AuthContext)
   const showBreadcrumbs = !location.pathname.includes(RoutePath.AUTH)
 
-  const handleCheckAuthorization = useCheckAuthorization({ dispatch })
+  const handleCheckAuthorization = useMe({ dispatch })
 
   useEffect(() => {
     handleCheckAuthorization()

@@ -1,16 +1,14 @@
 import { QueryResponse, OmitTypeName } from 'model/common'
-import { UserCredentials } from 'model/generated'
+import { LoginResponse, MeResponse } from 'model/generated'
 
 export interface IQueryMeData {
-  me: OmitTypeName<UserCredentials>
+  me: OmitTypeName<MeResponse>
 }
 
 export type IQueryMeResponse = QueryResponse<IQueryMeData>
 
 export interface IQueryLoginData {
-  login: {
-    userCredentials: OmitTypeName<UserCredentials>
-  }
+  login: OmitTypeName<LoginResponse>
 }
 
 export type IQueryLoginResponse = QueryResponse<IQueryLoginData>

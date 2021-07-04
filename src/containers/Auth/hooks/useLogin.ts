@@ -26,11 +26,16 @@ export const useLogin = ({
     async ({ email, password }) => {
       try {
         const res = await handleFetch(queryLogin({ email, password }))
-        console.log(res)
         checkResponse(res?.status)
-        const result: IQueryLoginResponse = await res.json()
-        if (result?.data?.login?.userCredentials) {
-          const { userCredentials } = result.data.login
+        const { data }: IQueryLoginResponse = await res.json()
+        if (data?.login?.errors) {
+          dispatch({
+            type: AuthContextActions.ERRORS,
+            payload: { errors: data?.login.errors },
+          })
+        }
+        if (data?.login.data) {
+          const { userCredentials } = data?.login.data
           dispatch({
             type: AuthContextActions.LOGIN,
             payload: {
@@ -47,7 +52,7 @@ export const useLogin = ({
       } catch (err) {
         dispatch({
           type: AuthContextActions.ERRORS,
-          payload: { errors: [err] },
+          payload: { errors: [{ message: err.message, field: err.message }] },
         })
       }
     },

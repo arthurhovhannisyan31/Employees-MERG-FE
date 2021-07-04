@@ -1,5 +1,5 @@
 // deps
-import React, { useCallback, useContext, useMemo } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo } from 'react'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -8,13 +8,13 @@ import { useFormik } from 'formik'
 import { UserInput } from '_/model/generated'
 // components
 import Dialog from '_/components/UI/Dialog'
-import ErrorMessages from '_/containers/Auth/components/ErrorMessages'
 // model
 import { useLogin } from '_/containers/Auth/hooks'
 // helpers
 import { AuthContext } from '_/context/auth'
 import { handleEnterKeyDown } from '_/utils/keyboard'
 import { validationSchema } from '_/containers/Auth/components/SingIn/helpers'
+import { errorArrayToMap } from '_/containers/Auth/components/helpers'
 import useStyles from './styles'
 
 const SignIn: React.FC = () => {
@@ -35,6 +35,7 @@ const SignIn: React.FC = () => {
     values,
     errors,
     setFieldValue,
+    setErrors,
     touched,
     handleBlur,
     handleSubmit,
@@ -72,6 +73,12 @@ const SignIn: React.FC = () => {
     },
     [disableConfirm, handleSubmit],
   )
+
+  const handleUpdateErrors = useCallback(() => {
+    setErrors(errorArrayToMap(authErrors))
+  }, [authErrors, setErrors])
+
+  useEffect(handleUpdateErrors, [handleUpdateErrors])
 
   return (
     <Dialog
@@ -113,7 +120,6 @@ const SignIn: React.FC = () => {
             helperText={errors.password}
           />
         </Grid>
-        <ErrorMessages authErrors={authErrors} />
         <Grid item>
           <Button
             disabled={false} // todo disabled based on personal props

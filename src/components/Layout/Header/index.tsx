@@ -96,13 +96,15 @@ const Header: FC = () => {
                 </Tooltip>
               ) : (
                 <Tooltip title="Login">
-                  <Button
-                    disabled={location?.pathname === '/auth'}
-                    onClick={handleLogin}
-                    className={clsx(classes.link)}
-                  >
-                    <PersonIcon />
-                  </Button>
+                  <span>
+                    <Button
+                      disabled={location?.pathname === '/auth'}
+                      onClick={handleLogin}
+                      className={clsx(classes.link)}
+                    >
+                      <PersonIcon />
+                    </Button>
+                  </span>
                 </Tooltip>
               )}
             </Grid>

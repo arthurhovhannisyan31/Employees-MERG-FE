@@ -27,7 +27,7 @@ export const useLogout = (): (() => void) => {
       } else {
         dispatch({
           type: AuthContextActions.ERRORS,
-          payload: { errors: [new Error('Logout failed')] },
+          payload: { errors: [{ field: 'logout', message: 'Logout failed' }] },
         })
       }
     } catch (err) {
