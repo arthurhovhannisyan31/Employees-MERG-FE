@@ -5,18 +5,13 @@ import TextField from '@material-ui/core/TextField'
 // components
 import Dialog from '_/components/UI/Dialog'
 // model
-import { UseLoginReturnProps } from '_/containers/Auth/hooks'
 // helpers
 import useStyles from './styles'
 
-interface ISignUpProps {
-  handleSubmit: (props: UseLoginReturnProps) => void
-  handleKeyDown: (event: React.KeyboardEvent) => void
-}
-
-const SignUp: React.FC<ISignUpProps> = () => {
+const SignUp: React.FC = () => {
   const classes = useStyles()
-
+  // TODO email validation
+  // TODO password strengths with rate indicator, pass only strong
   return (
     <Dialog
       confirmLabel="Submit"

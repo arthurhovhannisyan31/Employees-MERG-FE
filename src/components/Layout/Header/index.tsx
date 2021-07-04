@@ -38,7 +38,7 @@ const Header: FC = () => {
   }, [history])
 
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar position="fixed">
       <Toolbar variant="dense">
         <Grid container justify="space-between" className={classes.container}>
           <Grid item>
@@ -96,7 +96,11 @@ const Header: FC = () => {
                 </Tooltip>
               ) : (
                 <Tooltip title="Login">
-                  <Button onClick={handleLogin} className={clsx(classes.link)}>
+                  <Button
+                    disabled={location?.pathname === '/auth'}
+                    onClick={handleLogin}
+                    className={clsx(classes.link)}
+                  >
                     <PersonIcon />
                   </Button>
                 </Tooltip>
