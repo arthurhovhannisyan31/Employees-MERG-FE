@@ -1,9 +1,9 @@
 // deps
-import React from 'react'
+import { ChangeEvent } from 'react'
 
 export type FieldHandlerProps = [name: string, handler: (val: string) => void]
 
 export type FieldsHandlers = Record<
   string,
-  (event: React.ChangeEvent<HTMLInputElement>) => void
+  (event: ChangeEvent<HTMLInputElement>) => void
 >

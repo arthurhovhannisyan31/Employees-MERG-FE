@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 // model
 import { AuthReducerAction, AuthContextActions } from '_/model/context/auth'
 import { IQueryLoginResponse } from '_/model/queries/auth'
+import { UserInput } from '_/model/generated'
 // helpers
 import { queryLogin } from '_/gql/queries'
 import { useFetch } from '_/hooks'
@@ -14,14 +15,9 @@ export interface UseLoginProps {
   dispatch: (value: AuthReducerAction) => void
 }
 
-export interface UseLoginReturnProps {
-  email: string
-  password: string
-}
-
 export const useLogin = ({
   dispatch,
-}: UseLoginProps): ((props: UseLoginReturnProps) => void) => {
+}: UseLoginProps): ((props: UserInput) => void) => {
   const history = useHistory()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
@@ -30,6 +26,7 @@ export const useLogin = ({
     async ({ email, password }) => {
       try {
         const res = await handleFetch(queryLogin({ email, password }))
+        console.log(res)
         checkResponse(res?.status)
         const result: IQueryLoginResponse = await res.json()
         if (result?.data?.login?.userCredentials) {

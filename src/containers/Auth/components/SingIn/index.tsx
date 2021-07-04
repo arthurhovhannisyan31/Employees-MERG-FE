@@ -1,119 +1,119 @@
 // deps
-import React, { useCallback, useContext, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useMemo } from 'react'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { useFormik } from 'formik'
+// model
+import { UserInput } from '_/model/generated'
 // components
 import Dialog from '_/components/UI/Dialog'
+import ErrorMessages from '_/containers/Auth/components/ErrorMessages'
 // model
-import { useLogin, UseLoginReturnProps } from '_/containers/Auth/hooks'
+import { useLogin } from '_/containers/Auth/hooks'
 // helpers
-import { getFieldsHandlers } from '_/containers/Auth/components/helpers'
-import { regExp } from '_/constants/regExp'
 import { AuthContext } from '_/context/auth'
 import { handleEnterKeyDown } from '_/utils/keyboard'
+import { validationSchema } from '_/containers/Auth/components/SingIn/helpers'
 import useStyles from './styles'
 
-interface ISignInProps {
-  handleSubmit: (props: UseLoginReturnProps) => void
-  handleKeyDown: (event: React.KeyboardEvent) => void
-}
+const SignIn: React.FC = () => {
+  const { dispatch, errors: authErrors } = useContext(AuthContext)
 
-const SignIn: React.FC<ISignInProps> = () => {
-  const { dispatch } = useContext(AuthContext)
+  const classes = useStyles({ hasError: !!authErrors?.length })
 
-  const classes = useStyles()
-
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-
-  const handlersMap = useMemo(
-    () =>
-      getFieldsHandlers([
-        ['email', setEmail],
-        ['password', setPassword],
-      ]),
-    [],
-  )
-
-  const handleTextField = useCallback(
-    (type: string) =>
-      (event: React.ChangeEvent<HTMLInputElement>): void =>
-        handlersMap[type](event),
-    [handlersMap],
-  )
+  const initState: UserInput = {
+    email: '',
+    password: '',
+  }
 
   const handleLogin = useLogin({
     dispatch,
   })
 
-  const handleClear = useCallback(() => {
-    setEmail('')
-    setPassword('')
-  }, [])
+  const {
+    values,
+    errors,
+    setFieldValue,
+    touched,
+    handleBlur,
+    handleSubmit,
+    isValid,
+    resetForm,
+    dirty,
+  } = useFormik({
+    initialValues: initState,
+    validationSchema,
+    onSubmit: (submitValues: UserInput) => {
+      handleLogin(submitValues)
+    },
+  })
 
-  const handleSubmit = useCallback(() => {
-    console.log(email.match(regExp.email))
-    console.log(regExp.email.exec(email))
-    console.log(regExp.email.test(email))
-    // handleLogin({ email, password })
-  }, [email, handleLogin, password])
+  const handleTextField = useCallback(
+    (field: string) =>
+      (event: React.ChangeEvent<HTMLInputElement>): void => {
+        setFieldValue(field, event.target.value)
+      },
+    [setFieldValue],
+  )
 
-  const submitDisabled = false
-  const clearDisabled = false
+  const handleClear = useCallback(() => resetForm(), [resetForm])
+
+  const disableConfirm = useMemo<boolean>(
+    () => !(isValid && values.email),
+    [isValid, values.email],
+  )
 
   const handleKeyDownSubmit = useCallback(
     (event: React.KeyboardEvent) => {
-      if (!submitDisabled) {
+      if (!disableConfirm) {
         handleEnterKeyDown(handleSubmit)(event)
       }
     },
-    [handleSubmit, submitDisabled],
+    [disableConfirm, handleSubmit],
   )
-
-  // TODO email validation
-  // TODO password strengths with rate indicator, pass only strong
-
-  // const emailIsValid = email.match(regExp.email)
 
   return (
     <Dialog
-      disableConfirm={submitDisabled}
       confirmLabel="Submit"
       onConfirm={handleSubmit}
       isLoading={false}
       cancelLabel="Clear"
       onCancel={handleClear}
-      disableCancel={clearDisabled}
+      disableConfirm={disableConfirm}
+      disableCancel={!dirty}
+      className={classes.container}
     >
-      <Grid
-        container
-        direction="column"
-        spacing={2}
-        className={classes.container}
-      >
+      <Grid container direction="column" spacing={2} className={classes.fields}>
         <Grid item>
           <TextField
             label="Email"
             variant="outlined"
-            value={email}
-            onChange={handleTextField('email')}
-            onKeyDown={handleKeyDownSubmit}
             type="email"
             fullWidth
+            value={values.email}
+            onChange={handleTextField('email')}
+            onKeyDown={handleKeyDownSubmit}
+            onBlur={handleBlur}
+            error={!!(errors.email && touched.email)}
+            helperText={errors.email}
           />
         </Grid>
         <Grid item>
           <TextField
             label="Password"
             variant="outlined"
-            value={password}
-            onChange={handleTextField('password')}
-            onKeyDown={handleKeyDownSubmit}
             type="password"
             fullWidth
+            value={values.password}
+            onChange={handleTextField('password')}
+            onKeyDown={handleKeyDownSubmit}
+            onBlur={handleBlur}
+            error={!!(errors.password && touched.password)}
+            helperText={errors.password}
           />
         </Grid>
+        <ErrorMessages authErrors={authErrors} />
         <Grid item>
           <Button
             disabled={false} // todo disabled based on personal props

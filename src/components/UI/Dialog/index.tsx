@@ -1,5 +1,6 @@
 // deps
 import React from 'react'
+import cn from 'clsx'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
@@ -17,6 +18,7 @@ interface IDialogProps {
   disableConfirm?: boolean
   disableCancel?: boolean
   isLoading?: boolean
+  className?: string
 }
 
 const Dialog: React.FC<IDialogProps> = ({
@@ -29,12 +31,13 @@ const Dialog: React.FC<IDialogProps> = ({
   disableConfirm,
   disableCancel,
   isLoading,
+  className,
 }) => {
   const cls = useStyles()
 
   return (
     <Grid container className={cls.container}>
-      <Paper className={cls.paper}>
+      <Paper className={cn(className, cls.paper)}>
         <Grid container direction="column">
           {title && (
             <header className={cls.header}>

@@ -1,5 +1,6 @@
 // deps
 import React, { useEffect, useContext } from 'react'
+import { ThemeProvider } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Switch, useLocation } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
@@ -12,14 +13,17 @@ import Backdrop from '_/components/UI/Backdrop'
 import { RoutePath } from '_/model/common'
 // helpers
 import routes from '_/routes/app-routes'
-import { AuthContext } from '_/context'
+import { AuthContext, ThemeContext } from '_/context'
 import { useCheckAuthorization } from '_/containers/Root/hooks'
 
+import themeCreator from '_/utils/theme'
 import useStyles from './styles'
 
 const Root: React.FC = () => {
   const classes = useStyles()
   const location = useLocation()
+
+  const { darkMode } = useContext(ThemeContext)
 
   const { dispatch } = useContext(AuthContext)
   const showBreadcrumbs = !location.pathname.includes(RoutePath.AUTH)
@@ -32,25 +36,27 @@ const Root: React.FC = () => {
   }, [])
 
   return (
-    <Layout>
-      <SnackbarComp />
-      {showBreadcrumbs && <BreadcrumbsComp />}
-      <React.Suspense
-        fallback={
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            className={classes.loadingFallback}
-          >
-            <Backdrop />
-            <CircularProgress />
-          </Grid>
-        }
-      >
-        <Switch>{routes}</Switch>
-      </React.Suspense>
-    </Layout>
+    <ThemeProvider theme={themeCreator({ darkMode })}>
+      <Layout>
+        <SnackbarComp />
+        {showBreadcrumbs && <BreadcrumbsComp />}
+        <React.Suspense
+          fallback={
+            <Grid
+              container
+              justify="center"
+              alignItems="center"
+              className={classes.loadingFallback}
+            >
+              <Backdrop />
+              <CircularProgress />
+            </Grid>
+          }
+        >
+          <Switch>{routes}</Switch>
+        </React.Suspense>
+      </Layout>
+    </ThemeProvider>
   )
 }
 
