@@ -12,64 +12,28 @@ export type Scalars = {
   Float: number;
 };
 
-export type Department = {
-  __typename?: 'Department';
-  _id: Scalars['ID'];
-  name: Scalars['String'];
+export type AuthData = {
+  __typename?: 'AuthData';
+  userCredentials: UserCredentials;
 };
 
 export type CreateDepartmentInput = {
   name: Scalars['String'];
 };
 
-export type User = {
-  __typename?: 'User';
-  _id: Scalars['ID'];
-  email: Scalars['String'];
-  password?: Maybe<Scalars['String']>;
+export type CreateEmployeeInput = {
+  birth_date: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  hire_date: Scalars['String'];
+  gender: Scalars['ID'];
+  department: Scalars['ID'];
+  title: Scalars['ID'];
 };
 
-export type UserCredentials = {
-  __typename?: 'UserCredentials';
-  _id: Scalars['String'];
-  email: Scalars['String'];
-};
-
-export type AuthData = {
-  __typename?: 'AuthData';
-  userCredentials: UserCredentials;
-};
-
-export type UserInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type Gender = {
-  __typename?: 'Gender';
-  _id: Scalars['ID'];
-  name: Scalars['String'];
-};
-
-export type CreateGenderInput = {
-  name: Scalars['String'];
-};
-
-export type Title = {
-  __typename?: 'Title';
-  _id: Scalars['ID'];
-  name: Scalars['String'];
-};
-
-export type CreateTitleInput = {
-  name: Scalars['String'];
-};
-
-export type Employment = {
-  __typename?: 'Employment';
-  _id: Scalars['ID'];
-  employee: Employee;
-  department: Department;
+export type CreateEmployeeTitleInput = {
+  employee: Scalars['ID'];
+  title: Scalars['ID'];
   start_date: Scalars['String'];
   end_date: Scalars['String'];
 };
@@ -79,6 +43,29 @@ export type CreateEmploymentInput = {
   department: Scalars['ID'];
   start_date: Scalars['String'];
   end_date: Scalars['String'];
+};
+
+export type CreatePaycheckInput = {
+  employee: Scalars['ID'];
+  salary: Scalars['Float'];
+  start_date: Scalars['String'];
+  end_date: Scalars['String'];
+};
+
+export type CreateTitleInput = {
+  name: Scalars['String'];
+};
+
+export type CreateUserResponse = {
+  __typename?: 'CreateUserResponse';
+  errors?: Maybe<Array<FieldError>>;
+  data?: Maybe<User>;
+};
+
+export type Department = {
+  __typename?: 'Department';
+  _id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type Employee = {
@@ -96,30 +83,40 @@ export type Employee = {
   employments: Array<Maybe<Employment>>;
 };
 
+export type EmployeeTitle = {
+  __typename?: 'EmployeeTitle';
+  _id: Scalars['ID'];
+  employee: Employee;
+  title: Title;
+  start_date: Scalars['String'];
+  end_date: Scalars['String'];
+};
+
 export type Employees = {
   __typename?: 'Employees';
   nodes: Array<Employee>;
   count: Scalars['Int'];
 };
 
-export type CreateEmployeeInput = {
-  birth_date: Scalars['String'];
-  first_name: Scalars['String'];
-  last_name: Scalars['String'];
-  hire_date: Scalars['String'];
-  gender: Scalars['ID'];
-  department: Scalars['ID'];
-  title: Scalars['ID'];
+export type Employment = {
+  __typename?: 'Employment';
+  _id: Scalars['ID'];
+  employee: Employee;
+  department: Department;
+  start_date: Scalars['String'];
+  end_date: Scalars['String'];
 };
 
-export type UpdateEmployeeInput = {
-  id: Scalars['ID'];
-  birth_date: Scalars['String'];
-  first_name: Scalars['String'];
-  last_name: Scalars['String'];
-  hire_date: Scalars['String'];
-  department: Scalars['ID'];
-  title: Scalars['ID'];
+export type FieldError = {
+  __typename?: 'FieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type Gender = {
+  __typename?: 'Gender';
+  _id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type GetEmployeeInput = {
@@ -131,20 +128,16 @@ export type GetEmployeesInput = {
   offset: Scalars['Int'];
 };
 
-export type EmployeeTitle = {
-  __typename?: 'EmployeeTitle';
-  _id: Scalars['ID'];
-  employee: Employee;
-  title: Title;
-  start_date: Scalars['String'];
-  end_date: Scalars['String'];
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  errors?: Maybe<Array<FieldError>>;
+  data?: Maybe<AuthData>;
 };
 
-export type CreateEmployeeTitleInput = {
-  employee: Scalars['ID'];
-  title: Scalars['ID'];
-  start_date: Scalars['String'];
-  end_date: Scalars['String'];
+export type MeResponse = {
+  __typename?: 'MeResponse';
+  errors?: Maybe<Array<FieldError>>;
+  data?: Maybe<UserCredentials>;
 };
 
 export type Paycheck = {
@@ -156,48 +149,10 @@ export type Paycheck = {
   end_date: Scalars['String'];
 };
 
-export type CreatePaycheckInput = {
-  employee: Scalars['ID'];
-  salary: Scalars['Float'];
-  start_date: Scalars['String'];
-  end_date: Scalars['String'];
-};
-
-export type RootQuery = {
-  __typename?: 'RootQuery';
-  departments: Array<Department>;
-  login: AuthData;
-  logout?: Maybe<Scalars['Boolean']>;
-  me: UserCredentials;
-  genders: Array<Gender>;
-  titles: Array<Title>;
-  employments: Array<Employment>;
-  employees: Employees;
-  employee: Employee;
-  employeesTitles: Array<EmployeeTitle>;
-  paychecks: Array<Paycheck>;
-};
-
-
-export type RootQueryLoginArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
-
-export type RootQueryEmployeesArgs = {
-  input?: Maybe<GetEmployeesInput>;
-};
-
-
-export type RootQueryEmployeeArgs = {
-  input: GetEmployeeInput;
-};
-
 export type RootMutation = {
   __typename?: 'RootMutation';
   createDepartment: Department;
-  createUser?: Maybe<User>;
+  createUser: CreateUserResponse;
   createGender: Gender;
   createTitle: Title;
   createEmployment: Employment;
@@ -250,4 +205,73 @@ export type RootMutationCreateEmployeeTitleArgs = {
 
 export type RootMutationCreatePaycheckArgs = {
   input: CreatePaycheckInput;
+};
+
+export type RootQuery = {
+  __typename?: 'RootQuery';
+  departments: Array<Department>;
+  login: LoginResponse;
+  logout?: Maybe<Scalars['Boolean']>;
+  me: MeResponse;
+  genders: Array<Gender>;
+  titles: Array<Title>;
+  employments: Array<Employment>;
+  employees: Employees;
+  employee: Employee;
+  employeesTitles: Array<EmployeeTitle>;
+  paychecks: Array<Paycheck>;
+};
+
+
+export type RootQueryLoginArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
+export type RootQueryEmployeesArgs = {
+  input?: Maybe<GetEmployeesInput>;
+};
+
+
+export type RootQueryEmployeeArgs = {
+  input: GetEmployeeInput;
+};
+
+export type Title = {
+  __typename?: 'Title';
+  _id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type UpdateEmployeeInput = {
+  id: Scalars['ID'];
+  birth_date: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  hire_date: Scalars['String'];
+  department: Scalars['ID'];
+  title: Scalars['ID'];
+};
+
+export type User = {
+  __typename?: 'User';
+  _id: Scalars['ID'];
+  email: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
+};
+
+export type UserCredentials = {
+  __typename?: 'UserCredentials';
+  _id: Scalars['String'];
+  email: Scalars['String'];
+};
+
+export type UserInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type CreateGenderInput = {
+  name: Scalars['String'];
 };
