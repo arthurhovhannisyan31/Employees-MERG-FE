@@ -29,7 +29,7 @@ export const useGetEmployee = ({
         payload: { loading: true },
       })
       try {
-        const res = await handleFetch(queryEmployee({ id }))
+        const res = await handleFetch(queryEmployee({ input: { id } }))
         checkResponse(res?.status)
         const {
           data: { employee },

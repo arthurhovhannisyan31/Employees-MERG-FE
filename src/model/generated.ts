@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -113,6 +112,10 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
+export type ForgotPassword = {
+  email: Scalars['String'];
+};
+
 export type Gender = {
   __typename?: 'Gender';
   _id: Scalars['ID'];
@@ -126,6 +129,11 @@ export type GetEmployeeInput = {
 export type GetEmployeesInput = {
   limit: Scalars['Int'];
   offset: Scalars['Int'];
+};
+
+export type LoginInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type LoginResponse = {
@@ -213,6 +221,7 @@ export type RootQuery = {
   login: LoginResponse;
   logout?: Maybe<Scalars['Boolean']>;
   me: MeResponse;
+  forgotPassword?: Maybe<LoginResponse>;
   genders: Array<Gender>;
   titles: Array<Title>;
   employments: Array<Employment>;
@@ -224,13 +233,17 @@ export type RootQuery = {
 
 
 export type RootQueryLoginArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+  input: LoginInput;
+};
+
+
+export type RootQueryForgotPasswordArgs = {
+  input: ForgotPassword;
 };
 
 
 export type RootQueryEmployeesArgs = {
-  input?: Maybe<GetEmployeesInput>;
+  input: GetEmployeesInput;
 };
 
 

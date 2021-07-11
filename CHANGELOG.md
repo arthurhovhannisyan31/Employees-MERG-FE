@@ -4,9 +4,8 @@
 - Add husky pre-commit check
 - Add readme
 
-
 # v0.1.1
-## Authorization improvements
+## Data fetching proxy
 - Add proxy for BE queries
 
 # v0.1.0

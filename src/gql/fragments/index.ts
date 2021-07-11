@@ -55,3 +55,21 @@ export const employeeDetailsFragment = `
   }
   ${employmentsFragment}
 `
+export const fieldErrorFragment = `
+  field
+  message
+`
+export const userCredentialsFragment = `
+  userCredentials{
+    _id
+    email
+  }
+`
+export const userResponseFragment = `
+  errors{
+    ${fieldErrorFragment}
+  }
+  data{
+    ${userCredentialsFragment}
+  }
+`
