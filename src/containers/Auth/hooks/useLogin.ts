@@ -25,7 +25,9 @@ export const useLogin = ({
   return useCallback(
     async ({ email, password }) => {
       try {
-        const res = await handleFetch(queryLogin({ email, password }))
+        const res = await handleFetch(
+          queryLogin({ input: { email, password } }),
+        )
         checkResponse(res?.status)
         const { data }: IQueryLoginResponse = await res.json()
         if (data?.login?.errors) {

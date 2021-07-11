@@ -15,6 +15,7 @@ import { AuthContext } from '_/context/auth'
 import { handleEnterKeyDown } from '_/utils/keyboard'
 import { validationSchema } from '_/containers/Auth/components/SingIn/helpers'
 import { errorArrayToMap } from '_/containers/Auth/components/helpers'
+import { useForgetPassword } from '_/containers/Auth/hooks/useForgetPassword'
 import useStyles from './styles'
 
 const SignIn: React.FC = () => {
@@ -30,6 +31,7 @@ const SignIn: React.FC = () => {
   const handleLogin = useLogin({
     dispatch,
   })
+  const handleForgetPassword = useForgetPassword()
 
   const {
     values,
@@ -65,6 +67,11 @@ const SignIn: React.FC = () => {
     [isValid, values.email],
   )
 
+  const disableForgetPassword = useMemo<boolean>(
+    () => !(values.email && !errors.email),
+    [values.email, errors.email],
+  )
+
   const handleKeyDownSubmit = useCallback(
     (event: React.KeyboardEvent) => {
       if (!disableConfirm) {
@@ -79,6 +86,9 @@ const SignIn: React.FC = () => {
   }, [authErrors, setErrors])
 
   useEffect(handleUpdateErrors, [handleUpdateErrors])
+
+  // todo зафиксировать ширину окна и ширину вспомогательного сообщения
+  // todo query forgotten password state
 
   return (
     <Dialog
@@ -122,11 +132,13 @@ const SignIn: React.FC = () => {
         </Grid>
         <Grid item>
           <Button
-            disabled={false} // todo disabled based on personal props
+            // todo disabled based on personal props
+            disabled={disableForgetPassword}
             // can forget password once in 24 hours
             // block account until reset password
             // reset prev password
             onClick={() => {
+              handleForgetPassword({ email: values.email })
               console.log('forgot password')
             }}
             variant="text"

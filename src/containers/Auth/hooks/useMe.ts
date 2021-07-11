@@ -3,7 +3,7 @@ import { useContext, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
 // model
 import { AuthContextActions, AuthReducerAction } from 'model/context/auth'
-import { IQueryMeResponse } from 'model/queries/auth'
+import { QueryMeResponse } from 'model/queries/auth'
 // helpers
 import { SnackbarContext } from 'context'
 import { queryMe } from 'gql/queries'
@@ -25,7 +25,7 @@ export const useMe = ({
   return useCallback(async () => {
     try {
       const res = await handleFetch(queryMe())
-      const { data }: IQueryMeResponse = await res.json()
+      const { data }: QueryMeResponse = await res.json()
       if (!data?.me?.data && location.pathname !== '/auth') {
         handleLogout()
         setSnackbarState({

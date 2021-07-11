@@ -37,7 +37,9 @@ export const useGetEmployees = ({
         payload: { loading: true },
       })
       try {
-        const res = await handleFetch(queryEmployees({ offset, limit }))
+        const res = await handleFetch(
+          queryEmployees({ input: { offset, limit } }),
+        )
         const { data, errors }: IEmployeesFetchResponse = await res.json()
         if (errors?.length) return
         const {

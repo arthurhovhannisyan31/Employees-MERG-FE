@@ -12,10 +12,8 @@ handle auth BE error message, show error message
 nav bar props array
 add react helmet to display page name in browser tab
 add registration
-add forgot password
 add nav list on left side https://cheatsheetseries.owasp.org/
 registration password validation
-forgot email form
 email reset uniq link
 add jest, write test
 create, delete employee (paycheck, titles, employments)
@@ -57,5 +55,7 @@ https://cheatsheetseries.owasp.org/
 
 Releases:
 -- release 0.1.3 ui-improvements
-+ 2 tabs login form
++ add 2 tabs login form
 + add theme provider, theme object
+- add forgot password feature
+- add update password route and form

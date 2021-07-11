@@ -1,8 +1,9 @@
 // model
 import {
-  GetEmployeeInput,
-  GetEmployeesInput,
-  UserInput,
+  RootQueryEmployeeArgs,
+  RootQueryEmployeesArgs,
+  RootQueryForgotPasswordArgs,
+  RootQueryLoginArgs,
 } from '_/model/generated'
 // model
 import { QueryProps } from 'model/common'
@@ -14,25 +15,19 @@ import {
   userCredentials,
   departmentFragment,
   titleFragment,
+  userResponseFragment,
 } from 'gql/fragments'
 
-export const queryLogin = ({ email, password }: UserInput): QueryProps => ({
+export const queryLogin = ({
+  input: { email, password },
+}: RootQueryLoginArgs): QueryProps => ({
   query: `
         query login($email: String!, $password: String!) {
           login(
             email: $email, 
             password: $password){
-              errors{
-                field
-                message
-              }
-              data{
-                userCredentials{
-                  _id
-                  email
-                }
-             }
-          } 
+              ${userResponseFragment}
+            } 
         }
       `,
   variables: {
@@ -50,9 +45,8 @@ export const queryLogout = (): QueryProps => ({
 })
 
 export const queryEmployees = ({
-  limit,
-  offset,
-}: GetEmployeesInput): QueryProps => ({
+  input: { limit, offset },
+}: RootQueryEmployeesArgs): QueryProps => ({
   query: `
     query employees($limit: Int!, $offset: Int!) {
       employees(input:{
@@ -73,10 +67,12 @@ export const queryEmployees = ({
   },
 })
 
-export const queryEmployee = ({ id }: GetEmployeeInput): QueryProps => ({
+export const queryEmployee = ({
+  input: { id },
+}: RootQueryEmployeeArgs): QueryProps => ({
   query: `
-    query employee($id: ID!){
-      employee(input:{id: $id}){
+    query employee($id: ID!) {
+      employee(input:{ id: $id }){
         ${employeeDetailsFragment}
       }
     }
@@ -128,4 +124,19 @@ export const queryGenders = (): QueryProps => ({
       }
     }
   `,
+})
+
+export const queryForgetPassword = ({
+  input: { email },
+}: RootQueryForgotPasswordArgs): QueryProps => ({
+  query: `
+    query forgotPassword($email: String!) {
+      forgotPassword(input:{ email: $email }){
+        ${userResponseFragment}
+      }
+    }
+  `,
+  variables: {
+    email,
+  },
 })

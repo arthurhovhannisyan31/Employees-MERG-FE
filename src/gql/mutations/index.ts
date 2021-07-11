@@ -4,6 +4,7 @@ import { QueryProps } from 'model/common'
 
 // export const createUser = (): void => ({})
 
+// TODO replace with type for singup
 export const mutationSignUp = ({ email, password }: UserInput): QueryProps => ({
   query: `
     mutation signUpMutation($email: String!, $password: String!) {
