@@ -8,18 +8,22 @@ import { useFormik } from 'formik'
 import { UserInput } from '_/model/generated'
 // components
 import Dialog from '_/components/UI/Dialog'
-// model
-import { useLogin } from '_/containers/Auth/hooks'
 // helpers
+import { useLogin } from '_/containers/Auth/hooks'
 import { AuthContext } from '_/context/auth'
 import { handleEnterKeyDown } from '_/utils/keyboard'
 import { validationSchema } from '_/containers/Auth/components/SingIn/helpers'
 import { errorArrayToMap } from '_/containers/Auth/components/helpers'
 import { useForgetPassword } from '_/containers/Auth/hooks/useForgetPassword'
+
 import useStyles from './styles'
 
 const SignIn: React.FC = () => {
   const { dispatch, errors: authErrors } = useContext(AuthContext)
+  const forgetPassword = useForgetPassword()
+  const handleLogin = useLogin({
+    dispatch,
+  })
 
   const classes = useStyles({ hasError: !!authErrors?.length })
 
@@ -27,11 +31,6 @@ const SignIn: React.FC = () => {
     email: '',
     password: '',
   }
-
-  const handleLogin = useLogin({
-    dispatch,
-  })
-  const handleForgetPassword = useForgetPassword()
 
   const {
     values,
@@ -51,6 +50,10 @@ const SignIn: React.FC = () => {
       handleLogin(submitValues)
     },
   })
+
+  const handleForgetPassword = useCallback(() => {
+    forgetPassword({ email: values.email })
+  }, [forgetPassword, values.email])
 
   const handleTextField = useCallback(
     (field: string) =>
@@ -87,7 +90,7 @@ const SignIn: React.FC = () => {
 
   useEffect(handleUpdateErrors, [handleUpdateErrors])
 
-  // todo зафиксировать ширину окна и ширину вспомогательного сообщения
+  // todo set fix width and helper text width
   // todo query forgotten password state
 
   return (
@@ -137,10 +140,7 @@ const SignIn: React.FC = () => {
             // can forget password once in 24 hours
             // block account until reset password
             // reset prev password
-            onClick={() => {
-              handleForgetPassword({ email: values.email })
-              console.log('forgot password')
-            }}
+            onClick={handleForgetPassword}
             variant="text"
           >
             Forgot password

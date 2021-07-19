@@ -58,4 +58,6 @@ Releases:
 + add 2 tabs login form
 + add theme provider, theme object
 - add forgot password feature
-- add update password route and form
+- add change password route and form
+
+continue with change password form

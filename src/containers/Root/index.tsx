@@ -1,5 +1,5 @@
 // deps
-import React, { useEffect, useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { ThemeProvider } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Switch, useLocation } from 'react-router-dom'
@@ -26,6 +26,7 @@ const Root: FC = () => {
   const { darkMode } = useContext(ThemeContext)
 
   const { dispatch } = useContext(AuthContext)
+  // TODO case for CHANGE_PASSWORD
   const showBreadcrumbs = !location.pathname.includes(RoutePath.AUTH)
 
   const handleCheckAuthorization = useMe({ dispatch })

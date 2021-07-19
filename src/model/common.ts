@@ -24,6 +24,7 @@ export enum RouteName {
   EMPLOYEES = 'EMPLOYEES',
   EMPLOYEE = 'EMPLOYEE',
   NOT_FOUND = 'NOT_FOUND',
+  CHANGE_PASSWORD = 'CHANGE_PASSWORD',
 }
 
 export enum RoutePath {
@@ -33,9 +34,13 @@ export enum RoutePath {
   EMPLOYEES = '/employees',
   EMPLOYEE = '/employees',
   NOT_FOUND = '*',
+  CHANGE_PASSWORD = '/change-password',
 }
 
-export type RouteMapItem = Record<'url' | 'label', string>
+interface RouteMapItem {
+  url: RoutePath
+  label: string
+}
 export type RouteMap = Record<RouteName, RouteMapItem>
 
 export interface QueryResponse<T> {

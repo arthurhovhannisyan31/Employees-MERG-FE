@@ -3,23 +3,39 @@ import React, { lazy } from 'react'
 import { RouteProps, RouteComponentProps } from 'react-router-dom'
 // helpers
 import { routeMaker } from '_/routes/helpers'
-import { ROUTES } from 'constants/routes'
+import { ROUTES } from '_/constants/routes'
+import { RoutePath } from '_/model/common'
 
+const Home = lazy(() => import('_/containers/Home'))
+const About = lazy(() => import('_/containers/About'))
+const Auth = lazy(() => import('_/containers/Auth'))
+const NotFound = lazy(() => import('_/containers/NotFound'))
+const Employees = lazy(() => import('_/containers/Employees'))
+const Employee = lazy(() => import('_/containers/Employee'))
+const ChangePassword = lazy(() => import('_/containers/ChangePassword'))
 
-import { IRoute } from './types'
+export interface CustomRoute extends RouteProps {
+  exact?: boolean
+  isPrivate?: boolean
+  path: string
+  basePath: RoutePath
+  label: string
+  icon?: React.ReactNode
+  component:
+    | React.ComponentClass<
+        RouteComponentProps<Record<string, string | undefined>>
+      >
+    | React.FunctionComponent<
+        RouteComponentProps<Record<string, string | undefined>>
+      >
+}
 
-const Home = lazy(() => import('containers/Home'))
-const About = lazy(() => import('containers/About'))
-const Auth = lazy(() => import('containers/Auth'))
-const NotFound = lazy(() => import('containers/NotFound'))
-const Employees = lazy(() => import('containers/Employees'))
-const Employee = lazy(() => import('containers/Employee'))
-
-const routes: IRoute[] = [
+export const routes: CustomRoute[] = [
   {
     exact: true,
-    isPrivate: false,
+    isPrivate: true,
     path: ROUTES.HOME.url,
+    basePath: ROUTES.HOME.url,
     label: ROUTES.HOME.label,
     component: Home,
   },
@@ -27,20 +43,31 @@ const routes: IRoute[] = [
     exact: true,
     isPrivate: false,
     path: ROUTES.ABOUT.url,
+    basePath: ROUTES.ABOUT.url,
     label: ROUTES.ABOUT.label,
     component: About,
   },
   {
     exact: false,
     isPrivate: false,
-    path: ROUTES.AUTH.url,
+    path: `${ROUTES.AUTH.url}/:next?`,
+    basePath: ROUTES.AUTH.url,
     label: ROUTES.AUTH.label,
     component: Auth,
   },
   {
+    exact: false,
+    isPrivate: false,
+    path: `${ROUTES.CHANGE_PASSWORD.url}/:id`,
+    basePath: ROUTES.CHANGE_PASSWORD.url,
+    label: ROUTES.CHANGE_PASSWORD.label,
+    component: ChangePassword,
+  },
+  {
     exact: true,
     isPrivate: true,
-    path: ROUTES.EMPLOYEE.url,
+    path: `${ROUTES.EMPLOYEE.url}/:id`,
+    basePath: ROUTES.EMPLOYEE.url,
     label: ROUTES.EMPLOYEE.label,
     component: Employee,
   },
@@ -48,6 +75,7 @@ const routes: IRoute[] = [
     exact: true,
     isPrivate: true,
     path: ROUTES.EMPLOYEES.url,
+    basePath: ROUTES.EMPLOYEES.url,
     label: ROUTES.EMPLOYEES.label,
     component: Employees,
   },
@@ -55,6 +83,7 @@ const routes: IRoute[] = [
     exact: true,
     isPrivate: true,
     path: ROUTES.NOT_FOUND.url,
+    basePath: ROUTES.NOT_FOUND.url,
     label: ROUTES.NOT_FOUND.label,
     component: NotFound,
   },

@@ -31,6 +31,6 @@ export const useForgetPassword = (): (({ email }: ForgotPassword) => void) => {
         })
       }
     },
-    [handleFetch],
+    [handleFetch, setSnackbarState],
   )
 }

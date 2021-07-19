@@ -9,6 +9,7 @@ import { SnackbarContext } from 'context'
 import { queryMe } from 'gql/queries'
 import { useFetch } from 'hooks'
 import { useLogout } from 'containers/Auth/hooks/useLogout'
+import { useIsAuthFreeRoute } from 'containers/Auth/helpers'
 
 export interface IUseCheckAuthorizationProps {
   dispatch: (value: AuthReducerAction) => void
@@ -21,12 +22,14 @@ export const useMe = ({
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
   const handleLogout = useLogout()
+  const isAuthFreeRoute = useIsAuthFreeRoute(location.pathname)
 
   return useCallback(async () => {
     try {
       const res = await handleFetch(queryMe())
       const { data }: QueryMeResponse = await res.json()
-      if (!data?.me?.data && location.pathname !== '/auth') {
+
+      if (!data?.me?.data && !isAuthFreeRoute) {
         handleLogout()
         setSnackbarState({
           type: 'warning',

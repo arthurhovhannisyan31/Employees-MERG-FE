@@ -8,7 +8,11 @@ export const ROUTES: RouteMap = {
   },
   [RouteName.AUTH]: {
     label: 'Auth',
-    url: `${RoutePath.AUTH}/:next?`,
+    url: RoutePath.AUTH,
+  },
+  [RouteName.CHANGE_PASSWORD]: {
+    label: 'Change password',
+    url: RoutePath.CHANGE_PASSWORD,
   },
   [RouteName.ABOUT]: {
     label: 'About',
@@ -20,7 +24,7 @@ export const ROUTES: RouteMap = {
   },
   [RouteName.EMPLOYEE]: {
     label: 'Employee',
-    url: `${RoutePath.EMPLOYEES}/:id`,
+    url: RoutePath.EMPLOYEES,
   },
   [RouteName.NOT_FOUND]: {
     label: 'Not found',
