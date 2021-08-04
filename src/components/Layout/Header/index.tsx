@@ -40,7 +40,11 @@ const Header: FC = () => {
   return (
     <AppBar position="fixed">
       <Toolbar variant="dense">
-        <Grid container justify="space-between" className={classes.container}>
+        <Grid
+          container
+          justifyContent="space-between"
+          className={classes.container}
+        >
           <Grid item>
             <Grid item container alignItems="center">
               <Tooltip title="Home">

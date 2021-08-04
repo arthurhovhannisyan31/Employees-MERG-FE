@@ -54,7 +54,7 @@ Releases:
 -- release 0.1.3 ui-improvements
 + add 2 tabs login form
 + add theme provider, theme object
-- add email reset uniq link
+- add email reset unique link
 - add forgot password feature
 - add change password route and form
 - add registration + password validation

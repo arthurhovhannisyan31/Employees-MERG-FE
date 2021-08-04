@@ -51,7 +51,7 @@ const Dialog: FC<IDialogProps> = ({
           )}
           <section className={cls.content}>{children}</section>
           <section className={cls.actions}>
-            <Grid container justify="flex-end" alignItems="center">
+            <Grid container justifyContent="flex-end" alignItems="center">
               {onCancel && cancelLabel && (
                 <Button
                   onClick={onCancel}

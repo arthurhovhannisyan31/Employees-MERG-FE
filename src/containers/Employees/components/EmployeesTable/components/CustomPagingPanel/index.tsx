@@ -50,7 +50,7 @@ const CustomPagingPanel: FC<IProps> = ({
   return (
     <Grid
       container
-      justify="flex-end"
+      justifyContent="flex-end"
       alignItems="center"
       className={classes.container}
       spacing={2}

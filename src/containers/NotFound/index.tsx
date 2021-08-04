@@ -8,7 +8,7 @@ import useStyles from './style'
 const NotFound: React.FC = () => {
   const classes = useStyles()
   return (
-    <Grid justify="center" className={classes.container}>
+    <Grid justifyContent="center" className={classes.container}>
       <SVG404 />
     </Grid>
   )

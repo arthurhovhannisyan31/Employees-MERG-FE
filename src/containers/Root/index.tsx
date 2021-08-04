@@ -45,7 +45,7 @@ const Root: FC = () => {
           fallback={
             <Grid
               container
-              justify="center"
+              justifyContent="center"
               alignItems="center"
               className={classes.loadingFallback}
             >

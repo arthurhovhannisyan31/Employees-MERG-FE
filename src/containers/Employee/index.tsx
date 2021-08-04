@@ -111,7 +111,11 @@ const EmployeePage: FC = () => {
     <Grid container item className={classes.container} direction="column">
       <Grid>
         {employeeByIdLoading && !employeeData ? (
-          <Grid container justify="center" className={classes.loadingIndicator}>
+          <Grid
+            container
+            justifyContent="center"
+            className={classes.loadingIndicator}
+          >
             <CircularProgress size={20} />
           </Grid>
         ) : (

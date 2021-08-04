@@ -52,7 +52,11 @@ const Details: FC<IDetailsProps> = ({
           >
             <EditIcon />
           </IconButton>
-          <Grid container justify="center" className={classes.avatarContainer}>
+          <Grid
+            container
+            justifyContent="center"
+            className={classes.avatarContainer}
+          >
             <Avatar
               alt={`${first_name} ${last_name}`}
               className={classes.avatar}
