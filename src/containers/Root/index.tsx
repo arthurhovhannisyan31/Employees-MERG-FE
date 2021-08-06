@@ -24,10 +24,12 @@ const Root: FC = () => {
   const location = useLocation()
 
   const { darkMode } = useContext(ThemeContext)
+  const isAuthRoute = location?.pathname.includes(RoutePath.AUTH)
+  const isResetPassword = location.pathname.includes(RoutePath.CHANGE_PASSWORD)
 
   const { dispatch } = useContext(AuthContext)
   // TODO case for CHANGE_PASSWORD
-  const showBreadcrumbs = !location.pathname.includes(RoutePath.AUTH)
+  const showBreadcrumbs = !(isAuthRoute || isResetPassword)
 
   const handleCheckAuthorization = useMe({ dispatch })
 

@@ -12,24 +12,27 @@ import AboutIcon from '@material-ui/icons/Info'
 import PeopleIcon from '@material-ui/icons/People'
 import PersonIcon from '@material-ui/icons/Person'
 import clsx from 'clsx'
-import React, { FC, useContext } from 'react'
-import { useHistory, useLocation, useCallback } from 'react-router-dom'
-
-import { useLogout } from 'containers/Auth/hooks/useLogout'
+// model
+import { RoutePath } from 'model/common'
+// helpers
 import { AuthContext, ThemeContext } from 'context'
-
+import { useLogout } from 'containers/Auth/hooks/useLogout'
 import useStyles from './styles'
 
 const Header: FC = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext)
   const {
     userCredentials: { email, _id: id },
-  } = useContext(AuthContext)
-  const isAuth = !!id
+  } = React.useContext(AuthContext)
 
   const classes = useStyles()
   const history = useHistory()
   const location = useLocation()
+
+  // TODO extract to constants
+  const isUnauthenticated = !!id
+  const isAuthRoute = location?.pathname.includes(RoutePath.AUTH)
+  const isResetPassword = location.pathname.includes(RoutePath.CHANGE_PASSWORD)
 
   const handleLogout = useLogout()
 
@@ -38,7 +41,7 @@ const Header: FC = () => {
   }, [history])
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="static">
       <Toolbar variant="dense">
         <Grid
           container
@@ -50,7 +53,7 @@ const Header: FC = () => {
               <Tooltip title="Home">
                 <span>
                   <Button
-                    disabled={!isAuth}
+                    disabled={!isUnauthenticated}
                     onClick={() => history.push('/')}
                     className={clsx(classes.link, {
                       [classes.activeLink]: location?.pathname === '/',
@@ -63,7 +66,7 @@ const Header: FC = () => {
               <Tooltip title="Employees">
                 <span>
                   <Button
-                    disabled={!isAuth}
+                    disabled={!isUnauthenticated}
                     onClick={() => history.push('/employees')}
                     className={clsx(classes.link, {
                       [classes.activeLink]: location?.pathname === '/employees',
@@ -76,7 +79,7 @@ const Header: FC = () => {
               <Tooltip title="About">
                 <span>
                   <Button
-                    disabled={!isAuth}
+                    disabled={!isUnauthenticated}
                     onClick={() => history.push('/about')}
                     className={clsx(classes.link, {
                       [classes.activeLink]: location?.pathname === '/about',
@@ -92,7 +95,7 @@ const Header: FC = () => {
             <Grid container alignItems="center">
               <Typography>{email}</Typography>
               <Switch checked={darkMode} onChange={toggleTheme} />
-              {isAuth ? (
+              {isUnauthenticated ? (
                 <Tooltip title="Logout">
                   <Button onClick={handleLogout} className={clsx(classes.link)}>
                     <LogOut />
@@ -102,7 +105,7 @@ const Header: FC = () => {
                 <Tooltip title="Login">
                   <span>
                     <Button
-                      disabled={location?.pathname === '/auth'}
+                      disabled={isAuthRoute || isResetPassword}
                       onClick={handleLogin}
                       className={clsx(classes.link)}
                     >

@@ -12,10 +12,15 @@ const Layout: React.FC = ({ children }) => {
   const classes = useStyles()
 
   return (
-    <Grid container className={classes.container}>
+    <Grid
+      container
+      direction="column"
+      className={classes.container}
+      wrap="nowrap"
+    >
       <CssBaseline />
       <Header />
-      <Grid item className={classes.content}>
+      <Grid container direction="column" item className={classes.content}>
         {children}
       </Grid>
     </Grid>

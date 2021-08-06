@@ -5,8 +5,8 @@ interface StylesProps {
   hasError: boolean
 }
 
-export default makeStyles<Theme, StylesProps>((theme) => ({
+export default makeStyles<Theme, StylesProps>(() => ({
   container: {
-    height: `calc(100% - ${theme.spacing(10)}px)`,
+    height: '100%',
   },
 }))

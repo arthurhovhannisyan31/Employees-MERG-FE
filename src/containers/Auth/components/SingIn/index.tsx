@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
   })
 
   const handleForgetPassword = useCallback(() => {
-    forgetPassword({ email: values.email })
+    forgetPassword({ input: { email: values.email } })
   }, [forgetPassword, values.email])
 
   const handleTextField = useCallback(
@@ -92,6 +92,7 @@ const SignIn: React.FC = () => {
 
   // todo set fix width and helper text width
   // todo query forgotten password state
+  // notification pleasw check your email or try again later
 
   return (
     <Dialog

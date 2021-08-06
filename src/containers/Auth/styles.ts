@@ -6,7 +6,7 @@ interface StylesProps {
 
 export default makeStyles<Theme, StylesProps>((theme) => ({
   container: {
-    height: `calc(100% - ${theme.spacing(10)}px)`,
+    height: '100%',
   },
   paper: {
     padding: theme.spacing(2),

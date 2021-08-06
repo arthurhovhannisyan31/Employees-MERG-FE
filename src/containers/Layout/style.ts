@@ -1,6 +1,7 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
+// deps
+import { makeStyles } from '@material-ui/core/styles'
 
-export default makeStyles((theme: Theme) => ({
+export default makeStyles(() => ({
   container: {
     display: 'flex',
     height: '100%',
@@ -8,7 +9,6 @@ export default makeStyles((theme: Theme) => ({
   content: {
     margin: '0 auto',
     maxWidth: '1600px',
-    padding: theme.spacing(1),
-    flexGrow: 1,
+    height: '100%',
   },
 }))
