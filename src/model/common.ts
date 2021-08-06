@@ -37,7 +37,7 @@ export enum RoutePath {
   CHANGE_PASSWORD = '/change-password',
 }
 
-interface RouteMapItem {
+export interface RouteMapItem {
   url: RoutePath
   label: string
 }

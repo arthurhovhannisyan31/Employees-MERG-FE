@@ -52,5 +52,5 @@ export const useMe = ({
         open: true,
       })
     }
-  }, [dispatch, handleFetch, handleLogout, location.pathname, setSnackbarState])
+  }, [dispatch, handleFetch, handleLogout, isAuthFreeRoute, setSnackbarState])
 }

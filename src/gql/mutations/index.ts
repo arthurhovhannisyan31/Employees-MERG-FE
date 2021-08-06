@@ -1,25 +1,26 @@
 // model
-import { UpdateEmployeeInput, UserInput } from 'model/generated'
+import {
+  RootMutationCreateUserArgs,
+  UpdateEmployeeInput,
+} from 'model/generated'
 import { QueryProps } from 'model/common'
+// helpers
+import { userCredentials } from 'gql/fragments'
 
 // export const createUser = (): void => ({})
 
-// TODO replace with type for singup
-export const mutationSignUp = ({ email, password }: UserInput): QueryProps => ({
+export const mutationSignUp = ({
+  input,
+}: RootMutationCreateUserArgs): QueryProps => ({
   query: `
-    mutation signUpMutation($email: String!, $password: String!) {
-      createUser(userInput: {
-        email: $email,
-        password: $password
-      }){
-        _id
-        email
+    mutation signUpMutation($input: UserInput!) {
+      createUser(input: $input){
+        ${userCredentials}
       }
     }
   `,
   variables: {
-    email,
-    password,
+    input,
   },
 })
 

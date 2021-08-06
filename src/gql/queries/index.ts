@@ -18,21 +18,16 @@ import {
   userResponseFragment,
 } from 'gql/fragments'
 
-export const queryLogin = ({
-  input: { email, password },
-}: RootQueryLoginArgs): QueryProps => ({
+export const queryLogin = ({ input }: RootQueryLoginArgs): QueryProps => ({
   query: `
-        query login($email: String!, $password: String!) {
-          login(
-            email: $email, 
-            password: $password){
-              ${userResponseFragment}
-            } 
-        }
-      `,
+    query login($input: LoginInput!) {
+      login(input: $input){
+          ${userResponseFragment}
+        } 
+    }
+  `,
   variables: {
-    email,
-    password,
+    input,
   },
 })
 
@@ -45,14 +40,11 @@ export const queryLogout = (): QueryProps => ({
 })
 
 export const queryEmployees = ({
-  input: { limit, offset },
+  input,
 }: RootQueryEmployeesArgs): QueryProps => ({
   query: `
-    query employees($limit: Int!, $offset: Int!) {
-      employees(input:{
-        limit: $limit, 
-        offset: $offset
-      }) {
+    query employees($input: GetEmployeesInput) {
+      employees(input: $input) {
         nodes {
           ${employeeFragment}
           gender
@@ -61,23 +53,20 @@ export const queryEmployees = ({
       }
     }
   `,
-  variables: {
-    limit,
-    offset,
-  },
+  variables: { input: input || {} },
 })
 
 export const queryEmployee = ({
-  input: { id },
+  input,
 }: RootQueryEmployeeArgs): QueryProps => ({
   query: `
-    query employee($id: ID!) {
-      employee(input:{ id: $id }){
+    query employee($input: GetEmployeeInput!) {
+      employee(input: $input){
         ${employeeDetailsFragment}
       }
     }
   `,
-  variables: { id },
+  variables: { input },
 })
 
 export const queryMe = (): QueryProps => ({
@@ -127,16 +116,16 @@ export const queryGenders = (): QueryProps => ({
 })
 
 export const queryForgetPassword = ({
-  input: { email },
+  input,
 }: RootQueryForgotPasswordArgs): QueryProps => ({
   query: `
-    query forgotPassword($email: String!) {
-      forgotPassword(input:{ email: $email }){
+    query forgotPassword($input: ForgotPasswordInput!) {
+      forgotPassword(input: $input){
         ${userResponseFragment}
       }
     }
   `,
   variables: {
-    email,
+    input,
   },
 })
