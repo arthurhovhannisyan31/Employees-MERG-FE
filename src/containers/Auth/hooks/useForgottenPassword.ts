@@ -2,22 +2,21 @@
 import { useCallback, useContext } from 'react'
 // helpers
 import { useFetch } from '_/hooks'
-import { RootQueryForgotPasswordArgs } from '_/model/generated'
-import { queryForgetPassword } from '_/gql/queries'
+import { RootQueryForgottenPasswordArgs } from '_/model/generated'
+import { queryForgottenPassword } from '_/gql/queries'
 import { SnackbarContext } from '_/context/snackbar'
 import { checkResponse } from '_/utils/auth'
 
-export const useForgetPassword = (): (({
+export const useForgottenPassword = (): (({
   input,
-}: RootQueryForgotPasswordArgs) => void) => {
+}: RootQueryForgottenPasswordArgs) => void) => {
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
 
   return useCallback(
     async ({ input }) => {
       try {
-        const res = await handleFetch(queryForgetPassword({ input }))
-        console.log(res)
+        const res = await handleFetch(queryForgottenPassword({ input }))
         checkResponse(res?.status)
 
         setSnackbarState({
@@ -27,7 +26,7 @@ export const useForgetPassword = (): (({
         })
       } catch (err) {
         setSnackbarState({
-          message: err,
+          message: (err as TypeError)?.message,
           open: true,
           type: 'error',
         })

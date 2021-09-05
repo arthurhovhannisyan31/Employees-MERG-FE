@@ -1,16 +1,22 @@
-import AppBar from '@material-ui/core/AppBar'
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import Switch from '@material-ui/core/Switch'
-import Toolbar from '@material-ui/core/Toolbar'
-import Tooltip from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
-import LogOut from '@material-ui/icons/ExitToApp'
-import HomeIcon from '@material-ui/icons/Home'
-import AboutIcon from '@material-ui/icons/Info'
-import PeopleIcon from '@material-ui/icons/People'
-import PersonIcon from '@material-ui/icons/Person'
+// deps
+import React, { useCallback, useContext } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import {
+  Button,
+  AppBar,
+  Toolbar,
+  Switch,
+  Grid,
+  Tooltip,
+  Typography,
+} from '@material-ui/core'
+import {
+  Home as HomeIcon,
+  Info as AboutIcon,
+  People as PeopleIcon,
+  ExitToApp as LogOut,
+  Person as PersonIcon,
+} from '@material-ui/icons'
 import clsx from 'clsx'
 // model
 import { RoutePath } from 'model/common'

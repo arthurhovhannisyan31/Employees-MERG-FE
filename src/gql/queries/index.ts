@@ -2,7 +2,7 @@
 import {
   RootQueryEmployeeArgs,
   RootQueryEmployeesArgs,
-  RootQueryForgotPasswordArgs,
+  RootQueryForgottenPasswordArgs,
   RootQueryLoginArgs,
 } from '_/model/generated'
 // model
@@ -115,12 +115,12 @@ export const queryGenders = (): QueryProps => ({
   `,
 })
 
-export const queryForgetPassword = ({
+export const queryForgottenPassword = ({
   input,
-}: RootQueryForgotPasswordArgs): QueryProps => ({
+}: RootQueryForgottenPasswordArgs): QueryProps => ({
   query: `
-    query forgotPassword($input: ForgotPasswordInput!) {
-      forgotPassword(input: $input){
+    query forgottenPassword($input: ForgottenPasswordInput!) {
+      forgottenPassword(input: $input){
         ${userResponseFragment}
       }
     }

@@ -24,7 +24,7 @@ const Auth: FC = () => {
   const classes = useStyles({ hasError: !!authErrors?.length })
 
   const handleChange = useCallback(
-    (_: React.ChangeEvent<{}>, newValue: number) => {
+    (_: React.ChangeEvent<Record<string, never>>, newValue: number) => {
       setTab(newValue)
     },
     [],

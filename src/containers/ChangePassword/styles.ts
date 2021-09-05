@@ -5,8 +5,11 @@ interface StylesProps {
   hasError: boolean
 }
 
-export default makeStyles<Theme, StylesProps>(() => ({
+export default makeStyles<Theme, StylesProps>((theme) => ({
   container: {
     height: '100%',
+  },
+  passwordsInequality: {
+    color: theme.palette.error.light,
   },
 }))

@@ -19,7 +19,7 @@ add CRUD for employees, title, payoff, salary, hire/fire employee
 add features from material-ui project
 new route, get design from material-ui examples page
 analytics: table, graphs, reports
-use indexeddb for reporst
+use indexeddb for reports
 eslint import, error
 eslint cycle dependencies
 fix material ui makeStyles classnames autocomplete
@@ -58,6 +58,6 @@ Releases:
 + add change password route and form
 - add restriction to reset password attempts
 - add registration
-- add password strength validation
++ add password strength validation
 
 continue with change password form

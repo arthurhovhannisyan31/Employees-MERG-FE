@@ -14,13 +14,13 @@ import { AuthContext } from '_/context/auth'
 import { handleEnterKeyDown } from '_/utils/keyboard'
 import { validationSchema } from '_/containers/Auth/components/SingIn/helpers'
 import { errorArrayToMap } from '_/containers/Auth/components/helpers'
-import { useForgetPassword } from '_/containers/Auth/hooks/useForgetPassword'
+import { useForgottenPassword } from '_/containers/Auth/hooks/useForgottenPassword'
 
 import useStyles from './styles'
 
 const SignIn: React.FC = () => {
   const { dispatch, errors: authErrors } = useContext(AuthContext)
-  const forgetPassword = useForgetPassword()
+  const forgottenPassword = useForgottenPassword()
   const handleLogin = useLogin({
     dispatch,
   })
@@ -51,9 +51,9 @@ const SignIn: React.FC = () => {
     },
   })
 
-  const handleForgetPassword = useCallback(() => {
-    forgetPassword({ input: { email: values.email } })
-  }, [forgetPassword, values.email])
+  const handleForgottenPassword = useCallback(() => {
+    forgottenPassword({ input: { email: values.email } })
+  }, [forgottenPassword, values.email])
 
   const handleTextField = useCallback(
     (field: string) =>
@@ -70,7 +70,7 @@ const SignIn: React.FC = () => {
     [isValid, values.email],
   )
 
-  const disableForgetPassword = useMemo<boolean>(
+  const disableForgottenPassword = useMemo<boolean>(
     () => !(values.email && !errors.email),
     [values.email, errors.email],
   )
@@ -92,7 +92,7 @@ const SignIn: React.FC = () => {
 
   // todo set fix width and helper text width
   // todo query forgotten password state
-  // notification pleasw check your email or try again later
+  // notification please check your email or try again later
 
   return (
     <Dialog
@@ -137,11 +137,11 @@ const SignIn: React.FC = () => {
         <Grid item>
           <Button
             // todo disabled based on personal props
-            disabled={disableForgetPassword}
+            disabled={disableForgottenPassword}
             // can forget password once in 24 hours
             // block account until reset password
             // reset prev password
-            onClick={handleForgetPassword}
+            onClick={handleForgottenPassword}
             variant="text"
           >
             Forgot password
