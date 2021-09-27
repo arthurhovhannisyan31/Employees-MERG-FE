@@ -29,8 +29,6 @@ add features from material-ui project
 new route, get design from material-ui examples page
 analytics: table, graphs, reports
 use indexeddb for reports
-eslint import, error
-eslint cycle dependencies
 fix material ui makeStyles classnames autocomplete
 fix fetch response types result?.data?.login?.userCredentials
 add auth context loading state, hide login page when fetching me status
@@ -46,3 +44,12 @@ check if session timeout works correctly
 
 https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
 https://cheatsheetseries.owasp.org/
+
+Releases:
+-- release 0.1.3 code refactor
++ extract webpack and typescript configs to configs folder
++ eslint groups rules
++ eslint import, error
++ eslint cycle dependencies
++ types generation
++ lint-staged
