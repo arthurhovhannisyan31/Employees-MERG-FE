@@ -1,12 +1,15 @@
-const webpack = require('webpack')
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
-const { merge } = require('webpack-merge')
-const common = require('./webpack.common')
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-require('dotenv').config({ path: '.env-dev' })
+const webpack = require('webpack')
+const { merge } = require('webpack-merge')
+
+const common = require('./webpack.common.config')
+require('dotenv').config({ path: './configs/env/.env-dev' })
 
 module.exports = merge(common, {
-  target: "web",
+  target: 'web',
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
@@ -17,7 +20,6 @@ module.exports = merge(common, {
         ignored: /node_modules/,
       },
     },
-    firewall: false,
     host: process.env.APP_URL_DEV,
     port: process.env.PORT || 3000,
     historyApiFallback: true,
