@@ -72,6 +72,10 @@
               "matchBase": true
             },
             "position": "after"
+          },
+          {
+            "pattern": "model/**",
+            "group": "type"
           }
         ],
         "alphabetize": {

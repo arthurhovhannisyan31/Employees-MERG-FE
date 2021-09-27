@@ -1,8 +1,3 @@
-// deps
-// components
-// model
-// helpers
-
 Design:
 https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
 https://cheatsheetseries.owasp.org/
