@@ -1,7 +1,6 @@
-// deps
 import React from 'react'
-// model
-import { AuthData } from '_/model/generated'
+
+import { AuthData } from 'model/generated'
 
 export enum EAuthContextActions {
   LOGIN = 'LOGIN',

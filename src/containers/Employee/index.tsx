@@ -1,37 +1,40 @@
-// deps
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import AppBar from '@material-ui/core/AppBar'
-// components
-import TabPanel from '_/components/UI/TabPanel'
-import Details from '_/containers/Employee/components/Details'
-import Employments from '_/containers/Employee/components/Employments'
-import Paychecks from '_/containers/Employee/components/Paychecks'
-import Titles from '_/containers/Employee/components/Titles'
-// model
-// helpers
-import { EmployeeByIdContext, CatalogsContext } from '_/context'
-import DetailsModal from '_/containers/Employee/components/DetailsModal'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Grid from '@material-ui/core/Grid'
+import Tab from '@material-ui/core/Tab'
+import Tabs from '@material-ui/core/Tabs'
+import Typography from '@material-ui/core/Typography'
+import React, {
+  FC,
+  useCallback,
+  useContext,
+  useState,
+  useEffect,
+  ChangeEvent,
+} from 'react'
+import { useParams } from 'react-router-dom'
+
+import TabPanel from 'components/UI/TabPanel'
+import Details from 'containers/Employee/components/Details'
+import DetailsModal from 'containers/Employee/components/DetailsModal'
+import Employments from 'containers/Employee/components/Employments'
+import Paychecks from 'containers/Employee/components/Paychecks'
+import Titles from 'containers/Employee/components/Titles'
 import {
   useSubmitEmployeeModal,
   useGetEmployee,
-} from '_/containers/Employee/hooks'
-import { useGetDepartments } from '_/containers/Employee/hooks/useGetDepartments'
-import { useGetTitles } from '_/containers/Employee/hooks/useGetTitles'
-import { useGetGenders } from '_/containers/Employee/hooks/useGetGenders'
+} from 'containers/Employee/hooks'
+import { useGetDepartments } from 'containers/Employee/hooks/useGetDepartments'
+import { useGetGenders } from 'containers/Employee/hooks/useGetGenders'
+import { useGetTitles } from 'containers/Employee/hooks/useGetTitles'
+import { EmployeeByIdContext, CatalogsContext } from 'context'
+
 import { a11yProps } from './helpers'
 import useStyles from './style'
 
-const EmployeePage: React.FC = () => {
-  // utils
+const EmployeePage: FC = () => {
   const classes = useStyles()
   const { id: idParam } = useParams<Record<'id', string>>()
-  // context
   const {
     state: {
       data: employeeByIdData,
@@ -39,25 +42,25 @@ const EmployeePage: React.FC = () => {
       error: employeeByIdError,
     },
     dispatch: employeeByIdDispatch,
-  } = React.useContext(EmployeeByIdContext)
+  } = useContext(EmployeeByIdContext)
   const {
     state: {
       data: { departments, titles, genders },
     },
     dispatch: catalogsDispatch,
-  } = React.useContext(CatalogsContext)
-  // state
-  const [tab, setTab] = React.useState<number>(0)
+  } = useContext(CatalogsContext)
+
+  const [tab, setTab] = useState<number>(0)
   const employeeData = employeeByIdData?.[idParam]
-  const [currentModal, setCurrentModal] = React.useState('')
-  // memo
-  const handleChangeTab = React.useCallback(
-    (_: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
+  const [currentModal, setCurrentModal] = useState('')
+
+  const handleChangeTab = useCallback(
+    (_: ChangeEvent<Record<string, unknown>>, newValue: number) => {
       setTab(newValue)
     },
     [],
   )
-  const handleSetModal = React.useCallback(
+  const handleSetModal = useCallback(
     (val: string) => () => {
       setCurrentModal(val)
     },
@@ -80,31 +83,31 @@ const EmployeePage: React.FC = () => {
   // todo add delete profile
   // todo error message
 
-  const fetchEmployeeInitData = React.useCallback(() => {
+  const fetchEmployeeInitData = useCallback(() => {
     if (!employeeData && !employeeByIdLoading) {
       handleGetEmployee({ id: idParam })
     }
   }, [employeeData, employeeByIdLoading, handleGetEmployee, idParam])
-  const fetchDepartmentsInitData = React.useCallback(() => {
+  const fetchDepartmentsInitData = useCallback(() => {
     if (!departments?.length) {
       handleGetDepartments()
     }
   }, [departments, handleGetDepartments])
-  const fetchTitlesInitData = React.useCallback(() => {
+  const fetchTitlesInitData = useCallback(() => {
     if (!titles?.length) {
       handleGetTitles()
     }
   }, [handleGetTitles, titles])
-  const fetchGendersInitData = React.useCallback(() => {
+  const fetchGendersInitData = useCallback(() => {
     if (!genders?.length) {
       handleGetGenders()
     }
   }, [genders, handleGetGenders])
 
-  React.useEffect(fetchEmployeeInitData, [fetchEmployeeInitData])
-  React.useEffect(fetchDepartmentsInitData, [fetchDepartmentsInitData])
-  React.useEffect(fetchTitlesInitData, [fetchTitlesInitData])
-  React.useEffect(fetchGendersInitData, [fetchGendersInitData])
+  useEffect(fetchEmployeeInitData, [fetchEmployeeInitData])
+  useEffect(fetchDepartmentsInitData, [fetchDepartmentsInitData])
+  useEffect(fetchTitlesInitData, [fetchTitlesInitData])
+  useEffect(fetchGendersInitData, [fetchGendersInitData])
 
   return (
     <Grid container item className={classes.container} direction="column">

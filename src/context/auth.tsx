@@ -1,15 +1,14 @@
-// deps
-import React from 'react'
-// model
+import React, { createContext, useReducer, FC } from 'react'
+
+import { API_URL } from 'utils/constants/config'
+
 import {
   EAuthContextActions,
   IAuthContext,
   IAuthReducerAction,
   IAuthState,
   TAuthReducer,
-} from '_/model/context/auth'
-// helpers
-import { API_URL } from '_/utils/constants/config'
+} from 'model/context/auth'
 
 const authContextInitValue: IAuthContext = {
   userCredentials: {
@@ -19,12 +18,15 @@ const authContextInitValue: IAuthContext = {
   apiUrl: '',
   headers: {},
   errors: [],
-  dispatch: () => {},
+  dispatch: () => null,
 }
 
-const AuthContext = React.createContext<IAuthContext>(authContextInitValue)
+const AuthContext = createContext<IAuthContext>(authContextInitValue)
 
-const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
+const authContextReducer = (
+  state: IAuthState,
+  action: IAuthReducerAction,
+): IAuthState => {
   const { type, payload } = action
   switch (type) {
     case EAuthContextActions.LOGIN: {
@@ -57,8 +59,8 @@ const authContextReducer = (state: IAuthState, action: IAuthReducerAction) => {
   }
 }
 
-const AuthContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer<TAuthReducer>(
+const AuthContextContainer: FC = ({ children }) => {
+  const [state, dispatch] = useReducer<TAuthReducer>(
     authContextReducer,
     authContextInitValue,
   )

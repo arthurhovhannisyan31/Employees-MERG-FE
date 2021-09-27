@@ -1,7 +1,5 @@
-// deps
-import React from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-// local
+import React, { FC } from 'react'
 
 const useStyles = makeStyles<Theme, IBackdropProps>(() => ({
   container: {
@@ -19,7 +17,7 @@ interface IBackdropProps {
   isAbsolute?: boolean
 }
 
-const Backdrop: React.FC<IBackdropProps> = ({ isAbsolute }) => {
+const Backdrop: FC<IBackdropProps> = ({ isAbsolute }) => {
   const classes = useStyles({ isAbsolute })
   return <div className={classes.container} />
 }

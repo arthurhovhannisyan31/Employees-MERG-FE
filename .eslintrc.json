@@ -66,7 +66,7 @@
         "newlines-between": "always",
         "pathGroups": [
           {
-            "pattern": "**/styles",
+            "pattern": "*./styles?|*.css",
             "group": "index",
             "patternOptions": {
               "matchBase": true
@@ -87,10 +87,16 @@
     ]
   },
   "settings": {
+    "import/ignore:": [
+      "node_modules"
+    ],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
       "typescript": {
         "alwaysTryTypes": true,
         "project": "./tsconfig.json"

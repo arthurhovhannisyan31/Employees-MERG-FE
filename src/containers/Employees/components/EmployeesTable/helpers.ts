@@ -1,24 +1,25 @@
-// deps
-import format from 'date-fns/format'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
-// helpers
-import { Employee } from '_/model/generated'
+import { Omit } from '@material-ui/core'
+import format from 'date-fns/format'
 
-export const rowIdSelector = ({ _id }: Omit<Employee, '__typename'>) => _id
+import { Employee } from 'model/generated'
+
+export const rowIdSelector = ({ _id }: Omit<Employee, '__typename'>): string =>
+  _id
 
 export const rowsSelector = ({
   _id,
   hire_date,
   last_name,
   first_name,
-  gender: { name: genderName },
+  gender,
   birth_date,
 }: Omit<Employee, '__typename'>) => ({
   _id,
   hire_date: format(new Date(hire_date), 'dd-MMM-yyyy'),
   last_name,
   first_name,
-  gender: genderName,
+  gender, // TODO fix gender name
   birth_date: format(new Date(birth_date), 'dd-MMM-yyyy'),
 })
 
@@ -31,7 +32,7 @@ export const initColumns = [
   { name: 'birth_date', title: 'Birth Date' },
 ]
 
-export const getInitColumnsOrder = () =>
+export const getInitColumnsOrder = (): string[] =>
   initColumns.map((column) => column.name)
 
 export const initColumnExtensions: Table.ColumnExtension[] = [
@@ -45,5 +46,5 @@ export const initColumnExtensions: Table.ColumnExtension[] = [
 
 export const pageSizes = [5, 10, 20, 50, 100]
 
-export const getAvatarLetters = (str1: string, str2: string) =>
+export const getAvatarLetters = (str1: string, str2: string): string =>
   `${str1[0].toUpperCase()}${str2[0].toUpperCase()}`

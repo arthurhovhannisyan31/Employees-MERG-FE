@@ -1,10 +1,6 @@
-// deps
 import React from 'react'
-// components
-// model
-// helpers
 
-export const SVG404 = () => (
+export const SVG404 = (): JSX.Element => (
   <svg
     id="fd59ce54-f850-4dfc-bc34-dd7d379d600e"
     data-name="Layer 1"

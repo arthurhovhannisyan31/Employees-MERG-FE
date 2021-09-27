@@ -1,35 +1,44 @@
-// deps
-import React, { useEffect } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import TextField from '@material-ui/core/TextField'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
-// helpers
-import { AuthContext } from '_/context'
-import { useLogin } from '_/containers/Auth/hooks'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  useContext,
+  KeyboardEvent,
+  ChangeEvent,
+  FC,
+} from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+
+import { useLogin } from 'containers/Auth/hooks'
+import { AuthContext } from 'context'
+
 import useStyles from './style'
 
-const Auth: React.FC = () => {
+const Auth: FC = () => {
   const history = useHistory()
   const { next = '' } = useParams<Record<'next', string>>()
   const {
     userCredentials,
     dispatch,
     errors: authErrors,
-  } = React.useContext(AuthContext)
+  } = useContext(AuthContext)
 
-  const [authState, setAuthState] = React.useState<boolean>(false)
-  const toggleAuthState = () => setAuthState((val: boolean) => !val)
+  const [authState, setAuthState] = useState<boolean>(false)
+  const toggleAuthState = (): void => setAuthState((val: boolean) => !val)
 
-  const [email, setEmail] = React.useState<string>('')
-  const [password, setPassword] = React.useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   const classes = useStyles({ hasError: !!authErrors?.length })
 
-  const handleTextField = React.useCallback(
-    (type: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextField = useCallback(
+    (type: string) => (event: ChangeEvent<HTMLInputElement>) => {
       switch (type) {
         case 'email':
           setEmail(event.target.value)
@@ -44,12 +53,12 @@ const Auth: React.FC = () => {
     [],
   )
 
-  const disableSubmit = React.useMemo(
+  const disableSubmit = useMemo(
     () => !email?.trim() || !password?.trim(),
     [email, password],
   )
 
-  const errorMessages = React.useMemo(
+  const errorMessages = useMemo(
     () =>
       authErrors?.map((err) => (
         <Typography
@@ -69,8 +78,8 @@ const Auth: React.FC = () => {
     dispatch,
   })
 
-  const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
       if (event.key === 'Enter' && !disableSubmit) {
         handleLogin()
       }

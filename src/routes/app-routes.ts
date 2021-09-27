@@ -1,25 +1,16 @@
-// deps
-import React from 'react'
-import { RouteComponentProps, RouteProps } from 'react-router-dom'
-// helpers
-import { routeMaker } from '_/routes/helpers'
-import { ROUTES } from '_/utils/constants'
+import { lazy } from 'react'
 
-const Home = React.lazy(() => import('_/containers/Home'))
-const About = React.lazy(() => import('_/containers/About'))
-const Auth = React.lazy(() => import('_/containers/Auth'))
-const NotFound = React.lazy(() => import('_/containers/NotFound'))
-const Employees = React.lazy(() => import('_/containers/Employees'))
-const Employee = React.lazy(() => import('_/containers/Employee'))
+import { routeMaker } from 'routes/helpers'
+import { ROUTES } from 'utils/constants'
 
-export interface IRoute extends RouteProps {
-  exact?: boolean
-  isPrivate?: boolean
-  path: string
-  component:
-    | React.ComponentClass<RouteComponentProps<Record<string, never>>>
-    | React.FunctionComponent<RouteComponentProps<Record<string, never>>>
-}
+import { IRoute } from './types'
+
+const Home = lazy(() => import('containers/Home'))
+const About = lazy(() => import('containers/About'))
+const Auth = lazy(() => import('containers/Auth'))
+const NotFound = lazy(() => import('containers/NotFound'))
+const Employees = lazy(() => import('containers/Employees'))
+const Employee = lazy(() => import('containers/Employee'))
 
 const routes: IRoute[] = [
   {

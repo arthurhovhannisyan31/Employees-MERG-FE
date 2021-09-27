@@ -1,10 +1,9 @@
-// deps
-import * as yup from 'yup'
 import differenceInYears from 'date-fns/differenceInYears'
-// model
-import { Employee, Title, UpdateEmployeeInput } from '_/model/generated'
-// helpers
-import { ADULT_AGE } from '_/utils/constants'
+import * as yup from 'yup'
+
+import { ADULT_AGE } from 'utils/constants'
+
+import { Employee, Title, UpdateEmployeeInput } from 'model/generated'
 
 export const initStateSelector = ({
   _id,
@@ -67,5 +66,7 @@ export const validationSchema = yup.object().shape({
     .max(255, 'Too long'),
 })
 
-export const sortByName = (a: Pick<Title, 'name'>, b: Pick<Title, 'name'>) =>
-  a.name.localeCompare(b.name)
+export const sortByName = (
+  a: Pick<Title, 'name'>,
+  b: Pick<Title, 'name'>,
+): number => a.name.localeCompare(b.name)

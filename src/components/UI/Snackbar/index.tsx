@@ -1,19 +1,18 @@
-// deps
-import React from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-// model
-import { ISnackbarContext } from '_/model/context/snackbar'
-// helpers
-import { SnackbarContext } from '_/context'
+import React, { FC, useContext } from 'react'
 
-const SnackbarComp: React.FC = () => {
+import { SnackbarContext } from 'context'
+
+import { ISnackbarContext } from 'model/context/snackbar'
+
+const SnackbarComp: FC = () => {
   const {
     snackbarState: { message, open, type },
     setSnackbarState,
-  } = React.useContext<ISnackbarContext>(SnackbarContext)
+  } = useContext<ISnackbarContext>(SnackbarContext)
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setSnackbarState({ open: false })
   }
   // todo notistack

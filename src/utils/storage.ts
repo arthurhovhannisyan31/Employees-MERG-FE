@@ -7,10 +7,13 @@ interface IProps {
 
 const storage: IProps = {
   set(key: string, value: string) {
-    localStorage.setItem(key, value)
+    localStorage.setItem(key, JSON.stringify(value))
   },
   get(key: string) {
-    return localStorage.getItem(key)
+    return (
+      localStorage.getItem(key) &&
+      JSON.parse(localStorage.getItem(key) as string)
+    )
   },
   remove(key: string) {
     localStorage.removeItem(key)

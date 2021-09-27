@@ -1,14 +1,13 @@
-// deps
 import { useContext, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
-// model
-import { EAuthContextActions, IAuthReducerAction } from '_/model/context/auth'
-import { IQueryMeResponse } from '_/model/queries/auth'
-// helpers
-import { SnackbarContext } from '_/context'
-import { queryMe } from '_/gql/queries'
-import { useFetch } from '_/utils/hooks'
-import { useLogout } from '_/containers/Auth/hooks/useLogout'
+
+import { useLogout } from 'containers/Auth/hooks/useLogout'
+import { SnackbarContext } from 'context'
+import { queryMe } from 'gql/queries'
+import { useFetch } from 'utils/hooks'
+
+import { EAuthContextActions, IAuthReducerAction } from 'model/context/auth'
+import { IQueryMeResponse } from 'model/queries/auth'
 
 export interface IUseCheckAuthorizationProps {
   dispatch: (value: IAuthReducerAction) => void
@@ -16,7 +15,7 @@ export interface IUseCheckAuthorizationProps {
 
 export const useCheckAuthorization = ({
   dispatch,
-}: IUseCheckAuthorizationProps) => {
+}: IUseCheckAuthorizationProps): (() => Promise<void>) => {
   const location = useLocation()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
@@ -47,7 +46,7 @@ export const useCheckAuthorization = ({
     } catch (err) {
       setSnackbarState({
         type: 'error',
-        message: err.message,
+        message: (err as Error).message,
         open: true,
       })
     }

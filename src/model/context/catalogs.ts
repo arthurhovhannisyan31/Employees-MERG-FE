@@ -1,8 +1,7 @@
-// deps
 import React from 'react'
-// model
-import { Department, Gender, Title } from '_/model/generated'
-import { IAction } from '_/model/common'
+
+import { IAction } from 'model/common'
+import { Department, Gender, Title } from 'model/generated'
 
 export interface ICatalogEntries {
   departments: Department[]

@@ -1,18 +1,15 @@
-// deps
-import React from 'react'
-import themeCreator from '_/utils/theme'
 import { CssBaseline } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
-import Header from '_/components/Header'
 import { ThemeProvider } from '@material-ui/core/styles'
-// helpers
-import { ThemeContext } from '_/context'
-import useStyles from '_/containers/Layout/style'
+import React, { useContext, FC } from 'react'
 
-const Layout: React.FC = ({ children }) => {
-  // context
-  const { darkMode } = React.useContext(ThemeContext)
-  // styles
+import Header from 'components/Header'
+import useStyles from 'containers/Layout/style'
+import { ThemeContext } from 'context'
+import themeCreator from 'utils/theme'
+
+const Layout: FC = ({ children }) => {
+  const { darkMode } = useContext(ThemeContext)
   const classes = useStyles()
 
   return (

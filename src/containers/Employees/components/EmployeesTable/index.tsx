@@ -1,8 +1,3 @@
-// deps
-import React from 'react'
-import { useHistory } from 'react-router-dom'
-import MUIGrid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
 import { PagingState } from '@devexpress/dx-react-grid'
 import {
   DragDropProvider,
@@ -13,16 +8,15 @@ import {
   TableColumnReordering,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import Avatar from '@material-ui/core/Avatar'
-// components
-import CustomPagingPanel from '_/containers/Employees/components/EmployeesTable/components/CustomPagingPanel'
-import Backdrop from '_/components/UI/Backdrop'
-// model
-import { IEmployeesTableRow } from '_/containers/Employees/types'
-import { TEmployeesAction } from '_/model/context/employees'
-import { Employee } from '_/model/generated'
-// helpers
+import CircularProgress from '@material-ui/core/CircularProgress'
+import MUIGrid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import React, { useCallback, useEffect, useMemo, useState, FC } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import Backdrop from 'components/UI/Backdrop'
+import CustomPagingPanel from 'containers/Employees/components/EmployeesTable/components/CustomPagingPanel'
 import {
   initColumns,
   rowIdSelector,
@@ -31,21 +25,26 @@ import {
   getInitColumnsOrder,
   pageSizes,
   getAvatarLetters,
-} from '_/containers/Employees/components/EmployeesTable/helpers'
+} from 'containers/Employees/components/EmployeesTable/helpers'
+import { IEmployeesTableRow } from 'containers/Employees/types'
+
+import { TEmployeesAction } from 'model/context/employees'
+import { Employee } from 'model/generated'
+
 import useStyles from './style'
 
 interface IProps {
-  dispatch: React.Dispatch<TEmployeesAction>
+  dispatch: (val: TEmployeesAction) => void
   currentPage: number
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+  setCurrentPage: (val: number) => void
   pageSize: number
-  setPageSize: React.Dispatch<React.SetStateAction<number>>
+  setPageSize: (val: number) => void
   loading?: boolean
   data: Employee[]
   count: number
 }
 
-const EmployeesTable: React.FC<IProps> = ({
+const EmployeesTable: FC<IProps> = ({
   pageSize,
   setPageSize,
   currentPage,
@@ -59,30 +58,25 @@ const EmployeesTable: React.FC<IProps> = ({
   const history = useHistory()
 
   // todo add create an employee
-  const [columns] = React.useState(initColumns)
-  const [rows, setRows] = React.useState<IEmployeesTableRow[]>(
+  const [columns] = useState(initColumns)
+  const [rows, setRows] = useState<IEmployeesTableRow[]>(
     data?.map(rowsSelector),
   )
   const [tableColumnExtensions] =
-    React.useState<Table.ColumnExtension[]>(initColumnExtensions)
+    useState<Table.ColumnExtension[]>(initColumnExtensions)
 
-  const initColumnsOrder = React.useMemo(() => getInitColumnsOrder(), [])
-  const [columnOrder, setColumnOrder] =
-    React.useState<string[]>(initColumnsOrder)
+  const initColumnsOrder = useMemo(() => getInitColumnsOrder(), [])
+  const [columnOrder, setColumnOrder] = useState<string[]>(initColumnsOrder)
 
-  const handleChangePageSize = React.useCallback(setPageSize, [setPageSize])
-  const handleChangeCurrentPage = React.useCallback(setCurrentPage, [
-    setCurrentPage,
-  ])
-  const handleChangeColumnOrder = React.useCallback(setColumnOrder, [
-    setColumnOrder,
-  ])
-  const handleRedirectProfile = React.useCallback(
+  const handleChangePageSize = useCallback(setPageSize, [setPageSize])
+  const handleChangeCurrentPage = useCallback(setCurrentPage, [setCurrentPage])
+  const handleChangeColumnOrder = useCallback(setColumnOrder, [setColumnOrder])
+  const handleRedirectProfile = useCallback(
     (id: string) => () => history.push(`/employees/${id}`),
     [history],
   )
 
-  const pagingContainer = React.useCallback(
+  const pagingContainer = useCallback(
     (props: PagingPanel.ContainerProps) => {
       const newProps = {
         ...props,
@@ -93,7 +87,7 @@ const EmployeesTable: React.FC<IProps> = ({
     [count],
   )
 
-  const tableCellContainer = (props: Table.DataCellProps) => {
+  const tableCellContainer = (props: Table.DataCellProps): JSX.Element => {
     const {
       column: { name },
       row: { _id: id, first_name: firstName, last_name: lastName },
@@ -116,7 +110,7 @@ const EmployeesTable: React.FC<IProps> = ({
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.length) {
       setRows(data?.map(rowsSelector))
     }

@@ -1,4 +1,4 @@
-import { EROUTES } from '_/model/common'
+import { EROUTES } from 'model/common'
 
 export const ADULT_AGE = 18
 

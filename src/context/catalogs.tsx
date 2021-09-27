@@ -1,13 +1,12 @@
-// deps
-import React from 'react'
-// model
+import React, { createContext, useReducer, FC } from 'react'
+
 import {
   ICatalogsContext,
   ICatalogsState,
   TCatalogsReducer,
   EActionTypes,
   ICatalogEntries,
-} from '_/model/context/catalogs'
+} from 'model/context/catalogs'
 
 const catalogsInitState: ICatalogsState = {
   loading: false,
@@ -20,9 +19,9 @@ const catalogsInitState: ICatalogsState = {
 }
 const catalogsContextInitState: ICatalogsContext = {
   state: catalogsInitState,
-  dispatch: () => {},
+  dispatch: () => null,
 }
-const CatalogsContext = React.createContext<ICatalogsContext>(
+const CatalogsContext = createContext<ICatalogsContext>(
   catalogsContextInitState,
 )
 const catalogsReducer: TCatalogsReducer = (state, action) => {
@@ -47,8 +46,8 @@ const catalogsReducer: TCatalogsReducer = (state, action) => {
   }
 }
 
-const CatalogsContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer<TCatalogsReducer>(
+const CatalogsContextContainer: FC = ({ children }) => {
+  const [state, dispatch] = useReducer<TCatalogsReducer>(
     catalogsReducer,
     catalogsInitState,
   )

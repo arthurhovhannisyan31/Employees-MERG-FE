@@ -1,4 +1,3 @@
-// model
 export type TSnackbarType = 'error' | 'warning' | 'info' | 'success'
 
 export interface ISnackbar {

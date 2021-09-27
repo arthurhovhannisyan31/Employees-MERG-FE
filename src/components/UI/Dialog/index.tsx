@@ -1,11 +1,10 @@
-// deps
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-// helpers
+import Typography from '@material-ui/core/Typography'
+import React, { FC } from 'react'
+
 import useStyles from './style'
 
 interface IDialogProps {
@@ -18,7 +17,7 @@ interface IDialogProps {
   isLoading?: boolean
 }
 
-const Dialog: React.FC<IDialogProps> = ({
+const Dialog: FC<IDialogProps> = ({
   onConfirm,
   confirmLabel = 'Confirm',
   onCancel,

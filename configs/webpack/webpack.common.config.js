@@ -3,6 +3,7 @@
 const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
@@ -56,6 +57,7 @@ module.exports = {
     new webpack.ProvidePlugin({ process: 'process/browser' }),
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin()],
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.mjs', '.json'],
   },
 }
