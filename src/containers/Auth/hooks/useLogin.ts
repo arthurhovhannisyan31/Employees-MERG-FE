@@ -1,15 +1,14 @@
-// deps
 import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-// model
-import { IAuthReducerAction, EAuthContextActions } from '_/model/context/auth'
-import { IQueryLoginResponse } from '_/model/queries/auth'
-// helpers
-import { signUp } from '_/gql/mutations'
-import { queryLogin } from '_/gql/queries'
-import { useFetch } from '_/utils/hooks'
-import { SnackbarContext } from '_/context/snackbar'
-import { fetchResponseCheck } from '_/utils/auth'
+
+import { SnackbarContext } from 'context/snackbar'
+import { signUp } from 'gql/mutations'
+import { queryLogin } from 'gql/queries'
+import { fetchResponseCheck } from 'utils/auth'
+import { useFetch } from 'utils/hooks'
+
+import { IAuthReducerAction, EAuthContextActions } from 'model/context/auth'
+import { IQueryLoginResponse } from 'model/queries/auth'
 
 export interface IUseHandleSubmitProps {
   email: string
@@ -23,7 +22,7 @@ export const useLogin = ({
   password,
   authState,
   dispatch,
-}: IUseHandleSubmitProps) => {
+}: IUseHandleSubmitProps): (() => Promise<void>) => {
   const history = useHistory()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
@@ -54,7 +53,7 @@ export const useLogin = ({
     } catch (err) {
       dispatch({
         type: EAuthContextActions.ERRORS,
-        payload: { errors: [err] },
+        payload: { errors: [err as Error] },
       })
     }
   }, [

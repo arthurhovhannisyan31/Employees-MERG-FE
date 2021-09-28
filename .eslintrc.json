@@ -1,47 +1,16 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
-  "ignorePatterns": ["/*.*"],
-  "extends": [
-    "airbnb-typescript",
-    "plugin:prettier/recommended",
-    "plugin:react-hooks/recommended"
-  ],
-  "plugins": [
-    "@typescript-eslint",
-    "react"
-  ],
   "env": {
     "jest": true
   },
-  "rules": {
-    "prettier/prettier": [
-      "error"
-    ],
-    "import/newline-after-import": "error",
-    "import/named": 0,
-    "import/prefer-default-export": 0,
-    "import/imports-first": [
-      "error",
-      "absolute-first"
-    ],
-    "@typescript-eslint/no-unused-vars": "warn",
-    "no-underscore-dangle": 0,
-    "no-console": "warn",
-    "@typescript-eslint/semi": 0,
-    "@typescript-eslint/indent": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/jsx-curly-newline": 0,
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
-    "react/display-name": 0,
-    "react/prop-types": 0,
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
-  },
+  "extends": [
+    "plugin:import/typescript",
+    "plugin:import/warnings",
+    "plugin:import/errors",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "globals": {
     "window": true,
     "document": true,
@@ -51,5 +20,87 @@
     "Blob": true,
     "navigator": true,
     "process": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+
+  "plugins": ["@typescript-eslint", "import", "react", "react-hooks"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-underscore-dangle": 0,
+    "no-console": "warn",
+    "@typescript-eslint/semi": 0,
+    "@typescript-eslint/indent": 0,
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
+    "react/jsx-one-expression-per-line": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-curly-newline": 0,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/require-default-props": 0,
+    "import/no-cycle": [2, { "ignoreExternal": true }],
+    "import/default": 0,
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "type",
+          ["parent", "sibling"],
+          "index"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "pattern": "*./styles?|*.css",
+            "group": "index",
+            "patternOptions": {
+              "matchBase": true
+            },
+            "position": "after"
+          },
+          {
+            "pattern": "model/**",
+            "group": "type"
+          }
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "warnOnUnassignedImports": true
+      }
+    ]
+  },
+  "settings": {
+    "import/ignore:": [
+      "node_modules"
+    ],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
   }
 }

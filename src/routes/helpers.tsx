@@ -1,10 +1,9 @@
-// deps
 import React from 'react'
 import { Route } from 'react-router-dom'
-// model
-import { IRoute } from '_/routes/app-routes'
-// local
-import PrivateRoute from '_/routes/private-route'
+
+import PrivateRoute from 'routes/private-route'
+
+import { IRoute } from './types'
 
 export const routeMaker: React.FC<IRoute> = (params) =>
   params.isPrivate ? (

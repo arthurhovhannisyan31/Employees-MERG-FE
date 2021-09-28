@@ -1,10 +1,9 @@
-// deps
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-// components
-import Backdrop from '_/components/UI/Backdrop'
-// helpers
+import Grid from '@material-ui/core/Grid'
+import React, { FC, useState, useEffect } from 'react'
+
+import Backdrop from 'components/UI/Backdrop'
+
 import useStyles from './style'
 
 interface IModalProps {
@@ -13,15 +12,15 @@ interface IModalProps {
   disableClickAway: boolean
 }
 
-const Modal: React.FC<IModalProps> = ({
+const Modal: FC<IModalProps> = ({
   isOpen,
   children,
   onClose,
   disableClickAway,
 }) => {
-  const [openState, setOpenState] = React.useState(isOpen)
+  const [openState, setOpenState] = useState(isOpen)
   const cls = useStyles()
-  const handleClose = () => {
+  const handleClose = (): void => {
     if (!disableClickAway) {
       setOpenState(false)
       if (onClose) {
@@ -30,7 +29,7 @@ const Modal: React.FC<IModalProps> = ({
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setOpenState(isOpen)
   }, [isOpen])
 

@@ -1,3 +1,6 @@
+// TODO check
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export interface IModule extends NodeModule {
   hot: {
     accept: (str: string, node: () => void) => void

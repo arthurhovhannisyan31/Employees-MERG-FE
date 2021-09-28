@@ -1,10 +1,8 @@
-// deps
-import React from 'react'
 import Grid from '@material-ui/core/Grid'
-// components
-import { SVG404 } from '_/static/SVG'
-// model
-// helpers
+import React from 'react'
+
+import { SVG404 } from 'static/SVG'
+
 import useStyles from './style'
 
 const NotFound: React.FC = () => {

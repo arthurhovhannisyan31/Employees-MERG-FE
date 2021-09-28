@@ -1,12 +1,3 @@
-// model
-import {
-  GetEmployeeInput,
-  GetEmployeesInput,
-  UserInput,
-} from '_/model/generated'
-// model
-import { IQueryProps } from '_/model/common'
-// helpers
 import {
   employeeFragment,
   genderFragment,
@@ -14,7 +5,10 @@ import {
   userCredentials,
   departmentFragment,
   titleFragment,
-} from '_/gql/fragments'
+} from 'gql/fragments'
+
+import { IQueryProps } from 'model/common'
+import { GetEmployeeInput, GetEmployeesInput, UserInput } from 'model/generated'
 
 export const queryLogin = ({ email, password }: UserInput): IQueryProps => ({
   query: `
@@ -35,7 +29,7 @@ export const queryLogin = ({ email, password }: UserInput): IQueryProps => ({
   },
 })
 
-export const queryLogout = () => ({
+export const queryLogout = (): IQueryProps => ({
   query: `
         query logout {
           logout

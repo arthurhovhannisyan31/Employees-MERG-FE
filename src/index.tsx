@@ -1,12 +1,9 @@
-// deps
 import React from 'react'
 import { render } from 'react-dom'
-// components
-import App from '_/App'
-// model
-import { IModule } from '_/model/common'
 
-const renderApp = () =>
+import App from './App'
+
+const renderApp = (): void =>
   render(
     // TODO 12.03.2021 Return after update material-ui to v5
     // <React.StrictMode>
@@ -17,7 +14,6 @@ const renderApp = () =>
 
 renderApp()
 
-const hmodule: IModule = module as IModule
-if (hmodule.hot) {
-  hmodule.hot.accept('./App', renderApp)
+if (module.hot) {
+  module.hot.accept()
 }

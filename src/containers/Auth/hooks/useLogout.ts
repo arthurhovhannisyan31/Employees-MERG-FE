@@ -1,19 +1,18 @@
-// deps
-import React, { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-// model
-import { EAuthContextActions } from '_/model/context/auth'
-import { IQueryLogoutResponse } from '_/model/queries/auth'
-// helpers
-import { AuthContext } from '_/context/auth'
-import { useFetch } from '_/utils/hooks'
-import { queryLogout } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
-import storage from '_/utils/storage'
 
-export const useLogout = () => {
+import { AuthContext } from 'context/auth'
+import { queryLogout } from 'gql/queries'
+import { fetchResponseCheck } from 'utils/auth'
+import { useFetch } from 'utils/hooks'
+import storage from 'utils/storage'
+
+import { EAuthContextActions } from 'model/context/auth'
+import { IQueryLogoutResponse } from 'model/queries/auth'
+
+export const useLogout = (): (() => Promise<void>) => {
   const history = useHistory()
-  const { dispatch } = React.useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext)
   const handleFetch = useFetch()
 
   return useCallback(async () => {
@@ -36,7 +35,7 @@ export const useLogout = () => {
     } catch (err) {
       dispatch({
         type: EAuthContextActions.ERRORS,
-        payload: { errors: [err] },
+        payload: { errors: [err as Error] },
       })
     }
   }, [dispatch, handleFetch, history])

@@ -1,5 +1,5 @@
-import { IQueryResponse, OmitTypeName } from '_/model/common'
-import { UserCredentials } from '_/model/generated'
+import { IQueryResponse, OmitTypeName } from 'model/common'
+import { UserCredentials } from 'model/generated'
 
 export interface IQueryMeData {
   me: OmitTypeName<UserCredentials>

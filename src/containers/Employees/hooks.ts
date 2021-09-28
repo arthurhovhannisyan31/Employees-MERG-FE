@@ -1,18 +1,17 @@
-// deps
-import React from 'react'
-// model
-import { GetEmployeesInput } from '_/model/generated'
+import { useContext, useCallback, useMemo, Dispatch } from 'react'
+
+import { SnackbarContext } from 'context/snackbar'
+import { queryEmployees } from 'gql/queries'
+import { useFetch } from 'utils/hooks'
+
 import {
   TEmployeesAction,
   IEmployeesFetchResponse,
-} from '_/model/context/employees'
-// helpers
-import { queryEmployees } from '_/gql/queries'
-import { SnackbarContext } from '_/context/snackbar'
-import { useFetch } from '_/utils/hooks'
+} from 'model/context/employees'
+import { GetEmployeesInput } from 'model/generated'
 
 interface IUseGetEmployees {
-  dispatch: React.Dispatch<TEmployeesAction>
+  dispatch: Dispatch<TEmployeesAction>
   pageSize: number
   currentPage: number
 }
@@ -22,13 +21,13 @@ export const useGetEmployees = ({
   currentPage,
   pageSize,
 }: IUseGetEmployees) => {
-  const key = React.useMemo(
+  const key = useMemo(
     () => `${pageSize}-${currentPage}`,
     [pageSize, currentPage],
   )
-  const { setSnackbarState } = React.useContext(SnackbarContext)
+  const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
-  const handleGetEmployees = React.useCallback(
+  const handleGetEmployees = useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({
         type: 'loading',
@@ -55,12 +54,12 @@ export const useGetEmployees = ({
       } catch (err) {
         setSnackbarState({
           type: 'error',
-          message: err.message,
+          message: (err as Error).message,
           open: true,
         })
         dispatch({
           type: 'error',
-          payload: { error: err },
+          payload: { error: err as Record<string, string> },
         })
       }
       dispatch({

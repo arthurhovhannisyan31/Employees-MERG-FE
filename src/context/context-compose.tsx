@@ -1,14 +1,13 @@
-// deps
-import React from 'react'
-// helpers
-import AuthContainer from '_/context/auth'
-import EmployeeContainer from '_/context/employees'
-import SnackbarContainer from '_/context/snackbar'
-import ThemeContainer from '_/context/theme'
-import EmployeeByIdContainer from '_/context/employee-by-id'
-import CatalogsContext from '_/context/catalogs'
+import React, { FC, ReactNode } from 'react'
 
-const ContextCompose: React.FC = ({ children }) => (
+import AuthContainer from 'context/auth'
+import CatalogsContainer from 'context/catalogs'
+import EmployeeByIdContainer from 'context/employee-by-id'
+import EmployeeContainer from 'context/employees'
+import SnackbarContainer from 'context/snackbar'
+import ThemeContainer from 'context/theme'
+
+const ContextCompose: FC = ({ children }) => (
   <>
     {[
       AuthContainer,
@@ -16,9 +15,9 @@ const ContextCompose: React.FC = ({ children }) => (
       SnackbarContainer,
       ThemeContainer,
       EmployeeByIdContainer,
-      CatalogsContext,
+      CatalogsContainer,
     ].reduceRight(
-      (child: React.ReactNode, Container: React.FC) => (
+      (child: ReactNode, Container: FC) => (
         <Container>{child}</Container>
       ),
       children,

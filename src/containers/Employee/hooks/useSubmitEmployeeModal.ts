@@ -1,12 +1,11 @@
-// deps
 import React from 'react'
-// model
-import { UpdateEmployeeInput } from '_/model/generated'
-import { EActionTypes, TEmployeeByIdAction } from '_/model/context/employee'
-// helpers
-import { useFetch } from '_/utils/hooks'
-import { updateEmployee } from '_/gql/mutations'
-import { fetchResponseCheck } from '_/utils/auth'
+
+import { updateEmployee } from 'gql/mutations'
+import { fetchResponseCheck } from 'utils/auth'
+import { useFetch } from 'utils/hooks'
+
+import { EActionTypes, TEmployeeByIdAction } from 'model/context/employee'
+import { UpdateEmployeeInput } from 'model/generated'
 
 interface IUseSubmitEmployeeModalProps {
   dispatch: React.Dispatch<TEmployeeByIdAction>
@@ -17,7 +16,10 @@ export const useSubmitEmployeeModal = ({
 }: IUseSubmitEmployeeModalProps) => {
   const handleFetch = useFetch()
 
-  const handleSubmit = async (
+  const handleSubmit: (
+    props: UpdateEmployeeInput,
+    resetForm: () => void,
+  ) => Promise<void> = async (
     props: UpdateEmployeeInput,
     resetForm: () => void,
   ) => {
@@ -37,10 +39,10 @@ export const useSubmitEmployeeModal = ({
           key: id,
         },
       })
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: 'error',
-        payload: { error: err },
+        payload: { error: error as Record<string, string> },
       })
     }
     dispatch({

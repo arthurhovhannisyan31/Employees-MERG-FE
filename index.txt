@@ -1,54 +1,50 @@
-// deps
-// components
-// model
-// helpers
+Design:
+https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
+https://cheatsheetseries.owasp.org/
 
--- release 0. - ui-improvements
-design improvements
-remove half of loading indicators
-update styles
-add react helmet
-add fonts
+Features:
+-- ui-improvements
+loading spinner for loading window
+remove unnecessary loading indicators
+add nav bar collapsing
+
+handle auth BE error message, show error message
 nav bar props array
-
--- release 0. - registration
-add registration and forgot password
+add react helmet to display page name in browser tab
+add registration
+add nav list on left side https://cheatsheetseries.owasp.org/
 registration password validation
 forgot email form
 email reset uniq link
-
--- release 0. - add jest, write test
-
--- release 0. - advanced authorization
-google login form
-
-форма логин/регистрации на 2 таба
+add jest, write test
+create, delete employee (paycheck, titles, employments)
+replace all reducers with objects
 add CRUD for employees, title, payoff, salary, hire/fire employee
 add features from material-ui project
 new route, get design from material-ui examples page
 analytics: table, graphs, reports
-indexeddb
-isAuthenticated
-new Date().getTime() / 1000 < authState.expiresAt
-
-- // local storage userInfo, expiresAt
+use indexeddb for reports
+fix material ui makeStyles classnames autocomplete
 fix fetch response types result?.data?.login?.userCredentials
+add auth context loading state, hide login page when fetching me status
+separate vendor chunks
+add service worker
+run localhost on https (http redirects to https)
+add a main loading spinner on reload while fetching user data
+add explicit isAuthenticated state
+add X-CSRF-Token
 
-- get rid of html file
+Bugs:
+check if session timeout works correctly
 
--- loading spinner to loading window
+https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
+https://cheatsheetseries.owasp.org/
 
--- replace all reducers with objects
-
--- add auth context loading state, hide login page when fetching me status
-
--- add service worker
--- separate vendor chunks
--- add service worker
-
--- run localhost on http + https
-
--- add a main loading spinner on reload while fetching user data
-
--- add explicit isAuthenticated state
--- add X-CSRF-Token
+Releases:
+-- release 0.1.3 code refactor
++ extract webpack and typescript configs to configs folder
++ eslint groups rules
++ eslint import, error
++ eslint cycle dependencies
++ types generation
++ lint-staged

@@ -1,28 +1,27 @@
-// deps
-import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { FormikState, useFormik } from 'formik'
 import isEqual from 'lodash.isequal'
-// components
-import Modal from '_/components/UI/Modal'
-import Dialog from '_/components/UI/Dialog'
-// model
+import React, { FC, useCallback, useMemo, ChangeEvent } from 'react'
+
+import Dialog from 'components/UI/Dialog'
+import Modal from 'components/UI/Modal'
+import {
+  initStateSelector,
+  sortByName,
+  validationSchema,
+} from 'containers/Employee/components/DetailsModal/helpers'
+
 import {
   Employee,
   Department,
   Title,
   UpdateEmployeeInput,
-} from '_/model/generated'
-// helpers
-import {
-  initStateSelector,
-  sortByName,
-  validationSchema,
-} from '_/containers/Employee/components/DetailsModal/helpers'
+} from 'model/generated'
+
 import useStyles from './styles'
 
 interface IDetailsModalProps {
@@ -40,7 +39,7 @@ interface IDetailsModalProps {
   isLoading: boolean
 }
 
-const DetailsModal: React.FC<IDetailsModalProps> = ({
+const DetailsModal: FC<IDetailsModalProps> = ({
   isOpen,
   handleClose,
   data,
@@ -71,26 +70,26 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     },
   })
 
-  const handleChangeText = React.useCallback(
-    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeText = useCallback(
+    (field: string) => (event: ChangeEvent<HTMLInputElement>) => {
       setFieldValue(field, event.target.value)
     },
     [setFieldValue],
   )
 
-  const handleChangeDate = React.useCallback(
+  const handleChangeDate = useCallback(
     (field: string) => (dateValue: Date | null) => {
       setFieldValue(field, dateValue)
     },
     [setFieldValue],
   )
 
-  const handleCancel = React.useCallback(() => {
+  const handleCancel = useCallback(() => {
     handleClose()
     resetForm({})
   }, [handleClose, resetForm])
 
-  const titleOptions = React.useMemo(
+  const titleOptions = useMemo(
     () =>
       titles?.sort(sortByName).map((option) => (
         <MenuItem key={option._id} value={option._id}>
@@ -100,7 +99,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     [titles],
   )
 
-  const departmentOptions = React.useMemo(
+  const departmentOptions = useMemo(
     () =>
       departments?.sort(sortByName).map((option) => (
         <MenuItem key={option._id} value={option._id}>
@@ -110,7 +109,7 @@ const DetailsModal: React.FC<IDetailsModalProps> = ({
     [departments],
   )
 
-  const disableConfirm = React.useMemo<boolean>(
+  const disableConfirm = useMemo<boolean>(
     () =>
       !(isValid && values?.first_name) ||
       isEqual(values, initState) ||

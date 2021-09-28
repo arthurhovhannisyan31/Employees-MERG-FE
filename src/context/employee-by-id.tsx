@@ -1,13 +1,12 @@
-// deps
-import React from 'react'
-// model
+import React, { createContext, useReducer, FC } from 'react'
+
 import {
   IEmployeeByIdState,
   IEmployeeByIdContext,
   TEmployeeByIdReducer,
   EActionTypes,
-} from '_/model/context/employee'
-import { Employee } from '_/model/generated'
+} from 'model/context/employee'
+import { Employee } from 'model/generated'
 
 const employeeByIdInitState: IEmployeeByIdState = {
   loading: false,
@@ -17,10 +16,10 @@ const employeeByIdInitState: IEmployeeByIdState = {
 
 const EmployeeByIdContextInitState: IEmployeeByIdContext = {
   state: employeeByIdInitState,
-  dispatch: () => {},
+  dispatch: () => null,
 }
 
-const EmployeeByIdContext = React.createContext<IEmployeeByIdContext>(
+const EmployeeByIdContext = createContext<IEmployeeByIdContext>(
   EmployeeByIdContextInitState,
 )
 
@@ -57,8 +56,8 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
   }
 }
 
-const EmployeeContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer<TEmployeeByIdReducer>(
+const EmployeeContextContainer: FC = ({ children }) => {
+  const [state, dispatch] = useReducer<TEmployeeByIdReducer>(
     employeeByIdReducer,
     employeeByIdInitState,
   )

@@ -1,8 +1,6 @@
-// deps
-// local
-import React from 'react'
+import React, { FC } from 'react'
 
-const Index: React.FC = () => (
+const Index: FC = () => (
   <>
     <span>Home</span>
   </>

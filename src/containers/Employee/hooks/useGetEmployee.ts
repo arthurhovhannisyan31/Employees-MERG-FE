@@ -1,26 +1,25 @@
-// deps
-import React from 'react'
+import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-// model
-import { GetEmployeeInput } from '_/model/generated'
+
+import { queryEmployee } from 'gql/queries'
+import { fetchResponseCheck } from 'utils/auth'
+import { useFetch } from 'utils/hooks'
+
 import {
   EActionTypes,
   TEmployeeByIdAction,
   TEmployeeFetchResponse,
-} from '_/model/context/employee'
-// helpers
-import { queryEmployee } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
-import { useFetch } from '_/utils/hooks'
+} from 'model/context/employee'
+import { GetEmployeeInput } from 'model/generated'
 
 export interface IUseGetEmployeeProps {
-  dispatch: React.Dispatch<TEmployeeByIdAction>
+  dispatch: (val: TEmployeeByIdAction) => void
 }
 
 export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
   const { id: idParam } = useParams<Record<'id', string>>()
   const handleFetch = useFetch()
-  const handleGetEmployee = React.useCallback(
+  const handleGetEmployee = useCallback(
     async ({ id }: GetEmployeeInput) => {
       dispatch({
         type: EActionTypes.LOADING,
@@ -42,7 +41,7 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
       } catch (err) {
         dispatch({
           type: EActionTypes.ERROR,
-          payload: { error: err },
+          payload: { error: err as Record<string, string> },
         })
       }
       dispatch({

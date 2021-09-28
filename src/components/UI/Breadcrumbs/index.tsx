@@ -1,14 +1,13 @@
-// deps
-import React, { useCallback, useMemo } from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
-// helpers
+import React, { useCallback, useMemo, FC } from 'react'
+import { useLocation, useHistory } from 'react-router-dom'
+
 import useStyles from './style'
 
-const BreadcrumbsComp: React.FC = () => {
+const BreadcrumbsComp: FC = () => {
   const location = useLocation()
   const history = useHistory()
   const classes = useStyles()

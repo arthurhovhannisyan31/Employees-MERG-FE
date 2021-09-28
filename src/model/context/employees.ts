@@ -1,8 +1,7 @@
-// deps
 import React from 'react'
-// model
-import { Employee, Employees } from '_/model/generated'
-import { IAction, IFetchError } from '_/model/common'
+
+import { IAction, IFetchError } from 'model/common'
+import { Employee, Employees } from 'model/generated'
 
 export interface IEmployeesState {
   loading: boolean
