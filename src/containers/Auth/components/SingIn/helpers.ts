@@ -1,7 +1,6 @@
-// deps
 import * as yup from 'yup'
-// model
-import { UserInput } from '_/model/generated'
+
+import { UserInput } from 'model/generated'
 
 export const validationSchema: yup.SchemaOf<UserInput> = yup.object().shape({
   email: yup

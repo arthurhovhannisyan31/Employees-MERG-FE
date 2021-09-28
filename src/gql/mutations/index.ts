@@ -1,11 +1,10 @@
-// model
+import { userCredentials } from 'gql/fragments'
+
+import { QueryProps } from 'model/common'
 import {
   RootMutationCreateUserArgs,
   UpdateEmployeeInput,
 } from 'model/generated'
-import { QueryProps } from 'model/common'
-// helpers
-import { userCredentials } from 'gql/fragments'
 
 // export const createUser = (): void => ({})
 

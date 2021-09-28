@@ -1,6 +1,5 @@
-// deps
-import React, { useState, createContext } from 'react'
-// model
+import React, { useState, createContext, FC } from 'react'
+
 import { SnackbarContextProps, SnackbarProps } from 'model/context/snackbar'
 
 const snackbarInitState: SnackbarProps = {

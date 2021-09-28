@@ -1,6 +1,3 @@
-// deps
-import React, { useCallback, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
 import {
   Grid,
   IconButton,
@@ -12,18 +9,25 @@ import {
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { useFormik } from 'formik'
-// components
-import Dialog from '_/components/UI/Dialog'
-import PasswordStrength from '_/containers/ChangePassword/components/PasswordStrength'
-// model
-import { PassportStrengthValidation } from '_/containers/ChangePassword/components/PasswordStrength/types'
-import { ChangePasswordState } from '_/containers/ChangePassword/types'
-// helpers
-import { handleEnterKeyDown } from '_/utils/keyboard'
-import { getPasswordStrength, initState } from './helpers'
-import useStyles from './styles'
+import React, {
+  ChangeEvent,
+  FC,
+  KeyboardEvent,
+  useCallback,
+  useMemo,
+} from 'react'
+import { useParams } from 'react-router-dom'
 
-const ChangePassword: React.FC = () => {
+import Dialog from 'components/UI/Dialog'
+import PasswordStrength from 'containers/ChangePassword/components/PasswordStrength'
+import { PassportStrengthValidation } from 'containers/ChangePassword/components/PasswordStrength/types'
+import { ChangePasswordState } from 'containers/ChangePassword/types'
+import { handleEnterKeyDown } from 'utils/keyboard'
+
+import { getPasswordStrength, initState } from './helpers'
+import useStyles from './style'
+
+const ChangePassword: FC = () => {
   const classes = useStyles({ hasError: false })
   const { id: forgottenPasswordId } = useParams<Record<'id', string>>()
 
@@ -56,7 +60,7 @@ const ChangePassword: React.FC = () => {
 
   const handleTextField = useCallback(
     (field: string) =>
-      (event: React.ChangeEvent<HTMLInputElement>): void => {
+      (event: ChangeEvent<HTMLInputElement>): void => {
         setFieldValue(field, event.target.value)
       },
     [setFieldValue],
@@ -80,7 +84,7 @@ const ChangePassword: React.FC = () => {
   )
 
   const handleKeyDownSubmit = useCallback(
-    (event: React.KeyboardEvent) => {
+    (event: KeyboardEvent) => {
       if (!disableConfirm) {
         handleEnterKeyDown(handleSubmit)(event)
       }

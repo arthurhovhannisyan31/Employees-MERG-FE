@@ -1,8 +1,8 @@
-// deps
-import React from 'react'
+import { KeyboardEvent } from 'react'
 
 export const handleEnterKeyDown =
-  (cb: () => void) => (event: React.KeyboardEvent) => {
+  (cb: () => void) =>
+  (event: KeyboardEvent): void => {
     if (event.key === 'Enter') {
       cb()
     }

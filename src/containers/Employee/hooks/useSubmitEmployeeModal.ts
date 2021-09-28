@@ -1,15 +1,12 @@
-// deps
-import React from 'react'
-// model
-import { UpdateEmployeeInput } from 'model/generated'
-import { ActionTypes, EmployeeByIdAction } from 'model/context/employee'
-// helpers
-import { useFetch } from 'hooks'
 import { mutationUpdateEmployee } from 'gql/mutations'
+import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
 
+import { ActionTypes, EmployeeByIdAction } from 'model/context/employee'
+import { UpdateEmployeeInput } from 'model/generated'
+
 interface IUseSubmitEmployeeModalProps {
-  dispatch: React.Dispatch<EmployeeByIdAction>
+  dispatch: (val: EmployeeByIdAction) => void
 }
 type SubmitProps = (props: UpdateEmployeeInput, resetForm: () => void) => void
 
@@ -35,13 +32,13 @@ export const useSubmitEmployeeModal = ({
         type: ActionTypes.UPDATE_ITEM,
         payload: {
           data: rest,
-          key: id,
+          key: id as string,
         },
       })
     } catch (error) {
       dispatch({
         type: 'error',
-        payload: { error: error },
+        payload: { error: error as Error },
       })
     }
     dispatch({

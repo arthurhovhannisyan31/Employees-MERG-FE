@@ -1,17 +1,17 @@
-// deps
-import React from 'react'
-// model
+import { ChangeEvent } from 'react'
+
 import {
   FieldsHandlers,
   FieldHandlerProps,
-} from '_/containers/Auth/components/types'
-import { FieldError } from '_/model/generated'
+} from 'containers/Auth/components/types'
+
+import { FieldError } from 'model/generated'
 
 export const getFieldsHandlers = (
   handlers: FieldHandlerProps[],
 ): FieldsHandlers => {
   return handlers.reduce((acc: FieldsHandlers, [name, handler]) => {
-    acc[name] = (event: React.ChangeEvent<HTMLInputElement>) =>
+    acc[name] = (event: ChangeEvent<HTMLInputElement>) =>
       handler(event.target.value)
     return acc
   }, {})

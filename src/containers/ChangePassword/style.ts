@@ -1,4 +1,3 @@
-// deps
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 interface StylesProps {

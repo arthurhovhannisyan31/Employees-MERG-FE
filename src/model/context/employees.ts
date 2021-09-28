@@ -1,11 +1,9 @@
-import React from 'react'
-// model
-import { Employee, Employees } from 'model/generated'
 import { Action, FetchError } from 'model/common'
+import { Employee, Employees } from 'model/generated'
 
 export interface IEmployeesState {
   loading: boolean
-  error: Record<string, string> | null
+  error: Error
   data: Record<string, Employee[]>
   count: number
 }
@@ -25,7 +23,7 @@ export enum ActionTypes {
 export interface IEmployeesContext {
   state: IEmployeesState
   initState: IEmployeesState
-  dispatch: React.Dispatch<TEmployeesAction>
+  dispatch: (val: TEmployeesAction) => void
 }
 export interface IEmployeesFetchResponse {
   data: {

@@ -1,9 +1,10 @@
 import differenceInYears from 'date-fns/differenceInYears'
-// model
-import { Employee, Title, UpdateEmployeeInput } from 'model/generated'
-import { EmployeeSchema } from 'containers/Employee/components/DetailsModal/types'
-// helpers
+import * as yup from 'yup'
+
 import { ADULT_AGE } from 'constants/common'
+import { EmployeeSchema } from 'containers/Employee/components/DetailsModal/types'
+
+import { Employee, Title, UpdateEmployeeInput } from 'model/generated'
 
 export const initStateSelector = ({
   _id,

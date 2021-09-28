@@ -1,14 +1,13 @@
-// deps
-import React from 'react'
 import { Grid, Typography, Tooltip } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check'
 import cn from 'clsx'
-// model
-import { PasswordStrengthProps } from '_/containers/ChangePassword/components/PasswordStrength/types'
-// helpers
+import React, { FC } from 'react'
+
+import { PasswordStrengthProps } from 'containers/ChangePassword/components/PasswordStrength/types'
+
 import useStyles from './styles'
 
-const PasswordStrength: React.FC<PasswordStrengthProps> = ({
+const PasswordStrength: FC<PasswordStrengthProps> = ({
   validation: {
     hasDigits,
     hasLowercase,

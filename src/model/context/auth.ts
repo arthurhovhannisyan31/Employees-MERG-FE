@@ -1,6 +1,3 @@
-// deps
-import React from 'react'
-// model
 import { AuthData, FieldError } from 'model/generated'
 
 export enum AuthContextActions {
@@ -16,7 +13,7 @@ export interface AuthState extends Pick<AuthData, 'userCredentials'> {
 export interface AuthContextProps extends AuthState {
   headers: Record<string, string>
   apiUrl: string
-  dispatch: React.Dispatch<AuthReducerAction>
+  dispatch: (val: AuthReducerAction) => void
 }
 
 export type AuthReducerProps = (

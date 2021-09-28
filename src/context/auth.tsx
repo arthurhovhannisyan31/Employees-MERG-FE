@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, FC } from 'react'
 
-import { API_URL } from 'utils/constants/config'
+import { API_URL } from 'constants/config'
 
 import {
   AuthContextActions,
@@ -9,8 +9,6 @@ import {
   AuthState,
   AuthReducerProps,
 } from 'model/context/auth'
-// helpers
-import { API_URL } from '_/constants/config'
 
 const authContextInitValue: AuthContextProps = {
   userCredentials: {

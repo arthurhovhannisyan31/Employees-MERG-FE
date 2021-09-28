@@ -1,11 +1,11 @@
 import Grid from '@material-ui/core/Grid'
-import React from 'react'
+import React, { FC } from 'react'
 
 import { SVG404 } from 'static/SVG'
 
 import useStyles from './style'
 
-const NotFound: React.FC = () => {
+const NotFound: FC = () => {
   const classes = useStyles()
   return (
     <Grid justifyContent="center" className={classes.container}>

@@ -1,12 +1,9 @@
-// deps
-import React from 'react'
-// model
-import { Employee, UpdateEmployeeInput } from 'model/generated'
 import { Action } from 'model/common'
+import { Employee, UpdateEmployeeInput } from 'model/generated'
 
 export interface EmployeeByIdState {
   loading: boolean
-  error: boolean
+  error: Error
   data: Record<string, Employee>
 }
 export type EmployeeByIdAction = Action<
@@ -33,7 +30,7 @@ export enum ActionTypes {
 
 export interface EmployeeByIdContextProps {
   state: EmployeeByIdState
-  dispatch: React.Dispatch<EmployeeByIdAction>
+  dispatch: (val: EmployeeByIdAction) => void
 }
 
 export type EmployeeFetchResponse = {

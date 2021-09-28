@@ -1,15 +1,14 @@
-// deps
 import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-// model
-import { AuthReducerAction, AuthContextActions } from '_/model/context/auth'
-import { IQueryLoginResponse } from '_/model/queries/auth'
-import { UserInput } from '_/model/generated'
-// helpers
-import { queryLogin } from '_/gql/queries'
-import { useFetch } from '_/hooks'
-import { SnackbarContext } from '_/context/snackbar'
-import { checkResponse } from '_/utils/auth'
+
+import { SnackbarContext } from 'context/snackbar'
+import { queryLogin } from 'gql/queries'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
+
+import { AuthReducerAction, AuthContextActions } from 'model/context/auth'
+import { UserInput } from 'model/generated'
+import { IQueryLoginResponse } from 'model/queries/auth'
 
 export interface UseLoginProps {
   dispatch: (value: AuthReducerAction) => void
@@ -54,16 +53,17 @@ export const useLogin = ({
       } catch (err) {
         dispatch({
           type: AuthContextActions.ERRORS,
-          payload: { errors: [{ message: err.message, field: err.message }] },
+          payload: {
+            errors: [
+              {
+                message: (err as Error).message,
+                field: (err as Error).message,
+              },
+            ],
+          },
         })
       }
     },
-    [      email,
-      password,
-      handleFetch,
-      authState,
-      dispatch,
-      setSnackbarState,
-      history,],
+    [dispatch, handleFetch, history, setSnackbarState],
   )
 }

@@ -1,6 +1,3 @@
-// deps
-import React, { useCallback, useContext } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
 import {
   Button,
   AppBar,
@@ -18,18 +15,21 @@ import {
   Person as PersonIcon,
 } from '@material-ui/icons'
 import clsx from 'clsx'
-// model
-import { RoutePath } from 'model/common'
-// helpers
-import { AuthContext, ThemeContext } from 'context'
+import React, { FC, useCallback, useContext } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+
 import { useLogout } from 'containers/Auth/hooks/useLogout'
+import { AuthContext, ThemeContext } from 'context'
+
+import { RoutePath } from 'model/common'
+
 import useStyles from './styles'
 
 const Header: FC = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext)
   const {
     userCredentials: { email, _id: id },
-  } = React.useContext(AuthContext)
+  } = useContext(AuthContext)
 
   const classes = useStyles()
   const history = useHistory()

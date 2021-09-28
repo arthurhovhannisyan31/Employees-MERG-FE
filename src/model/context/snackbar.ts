@@ -1,4 +1,3 @@
-// model
 export type SnackbarType = 'error' | 'warning' | 'info' | 'success'
 
 export interface SnackbarProps {

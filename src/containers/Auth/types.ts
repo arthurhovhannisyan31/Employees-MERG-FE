@@ -1,5 +1,5 @@
-import { QueryProps } from '_/model/common'
-import { UserInput } from '_/model/generated'
+import { QueryProps } from 'model/common'
+import { UserInput } from 'model/generated'
 
 export type AuthQuery = 'signUp' | 'signIn'
 

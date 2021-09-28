@@ -47,7 +47,7 @@ const employeeByIdReducer: EmployeeByIdReducerProps = (state, action) => {
           ...state.data,
           [payload.key as string]: {
             ...state.data[payload.key as string],
-            ...payload.data,
+            ...(payload.data as Employee),
           },
         },
       }

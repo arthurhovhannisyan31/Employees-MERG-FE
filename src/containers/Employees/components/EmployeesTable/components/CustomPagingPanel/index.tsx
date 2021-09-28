@@ -21,15 +21,10 @@ const CustomPagingPanel: FC<IProps> = ({
 }) => {
   const classes = useStyles()
 
-  const handleChangePage = (
-    _: ChangeEvent<unknown>,
-    value: number,
-  ): void => {
+  const handleChangePage = (_: ChangeEvent<unknown>, value: number): void => {
     onCurrentPageChange(value - 1)
   }
-  const handleChangePageSize = (
-    event: ChangeEvent<HTMLInputElement>,
-  ): void => {
+  const handleChangePageSize = (event: ChangeEvent<HTMLInputElement>): void => {
     onCurrentPageChange(0)
     onPageSizeChange(event.target.value as never as number)
   }

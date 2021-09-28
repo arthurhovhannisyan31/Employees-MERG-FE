@@ -2,21 +2,18 @@ import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { queryEmployee } from 'gql/queries'
-import { fetchResponseCheck } from 'utils/auth'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
 
 import {
   ActionTypes,
   EmployeeByIdAction,
   EmployeeFetchResponse,
 } from 'model/context/employee'
-// helpers
-import { queryEmployee } from 'gql/queries'
-import { checkResponse } from 'utils/auth'
-import { useFetch } from 'hooks'
+import { GetEmployeeInput } from 'model/generated'
 
 export interface IUseGetEmployeeProps {
-  dispatch: (val: TEmployeeByIdAction) => void
+  dispatch: (val: EmployeeByIdAction) => void
 }
 type GetEmployeeProps = (props: GetEmployeeInput) => void
 export const useGetEmployee = ({
@@ -46,7 +43,7 @@ export const useGetEmployee = ({
       } catch (err) {
         dispatch({
           type: ActionTypes.ERROR,
-          payload: { error: err },
+          payload: { error: err as Error },
         })
       }
       dispatch({

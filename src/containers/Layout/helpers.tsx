@@ -1,9 +1,9 @@
-// deps
-import React from 'react'
 import { Home, People, Info } from '@material-ui/icons'
-// model
-import { RouteName, RouteMap } from '_/model/common'
-import { IMenuDrawerItem, TRouteIconMap } from '_/containers/Layout/types'
+import React from 'react'
+
+import { IMenuDrawerItem, TRouteIconMap } from 'containers/Layout/types'
+
+import { RouteName, RouteMap } from 'model/common'
 
 export const routesIconMap: TRouteIconMap = {
   [RouteName.HOME]: <Home />,

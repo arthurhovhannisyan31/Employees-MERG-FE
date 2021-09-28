@@ -1,17 +1,23 @@
-// deps
-import React, { useContext, useEffect, useState, useCallback } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import Grid from '@material-ui/core/Grid'
 import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
+import Grid from '@material-ui/core/Grid'
 import Tab from '@material-ui/core/Tab'
-// components
-import SignIn from 'containers/Auth/components/SingIn'
+import Tabs from '@material-ui/core/Tabs'
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  FC,
+  ChangeEvent,
+} from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+
+import TabPanel from 'components/UI/TabPanel'
 import SignUp from 'containers/Auth/components/SignUp'
-// helpers
+import SignIn from 'containers/Auth/components/SingIn'
 import { AuthContext } from 'context'
 import { a11yProps } from 'utils/a11y'
-import TabPanel from 'components/UI/TabPanel'
+
 import useStyles from './style'
 
 const Auth: FC = () => {
@@ -24,7 +30,7 @@ const Auth: FC = () => {
   const classes = useStyles({ hasError: !!authErrors?.length })
 
   const handleChange = useCallback(
-    (_: React.ChangeEvent<Record<string, never>>, newValue: number) => {
+    (_: ChangeEvent<Record<string, never>>, newValue: number) => {
       setTab(newValue)
     },
     [],

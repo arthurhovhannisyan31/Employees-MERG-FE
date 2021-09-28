@@ -1,17 +1,15 @@
-import { useContext, useCallback, useMemo, Dispatch } from 'react'
+import { useContext, useCallback, useMemo } from 'react'
 
 import { SnackbarContext } from 'context/snackbar'
 import { queryEmployees } from 'gql/queries'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
 
 import {
   TEmployeesAction,
   IEmployeesFetchResponse,
-} from '_/model/context/employees'
-// helpers
-import { queryEmployees } from '_/gql/queries'
-import { SnackbarContext } from '_/context/snackbar'
-import { useFetch } from '_/hooks'
+} from 'model/context/employees'
+
+import { GetEmployeesInput } from '../../model/generated'
 
 interface IUseGetEmployees {
   dispatch: (val: TEmployeesAction) => void
@@ -59,12 +57,12 @@ export const useGetEmployees = ({
       } catch (err) {
         setSnackbarState({
           type: 'error',
-          message: err.message,
+          message: (err as Error).message,
           open: true,
         })
         dispatch({
           type: 'error',
-          payload: { error: err },
+          payload: { error: err as Error },
         })
       }
       dispatch({

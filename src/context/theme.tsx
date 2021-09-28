@@ -1,7 +1,6 @@
-// deps
-import React, { useState, createContext } from 'react'
-// model
-import { ThemeContextProps } from '_/model/context/theme'
+import React, { useState, createContext, FC } from 'react'
+
+import { ThemeContextProps } from 'model/context/theme'
 
 const themeInitState = {
   darkMode: true,

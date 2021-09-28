@@ -1,24 +1,22 @@
 import { useCallback } from 'react'
 
 import { queryGenders } from 'gql/queries'
-import { fetchResponseCheck } from 'utils/auth'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
 
 import {
-  CatalogsAction,
   ActionTypes,
+  CatalogsAction,
   GendersFetchResponse,
-} from '_/model/context/catalogs'
-// helpers
-import { useFetch } from '_/hooks'
-import { queryGenders } from '_/gql/queries'
-import { checkResponse } from '_/utils/auth'
+} from 'model/context/catalogs'
 
 export interface IUseGetGenders {
-  dispatch: (val: TCatalogsAction) => void
+  dispatch: (val: CatalogsAction) => void
 }
 
-export const useGetGenders = ({ dispatch }: IUseGetGenders): [() => Promise<void>] => {
+export const useGetGenders = ({
+  dispatch,
+}: IUseGetGenders): [() => Promise<void>] => {
   const handleFetch = useFetch()
   const handleGetGenders = useCallback(async () => {
     dispatch({
@@ -44,7 +42,7 @@ export const useGetGenders = ({ dispatch }: IUseGetGenders): [() => Promise<void
       dispatch({
         type: ActionTypes.ERROR,
         payload: {
-          error,
+          error: error as Error,
         },
       })
     }

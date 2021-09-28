@@ -1,7 +1,5 @@
-import React from 'react'
-// model
-import { Department, Gender, Title } from 'model/generated'
 import { Action } from 'model/common'
+import { Department, Gender, Title } from 'model/generated'
 
 export interface CatalogEntries {
   departments: Department[]
@@ -11,7 +9,7 @@ export interface CatalogEntries {
 
 export interface CatalogsState {
   loading: boolean
-  error: Record<string, string> | null
+  error: Error
   data: Partial<CatalogEntries>
 }
 
@@ -36,7 +34,7 @@ export enum ActionTypes {
 
 export interface CatalogsContextProps {
   state: CatalogsState
-  dispatch: React.Dispatch<CatalogsAction>
+  dispatch: (val: CatalogsAction) => void
 }
 
 export type DepartmentsFetchResponse = {

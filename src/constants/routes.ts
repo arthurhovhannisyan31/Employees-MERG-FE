@@ -1,4 +1,3 @@
-// model
 import { RouteName, RoutePath, RouteMap } from 'model/common'
 
 export const ROUTES: RouteMap = {

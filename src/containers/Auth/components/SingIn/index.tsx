@@ -1,24 +1,30 @@
-// deps
-import React, { useCallback, useContext, useEffect, useMemo } from 'react'
+import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 import { useFormik } from 'formik'
-// model
-import { UserInput } from '_/model/generated'
-// components
-import Dialog from '_/components/UI/Dialog'
-// helpers
-import { useLogin } from '_/containers/Auth/hooks'
-import { AuthContext } from '_/context/auth'
-import { handleEnterKeyDown } from '_/utils/keyboard'
-import { validationSchema } from '_/containers/Auth/components/SingIn/helpers'
-import { errorArrayToMap } from '_/containers/Auth/components/helpers'
-import { useForgottenPassword } from '_/containers/Auth/hooks/useForgottenPassword'
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from 'react'
+
+import Dialog from 'components/UI/Dialog'
+import { errorArrayToMap } from 'containers/Auth/components/helpers'
+import { validationSchema } from 'containers/Auth/components/SingIn/helpers'
+import { useLogin } from 'containers/Auth/hooks'
+import { useForgottenPassword } from 'containers/Auth/hooks/useForgottenPassword'
+import { AuthContext } from 'context/auth'
+import { handleEnterKeyDown } from 'utils/keyboard'
+
+import { UserInput } from 'model/generated'
 
 import useStyles from './styles'
 
-const SignIn: React.FC = () => {
+const SignIn: FC = () => {
   const { dispatch, errors: authErrors } = useContext(AuthContext)
   const forgottenPassword = useForgottenPassword()
   const handleLogin = useLogin({
@@ -57,7 +63,7 @@ const SignIn: React.FC = () => {
 
   const handleTextField = useCallback(
     (field: string) =>
-      (event: React.ChangeEvent<HTMLInputElement>): void => {
+      (event: ChangeEvent<HTMLInputElement>): void => {
         setFieldValue(field, event.target.value)
       },
     [setFieldValue],
@@ -76,7 +82,7 @@ const SignIn: React.FC = () => {
   )
 
   const handleKeyDownSubmit = useCallback(
-    (event: React.KeyboardEvent) => {
+    (event: KeyboardEvent) => {
       if (!disableConfirm) {
         handleEnterKeyDown(handleSubmit)(event)
       }

@@ -1,22 +1,20 @@
-// deps
-import React, { useContext, useEffect } from 'react'
 import { ThemeProvider } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { Switch, useLocation } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
-// components
-import Layout from 'containers/Layout'
-import SnackbarComp from 'components/UI/Snackbar'
-import BreadcrumbsComp from 'components/UI/Breadcrumbs'
-import Backdrop from 'components/UI/Backdrop'
-// model
-import { RoutePath } from 'model/common'
-// helpers
-import routes from 'routes/app-routes'
-import { AuthContext, ThemeContext } from 'context'
-import { useMe } from 'containers/Auth/hooks'
+import React, { useContext, useEffect, FC } from 'react'
+import { Switch, useLocation } from 'react-router-dom'
 
+import Backdrop from 'components/UI/Backdrop'
+import BreadcrumbsComp from 'components/UI/Breadcrumbs'
+import SnackbarComp from 'components/UI/Snackbar'
+import { useMe } from 'containers/Auth/hooks'
+import Layout from 'containers/Layout'
+import { AuthContext, ThemeContext } from 'context'
+import { default as routes } from 'routes/app-routes'
 import themeCreator from 'utils/theme'
+
+import { RoutePath } from 'model/common'
+
 import useStyles from './styles'
 
 const Root: FC = () => {

@@ -1,20 +1,19 @@
-// deps
-import React from 'react'
-import { useHistory } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-// model
-import { IMenuDrawerItem } from '_/containers/Layout/types'
-// helpers
+import React, { FC } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import { IMenuDrawerItem } from 'containers/Layout/types'
+
 import useStyles from './style'
 
 interface IIndexProps {
   items: IMenuDrawerItem[]
 }
 
-const MenuDrawer: React.FC<IIndexProps> = ({ items }) => {
+const MenuDrawer: FC<IIndexProps> = ({ items }) => {
   const classes = useStyles()
   const history = useHistory()
 

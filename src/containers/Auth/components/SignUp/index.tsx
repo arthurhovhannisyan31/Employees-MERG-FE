@@ -1,14 +1,12 @@
-// deps
-import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
-// components
-import Dialog from '_/components/UI/Dialog'
-// model
-// helpers
+import React, { FC } from 'react'
+
+import Dialog from 'components/UI/Dialog'
+
 import useStyles from './styles'
 
-const SignUp: React.FC = () => {
+const SignUp: FC = () => {
   const classes = useStyles()
   // TODO email validation
   // TODO password strengths with rate indicator, pass only strong

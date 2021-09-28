@@ -1,13 +1,3 @@
-// model
-import {
-  RootQueryEmployeeArgs,
-  RootQueryEmployeesArgs,
-  RootQueryForgottenPasswordArgs,
-  RootQueryLoginArgs,
-} from '_/model/generated'
-// model
-import { QueryProps } from 'model/common'
-// helpers
 import {
   employeeFragment,
   genderFragment,
@@ -17,6 +7,14 @@ import {
   titleFragment,
   userResponseFragment,
 } from 'gql/fragments'
+
+import { QueryProps } from 'model/common'
+import {
+  RootQueryEmployeeArgs,
+  RootQueryEmployeesArgs,
+  RootQueryForgottenPasswordArgs,
+  RootQueryLoginArgs,
+} from 'model/generated'
 
 export const queryLogin = ({ input }: RootQueryLoginArgs): QueryProps => ({
   query: `

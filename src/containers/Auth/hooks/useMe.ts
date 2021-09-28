@@ -1,15 +1,14 @@
-// deps
 import { useContext, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
-// model
-import { AuthContextActions, AuthReducerAction } from 'model/context/auth'
-import { QueryMeResponse } from 'model/queries/auth'
-// helpers
+
+import { useIsAuthFreeRoute } from 'containers/Auth/helpers'
+import { useLogout } from 'containers/Auth/hooks/useLogout'
 import { SnackbarContext } from 'context'
 import { queryMe } from 'gql/queries'
 import { useFetch } from 'hooks'
-import { useLogout } from 'containers/Auth/hooks/useLogout'
-import { useIsAuthFreeRoute } from 'containers/Auth/helpers'
+
+import { AuthContextActions, AuthReducerAction } from 'model/context/auth'
+import { QueryMeResponse } from 'model/queries/auth'
 
 export interface IUseCheckAuthorizationProps {
   dispatch: (value: AuthReducerAction) => void
@@ -48,7 +47,7 @@ export const useMe = ({
     } catch (err) {
       setSnackbarState({
         type: 'error',
-        message: err.message,
+        message: (err as Error).message,
         open: true,
       })
     }

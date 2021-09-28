@@ -1,21 +1,17 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 
 import { queryTitles } from 'gql/queries'
-import { fetchResponseCheck } from 'utils/auth'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
 
 import {
   CatalogsAction,
   TitleFetchResponse,
   ActionTypes,
 } from 'model/context/catalogs'
-// helpers
-import { useFetch } from 'hooks'
-import { queryTitles } from 'gql/queries'
-import { checkResponse } from 'utils/auth'
 
 export interface IUseGetDepartments {
-  dispatch: React.Dispatch<CatalogsAction>
+  dispatch: (val: CatalogsAction) => void
 }
 
 export const useGetTitles = ({
@@ -36,7 +32,7 @@ export const useGetTitles = ({
         prop: 'titles',
       })
     } catch (error) {
-      dispatch({ type: ActionTypes.ERROR, payload: { error } })
+      dispatch({ type: ActionTypes.ERROR, payload: { error: error as Error } })
     }
     dispatch({ type: ActionTypes.LOADING, payload: { loading: false } })
   }, [dispatch, handleFetch])

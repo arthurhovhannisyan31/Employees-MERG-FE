@@ -1,13 +1,13 @@
 import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-// model
-import { AuthContextActions } from '_/model/context/auth'
-import { IQueryLogoutResponse } from '_/model/queries/auth'
-// helpers
-import { AuthContext } from '_/context/auth'
-import { useFetch } from '_/hooks'
-import { queryLogout } from '_/gql/queries'
-import { checkResponse } from '_/utils/auth'
+
+import { AuthContext } from 'context/auth'
+import { queryLogout } from 'gql/queries'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
+
+import { AuthContextActions } from 'model/context/auth'
+import { IQueryLogoutResponse } from 'model/queries/auth'
 
 export const useLogout = (): (() => void) => {
   const history = useHistory()
@@ -33,7 +33,14 @@ export const useLogout = (): (() => void) => {
     } catch (err) {
       dispatch({
         type: AuthContextActions.ERRORS,
-        payload: { errors: [err] },
+        payload: {
+          errors: [
+            {
+              message: (err as Error).message,
+              field: (err as Error).message,
+            },
+          ],
+        },
       })
     }
   }, [dispatch, handleFetch, history])

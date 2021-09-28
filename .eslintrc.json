@@ -52,6 +52,7 @@
     "react/require-default-props": 0,
     "import/no-cycle": [2, { "ignoreExternal": true }],
     "import/default": 0,
+    "import/named": 1,
     "import/order": [
       "error",
       {
@@ -95,7 +96,7 @@
     },
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [".js", ".jsx", "mjs", ".ts", ".tsx"]
       },
       "typescript": {
         "alwaysTryTypes": true,

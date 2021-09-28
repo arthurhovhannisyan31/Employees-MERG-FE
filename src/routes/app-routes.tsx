@@ -1,34 +1,17 @@
-// deps
-import React, { lazy } from 'react'
-import { RouteProps, RouteComponentProps } from 'react-router-dom'
-// helpers
-import { routeMaker } from '_/routes/helpers'
-import { ROUTES } from '_/constants/routes'
-import { RoutePath } from '_/model/common'
+import { lazy } from 'react'
 
-const Home = lazy(() => import('_/containers/Home'))
-const About = lazy(() => import('_/containers/About'))
-const Auth = lazy(() => import('_/containers/Auth'))
-const NotFound = lazy(() => import('_/containers/NotFound'))
-const Employees = lazy(() => import('_/containers/Employees'))
-const Employee = lazy(() => import('_/containers/Employee'))
-const ChangePassword = lazy(() => import('_/containers/ChangePassword'))
+import { ROUTES } from 'constants/routes'
+import { routeMaker } from 'routes/helpers'
 
-export interface CustomRoute extends RouteProps {
-  exact?: boolean
-  isPrivate?: boolean
-  path: string
-  basePath: RoutePath
-  label: string
-  icon?: React.ReactNode
-  component:
-    | React.ComponentClass<
-        RouteComponentProps<Record<string, string | undefined>>
-      >
-    | React.FunctionComponent<
-        RouteComponentProps<Record<string, string | undefined>>
-      >
-}
+import { CustomRoute } from './types'
+
+const Home = lazy(() => import('containers/Home'))
+const About = lazy(() => import('containers/About'))
+const Auth = lazy(() => import('containers/Auth'))
+const NotFound = lazy(() => import('containers/NotFound'))
+const Employees = lazy(() => import('containers/Employees'))
+const Employee = lazy(() => import('containers/Employee'))
+const ChangePassword = lazy(() => import('containers/ChangePassword'))
 
 export const routes: CustomRoute[] = [
   {

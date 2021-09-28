@@ -1,11 +1,11 @@
-// deps
 import { useCallback, useContext } from 'react'
-// helpers
-import { useFetch } from '_/hooks'
-import { RootQueryForgottenPasswordArgs } from '_/model/generated'
-import { queryForgottenPassword } from '_/gql/queries'
-import { SnackbarContext } from '_/context/snackbar'
-import { checkResponse } from '_/utils/auth'
+
+import { SnackbarContext } from 'context/snackbar'
+import { queryForgottenPassword } from 'gql/queries'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
+
+import { RootQueryForgottenPasswordArgs } from 'model/generated'
 
 export const useForgottenPassword = (): (({
   input,

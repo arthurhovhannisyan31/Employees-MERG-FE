@@ -1,11 +1,10 @@
-// deps
-import React, { useContext } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-// model
-import { SnackbarContextProps } from 'model/context/snackbar'
-// helpers
+import React, { useContext, FC } from 'react'
+
 import { SnackbarContext } from 'context'
+
+import { SnackbarContextProps } from 'model/context/snackbar'
 
 const SnackbarComp: FC = () => {
   const {

@@ -1,9 +1,8 @@
-// deps
 import { useContext, useCallback } from 'react'
-// model
-import { QueryProps } from 'model/common'
-// helpers
+
 import { AuthContext } from 'context/auth'
+
+import { QueryProps } from 'model/common'
 
 export const useFetch = (): ((props: QueryProps) => Promise<Response>) => {
   const { headers, apiUrl } = useContext(AuthContext)

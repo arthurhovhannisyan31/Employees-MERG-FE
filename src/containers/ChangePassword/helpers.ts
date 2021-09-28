@@ -1,8 +1,8 @@
 // model
-import { ChangePasswordState } from '_/containers/ChangePassword/types'
-import { PassportStrengthValidation } from '_/containers/ChangePassword/components/PasswordStrength/types'
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from 'constants/common'
+import { PassportStrengthValidation } from 'containers/ChangePassword/components/PasswordStrength/types'
+import { ChangePasswordState } from 'containers/ChangePassword/types'
 // helpers
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '_/constants/common'
 
 export const initState: ChangePasswordState = {
   password: '',
