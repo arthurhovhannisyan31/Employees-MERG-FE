@@ -3,7 +3,7 @@ import { Employee, Employees } from 'model/generated'
 
 export interface IEmployeesState {
   loading: boolean
-  error: Error
+  error: Error | null
   data: Record<string, Employee[]>
   count: number
 }

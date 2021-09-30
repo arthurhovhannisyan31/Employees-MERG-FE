@@ -14,12 +14,12 @@ const SignUp: FC = () => {
     <Dialog
       confirmLabel="Submit"
       onConfirm={() => {
-        console.log('SignUp confirm')
+        // console.log('SignUp confirm')
       }}
       isLoading={false}
       cancelLabel="Clear"
       onCancel={() => {
-        console.log('SignUp clear')
+        // console.log('SignUp clear')
       }}
     >
       <Grid

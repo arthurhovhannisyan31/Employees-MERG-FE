@@ -33,9 +33,8 @@ const Root: FC = () => {
 
   useEffect(() => {
     handleCheckAuthorization()
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
   return (
     <ThemeProvider theme={themeCreator({ darkMode })}>
       <Layout>

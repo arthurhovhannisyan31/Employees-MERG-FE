@@ -42,7 +42,10 @@ const ChangePassword: FC = () => {
   } = useFormik({
     initialValues: initState,
     onSubmit: ({ password }: ChangePasswordState) => {
-      console.log(password, forgottenPasswordId)
+      // console.log(password, forgottenPasswordId)
+      if (password && forgottenPasswordId) {
+        // test
+      }
       // send new password to the BE
     },
   })

@@ -1,5 +1,5 @@
 export const useFileUploadSizeValidation = (
-  arr: any[],
+  arr: { type: string; size: number }[],
   limit: number,
 ): [boolean, { type: string }[]] | boolean => {
   if (!arr.length || !limit) return false

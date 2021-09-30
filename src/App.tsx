@@ -16,5 +16,4 @@ const App: FC = () => (
     </BrowserRouter>
   </ContextCompose>
 )
-
 export default App

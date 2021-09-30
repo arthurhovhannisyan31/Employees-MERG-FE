@@ -7,6 +7,7 @@ import { CustomRoute } from './types'
 
 const Home = lazy(() => import('containers/Home'))
 const About = lazy(() => import('containers/About'))
+// eslint-disable-next-line import/no-cycle
 const Auth = lazy(() => import('containers/Auth'))
 const NotFound = lazy(() => import('containers/NotFound'))
 const Employees = lazy(() => import('containers/Employees'))

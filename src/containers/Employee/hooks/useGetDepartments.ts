@@ -14,7 +14,9 @@ export interface IUseGetDepartments {
   dispatch: (val: CatalogsAction) => void
 }
 
-export const useGetDepartments = ({ dispatch }: IUseGetDepartments) => {
+export const useGetDepartments = ({
+  dispatch,
+}: IUseGetDepartments): [() => Promise<void>] => {
   const handleFetch = useFetch()
   const handleGetDepartments = useCallback(async () => {
     dispatch({ type: ActionTypes.LOADING, payload: { loading: true } })

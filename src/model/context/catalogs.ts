@@ -9,7 +9,7 @@ export interface CatalogEntries {
 
 export interface CatalogsState {
   loading: boolean
-  error: Error
+  error: Error | null
   data: Partial<CatalogEntries>
 }
 

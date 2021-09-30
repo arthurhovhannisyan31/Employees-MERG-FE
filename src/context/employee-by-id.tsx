@@ -10,7 +10,7 @@ import { Employee } from 'model/generated'
 
 const employeeByIdInitState: EmployeeByIdState = {
   loading: false,
-  error: false,
+  error: null,
   data: {},
 }
 
