@@ -19,6 +19,7 @@ const authContextInitValue: AuthContextProps = {
   headers: {},
   errors: [],
   dispatch: () => null,
+  isFetching: false,
 }
 
 const AuthContext = createContext<AuthContextProps>(authContextInitValue)
@@ -29,13 +30,20 @@ const authContextReducer = (
 ): AuthState => {
   const { type, payload } = action
   switch (type) {
-    case AuthContextActions.LOGIN: {
+    case AuthContextActions.LOGIN_REQUEST: {
+      return {
+        ...state,
+        isFetching: action.payload?.isFetching || false,
+      }
+    }
+    case AuthContextActions.LOGIN_SUCCESS: {
       return {
         ...state,
         userCredentials: {
           _id: payload?.userCredentials?._id ?? '',
           email: payload?.userCredentials?.email ?? '',
         },
+        isFetching: false,
       }
     }
     case AuthContextActions.LOGOUT: {
@@ -51,6 +59,7 @@ const authContextReducer = (
       return {
         ...state,
         errors: payload?.errors,
+        isFetching: false,
       }
     }
     default: {
@@ -65,7 +74,7 @@ const AuthContextContainer: FC = ({ children }) => {
     authContextInitValue,
   )
 
-  const { errors, userCredentials } = state
+  const { errors, userCredentials, isFetching } = state
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -79,6 +88,7 @@ const AuthContextContainer: FC = ({ children }) => {
         errors,
         userCredentials,
         apiUrl: API_URL,
+        isFetching,
       }}
     >
       {children}

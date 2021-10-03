@@ -8,7 +8,7 @@ import { checkResponse } from 'utils/auth'
 
 import { AuthReducerAction, AuthContextActions } from 'model/context/auth'
 import { UserInput } from 'model/generated'
-import { IQueryLoginResponse } from 'model/queries/auth'
+import { QueryLoginResponse } from 'model/queries/auth'
 
 export interface UseLoginProps {
   dispatch: (value: AuthReducerAction) => void
@@ -16,7 +16,7 @@ export interface UseLoginProps {
 
 export const useLogin = ({
   dispatch,
-}: UseLoginProps): ((props: UserInput) => void) => {
+}: UseLoginProps): ((props: UserInput) => Promise<void>) => {
   const history = useHistory()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
@@ -28,7 +28,7 @@ export const useLogin = ({
           queryLogin({ input: { email, password } }),
         )
         checkResponse(res?.status)
-        const { data }: IQueryLoginResponse = await res.json()
+        const { data }: QueryLoginResponse = await res.json()
         if (data?.login?.errors) {
           dispatch({
             type: AuthContextActions.ERRORS,
@@ -38,7 +38,7 @@ export const useLogin = ({
         if (data?.login.data) {
           const { userCredentials } = data?.login.data
           dispatch({
-            type: AuthContextActions.LOGIN,
+            type: AuthContextActions.LOGIN_SUCCESS,
             payload: {
               userCredentials,
             },

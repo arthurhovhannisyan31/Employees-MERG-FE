@@ -119,7 +119,7 @@ export const queryForgottenPassword = ({
   query: `
     query forgottenPassword($input: ForgottenPasswordInput!) {
       forgottenPassword(input: $input){
-        ${userResponseFragment}
+        errors
       }
     }
   `,

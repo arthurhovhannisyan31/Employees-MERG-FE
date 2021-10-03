@@ -59,7 +59,6 @@ const Header: FC = () => {
               <Tooltip title="Home">
                 <span>
                   <Button
-                    disabled={!isUnauthenticated}
                     onClick={() => history.push('/')}
                     className={clsx(classes.link, {
                       [classes.activeLink]: location?.pathname === '/',

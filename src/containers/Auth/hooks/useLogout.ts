@@ -7,7 +7,7 @@ import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
 
 import { AuthContextActions } from 'model/context/auth'
-import { IQueryLogoutResponse } from 'model/queries/auth'
+import { QueryLogoutResponse } from 'model/queries/auth'
 
 export const useLogout = (): (() => void) => {
   const history = useHistory()
@@ -18,7 +18,7 @@ export const useLogout = (): (() => void) => {
     try {
       const res = await handleFetch(queryLogout())
       checkResponse(res?.status)
-      const result: IQueryLogoutResponse = await res.json()
+      const result: QueryLogoutResponse = await res.json()
       if (result?.data?.logout) {
         dispatch({
           type: AuthContextActions.LOGOUT,

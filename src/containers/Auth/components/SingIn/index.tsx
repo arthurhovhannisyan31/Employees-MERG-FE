@@ -14,29 +14,27 @@ import React, {
 
 import Dialog from 'components/UI/Dialog'
 import { errorArrayToMap } from 'containers/Auth/components/helpers'
-import { validationSchema } from 'containers/Auth/components/SingIn/helpers'
+import {
+  initState,
+  validationSchema,
+} from 'containers/Auth/components/SingIn/helpers'
 import { useLogin } from 'containers/Auth/hooks'
 import { useForgottenPassword } from 'containers/Auth/hooks/useForgottenPassword'
 import { AuthContext } from 'context/auth'
 import { handleEnterKeyDown } from 'utils/keyboard'
 
-import { UserInput } from 'model/generated'
+import { LoginInput } from 'model/generated'
 
 import useStyles from './styles'
 
 const SignIn: FC = () => {
-  const { dispatch, errors: authErrors } = useContext(AuthContext)
+  const { dispatch, errors: authErrors, isFetching } = useContext(AuthContext)
   const forgottenPassword = useForgottenPassword()
   const handleLogin = useLogin({
     dispatch,
   })
 
   const classes = useStyles({ hasError: !!authErrors?.length })
-
-  const initState: UserInput = {
-    email: '',
-    password: '',
-  }
 
   const {
     values,
@@ -49,10 +47,10 @@ const SignIn: FC = () => {
     isValid,
     resetForm,
     dirty,
-  } = useFormik({
+  } = useFormik<LoginInput>({
     initialValues: initState,
     validationSchema,
-    onSubmit: (submitValues: UserInput) => {
+    onSubmit: (submitValues: LoginInput) => {
       handleLogin(submitValues)
     },
   })
@@ -104,7 +102,7 @@ const SignIn: FC = () => {
     <Dialog
       confirmLabel="Submit"
       onConfirm={handleSubmit}
-      isLoading={false}
+      isLoading={isFetching}
       cancelLabel="Clear"
       onCancel={handleClear}
       disableConfirm={disableConfirm}

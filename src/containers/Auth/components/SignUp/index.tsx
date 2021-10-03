@@ -10,6 +10,7 @@ const SignUp: FC = () => {
   const classes = useStyles()
   // TODO email validation
   // TODO password strengths with rate indicator, pass only strong
+
   return (
     <Dialog
       confirmLabel="Submit"

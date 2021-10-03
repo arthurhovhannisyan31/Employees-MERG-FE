@@ -1,5 +1,9 @@
 import { QueryResponse, OmitTypeName } from 'model/common'
-import { LoginResponse, MeResponse } from 'model/generated'
+import {
+  AuthResponse,
+  MeResponse,
+  UpdatePasswordResponse,
+} from 'model/generated'
 
 export interface QueryMeData {
   me: OmitTypeName<MeResponse>
@@ -7,14 +11,21 @@ export interface QueryMeData {
 
 export type QueryMeResponse = QueryResponse<QueryMeData>
 
-export interface IQueryLoginData {
-  login: OmitTypeName<LoginResponse>
+export interface QueryLoginData {
+  login: OmitTypeName<AuthResponse>
 }
 
-export type IQueryLoginResponse = QueryResponse<IQueryLoginData>
+export type QueryLoginResponse = QueryResponse<QueryLoginData>
 
-export interface IQueryLogoutData {
+export interface QueryLogoutData {
   logout: boolean
 }
 
-export type IQueryLogoutResponse = QueryResponse<IQueryLogoutData>
+export type QueryLogoutResponse = QueryResponse<QueryLogoutData>
+
+export interface MutationUpdatePasswordData {
+  updatePassword: OmitTypeName<UpdatePasswordResponse>
+}
+
+export type MutationUpdatePasswordResponse =
+  QueryResponse<MutationUpdatePasswordData>

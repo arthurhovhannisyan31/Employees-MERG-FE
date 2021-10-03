@@ -1,13 +1,15 @@
 import { AuthData, FieldError } from 'model/generated'
 
 export enum AuthContextActions {
-  LOGIN = 'LOGIN',
+  LOGIN_REQUEST = 'LOGIN_REQUEST',
+  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
   LOGOUT = 'LOGOUT',
   ERRORS = 'ERRORS',
 }
 
 export interface AuthState extends Pick<AuthData, 'userCredentials'> {
   errors?: FieldError[]
+  isFetching: boolean
 }
 
 export interface AuthContextProps extends AuthState {

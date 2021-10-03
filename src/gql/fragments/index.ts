@@ -61,8 +61,7 @@ export const fieldErrorFragment = `
 `
 export const userCredentialsFragment = `
   userCredentials{
-    _id
-    email
+    ${userCredentials}
   }
 `
 export const userResponseFragment = `

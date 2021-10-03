@@ -12,7 +12,12 @@ nav bar props array
 add react helmet to display page name in browser tab
 add nav list on left side https://cheatsheetseries.owasp.org/
 
-add jest, write test
+Test:
+jest + enzyme, cypress
+
+Cache:
+add loaded data to IndexedDB as a cache
+
 create, delete employee (paycheck, titles, employments)
 replace all reducers with objects
 add CRUD for employees, title, payoff, salary, hire/fire employee
@@ -60,4 +65,4 @@ Releases:
 - add registration
 + add password strength validation
 
-continue with change password form
+continue with registration form

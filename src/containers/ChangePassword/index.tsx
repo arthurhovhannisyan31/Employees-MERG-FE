@@ -14,22 +14,28 @@ import React, {
   FC,
   KeyboardEvent,
   useCallback,
+  useContext,
+  useEffect,
   useMemo,
 } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Dialog from 'components/UI/Dialog'
+import { useUpdatePassword } from 'containers/Auth/hooks/useUpdatePassword'
 import PasswordStrength from 'containers/ChangePassword/components/PasswordStrength'
 import { PassportStrengthValidation } from 'containers/ChangePassword/components/PasswordStrength/types'
 import { ChangePasswordState } from 'containers/ChangePassword/types'
+import { AuthContext } from 'context/auth'
 import { handleEnterKeyDown } from 'utils/keyboard'
 
 import { getPasswordStrength, initState } from './helpers'
 import useStyles from './style'
 
 const ChangePassword: FC = () => {
+  const { dispatch } = useContext(AuthContext)
   const classes = useStyles({ hasError: false })
-  const { id: forgottenPasswordId } = useParams<Record<'id', string>>()
+  const { id: key } = useParams<Record<'id', string>>()
+  const handleUpdatePassword = useUpdatePassword({ dispatch })
 
   const {
     values,
@@ -42,11 +48,7 @@ const ChangePassword: FC = () => {
   } = useFormik({
     initialValues: initState,
     onSubmit: ({ password }: ChangePasswordState) => {
-      // console.log(password, forgottenPasswordId)
-      if (password && forgottenPasswordId) {
-        // test
-      }
-      // send new password to the BE
+      handleUpdatePassword({ password, key })
     },
   })
 
@@ -100,6 +102,14 @@ const ChangePassword: FC = () => {
   }, [setFieldValue, values])
 
   const disableCancel = !(values.password || values.confirmPassword)
+
+  // TODO make request to check if link is expired
+  // if so show notification of expired link and redirect to home
+  const handleCheckRestoreLink = useCallback(() => {
+    // request
+  }, [])
+
+  useEffect(handleCheckRestoreLink, [handleCheckRestoreLink])
 
   return (
     <Grid
