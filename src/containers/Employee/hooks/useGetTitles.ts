@@ -1,40 +1,40 @@
-// deps
-import React from 'react'
-// components
-// model
+import { useCallback } from 'react'
+
+import { queryTitles } from 'gql/queries'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
+
 import {
-  TCatalogsAction,
-  TTitleFetchResponse,
-  EActionTypes,
-} from '_/model/context/catalogs'
-// helpers
-import { useFetch } from '_/utils/hooks'
-import { queryTitles } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
+  CatalogsAction,
+  TitleFetchResponse,
+  ActionTypes,
+} from 'model/context/catalogs'
 
 export interface IUseGetDepartments {
-  dispatch: React.Dispatch<TCatalogsAction>
+  dispatch: (val: CatalogsAction) => void
 }
 
-export const useGetTitles = ({ dispatch }: IUseGetDepartments) => {
+export const useGetTitles = ({
+  dispatch,
+}: IUseGetDepartments): [() => Promise<void>] => {
   const handleFetch = useFetch()
-  const handleGetTitles = React.useCallback(async () => {
-    dispatch({ type: EActionTypes.LOADING, payload: { loading: true } })
+  const handleGetTitles = useCallback(async () => {
+    dispatch({ type: ActionTypes.LOADING, payload: { loading: true } })
     try {
       const res = await handleFetch(queryTitles())
-      fetchResponseCheck(res?.status)
+      checkResponse(res?.status)
       const {
         data: { titles },
-      }: TTitleFetchResponse = await res.json()
+      }: TitleFetchResponse = await res.json()
       dispatch({
-        type: EActionTypes.DATA,
+        type: ActionTypes.DATA,
         payload: { data: { titles } },
         prop: 'titles',
       })
     } catch (error) {
-      dispatch({ type: EActionTypes.ERROR, payload: { error } })
+      dispatch({ type: ActionTypes.ERROR, payload: { error: error as Error } })
     }
-    dispatch({ type: EActionTypes.LOADING, payload: { loading: false } })
+    dispatch({ type: ActionTypes.LOADING, payload: { loading: false } })
   }, [dispatch, handleFetch])
   return [handleGetTitles]
 }

@@ -35,10 +35,8 @@ export const employmentsFragment = `
   }
 `
 export const userCredentials = `
-  me {
-    _id
-    email
-  }
+  _id
+  email
 `
 export const employeeDetailsFragment = `
   ${employeeFragment}
@@ -56,4 +54,21 @@ export const employeeDetailsFragment = `
     end_date
   }
   ${employmentsFragment}
+`
+export const fieldErrorFragment = `
+  field
+  message
+`
+export const userCredentialsFragment = `
+  userCredentials{
+    ${userCredentials}
+  }
+`
+export const userResponseFragment = `
+  errors{
+    ${fieldErrorFragment}
+  }
+  data{
+    ${userCredentialsFragment}
+  }
 `

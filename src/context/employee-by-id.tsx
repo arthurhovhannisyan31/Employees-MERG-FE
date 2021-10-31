@@ -1,39 +1,38 @@
-// deps
-import React from 'react'
-// model
-import {
-  IEmployeeByIdState,
-  IEmployeeByIdContext,
-  TEmployeeByIdReducer,
-  EActionTypes,
-} from '_/model/context/employee'
-import { Employee } from '_/model/generated'
+import React, { createContext, useReducer, FC } from 'react'
 
-const employeeByIdInitState: IEmployeeByIdState = {
+import {
+  EmployeeByIdState,
+  EmployeeByIdContextProps,
+  EmployeeByIdReducerProps,
+  ActionTypes,
+} from 'model/context/employee'
+import { Employee } from 'model/generated'
+
+const employeeByIdInitState: EmployeeByIdState = {
   loading: false,
-  error: false,
+  error: null,
   data: {},
 }
 
-const EmployeeByIdContextInitState: IEmployeeByIdContext = {
+const EmployeeByIdContextInitState: EmployeeByIdContextProps = {
   state: employeeByIdInitState,
-  dispatch: () => {},
+  dispatch: () => null,
 }
 
-const EmployeeByIdContext = React.createContext<IEmployeeByIdContext>(
+const EmployeeByIdContext = createContext<EmployeeByIdContextProps>(
   EmployeeByIdContextInitState,
 )
 
-const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
+const employeeByIdReducer: EmployeeByIdReducerProps = (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case EActionTypes.LOADING:
-    case EActionTypes.ERROR:
+    case ActionTypes.LOADING:
+    case ActionTypes.ERROR:
       return {
         ...state,
         [type]: payload[type],
       }
-    case EActionTypes.ADD_ITEM:
+    case ActionTypes.ADD_ITEM:
       return {
         ...state,
         data: {
@@ -41,14 +40,14 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
           [payload.key as string]: payload.data as Employee,
         },
       }
-    case EActionTypes.UPDATE_ITEM:
+    case ActionTypes.UPDATE_ITEM:
       return {
         ...state,
         data: {
           ...state.data,
           [payload.key as string]: {
             ...state.data[payload.key as string],
-            ...payload.data,
+            ...(payload.data as Employee),
           },
         },
       }
@@ -57,8 +56,8 @@ const employeeByIdReducer: TEmployeeByIdReducer = (state, action) => {
   }
 }
 
-const EmployeeContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer<TEmployeeByIdReducer>(
+const EmployeeContextContainer: FC = ({ children }) => {
+  const [state, dispatch] = useReducer<EmployeeByIdReducerProps>(
     employeeByIdReducer,
     employeeByIdInitState,
   )

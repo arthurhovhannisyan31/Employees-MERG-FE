@@ -1,10 +1,6 @@
-// deps
-import React from 'react'
-// components
+import React, { FC } from 'react'
 
-// helpers
-
-const Index: React.FC = () => (
+const Index: FC = () => (
   <>
     <span>About</span>
   </>

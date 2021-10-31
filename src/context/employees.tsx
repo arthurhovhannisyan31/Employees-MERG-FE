@@ -1,13 +1,12 @@
-// deps
-import React from 'react'
-// model
+import React, { createContext, useReducer, FC } from 'react'
+
 import {
   IEmployeesContext,
   IEmployeesState,
   TEmployeesReducer,
-  EActionTypes,
-} from '_/model/context/employees'
-import { Employee } from '_/model/generated'
+  ActionTypes,
+} from 'model/context/employees'
+import { Employee } from 'model/generated'
 
 const employeesInitState: IEmployeesState = {
   loading: false,
@@ -19,24 +18,24 @@ const employeesInitState: IEmployeesState = {
 const employeesContextInitState: IEmployeesContext = {
   state: employeesInitState,
   initState: employeesInitState,
-  dispatch: () => {},
+  dispatch: () => null,
 }
 
-const EmployeesContext = React.createContext<IEmployeesContext>(
+const EmployeesContext = createContext<IEmployeesContext>(
   employeesContextInitState,
 )
 
 const employeesReducer: TEmployeesReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case EActionTypes.LOADING:
-    case EActionTypes.ERROR:
-    case EActionTypes.COUNT:
+    case ActionTypes.LOADING:
+    case ActionTypes.ERROR:
+    case ActionTypes.COUNT:
       return {
         ...state,
         [type]: payload[type],
       }
-    case EActionTypes.DATA:
+    case ActionTypes.DATA:
       return {
         ...state,
         data: {
@@ -49,8 +48,8 @@ const employeesReducer: TEmployeesReducer = (state, action) => {
   }
 }
 
-const EmployeesContextContainer: React.FC = ({ children }) => {
-  const [state, dispatch] = React.useReducer<TEmployeesReducer>(
+const EmployeesContextContainer: FC = ({ children }) => {
+  const [state, dispatch] = useReducer<TEmployeesReducer>(
     employeesReducer,
     employeesInitState,
   )

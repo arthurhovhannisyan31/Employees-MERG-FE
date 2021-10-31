@@ -1,19 +1,18 @@
-// deps
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 import EditIcon from '@material-ui/icons/Edit'
-import format from 'date-fns/format'
 import cn from 'clsx'
-// components
-// model
-import { Employee } from '_/model/generated'
-// helpers
-import { getFirstLastNameLetters } from '_/utils/string'
-import { CatalogsContext } from '../../../../context/catalogs'
+import format from 'date-fns/format'
+import React, { useContext, FC } from 'react'
+
+import { CatalogsContext } from 'context/catalogs'
+import { getFirstLastNameLetters } from 'utils/string'
+
+import { Employee } from 'model/generated'
+
 import useStyles from './style'
 
 interface IDetailsProps
@@ -21,7 +20,7 @@ interface IDetailsProps
   handleOpenModal: () => void
 }
 
-const Details: React.FC<IDetailsProps> = ({
+const Details: FC<IDetailsProps> = ({
   title,
   birth_date,
   department,
@@ -31,13 +30,12 @@ const Details: React.FC<IDetailsProps> = ({
   last_name,
   handleOpenModal,
 }) => {
-  // utils
   const classes = useStyles()
   const {
     state: {
       data: { departments, titles, genders },
     },
-  } = React.useContext(CatalogsContext)
+  } = useContext(CatalogsContext)
 
   const genderName = genders?.find((el) => el?._id === gender)?.name || ''
   const departmentName =
@@ -54,7 +52,11 @@ const Details: React.FC<IDetailsProps> = ({
           >
             <EditIcon />
           </IconButton>
-          <Grid container justify="center" className={classes.avatarContainer}>
+          <Grid
+            container
+            justifyContent="center"
+            className={classes.avatarContainer}
+          >
             <Avatar
               alt={`${first_name} ${last_name}`}
               className={classes.avatar}

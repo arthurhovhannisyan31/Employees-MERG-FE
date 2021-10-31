@@ -1,42 +1,46 @@
-// deps
-import React, { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-// model
-import { EAuthContextActions } from '_/model/context/auth'
-import { IQueryLogoutResponse } from '_/model/queries/auth'
-// helpers
-import { AuthContext } from '_/context/auth'
-import { useFetch } from '_/utils/hooks'
-import { queryLogout } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
-import storage from '_/utils/storage'
 
-export const useLogout = () => {
+import { AuthContext } from 'context/auth'
+import { queryLogout } from 'gql/queries'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
+
+import { AuthContextActions } from 'model/context/auth'
+import { QueryLogoutResponse } from 'model/gql/auth'
+
+export const useLogout = (): (() => void) => {
   const history = useHistory()
-  const { dispatch } = React.useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext)
   const handleFetch = useFetch()
 
   return useCallback(async () => {
     try {
       const res = await handleFetch(queryLogout())
-      fetchResponseCheck(res?.status)
-      const result: IQueryLogoutResponse = await res.json()
+      checkResponse(res?.status)
+      const result: QueryLogoutResponse = await res.json()
       if (result?.data?.logout) {
         dispatch({
-          type: EAuthContextActions.LOGOUT,
+          type: AuthContextActions.LOGOUT,
         })
-        storage.clear()
         history.push('/auth')
       } else {
         dispatch({
-          type: EAuthContextActions.ERRORS,
-          payload: { errors: [new Error('Logout failed')] },
+          type: AuthContextActions.ERRORS,
+          payload: { errors: [{ field: 'logout', message: 'Logout failed' }] },
         })
       }
     } catch (err) {
       dispatch({
-        type: EAuthContextActions.ERRORS,
-        payload: { errors: [err] },
+        type: AuthContextActions.ERRORS,
+        payload: {
+          errors: [
+            {
+              message: (err as Error).message,
+              field: (err as Error).message,
+            },
+          ],
+        },
       })
     }
   }, [dispatch, handleFetch, history])

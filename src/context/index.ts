@@ -1,10 +1,10 @@
-import ContextCompose from '_/context/context-compose'
-import { AuthContext } from '_/context/auth'
-import { ThemeContext } from '_/context/theme'
-import { EmployeesContext } from '_/context/employees'
-import { EmployeeByIdContext } from '_/context/employee-by-id'
-import { SnackbarContext } from '_/context/snackbar'
-import { CatalogsContext } from '_/context/catalogs'
+import { AuthContext } from 'context/auth'
+import { CatalogsContext } from 'context/catalogs'
+import ContextCompose from 'context/context-compose'
+import { EmployeeByIdContext } from 'context/employee-by-id'
+import { EmployeesContext } from 'context/employees'
+import { SnackbarContext } from 'context/snackbar'
+import { ThemeContext } from 'context/theme'
 
 export {
   ContextCompose as default,

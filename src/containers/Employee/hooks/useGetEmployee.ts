@@ -1,39 +1,40 @@
-// deps
-import React from 'react'
+import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-// model
-import { GetEmployeeInput } from '_/model/generated'
+
+import { queryEmployee } from 'gql/queries'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
+
 import {
-  EActionTypes,
-  TEmployeeByIdAction,
-  TEmployeeFetchResponse,
-} from '_/model/context/employee'
-// helpers
-import { queryEmployee } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
-import { useFetch } from '_/utils/hooks'
+  ActionTypes,
+  EmployeeByIdAction,
+  EmployeeFetchResponse,
+} from 'model/context/employee'
+import { GetEmployeeInput } from 'model/generated'
 
 export interface IUseGetEmployeeProps {
-  dispatch: React.Dispatch<TEmployeeByIdAction>
+  dispatch: (val: EmployeeByIdAction) => void
 }
-
-export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
+type GetEmployeeProps = (props: GetEmployeeInput) => void
+export const useGetEmployee = ({
+  dispatch,
+}: IUseGetEmployeeProps): [GetEmployeeProps] => {
   const { id: idParam } = useParams<Record<'id', string>>()
   const handleFetch = useFetch()
-  const handleGetEmployee = React.useCallback(
+  const handleGetEmployee = useCallback(
     async ({ id }: GetEmployeeInput) => {
       dispatch({
-        type: EActionTypes.LOADING,
+        type: ActionTypes.LOADING,
         payload: { loading: true },
       })
       try {
-        const res = await handleFetch(queryEmployee({ id }))
-        fetchResponseCheck(res?.status)
+        const res = await handleFetch(queryEmployee({ input: { id } }))
+        checkResponse(res?.status)
         const {
           data: { employee },
-        }: TEmployeeFetchResponse = await res.json()
+        }: EmployeeFetchResponse = await res.json()
         dispatch({
-          type: EActionTypes.ADD_ITEM,
+          type: ActionTypes.ADD_ITEM,
           payload: {
             data: employee,
             key: idParam,
@@ -41,12 +42,12 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
         })
       } catch (err) {
         dispatch({
-          type: EActionTypes.ERROR,
-          payload: { error: err },
+          type: ActionTypes.ERROR,
+          payload: { error: err as Error },
         })
       }
       dispatch({
-        type: EActionTypes.LOADING,
+        type: ActionTypes.LOADING,
         payload: { loading: false },
       })
     },

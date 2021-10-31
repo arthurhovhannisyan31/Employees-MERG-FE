@@ -1,14 +1,14 @@
-// deps
-import React, { useCallback, useMemo } from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
-// helpers
+import React, { useCallback, useMemo, FC } from 'react'
+import { useLocation, useHistory } from 'react-router-dom'
+
 import useStyles from './style'
 
-const BreadcrumbsComp: React.FC = () => {
+const BreadcrumbsComp: FC = () => {
   const location = useLocation()
   const history = useHistory()
   const classes = useStyles()
@@ -45,17 +45,19 @@ const BreadcrumbsComp: React.FC = () => {
   })
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" className={classes.container}>
-      <Button
-        className={classes.link}
-        color="inherit"
-        variant="text"
-        onClick={() => handleHistory('/')}
-      >
-        Home
-      </Button>
-      {links}
-    </Breadcrumbs>
+    <Grid container className={classes.container}>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Button
+          className={classes.link}
+          color="inherit"
+          variant="text"
+          onClick={() => handleHistory('/')}
+        >
+          Home
+        </Button>
+        {links}
+      </Breadcrumbs>
+    </Grid>
   )
 }
 

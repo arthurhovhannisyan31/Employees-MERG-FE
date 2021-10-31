@@ -1,13 +1,12 @@
-// deps
-import React from 'react'
 import Box from '@material-ui/core/Box'
+import React, { FC } from 'react'
 
 interface IProps {
   value: number
   index: number
 }
 
-const TabPanel: React.FC<IProps> = ({ children, value, index }) => (
+const TabPanel: FC<IProps> = ({ children, value, index }) => (
   <div
     role="tabpanel"
     hidden={value !== index}

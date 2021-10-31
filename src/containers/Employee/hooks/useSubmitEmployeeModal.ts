@@ -1,46 +1,44 @@
-// deps
-import React from 'react'
-// model
-import { UpdateEmployeeInput } from '_/model/generated'
-import { EActionTypes, TEmployeeByIdAction } from '_/model/context/employee'
-// helpers
-import { useFetch } from '_/utils/hooks'
-import { updateEmployee } from '_/gql/mutations'
-import { fetchResponseCheck } from '_/utils/auth'
+import { mutationUpdateEmployee } from 'gql/mutations'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
+
+import { ActionTypes, EmployeeByIdAction } from 'model/context/employee'
+import { UpdateEmployeeInput } from 'model/generated'
 
 interface IUseSubmitEmployeeModalProps {
-  dispatch: React.Dispatch<TEmployeeByIdAction>
+  dispatch: (val: EmployeeByIdAction) => void
 }
+type SubmitProps = (props: UpdateEmployeeInput, resetForm: () => void) => void
 
 export const useSubmitEmployeeModal = ({
   dispatch,
-}: IUseSubmitEmployeeModalProps) => {
+}: IUseSubmitEmployeeModalProps): [SubmitProps] => {
   const handleFetch = useFetch()
 
   const handleSubmit = async (
     props: UpdateEmployeeInput,
     resetForm: () => void,
-  ) => {
+  ): Promise<void> => {
     dispatch({
       type: 'loading',
       payload: { loading: true },
     })
     try {
-      const res = await handleFetch(updateEmployee(props))
-      fetchResponseCheck(res?.status)
+      const res = await handleFetch(mutationUpdateEmployee(props))
+      checkResponse(res?.status)
       resetForm()
       const { id, ...rest } = props
       dispatch({
-        type: EActionTypes.UPDATE_ITEM,
+        type: ActionTypes.UPDATE_ITEM,
         payload: {
           data: rest,
-          key: id,
+          key: id as string,
         },
       })
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: 'error',
-        payload: { error: err },
+        payload: { error: error as Error },
       })
     }
     dispatch({

@@ -1,5 +1,4 @@
-// model
-import { Employee } from '_/model/generated'
+import { Employee } from 'model/generated'
 
 export interface IEmployeesTableRow {
   _id: string

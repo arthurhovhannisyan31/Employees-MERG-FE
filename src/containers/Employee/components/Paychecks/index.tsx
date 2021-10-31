@@ -1,11 +1,8 @@
-// deps
-import React from 'react'
-// components
-// model
-// helpers
+import React, { FC } from 'react'
+
 import useStyles from './style'
 
-const Paychecks: React.FC = () => {
+const Paychecks: FC = () => {
   const classes = useStyles()
 
   return (

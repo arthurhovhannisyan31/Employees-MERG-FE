@@ -1,30 +1,34 @@
-// deps
-import React from 'react'
+import { useContext, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
-// model
-import { IQueryMeResponse } from '_/model/queries/auth'
-// helpers
-import { SnackbarContext } from '_/context'
-import { queryMe } from '_/gql/queries'
-import { useFetch } from '_/utils/hooks'
-import { useLogout } from '_/containers/Auth/hooks/useLogout'
 
-export const useCheckAuthorization = () => {
+import { useIsAuthFreeRoute } from 'containers/Auth/hooks/useIsAuthRoute'
+import { useLogout } from 'containers/Auth/hooks/useLogout'
+import { SnackbarContext } from 'context'
+import { queryMe } from 'gql/queries'
+import { useFetch } from 'hooks'
+
+import { AuthContextActions, AuthReducerAction } from 'model/context/auth'
+import { QueryMeResponse } from 'model/gql/auth'
+
+export interface IUseCheckAuthorizationProps {
+  dispatch: (value: AuthReducerAction) => void
+}
+
+export const useMe = ({
+  dispatch,
+}: IUseCheckAuthorizationProps): (() => void) => {
   const location = useLocation()
-  const { setSnackbarState } = React.useContext(SnackbarContext)
+  const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
   const handleLogout = useLogout()
+  const isAuthFreeRoute = useIsAuthFreeRoute(location.pathname)
 
-  const handleCheckAuthorization = async () => {
+  return useCallback(async () => {
     try {
       const res = await handleFetch(queryMe())
-      const { errors }: IQueryMeResponse = await res.json()
-      if (
-        errors?.some(
-          (error: Record<'statusCode', number>) => error.statusCode === 401,
-        ) &&
-        location.pathname !== '/auth'
-      ) {
+      const { data }: QueryMeResponse = await res.json()
+
+      if (!data?.me?.data && !isAuthFreeRoute) {
         handleLogout()
         setSnackbarState({
           type: 'warning',
@@ -32,14 +36,20 @@ export const useCheckAuthorization = () => {
           open: true,
         })
       }
+      if (data?.me?.data) {
+        dispatch({
+          type: AuthContextActions.LOGIN_SUCCESS,
+          payload: {
+            userCredentials: data?.me?.data,
+          },
+        })
+      }
     } catch (err) {
       setSnackbarState({
         type: 'error',
-        message: err.message,
+        message: (err as Error).message,
         open: true,
       })
     }
-  }
-
-  return [handleCheckAuthorization]
+  }, [dispatch, handleFetch, handleLogout, isAuthFreeRoute, setSnackbarState])
 }

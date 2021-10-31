@@ -1,40 +1,40 @@
-// deps
-import React from 'react'
-// components
-// model
+import { useCallback } from 'react'
+
+import { queryDepartments } from 'gql/queries'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
+
 import {
-  TCatalogsAction,
-  EActionTypes,
-  TDepartmentsFetchResponse,
-} from '_/model/context/catalogs'
-// helpers
-import { useFetch } from '_/utils/hooks'
-import { queryDepartments } from '_/gql/queries'
-import { fetchResponseCheck } from '_/utils/auth'
+  CatalogsAction,
+  ActionTypes,
+  DepartmentsFetchResponse,
+} from 'model/context/catalogs'
 
 export interface IUseGetDepartments {
-  dispatch: React.Dispatch<TCatalogsAction>
+  dispatch: (val: CatalogsAction) => void
 }
 
-export const useGetDepartments = ({ dispatch }: IUseGetDepartments) => {
+export const useGetDepartments = ({
+  dispatch,
+}: IUseGetDepartments): [() => Promise<void>] => {
   const handleFetch = useFetch()
-  const handleGetDepartments = React.useCallback(async () => {
-    dispatch({ type: EActionTypes.LOADING, payload: { loading: true } })
+  const handleGetDepartments = useCallback(async () => {
+    dispatch({ type: ActionTypes.LOADING, payload: { loading: true } })
     try {
       const res = await handleFetch(queryDepartments())
-      fetchResponseCheck(res?.status)
+      checkResponse(res?.status)
       const {
         data: { departments },
-      }: TDepartmentsFetchResponse = await res.json()
+      }: DepartmentsFetchResponse = await res.json()
       dispatch({
-        type: EActionTypes.DATA,
+        type: ActionTypes.DATA,
         payload: { data: { departments } },
         prop: 'departments',
       })
     } catch (error) {
-      dispatch({ type: EActionTypes.ERROR, payload: { error } })
+      dispatch({ type: ActionTypes.ERROR, payload: { error: error as Error } })
     }
-    dispatch({ type: EActionTypes.LOADING, payload: { loading: false } })
+    dispatch({ type: ActionTypes.LOADING, payload: { loading: false } })
   }, [dispatch, handleFetch])
   return [handleGetDepartments]
 }

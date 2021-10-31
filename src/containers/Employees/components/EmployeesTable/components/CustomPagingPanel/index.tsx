@@ -1,17 +1,16 @@
-// deps
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
 import { PagingPanel } from '@devexpress/dx-react-grid'
-import TextField from '@material-ui/core/TextField'
-import Pagination from '@material-ui/lab/Pagination'
+import Grid from '@material-ui/core/Grid'
 import MenuItem from '@material-ui/core/MenuItem'
+import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-// helpers
+import Pagination from '@material-ui/lab/Pagination'
+import React, { FC, ChangeEvent } from 'react'
+
 import useStyles from './style'
 
 type IProps = PagingPanel.ContainerProps
 
-const CustomPagingPanel: React.FC<IProps> = ({
+const CustomPagingPanel: FC<IProps> = ({
   pageSize,
   pageSizes,
   onPageSizeChange,
@@ -22,16 +21,16 @@ const CustomPagingPanel: React.FC<IProps> = ({
 }) => {
   const classes = useStyles()
 
-  const handleChangePage = (_: React.ChangeEvent<unknown>, value: number) => {
+  const handleChangePage = (_: ChangeEvent<unknown>, value: number): void => {
     onCurrentPageChange(value - 1)
   }
-  const handleChangePageSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangePageSize = (event: ChangeEvent<HTMLInputElement>): void => {
     onCurrentPageChange(0)
     onPageSizeChange(event.target.value as never as number)
   }
 
   const rangeStart = currentPage === 0 ? 1 : currentPage * pageSize
-  const getRangeEnd = () => {
+  const getRangeEnd = (): number => {
     if (currentPage === 0) {
       return pageSize
     }
@@ -46,7 +45,7 @@ const CustomPagingPanel: React.FC<IProps> = ({
   return (
     <Grid
       container
-      justify="flex-end"
+      justifyContent="flex-end"
       alignItems="center"
       className={classes.container}
       spacing={2}

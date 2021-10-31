@@ -1,13 +1,12 @@
-// model
-export type TSnackbarType = 'error' | 'warning' | 'info' | 'success'
+export type SnackbarType = 'error' | 'warning' | 'info' | 'success'
 
-export interface ISnackbar {
+export interface SnackbarProps {
   open: boolean
-  type: TSnackbarType
+  type: SnackbarType
   message: string
 }
 
-export interface ISnackbarContext {
-  snackbarState: ISnackbar
-  setSnackbarState: (props: Partial<ISnackbar>) => void
+export interface SnackbarContextProps {
+  snackbarState: SnackbarProps
+  setSnackbarState: (props: Partial<SnackbarProps>) => void
 }

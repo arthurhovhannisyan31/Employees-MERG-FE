@@ -1,35 +1,34 @@
-// deps
-import React from 'react'
-// model
-import { AuthData } from '_/model/generated'
+import { AuthData, FieldError } from 'model/generated'
 
-export enum EAuthContextActions {
-  LOGIN = 'LOGIN',
+export enum AuthContextActions {
+  LOGIN_REQUEST = 'LOGIN_REQUEST',
+  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
   LOGOUT = 'LOGOUT',
   ERRORS = 'ERRORS',
 }
 
-export interface IAuthState extends Pick<AuthData, 'userCredentials'> {
-  errors?: Error[]
+export interface AuthState extends Pick<AuthData, 'userCredentials'> {
+  errors?: FieldError[]
+  isFetching: boolean
 }
 
-export interface IAuthContext extends IAuthState {
+export interface AuthContextProps extends AuthState {
   headers: Record<string, string>
   apiUrl: string
-  dispatch: React.Dispatch<IAuthReducerAction>
+  dispatch: (val: AuthReducerAction) => void
 }
 
-export type TAuthReducer = (
-  prevState: IAuthState,
-  action: IAuthReducerAction,
-) => IAuthState
+export type AuthReducerProps = (
+  prevState: AuthState,
+  action: AuthReducerAction,
+) => AuthState
 
-export interface IAuthReducerAction {
-  type: EAuthContextActions
-  payload?: Partial<IAuthState>
+export interface AuthReducerAction {
+  type: AuthContextActions
+  payload?: Partial<AuthState>
 }
 
-export interface IDecodedToken {
+export interface DecodedToken {
   email: string
   exp: number
   iat: number
