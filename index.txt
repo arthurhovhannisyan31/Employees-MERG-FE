@@ -2,49 +2,45 @@ Design:
 https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
 https://cheatsheetseries.owasp.org/
 
-Features:
--- ui-improvements
-loading spinner for loading window
-remove unnecessary loading indicators
-add nav bar collapsing
+Test:
+jest + enzyme, cypress
 
-handle auth BE error message, show error message
-nav bar props array
-add react helmet to display page name in browser tab
-add registration
-add nav list on left side https://cheatsheetseries.owasp.org/
-registration password validation
-forgot email form
-email reset uniq link
-add jest, write test
-create, delete employee (paycheck, titles, employments)
-replace all reducers with objects
-add CRUD for employees, title, payoff, salary, hire/fire employee
-add features from material-ui project
-new route, get design from material-ui examples page
-analytics: table, graphs, reports
-use indexeddb for reports
-fix material ui makeStyles classnames autocomplete
-fix fetch response types result?.data?.login?.userCredentials
-add auth context loading state, hide login page when fetching me status
-separate vendor chunks
-add service worker
-run localhost on https (http redirects to https)
-add a main loading spinner on reload while fetching user data
-add explicit isAuthenticated state
-add X-CSRF-Token
+Features:
+- loading spinner for loading window
+- remove unnecessary loading indicators
+- add nav bar collapsing
+- handle auth BE error message, show error message
+- nav bar props array
+- add react helmet to display page name in browser tab
+- add nav list on left side
+- add images upload
+- add a main loading spinner on reload while fetching user data
+- fix fetch response types result?.data?.login?.userCredentials
+- use indexeddb for reports
+- add loaded data to IndexedDB as a cache
+- analytics: table, graphs, reports
+- get design from material-ui examples page
+- create, delete employee (paycheck, titles, employments)
+- add CRUD for employees, title, payoff, salary, hire/fire employee
+- add features from material-ui project
+
+Refactor:
+- add auth context loading state, hide login page when fetching me status
+- add explicit isAuthenticated state
+
+Optimization:
+- add service worker
+- separate vendor chunks
+- replace all reducers with objects
+
+Security:
+- add websocket send message for logout events
+- add X-CSRF-Token
+- add restriction to reset password attempts (block by setting time to localstorage, sent command to update localstorage from BE if cleans storage)
+
+DevExp:
+- run localhost on https (http redirects to https)
+- fix material ui makeStyles classnames autocomplete
 
 Bugs:
 check if session timeout works correctly
-
-https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
-https://cheatsheetseries.owasp.org/
-
-Releases:
--- release 0.1.3 code refactor
-+ extract webpack and typescript configs to configs folder
-+ eslint groups rules
-+ eslint import, error
-+ eslint cycle dependencies
-+ types generation
-+ lint-staged

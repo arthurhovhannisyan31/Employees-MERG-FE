@@ -1,1 +1,0 @@
-export { useCheckAuthorization } from './useCheckAuthorization'

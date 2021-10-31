@@ -1,32 +1,74 @@
-import { UpdateEmployeeInput, UserInput } from 'model/generated'
+import { fieldErrorFragment, userCredentials } from 'gql/fragments'
 
-import { IQueryProps } from '../../model/common'
+import { QueryProps } from 'model/common'
+import {
+  RootMutationCreateUserArgs,
+  UpdateEmployeeInput,
+  UpdatePasswordInput,
+} from 'model/generated'
 
-// export const createUser = () => {}
+// export const createUser = (): void => ({})
 
-export const signUp = ({ email, password }: UserInput): IQueryProps => ({
+export const mutationSignUp = ({
+  input,
+}: RootMutationCreateUserArgs): QueryProps => ({
   query: `
-    mutation signUpMutation($email: String!, $password: String!) {
-      createUser(userInput: {
-        email: $email,
-        password: $password
-      }){
-        _id
-        email
+    mutation signUpMutation($input: UserInput!) {
+      createUser(input: $input){
+        ${userCredentials}
       }
     }
   `,
   variables: {
-    email,
-    password,
+    input,
   },
 })
 
-export const updateEmployee = (input: UpdateEmployeeInput): IQueryProps => ({
+export const mutationUpdateEmployee = (
+  input: UpdateEmployeeInput,
+): QueryProps => ({
   query: `
     mutation updateEmployeeMutation($input: UpdateEmployeeInput!) {
       updateEmployee(input: $input){
         _id
+      }
+    }
+  `,
+  variables: {
+    input,
+  },
+})
+
+export const mutationUpdatePassword = (
+  input: UpdatePasswordInput,
+): QueryProps => ({
+  query: `
+    mutation updatePassword($input: UpdatePasswordInput!) {
+      updatePassword(input: $input){
+        data{
+          ${userCredentials}
+        }
+        errors
+      }
+    }
+  `,
+  variables: {
+    input,
+  },
+})
+
+export const mutationCreateUser = ({
+  input,
+}: RootMutationCreateUserArgs): QueryProps => ({
+  query: `
+    mutation createUser($input: CreateUserInput!) {
+      createUser(input: $input) {
+        data {
+          ${userCredentials}
+        }
+        errors{
+          ${fieldErrorFragment}
+        }
       }
     }
   `,

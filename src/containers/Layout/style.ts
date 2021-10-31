@@ -1,13 +1,13 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
-export default makeStyles((theme: Theme) => ({
-  header: { height: theme.spacing(6) },
+export default makeStyles(() => ({
   container: {
-    height: `calc(100vh - ${theme.spacing(6)}px)`,
-    maxWidth: '1600px',
-    width: '100%',
+    display: 'flex',
+    height: '100%',
+  },
+  content: {
     margin: '0 auto',
-    padding: theme.spacing(1),
-    flexGrow: 1,
+    maxWidth: '1600px',
+    height: '100%',
   },
 }))

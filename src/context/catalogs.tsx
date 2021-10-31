@@ -1,14 +1,14 @@
 import React, { createContext, useReducer, FC } from 'react'
 
 import {
-  ICatalogsContext,
-  ICatalogsState,
-  TCatalogsReducer,
-  EActionTypes,
-  ICatalogEntries,
+  CatalogsContextProps,
+  CatalogsState,
+  CatalogsReducer,
+  ActionTypes,
+  CatalogEntries,
 } from 'model/context/catalogs'
 
-const catalogsInitState: ICatalogsState = {
+const catalogsInitState: CatalogsState = {
   loading: false,
   error: null,
   data: {
@@ -17,28 +17,28 @@ const catalogsInitState: ICatalogsState = {
     titles: [],
   },
 }
-const catalogsContextInitState: ICatalogsContext = {
+const catalogsContextInitState: CatalogsContextProps = {
   state: catalogsInitState,
   dispatch: () => null,
 }
-const CatalogsContext = createContext<ICatalogsContext>(
+const CatalogsContext = createContext<CatalogsContextProps>(
   catalogsContextInitState,
 )
-const catalogsReducer: TCatalogsReducer = (state, action) => {
+const catalogsReducer: CatalogsReducer = (state, action) => {
   const { type, payload, prop } = action
   switch (type) {
-    case EActionTypes.LOADING:
-    case EActionTypes.ERROR:
+    case ActionTypes.LOADING:
+    case ActionTypes.ERROR:
       return {
         ...state,
         [type]: payload[type],
       }
-    case EActionTypes.DATA:
+    case ActionTypes.DATA:
       return {
         ...state,
         data: {
           ...state.data,
-          [prop as string]: payload.data?.[prop as keyof ICatalogEntries],
+          [prop as string]: payload.data?.[prop as keyof CatalogEntries],
         },
       }
     default:
@@ -47,7 +47,7 @@ const catalogsReducer: TCatalogsReducer = (state, action) => {
 }
 
 const CatalogsContextContainer: FC = ({ children }) => {
-  const [state, dispatch] = useReducer<TCatalogsReducer>(
+  const [state, dispatch] = useReducer<CatalogsReducer>(
     catalogsReducer,
     catalogsInitState,
   )

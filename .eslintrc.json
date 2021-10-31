@@ -1,8 +1,11 @@
 {
   "env": {
-    "jest": true
+    "jest": true,
+    "node": true
+
   },
   "extends": [
+    "eslint:recommended",
     "plugin:import/typescript",
     "plugin:import/warnings",
     "plugin:import/errors",
@@ -12,6 +15,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
+    "module": true,
     "window": true,
     "document": true,
     "localStorage": true,
@@ -52,6 +56,7 @@
     "react/require-default-props": 0,
     "import/no-cycle": [2, { "ignoreExternal": true }],
     "import/default": 0,
+    "import/named": 0,
     "import/order": [
       "error",
       {
@@ -95,12 +100,15 @@
     },
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [".js", ".ts", ".tsx"]
       },
       "typescript": {
         "alwaysTryTypes": true,
         "project": "./tsconfig.json"
       }
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }

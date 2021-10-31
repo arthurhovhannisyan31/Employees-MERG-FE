@@ -21,7 +21,7 @@ module.exports = {
       {
         exclude: [/node_modules/],
         test: /\.(ts|js)x?$/,
-        use: { loader: 'babel-loader' },
+        use: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -44,7 +44,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve('src', 'index.html'),
+      template: path.resolve('public', 'index.html'),
       cache: false,
       favicon: path.resolve('src/static/img', 'favicon.ico'),
     }),
