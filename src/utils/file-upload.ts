@@ -1,4 +1,7 @@
-export const useFileUploadSizeValidation = (arr: any[], limit: number) => {
+export const useFileUploadSizeValidation = (
+  arr: { type: string; size: number }[],
+  limit: number,
+): [boolean, { type: string }[]] | boolean => {
   if (!arr.length || !limit) return false
   const invalid = arr.filter((el) => el.size / (1024 * 1024) > limit)
   return [!invalid.length, invalid]
@@ -7,7 +10,7 @@ export const useFileUploadSizeValidation = (arr: any[], limit: number) => {
 export const useFileUploadFormatValidation = (
   arr: { type: string }[],
   excludedFormats: string[],
-) => {
+): [boolean, { type: string }[]] | boolean => {
   if (!arr.length || !excludedFormats.length) return false
   const invalid = arr.filter((el) =>
     excludedFormats.includes(el.type.split('/')[0]),
@@ -15,7 +18,9 @@ export const useFileUploadFormatValidation = (
   return [!invalid.length, invalid]
 }
 
-export const getBase64 = async (file: never) => {
+export const getBase64 = async (
+  file: never,
+): Promise<string | ArrayBuffer | null> => {
   const reader = new FileReader()
   await reader.readAsDataURL(file)
   return new Promise((resolve, reject) => {

@@ -27,9 +27,9 @@ import {
 import { useGetDepartments } from 'containers/Employee/hooks/useGetDepartments'
 import { useGetGenders } from 'containers/Employee/hooks/useGetGenders'
 import { useGetTitles } from 'containers/Employee/hooks/useGetTitles'
-import { EmployeeByIdContext, CatalogsContext } from 'context'
+import { CatalogsContext, EmployeeByIdContext } from 'context'
+import { a11yProps } from 'utils/a11y'
 
-import { a11yProps } from './helpers'
 import useStyles from './style'
 
 const EmployeePage: FC = () => {
@@ -113,7 +113,11 @@ const EmployeePage: FC = () => {
     <Grid container item className={classes.container} direction="column">
       <Grid>
         {employeeByIdLoading && !employeeData ? (
-          <Grid container justify="center" className={classes.loadingIndicator}>
+          <Grid
+            container
+            justifyContent="center"
+            className={classes.loadingIndicator}
+          >
             <CircularProgress size={20} />
           </Grid>
         ) : (
@@ -139,10 +143,16 @@ const EmployeePage: FC = () => {
                     onChange={handleChangeTab}
                     aria-label="simple tabs employee"
                   >
-                    <Tab label="Details" {...a11yProps(0)} />
-                    <Tab label="Paychecks" {...a11yProps(1)} />
-                    <Tab label="Titles" {...a11yProps(2)} />
-                    <Tab label="Employments" {...a11yProps(3)} />
+                    <Tab label="Details" {...a11yProps(`employee-tab-${0}`)} />
+                    <Tab
+                      label="Paychecks"
+                      {...a11yProps(`employee-tab-${1}`)}
+                    />
+                    <Tab label="Titles" {...a11yProps(`employee-tab-${2}`)} />
+                    <Tab
+                      label="Employments"
+                      {...a11yProps(`employee-tab-${3}`)}
+                    />
                   </Tabs>
                 </AppBar>
                 <TabPanel value={tab} index={0}>

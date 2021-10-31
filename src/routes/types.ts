@@ -1,13 +1,16 @@
-import React from 'react'
+import { ComponentClass, FunctionComponent, ReactNode } from 'react'
 import { RouteComponentProps, RouteProps } from 'react-router-dom'
 
-export interface IRoute extends RouteProps {
+import { RoutePath } from 'model/common'
+
+export interface CustomRoute extends RouteProps {
   exact?: boolean
   isPrivate?: boolean
   path: string
+  basePath: RoutePath
+  label: string
+  icon?: ReactNode
   component:
-    | React.ComponentClass<RouteComponentProps<Partial<Record<string, string>>>>
-    | React.FunctionComponent<
-        RouteComponentProps<Partial<Record<string, string>>>
-      >
+    | ComponentClass<RouteComponentProps<Record<string, string | undefined>>>
+    | FunctionComponent<RouteComponentProps<Record<string, string | undefined>>>
 }

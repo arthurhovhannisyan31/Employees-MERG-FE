@@ -1,34 +1,47 @@
-import { useContext } from 'react'
+import { useContext, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
 
+import { useIsAuthFreeRoute } from 'containers/Auth/hooks/useIsAuthRoute'
 import { useLogout } from 'containers/Auth/hooks/useLogout'
 import { SnackbarContext } from 'context'
 import { queryMe } from 'gql/queries'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
 
-import { IQueryMeResponse } from 'model/queries/auth'
+import { AuthContextActions, AuthReducerAction } from 'model/context/auth'
+import { QueryMeResponse } from 'model/gql/auth'
 
-export const useCheckAuthorization = (): [() => Promise<void>] => {
+export interface IUseCheckAuthorizationProps {
+  dispatch: (value: AuthReducerAction) => void
+}
+
+export const useMe = ({
+  dispatch,
+}: IUseCheckAuthorizationProps): (() => void) => {
   const location = useLocation()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
   const handleLogout = useLogout()
+  const isAuthFreeRoute = useIsAuthFreeRoute(location.pathname)
 
-  const handleCheckAuthorization = async (): Promise<void> => {
+  return useCallback(async () => {
     try {
       const res = await handleFetch(queryMe())
-      const { errors }: IQueryMeResponse = await res.json()
-      if (
-        errors?.some(
-          (error: Record<'statusCode', number>) => error.statusCode === 401,
-        ) &&
-        location.pathname !== '/auth'
-      ) {
+      const { data }: QueryMeResponse = await res.json()
+
+      if (!data?.me?.data && !isAuthFreeRoute) {
         handleLogout()
         setSnackbarState({
           type: 'warning',
           message: 'Please login',
           open: true,
+        })
+      }
+      if (data?.me?.data) {
+        dispatch({
+          type: AuthContextActions.LOGIN_SUCCESS,
+          payload: {
+            userCredentials: data?.me?.data,
+          },
         })
       }
     } catch (err) {
@@ -38,7 +51,5 @@ export const useCheckAuthorization = (): [() => Promise<void>] => {
         open: true,
       })
     }
-  }
-
-  return [handleCheckAuthorization]
+  }, [dispatch, handleFetch, handleLogout, isAuthFreeRoute, setSnackbarState])
 }

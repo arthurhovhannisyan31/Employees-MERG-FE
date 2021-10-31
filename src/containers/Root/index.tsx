@@ -1,17 +1,19 @@
+import { ThemeProvider } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
-import React, { useEffect, useContext, FC } from 'react'
+import React, { useContext, useEffect, FC } from 'react'
 import { Switch, useLocation } from 'react-router-dom'
 
 import Backdrop from 'components/UI/Backdrop'
 import BreadcrumbsComp from 'components/UI/Breadcrumbs'
 import SnackbarComp from 'components/UI/Snackbar'
+import { useMe } from 'containers/Auth/hooks/useMe'
 import Layout from 'containers/Layout'
-import { useCheckAuthorization } from 'containers/Root/hooks'
-import { AuthContext } from 'context'
-import routes from 'routes/app-routes'
+import { AuthContext, ThemeContext } from 'context'
+import { default as routes } from 'routes/app-routes'
+import themeCreator from 'utils/theme'
 
-import { EROUTES } from 'model/common'
+import { RoutePath } from 'model/common'
 
 import useStyles from './styles'
 
@@ -19,36 +21,42 @@ const Root: FC = () => {
   const classes = useStyles()
   const location = useLocation()
 
-  const { dispatch } = useContext(AuthContext)
-  const showBreadcrumbs = !location.pathname.includes(EROUTES.AUTH)
+  const { darkMode } = useContext(ThemeContext)
+  const isAuthRoute = location?.pathname.includes(RoutePath.AUTH)
+  const isResetPassword = location.pathname.includes(RoutePath.CHANGE_PASSWORD)
 
-  const handleCheckAuthorization = useCheckAuthorization({ dispatch })
+  const { dispatch } = useContext(AuthContext)
+  // TODO case for CHANGE_PASSWORD
+  const showBreadcrumbs = !(isAuthRoute || isResetPassword)
+
+  const handleCheckAuthorization = useMe({ dispatch })
 
   useEffect(() => {
     handleCheckAuthorization()
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
   return (
-    <Layout>
-      <SnackbarComp />
-      {showBreadcrumbs && <BreadcrumbsComp />}
-      <React.Suspense
-        fallback={
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            className={classes.loadingFallback}
-          >
-            <Backdrop />
-            <CircularProgress />
-          </Grid>
-        }
-      >
-        <Switch>{routes}</Switch>
-      </React.Suspense>
-    </Layout>
+    <ThemeProvider theme={themeCreator({ darkMode })}>
+      <Layout>
+        <SnackbarComp />
+        {showBreadcrumbs && <BreadcrumbsComp />}
+        <React.Suspense
+          fallback={
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              className={classes.loadingFallback}
+            >
+              <Backdrop />
+              <CircularProgress />
+            </Grid>
+          }
+        >
+          <Switch>{routes}</Switch>
+        </React.Suspense>
+      </Layout>
+    </ThemeProvider>
   )
 }
 

@@ -5,31 +5,31 @@ import {
   userCredentials,
   departmentFragment,
   titleFragment,
+  userResponseFragment,
 } from 'gql/fragments'
 
-import { IQueryProps } from 'model/common'
-import { GetEmployeeInput, GetEmployeesInput, UserInput } from 'model/generated'
+import { QueryProps } from 'model/common'
+import {
+  RootQueryEmployeeArgs,
+  RootQueryEmployeesArgs,
+  RootQueryForgottenPasswordArgs,
+  RootQueryLoginArgs,
+} from 'model/generated'
 
-export const queryLogin = ({ email, password }: UserInput): IQueryProps => ({
+export const queryLogin = ({ input }: RootQueryLoginArgs): QueryProps => ({
   query: `
-        query login($email: String!, $password: String!) {
-          login(
-            email: $email, 
-            password: $password){
-            userCredentials{
-              _id
-              email
-            }
-          } 
-        }
-      `,
+    query login($input: LoginInput!) {
+      login(input: $input){
+          ${userResponseFragment}
+        } 
+    }
+  `,
   variables: {
-    email,
-    password,
+    input,
   },
 })
 
-export const queryLogout = (): IQueryProps => ({
+export const queryLogout = (): QueryProps => ({
   query: `
         query logout {
           logout
@@ -38,15 +38,11 @@ export const queryLogout = (): IQueryProps => ({
 })
 
 export const queryEmployees = ({
-  limit,
-  offset,
-}: GetEmployeesInput): IQueryProps => ({
+  input,
+}: RootQueryEmployeesArgs): QueryProps => ({
   query: `
-    query employees($limit: Int!, $offset: Int!) {
-      employees(input:{
-        limit: $limit, 
-        offset: $offset
-      }) {
+    query employees($input: GetEmployeesInput) {
+      employees(input: $input) {
         nodes {
           ${employeeFragment}
           gender
@@ -55,32 +51,39 @@ export const queryEmployees = ({
       }
     }
   `,
-  variables: {
-    limit,
-    offset,
-  },
+  variables: { input: input || {} },
 })
 
-export const queryEmployee = ({ id }: GetEmployeeInput): IQueryProps => ({
+export const queryEmployee = ({
+  input,
+}: RootQueryEmployeeArgs): QueryProps => ({
   query: `
-    query employee($id: ID!){
-      employee(input:{id: $id}){
+    query employee($input: GetEmployeeInput!) {
+      employee(input: $input){
         ${employeeDetailsFragment}
       }
     }
   `,
-  variables: { id },
+  variables: { input },
 })
 
-export const queryMe = (): IQueryProps => ({
+export const queryMe = (): QueryProps => ({
   query: `
     query me {
-      ${userCredentials}
+      me {
+        errors{
+          field
+          message
+        }
+        data{
+          ${userCredentials}
+        }
+      }
     }
   `,
 })
 
-export const queryDepartments = (): IQueryProps => ({
+export const queryDepartments = (): QueryProps => ({
   query: `
     query departments{
       departments{
@@ -90,7 +93,7 @@ export const queryDepartments = (): IQueryProps => ({
   `,
 })
 
-export const queryTitles = (): IQueryProps => ({
+export const queryTitles = (): QueryProps => ({
   query: `
     query titles {
       titles{
@@ -100,7 +103,7 @@ export const queryTitles = (): IQueryProps => ({
   `,
 })
 
-export const queryGenders = (): IQueryProps => ({
+export const queryGenders = (): QueryProps => ({
   query: `
     query genders {
       genders{
@@ -108,4 +111,19 @@ export const queryGenders = (): IQueryProps => ({
       }
     }
   `,
+})
+
+export const queryForgottenPassword = ({
+  input,
+}: RootQueryForgottenPasswordArgs): QueryProps => ({
+  query: `
+    query forgottenPassword($input: ForgottenPasswordInput!) {
+      forgottenPassword(input: $input){
+        errors
+      }
+    }
+  `,
+  variables: {
+    input,
+  },
 })

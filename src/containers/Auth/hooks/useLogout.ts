@@ -3,14 +3,13 @@ import { useHistory } from 'react-router-dom'
 
 import { AuthContext } from 'context/auth'
 import { queryLogout } from 'gql/queries'
-import { fetchResponseCheck } from 'utils/auth'
-import { useFetch } from 'utils/hooks'
-import storage from 'utils/storage'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
 
-import { EAuthContextActions } from 'model/context/auth'
-import { IQueryLogoutResponse } from 'model/queries/auth'
+import { AuthContextActions } from 'model/context/auth'
+import { QueryLogoutResponse } from 'model/gql/auth'
 
-export const useLogout = (): (() => Promise<void>) => {
+export const useLogout = (): (() => void) => {
   const history = useHistory()
   const { dispatch } = useContext(AuthContext)
   const handleFetch = useFetch()
@@ -18,24 +17,30 @@ export const useLogout = (): (() => Promise<void>) => {
   return useCallback(async () => {
     try {
       const res = await handleFetch(queryLogout())
-      fetchResponseCheck(res?.status)
-      const result: IQueryLogoutResponse = await res.json()
+      checkResponse(res?.status)
+      const result: QueryLogoutResponse = await res.json()
       if (result?.data?.logout) {
         dispatch({
-          type: EAuthContextActions.LOGOUT,
+          type: AuthContextActions.LOGOUT,
         })
-        storage.clear()
         history.push('/auth')
       } else {
         dispatch({
-          type: EAuthContextActions.ERRORS,
-          payload: { errors: [new Error('Logout failed')] },
+          type: AuthContextActions.ERRORS,
+          payload: { errors: [{ field: 'logout', message: 'Logout failed' }] },
         })
       }
     } catch (err) {
       dispatch({
-        type: EAuthContextActions.ERRORS,
-        payload: { errors: [err as Error] },
+        type: AuthContextActions.ERRORS,
+        payload: {
+          errors: [
+            {
+              message: (err as Error).message,
+              field: (err as Error).message,
+            },
+          ],
+        },
       })
     }
   }, [dispatch, handleFetch, history])

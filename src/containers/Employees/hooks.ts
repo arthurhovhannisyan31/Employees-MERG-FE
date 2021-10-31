@@ -1,26 +1,27 @@
-import { useContext, useCallback, useMemo, Dispatch } from 'react'
+import { useContext, useCallback, useMemo } from 'react'
 
 import { SnackbarContext } from 'context/snackbar'
 import { queryEmployees } from 'gql/queries'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
 
 import {
   TEmployeesAction,
   IEmployeesFetchResponse,
 } from 'model/context/employees'
-import { GetEmployeesInput } from 'model/generated'
+
+import { GetEmployeesInput } from '../../model/generated'
 
 interface IUseGetEmployees {
-  dispatch: Dispatch<TEmployeesAction>
+  dispatch: (val: TEmployeesAction) => void
   pageSize: number
   currentPage: number
 }
-
+type GetEmployeesProps = (props: GetEmployeesInput) => void
 export const useGetEmployees = ({
   dispatch,
   currentPage,
   pageSize,
-}: IUseGetEmployees) => {
+}: IUseGetEmployees): [GetEmployeesProps] => {
   const key = useMemo(
     () => `${pageSize}-${currentPage}`,
     [pageSize, currentPage],
@@ -34,7 +35,9 @@ export const useGetEmployees = ({
         payload: { loading: true },
       })
       try {
-        const res = await handleFetch(queryEmployees({ offset, limit }))
+        const res = await handleFetch(
+          queryEmployees({ input: { offset, limit } }),
+        )
         const { data, errors }: IEmployeesFetchResponse = await res.json()
         if (errors?.length) return
         const {
@@ -59,7 +62,7 @@ export const useGetEmployees = ({
         })
         dispatch({
           type: 'error',
-          payload: { error: err as Record<string, string> },
+          payload: { error: err as Error },
         })
       }
       dispatch({

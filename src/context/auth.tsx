@@ -1,16 +1,16 @@
 import React, { createContext, useReducer, FC } from 'react'
 
-import { API_URL } from 'utils/constants/config'
+import { API_URL } from 'constants/config'
 
 import {
-  EAuthContextActions,
-  IAuthContext,
-  IAuthReducerAction,
-  IAuthState,
-  TAuthReducer,
+  AuthContextActions,
+  AuthContextProps,
+  AuthReducerAction,
+  AuthState,
+  AuthReducerProps,
 } from 'model/context/auth'
 
-const authContextInitValue: IAuthContext = {
+const authContextInitValue: AuthContextProps = {
   userCredentials: {
     email: '',
     _id: '',
@@ -19,26 +19,35 @@ const authContextInitValue: IAuthContext = {
   headers: {},
   errors: [],
   dispatch: () => null,
+  isFetching: false,
 }
 
-const AuthContext = createContext<IAuthContext>(authContextInitValue)
+const AuthContext = createContext<AuthContextProps>(authContextInitValue)
 
 const authContextReducer = (
-  state: IAuthState,
-  action: IAuthReducerAction,
-): IAuthState => {
+  state: AuthState,
+  action: AuthReducerAction,
+): AuthState => {
   const { type, payload } = action
   switch (type) {
-    case EAuthContextActions.LOGIN: {
+    case AuthContextActions.LOGIN_REQUEST: {
       return {
         ...state,
+        isFetching: action.payload?.isFetching || false,
+      }
+    }
+    case AuthContextActions.LOGIN_SUCCESS: {
+      return {
+        ...state,
+        errors: [],
         userCredentials: {
           _id: payload?.userCredentials?._id ?? '',
           email: payload?.userCredentials?.email ?? '',
         },
+        isFetching: false,
       }
     }
-    case EAuthContextActions.LOGOUT: {
+    case AuthContextActions.LOGOUT: {
       return {
         ...state,
         userCredentials: {
@@ -47,10 +56,11 @@ const authContextReducer = (
         },
       }
     }
-    case EAuthContextActions.ERRORS: {
+    case AuthContextActions.ERRORS: {
       return {
         ...state,
         errors: payload?.errors,
+        isFetching: false,
       }
     }
     default: {
@@ -60,12 +70,12 @@ const authContextReducer = (
 }
 
 const AuthContextContainer: FC = ({ children }) => {
-  const [state, dispatch] = useReducer<TAuthReducer>(
+  const [state, dispatch] = useReducer<AuthReducerProps>(
     authContextReducer,
     authContextInitValue,
   )
 
-  const { errors, userCredentials } = state
+  const { errors, userCredentials, isFetching } = state
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -79,6 +89,7 @@ const AuthContextContainer: FC = ({ children }) => {
         errors,
         userCredentials,
         apiUrl: API_URL,
+        isFetching,
       }}
     >
       {children}

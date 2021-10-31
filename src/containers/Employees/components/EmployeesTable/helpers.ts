@@ -1,9 +1,9 @@
 import { Table } from '@devexpress/dx-react-grid-material-ui'
-import { Omit } from '@material-ui/core'
 import format from 'date-fns/format'
 
-import { Employee } from 'model/generated'
+import { IEmployeesTableRow } from 'containers/Employees/types'
 
+import { Employee } from 'model/generated'
 export const rowIdSelector = ({ _id }: Omit<Employee, '__typename'>): string =>
   _id
 
@@ -14,12 +14,12 @@ export const rowsSelector = ({
   first_name,
   gender,
   birth_date,
-}: Omit<Employee, '__typename'>) => ({
+}: Omit<Employee, '__typename'>): IEmployeesTableRow => ({
   _id,
   hire_date: format(new Date(hire_date), 'dd-MMM-yyyy'),
   last_name,
   first_name,
-  gender, // TODO fix gender name
+  gender,
   birth_date: format(new Date(birth_date), 'dd-MMM-yyyy'),
 })
 

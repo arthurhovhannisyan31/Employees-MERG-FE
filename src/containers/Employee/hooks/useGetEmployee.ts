@@ -2,37 +2,39 @@ import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { queryEmployee } from 'gql/queries'
-import { fetchResponseCheck } from 'utils/auth'
-import { useFetch } from 'utils/hooks'
+import { useFetch } from 'hooks'
+import { checkResponse } from 'utils/auth'
 
 import {
-  EActionTypes,
-  TEmployeeByIdAction,
-  TEmployeeFetchResponse,
+  ActionTypes,
+  EmployeeByIdAction,
+  EmployeeFetchResponse,
 } from 'model/context/employee'
 import { GetEmployeeInput } from 'model/generated'
 
 export interface IUseGetEmployeeProps {
-  dispatch: (val: TEmployeeByIdAction) => void
+  dispatch: (val: EmployeeByIdAction) => void
 }
-
-export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
+type GetEmployeeProps = (props: GetEmployeeInput) => void
+export const useGetEmployee = ({
+  dispatch,
+}: IUseGetEmployeeProps): [GetEmployeeProps] => {
   const { id: idParam } = useParams<Record<'id', string>>()
   const handleFetch = useFetch()
   const handleGetEmployee = useCallback(
     async ({ id }: GetEmployeeInput) => {
       dispatch({
-        type: EActionTypes.LOADING,
+        type: ActionTypes.LOADING,
         payload: { loading: true },
       })
       try {
-        const res = await handleFetch(queryEmployee({ id }))
-        fetchResponseCheck(res?.status)
+        const res = await handleFetch(queryEmployee({ input: { id } }))
+        checkResponse(res?.status)
         const {
           data: { employee },
-        }: TEmployeeFetchResponse = await res.json()
+        }: EmployeeFetchResponse = await res.json()
         dispatch({
-          type: EActionTypes.ADD_ITEM,
+          type: ActionTypes.ADD_ITEM,
           payload: {
             data: employee,
             key: idParam,
@@ -40,12 +42,12 @@ export const useGetEmployee = ({ dispatch }: IUseGetEmployeeProps) => {
         })
       } catch (err) {
         dispatch({
-          type: EActionTypes.ERROR,
-          payload: { error: err as Record<string, string> },
+          type: ActionTypes.ERROR,
+          payload: { error: err as Error },
         })
       }
       dispatch({
-        type: EActionTypes.LOADING,
+        type: ActionTypes.LOADING,
         payload: { loading: false },
       })
     },
