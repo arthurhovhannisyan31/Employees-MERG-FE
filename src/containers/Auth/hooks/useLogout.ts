@@ -7,7 +7,7 @@ import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
 
 import { AuthContextActions } from 'model/context/auth'
-import { QueryLogoutResponse } from 'model/queries/auth'
+import { QueryLogoutResponse } from 'model/gql/auth'
 
 export const useLogout = (): (() => void) => {
   const history = useHistory()

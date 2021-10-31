@@ -1,4 +1,4 @@
-import { userCredentials } from 'gql/fragments'
+import { fieldErrorFragment, userCredentials } from 'gql/fragments'
 
 import { QueryProps } from 'model/common'
 import {
@@ -49,6 +49,26 @@ export const mutationUpdatePassword = (
           ${userCredentials}
         }
         errors
+      }
+    }
+  `,
+  variables: {
+    input,
+  },
+})
+
+export const mutationCreateUser = ({
+  input,
+}: RootMutationCreateUserArgs): QueryProps => ({
+  query: `
+    mutation createUser($input: CreateUserInput!) {
+      createUser(input: $input) {
+        data {
+          ${userCredentials}
+        }
+        errors{
+          ${fieldErrorFragment}
+        }
       }
     }
   `,

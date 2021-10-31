@@ -39,6 +39,7 @@ const authContextReducer = (
     case AuthContextActions.LOGIN_SUCCESS: {
       return {
         ...state,
+        errors: [],
         userCredentials: {
           _id: payload?.userCredentials?._id ?? '',
           email: payload?.userCredentials?.email ?? '',

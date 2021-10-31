@@ -333,6 +333,7 @@ export type UserCredentials = {
   __typename?: 'UserCredentials';
   _id: Scalars['String'];
   email: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type ValidateResetPasswordLinkInput = {

@@ -28,7 +28,6 @@ module.exports = merge(common, {
     },
   },
   plugins: [
-    ...common.plugins,
     new CleanWebpackPlugin(),
     new webpack.ProgressPlugin({ percentBy: 'entries' }),
     new webpack.HotModuleReplacementPlugin(),

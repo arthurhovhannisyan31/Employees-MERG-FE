@@ -7,16 +7,16 @@ import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
 
 import { AuthReducerAction, AuthContextActions } from 'model/context/auth'
-import { UserInput } from 'model/generated'
-import { QueryLoginResponse } from 'model/queries/auth'
+import { LoginInput } from 'model/generated'
+import { QueryLoginResponse } from 'model/gql/auth'
 
-export interface UseLoginProps {
+interface UseLoginProps {
   dispatch: (value: AuthReducerAction) => void
 }
 
 export const useLogin = ({
   dispatch,
-}: UseLoginProps): ((props: UserInput) => Promise<void>) => {
+}: UseLoginProps): ((props: LoginInput) => Promise<void>) => {
   const history = useHistory()
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()

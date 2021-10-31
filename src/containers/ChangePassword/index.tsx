@@ -112,13 +112,7 @@ const ChangePassword: FC = () => {
   useEffect(handleCheckRestoreLink, [handleCheckRestoreLink])
 
   return (
-    <Grid
-      container
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      className={classes.container}
-    >
+    <Grid container direction="row" justifyContent="center" alignItems="center">
       <Grid
         container
         direction="row"

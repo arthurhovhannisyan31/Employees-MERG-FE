@@ -8,7 +8,7 @@ import { checkResponse } from 'utils/auth'
 
 import { AuthContextActions, AuthReducerAction } from 'model/context/auth'
 import { UpdatePasswordInput } from 'model/generated'
-import { MutationUpdatePasswordResponse } from 'model/queries/auth'
+import { MutationUpdatePasswordResponse } from 'model/gql/auth'
 
 export interface useUpdatePasswordProps {
   dispatch: (value: AuthReducerAction) => void

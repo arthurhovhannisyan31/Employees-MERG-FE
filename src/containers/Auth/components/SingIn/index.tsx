@@ -18,8 +18,8 @@ import {
   initState,
   validationSchema,
 } from 'containers/Auth/components/SingIn/helpers'
-import { useLogin } from 'containers/Auth/hooks'
 import { useForgottenPassword } from 'containers/Auth/hooks/useForgottenPassword'
+import { useLogin } from 'containers/Auth/hooks/useLogin'
 import { AuthContext } from 'context/auth'
 import { handleEnterKeyDown } from 'utils/keyboard'
 

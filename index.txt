@@ -36,6 +36,7 @@ run localhost on https (http redirects to https)
 add a main loading spinner on reload while fetching user data
 add explicit isAuthenticated state
 add X-CSRF-Token
+add images upload
 
 Bugs:
 check if session timeout works correctly
@@ -62,7 +63,7 @@ Releases:
 + add email reset unique link
 + add change password route and form
 - add restriction to reset password attempts
-- add registration
++ add registration
 + add password strength validation
 
 continue with registration form

@@ -1,14 +1,14 @@
 import { useContext, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { useIsAuthFreeRoute } from 'containers/Auth/helpers'
+import { useIsAuthFreeRoute } from 'containers/Auth/hooks/useIsAuthRoute'
 import { useLogout } from 'containers/Auth/hooks/useLogout'
 import { SnackbarContext } from 'context'
 import { queryMe } from 'gql/queries'
 import { useFetch } from 'hooks'
 
 import { AuthContextActions, AuthReducerAction } from 'model/context/auth'
-import { QueryMeResponse } from 'model/queries/auth'
+import { QueryMeResponse } from 'model/gql/auth'
 
 export interface IUseCheckAuthorizationProps {
   dispatch: (value: AuthReducerAction) => void
@@ -38,7 +38,7 @@ export const useMe = ({
       }
       if (data?.me?.data) {
         dispatch({
-          type: AuthContextActions.LOGIN,
+          type: AuthContextActions.LOGIN_SUCCESS,
           payload: {
             userCredentials: data?.me?.data,
           },

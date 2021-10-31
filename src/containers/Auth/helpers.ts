@@ -1,9 +1,20 @@
-import { useMemo } from 'react'
+import * as yup from 'yup'
 
-import { routes } from 'routes/app-routes'
-import { getAuthFreeRoutes } from 'routes/helpers'
-
-export const useIsAuthFreeRoute = (route: string): boolean => {
-  const nonPrivateRoutes = useMemo(() => getAuthFreeRoutes(routes), [])
-  return nonPrivateRoutes.some((routeBase) => route.includes(routeBase))
+export const sharedYupFields = {
+  name: yup
+    .string()
+    .trim()
+    .nullable()
+    .required('Please fill email')
+    .min(2, 'Too short')
+    .max(255, 'Too long'),
+  email: yup
+    .string()
+    .email()
+    .trim()
+    .nullable()
+    .required('Please fill email')
+    .min(2, 'Too short')
+    .max(255, 'Too long'),
+  password: yup.string().trim().nullable().required('Please fill password'),
 }

@@ -18,29 +18,45 @@ import SignIn from 'containers/Auth/components/SingIn'
 import { AuthContext } from 'context'
 import { a11yProps } from 'utils/a11y'
 
+import { AuthContextActions } from 'model/context/auth'
+
 import useStyles from './style'
 
 const Auth: FC = () => {
   const history = useHistory()
   const { next = '' } = useParams<Record<'next', string>>()
-  const { userCredentials, errors: authErrors } = useContext(AuthContext)
+  const {
+    dispatch,
+    userCredentials,
+    errors: authErrors,
+  } = useContext(AuthContext)
 
   const [tab, setTab] = useState(0)
 
   const classes = useStyles({ hasError: !!authErrors?.length })
 
+  const clearErrors = useCallback(() => {
+    dispatch({
+      type: AuthContextActions.ERRORS,
+      payload: { errors: [] },
+    })
+  }, [dispatch])
+
   const handleChange = useCallback(
     (_: ChangeEvent<Record<string, never>>, newValue: number) => {
+      clearErrors()
       setTab(newValue)
     },
-    [],
+    [clearErrors],
   )
 
-  useEffect(() => {
+  const redirectOnAuth = useCallback(() => {
     if (userCredentials?._id) {
       history.push(`/${next}`)
     }
   }, [history, next, userCredentials])
+
+  useEffect(redirectOnAuth, [redirectOnAuth])
 
   return (
     <Grid
