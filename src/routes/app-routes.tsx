@@ -5,14 +5,22 @@ import { routeMaker } from 'routes/helpers'
 
 import { CustomRoute } from './types'
 
-const Home = lazy(() => import('containers/Home'))
-const About = lazy(() => import('containers/About'))
+const Home = lazy(() => import(/* webpackPrefetch: true */ 'containers/Home'))
+const About = lazy(() => import(/* webpackPrefetch: true */ 'containers/About'))
 // eslint-disable-next-line import/no-cycle
-const Auth = lazy(() => import('containers/Auth'))
-const NotFound = lazy(() => import('containers/NotFound'))
-const Employees = lazy(() => import('containers/Employees'))
-const Employee = lazy(() => import('containers/Employee'))
-const ChangePassword = lazy(() => import('containers/ChangePassword'))
+const Auth = lazy(() => import(/* webpackPrefetch: true */ 'containers/Auth'))
+const NotFound = lazy(
+  () => import(/* webpackPrefetch: true */ 'containers/NotFound'),
+)
+const Employees = lazy(
+  () => import(/* webpackPrefetch: true */ 'containers/Employees'),
+)
+const Employee = lazy(
+  () => import(/* webpackPrefetch: true */ 'containers/Employee'),
+)
+const ChangePassword = lazy(
+  () => import(/* webpackPrefetch: true */ 'containers/ChangePassword'),
+)
 
 export const routes: CustomRoute[] = [
   {
