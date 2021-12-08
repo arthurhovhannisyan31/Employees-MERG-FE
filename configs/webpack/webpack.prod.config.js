@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+const zlib = require('zlib')
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const webpack = require('webpack')
+const CompressionPlugin = require('compression-webpack-plugin')
 const { merge } = require('webpack-merge')
 
 const common = require('./webpack.common.config')
@@ -28,8 +28,18 @@ module.exports = merge(common, {
     },
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new webpack.ProgressPlugin({ percentBy: 'entries' }),
-    new webpack.HotModuleReplacementPlugin(),
+    new CompressionPlugin({
+      filename: '[path][base].br',
+      algorithm: 'brotliCompress',
+      test: /\.(js|css|html|svg)$/,
+      compressionOptions: {
+        params: {
+          [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+        },
+      },
+      threshold: 10240,
+      minRatio: 0.8,
+      deleteOriginalAssets: false,
+    }),
   ],
 })
