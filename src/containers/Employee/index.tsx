@@ -46,6 +46,7 @@ const EmployeePage: FC = () => {
   const {
     state: {
       data: { departments, titles, genders },
+      error: catalogsError,
     },
     dispatch: catalogsDispatch,
   } = useContext(CatalogsContext)
@@ -84,25 +85,31 @@ const EmployeePage: FC = () => {
   // todo error message
 
   const fetchEmployeeInitData = useCallback(() => {
-    if (!employeeData && !employeeByIdLoading) {
+    if (!employeeData && !employeeByIdLoading && !employeeByIdError) {
       handleGetEmployee({ id: idParam })
     }
-  }, [employeeData, employeeByIdLoading, handleGetEmployee, idParam])
+  }, [
+    employeeByIdError,
+    employeeByIdLoading,
+    employeeData,
+    handleGetEmployee,
+    idParam,
+  ])
   const fetchDepartmentsInitData = useCallback(() => {
-    if (!departments?.length) {
+    if (!departments?.length && !catalogsError) {
       handleGetDepartments()
     }
-  }, [departments, handleGetDepartments])
+  }, [catalogsError, departments?.length, handleGetDepartments])
   const fetchTitlesInitData = useCallback(() => {
-    if (!titles?.length) {
+    if (!titles?.length && !catalogsError) {
       handleGetTitles()
     }
-  }, [handleGetTitles, titles])
+  }, [catalogsError, handleGetTitles, titles?.length])
   const fetchGendersInitData = useCallback(() => {
-    if (!genders?.length) {
+    if (!genders?.length && !catalogsError) {
       handleGetGenders()
     }
-  }, [genders, handleGetGenders])
+  }, [catalogsError, genders?.length, handleGetGenders])
 
   useEffect(fetchEmployeeInitData, [fetchEmployeeInitData])
   useEffect(fetchDepartmentsInitData, [fetchDepartmentsInitData])

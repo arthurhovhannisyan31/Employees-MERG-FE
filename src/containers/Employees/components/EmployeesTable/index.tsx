@@ -121,7 +121,7 @@ const EmployeesTable: FC<IProps> = ({
       {loading && (
         <MUIGrid
           container
-          justify="center"
+          justifyContent="center"
           className={cls.loadingSplash}
           alignItems="center"
         >

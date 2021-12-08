@@ -16,7 +16,7 @@ Features:
 - add images upload
 - add a main loading spinner on reload while fetching user data
 - fix fetch response types result?.data?.login?.userCredentials
-- use indexeddb for reports
+- use indexeddb for reports https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB#adding_retrieving_and_removing_data
 - add loaded data to IndexedDB as a cache
 - analytics: table, graphs, reports
 - get design from material-ui examples page
@@ -44,3 +44,22 @@ DevExp:
 
 Bugs:
 check if session timeout works correctly
+fix url redirect after login, now loses url
+
+- добить деталку по сотрудникам
+- перенести часть улучшений из учебного проекта material-ui
+- писать тесты для демо
+
+react-hot-loader
+web-vitals
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const MinifyPlugin = require("babel-minify-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin"); + brotli
+const expressStaticGzip = require("express-static-gzip");
+background-image: linear-gradient(to right, rgb(13, 92, 96), rgb(126, 24, 78));
+background-image: linear-gradient(to right,#006064,#880E4F);
+end project with simple table of employees with search and sorting
+https://github.com/GoogleChromeLabs/comlink
+
+
