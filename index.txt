@@ -1,46 +1,16 @@
-Design:
-https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
-https://cheatsheetseries.owasp.org/
-
-Features:
--- ui-improvements
-loading spinner for loading window
-remove unnecessary loading indicators
-add nav bar collapsing
-handle auth BE error message, show error message
-nav bar props array
-add react helmet to display page name in browser tab
-add nav list on left side https://cheatsheetseries.owasp.org/
-
 Test:
 jest + enzyme, cypress
 
-Cache:
-add loaded data to IndexedDB as a cache
+Refactor:
+- add auth context loading state, hide login page when fetching me status
+- add explicit isAuthenticated state
 
-create, delete employee (paycheck, titles, employments)
-replace all reducers with objects
-add CRUD for employees, title, payoff, salary, hire/fire employee
-add features from material-ui project
-new route, get design from material-ui examples page
-analytics: table, graphs, reports
-use indexeddb for reports
-eslint import, error
-eslint cycle dependencies
-fix material ui makeStyles classnames autocomplete
-fix fetch response types result?.data?.login?.userCredentials
-add auth context loading state, hide login page when fetching me status
-separate vendor chunks
 add service worker
-run localhost on https (http redirects to https)
-add a main loading spinner on reload while fetching user data
-add explicit isAuthenticated state
-add X-CSRF-Token
-add images upload
-add restriction to reset password attempts
 
 Bugs:
 check if session timeout works correctly
+fix url redirect after login, now loses url
 
-https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
-https://cheatsheetseries.owasp.org/
+web-vitals
+https://github.com/GoogleChromeLabs/comlink
+add webworkers

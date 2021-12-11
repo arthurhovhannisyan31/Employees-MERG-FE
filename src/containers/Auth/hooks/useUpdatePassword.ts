@@ -29,7 +29,7 @@ export const useUpdatePassword = ({
         const { data }: MutationUpdatePasswordResponse = await res.json()
         if (data?.updatePassword.data) {
           dispatch({
-            type: AuthContextActions.LOGIN,
+            type: AuthContextActions.LOGIN_SUCCESS,
             payload: {
               userCredentials: data.updatePassword.data,
             },
