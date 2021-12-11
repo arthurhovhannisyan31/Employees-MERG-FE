@@ -1,85 +1,16 @@
-Design:
-https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
-https://cheatsheetseries.owasp.org/
-
-Features:
--- ui-improvements
-loading spinner for loading window
-remove unnecessary loading indicators
-add nav bar collapsing
-handle auth BE error message, show error message
-nav bar props array
-add react helmet to display page name in browser tab
-add nav list on left side https://cheatsheetseries.owasp.org/
-
 Test:
 jest + enzyme, cypress
-
-Features:
-- loading spinner for loading window
-- remove unnecessary loading indicators
-- add nav bar collapsing
-- handle auth BE error message, show error message
-- nav bar props array
-- add react helmet to display page name in browser tab
-- add nav list on left side
-- add images upload
-- add a main loading spinner on reload while fetching user data
-- fix fetch response types result?.data?.login?.userCredentials
-- use indexeddb for reports
-- add loaded data to IndexedDB as a cache
-- analytics: table, graphs, reports
-- get design from material-ui examples page
-- create, delete employee (paycheck, titles, employments)
-- add CRUD for employees, title, payoff, salary, hire/fire employee
-- add features from material-ui project
 
 Refactor:
 - add auth context loading state, hide login page when fetching me status
 - add explicit isAuthenticated state
 
-create, delete employee (paycheck, titles, employments)
-replace all reducers with objects
-add CRUD for employees, title, payoff, salary, hire/fire employee
-add features from material-ui project
-new route, get design from material-ui examples page
-analytics: table, graphs, reports
-use indexeddb for reports
-eslint import, error
-eslint cycle dependencies
-fix material ui makeStyles classnames autocomplete
-fix fetch response types result?.data?.login?.userCredentials
-add auth context loading state, hide login page when fetching me status
-separate vendor chunks
 add service worker
-run localhost on https (http redirects to https)
-add a main loading spinner on reload while fetching user data
-add explicit isAuthenticated state
-add X-CSRF-Token
-add images upload
-add restriction to reset password attempts
 
 Bugs:
 check if session timeout works correctly
 fix url redirect after login, now loses url
 
-- добить деталку по сотрудникам
-- перенести часть улучшений из учебного проекта material-ui
-- писать тесты для демо
-
-react-hot-loader
 web-vitals
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const MinifyPlugin = require("babel-minify-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin"); + brotli
-const expressStaticGzip = require("express-static-gzip");
-background-image: linear-gradient(to right, rgb(13, 92, 96), rgb(126, 24, 78));
-background-image: linear-gradient(to right,#006064,#880E4F);
-end project with simple table of employees with search and sorting
 https://github.com/GoogleChromeLabs/comlink
-
-
-
-https://material-ui.com/store/previews/matx-pro-react-dashboard-template/
-https://cheatsheetseries.owasp.org/
+add webworkers

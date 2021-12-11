@@ -6,6 +6,7 @@ import {
   Grid,
   Tooltip,
   Typography,
+  FormLabel,
 } from '@material-ui/core'
 import {
   Home as HomeIcon,
@@ -59,6 +60,7 @@ const Header: FC = () => {
               <Tooltip title="Home">
                 <span>
                   <Button
+                    aria-label={'Home'}
                     onClick={() => history.push('/')}
                     className={clsx(classes.link, {
                       [classes.activeLink]: location?.pathname === '/',
@@ -71,6 +73,7 @@ const Header: FC = () => {
               <Tooltip title="Employees">
                 <span>
                   <Button
+                    aria-label={'Employees'}
                     disabled={!isUnauthenticated}
                     onClick={() => history.push('/employees')}
                     className={clsx(classes.link, {
@@ -84,6 +87,7 @@ const Header: FC = () => {
               <Tooltip title="About">
                 <span>
                   <Button
+                    aria-label={'About'}
                     disabled={!isUnauthenticated}
                     onClick={() => history.push('/about')}
                     className={clsx(classes.link, {
@@ -99,10 +103,22 @@ const Header: FC = () => {
           <Grid item>
             <Grid container alignItems="center">
               <Typography>{email}</Typography>
-              <Switch checked={darkMode} onChange={toggleTheme} />
+              <FormLabel>
+                <Switch
+                  role="application"
+                  aria-label={'Theme Switch'}
+                  aria-roledescription={'Theme Switch'}
+                  checked={darkMode}
+                  onChange={toggleTheme}
+                />
+              </FormLabel>
               {isUnauthenticated ? (
                 <Tooltip title="Logout">
-                  <Button onClick={handleLogout} className={clsx(classes.link)}>
+                  <Button
+                    aria-label={'Logout'}
+                    onClick={handleLogout}
+                    className={clsx(classes.link)}
+                  >
                     <LogOut />
                   </Button>
                 </Tooltip>
@@ -110,6 +126,7 @@ const Header: FC = () => {
                 <Tooltip title="Login">
                   <span>
                     <Button
+                      aria-label={'Login'}
                       disabled={isAuthRoute || isResetPassword}
                       onClick={handleLogin}
                       className={clsx(classes.link)}

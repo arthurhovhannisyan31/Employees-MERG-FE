@@ -9,5 +9,6 @@ export default makeStyles(() => ({
     margin: '0 auto',
     maxWidth: '1600px',
     height: '100%',
+    flexFlow: 'column',
   },
 }))
