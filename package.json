@@ -8,7 +8,6 @@
     "start": "node server.js",
     "start:dev": "webpack serve --config ./configs/webpack/webpack.dev.config.js",
     "serve:prod": "nodemon --config configs/env/nodemon-prod.json server.js",
-    "serve:dev": "nodemon --config configs/env/nodemon-dev.json server.js",
     "build": "webpack --config ./configs/webpack/webpack.prod.config.js",
     "watch": "tsc -w",
     "gentypes": "graphql-codegen --config codegen.yml",

@@ -6,7 +6,6 @@ Refactor:
 - add explicit isAuthenticated state
 
 add service worker
-add webworkers
 
 Bugs:
 check if session timeout works correctly
@@ -14,3 +13,4 @@ fix url redirect after login, now loses url
 
 web-vitals
 https://github.com/GoogleChromeLabs/comlink
+add webworkers
