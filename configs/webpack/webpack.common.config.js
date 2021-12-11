@@ -3,6 +3,7 @@
 const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const webpack = require('webpack')
 
@@ -25,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
@@ -43,6 +44,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve('public', 'index.html'),
       cache: false,
@@ -52,7 +54,7 @@ module.exports = {
       'API_URL',
       'PROXY_URL',
       'APP_URL_DEV',
-      'PORT',
+      'ROOT_PORT',
     ]),
     new webpack.ProvidePlugin({ process: 'process/browser' }),
   ],

@@ -1,6 +1,8 @@
+import DateFnsUtils from '@date-io/date-fns'
 import { ThemeProvider } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import React, { useContext, useEffect, FC } from 'react'
 import { Switch, useLocation } from 'react-router-dom'
 
@@ -53,7 +55,9 @@ const Root: FC = () => {
             </Grid>
           }
         >
-          <Switch>{routes}</Switch>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Switch>{routes}</Switch>
+          </MuiPickersUtilsProvider>
         </React.Suspense>
       </Layout>
     </ThemeProvider>

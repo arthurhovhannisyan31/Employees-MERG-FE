@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const fs = require('fs')
 const path = require('path')
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -21,10 +22,15 @@ module.exports = merge(common, {
       },
     },
     host: process.env.APP_URL_DEV,
-    port: process.env.PORT || 3000,
+    port: process.env.ROOT_PORT || 3000,
     historyApiFallback: true,
     proxy: {
       [process.env.API_URL]: `${process.env.PROXY_URL}${process.env.API_URL}`,
+    },
+    http2: true,
+    https: {
+      key: fs.readFileSync(path.resolve('configs', 'cert', 'key.pem')),
+      cert: fs.readFileSync(path.resolve('configs', 'cert', 'cert.pem')),
     },
   },
   plugins: [
