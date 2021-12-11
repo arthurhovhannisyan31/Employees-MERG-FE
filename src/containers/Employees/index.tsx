@@ -29,23 +29,21 @@ const EmployeesPage: FC = () => {
     }
   }, [pageSize, currentPage, handleGetEmployees, slice])
   return (
-    <Grid container>
-      <Grid container direction="row">
-        {error ? (
-          <Typography>Regular error message</Typography>
-        ) : (
-          <EmployeesTable
-            dispatch={dispatch}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            pageSize={pageSize}
-            setPageSize={setPageSize}
-            loading={loading}
-            data={slice}
-            count={count}
-          />
-        )}
-      </Grid>
+    <Grid container direction="row">
+      {error ? (
+        <Typography>Regular error message</Typography>
+      ) : (
+        <EmployeesTable
+          dispatch={dispatch}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          loading={loading}
+          data={slice}
+          count={count}
+        />
+      )}
     </Grid>
   )
 }

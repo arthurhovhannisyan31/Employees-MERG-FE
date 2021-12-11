@@ -1,35 +1,46 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
+const zlib = require('zlib')
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const webpack = require('webpack')
+const CompressionPlugin = require('compression-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const { merge } = require('webpack-merge')
 
 const common = require('./webpack.common.config')
+
 require('dotenv').config({ path: './configs/env/.env-dev' })
 
 module.exports = merge(common, {
   target: 'web',
-  mode: 'development',
-  devtool: 'inline-source-map',
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-      watch: {
-        interval: 1000,
-        ignored: /node_modules/,
-      },
+  mode: 'production',
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      minSize: 0,
+      maxSize: 50000,
     },
-    host: process.env.APP_URL_DEV,
-    port: process.env.PORT || 3000,
-    historyApiFallback: true,
-    proxy: {
-      [process.env.API_URL]: `${process.env.PROXY_URL}${process.env.API_URL}`,
-    },
+    minimizer: [
+      new CssMinimizerPlugin(),
+      new TerserPlugin({
+        minify: TerserPlugin.uglifyJsMinify,
+        parallel: 4,
+        extractComments: false,
+      }),
+    ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new webpack.ProgressPlugin({ percentBy: 'entries' }),
-    new webpack.HotModuleReplacementPlugin(),
+    new CompressionPlugin({
+      filename: '[path][base].br',
+      algorithm: 'brotliCompress',
+      test: /\.(js|css|html|svg)$/,
+      compressionOptions: {
+        params: {
+          [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+        },
+      },
+      threshold: 10240,
+      minRatio: 0.8,
+      deleteOriginalAssets: false,
+    }),
   ],
 })
