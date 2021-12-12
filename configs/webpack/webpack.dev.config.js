@@ -22,7 +22,7 @@ module.exports = merge(common, {
       },
     },
     host: process.env.APP_URL_DEV,
-    port: process.env.ROOT_PORT || 3000,
+    port: process.env.PORT || 3000,
     historyApiFallback: true,
     proxy: {
       [process.env.API_URL]: `${process.env.PROXY_URL}${process.env.API_URL}`,

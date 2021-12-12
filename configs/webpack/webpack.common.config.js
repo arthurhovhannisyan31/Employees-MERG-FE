@@ -54,7 +54,7 @@ module.exports = {
       'API_URL',
       'PROXY_URL',
       'APP_URL_DEV',
-      'ROOT_PORT',
+      'ROOT',
     ]),
     new webpack.ProvidePlugin({ process: 'process/browser' }),
   ],

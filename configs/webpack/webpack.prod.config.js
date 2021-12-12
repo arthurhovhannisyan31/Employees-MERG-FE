@@ -15,10 +15,6 @@ module.exports = merge(common, {
   mode: 'production',
   optimization: {
     minimize: true,
-    splitChunks: {
-      minSize: 0,
-      maxSize: 50000,
-    },
     minimizer: [
       new CssMinimizerPlugin(),
       new TerserPlugin({
