@@ -1,16 +1,19 @@
 import React from 'react'
-import { render } from 'react-dom'
+// eslint-disable-next-line
+// @ts-ignore
+import { createRoot } from 'react-dom'
+
+import 'utils/metrics'
 
 import App from './App'
 
+const root = createRoot(document.getElementById('root'))
 const renderApp = (): void =>
-  // TODO add create root
-  render(
+  root.render(
     // TODO 12.03.2021 Return after update material-ui to v5
     // <React.StrictMode>
     <App />,
     // </React.StrictMode>
-    document.getElementById('root'),
   )
 
 renderApp()
