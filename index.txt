@@ -6,6 +6,7 @@ Refactor:
 - add explicit isAuthenticated state
 
 add service worker
+write tests
 
 Bugs:
 check if session timeout works correctly
