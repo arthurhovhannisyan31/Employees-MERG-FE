@@ -1,0 +1,10 @@
+{
+  "extends": "./configs/ts-config/tsconfig.rules.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "src",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*", "**/*.config.js"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*generated.tsx?"]
+}
