@@ -1,18 +1,32 @@
-### Start with `yarn start:dev`
+# Employees administration
 
-#### Organize imports using following order
-1. deps
-2. components
-3. model
-4. helpers
+[Demo](https://employees-fe.herokuapp.com/) is hosted on Heroku.
+Please use following credentials: 
+
+| Credential | Value          |
+|:-----------|:---------------:|
+| Login      | test@test.test |
+| Password   | test           |
 
 ## Description
-Project allows administrating employees data, like creating a profile and editing profile data.
-Also, you can control profile related records like paychecks, titles, employments.
-Project has full user flow: log in, log out, password reset.
-Users dashboard allows downloading report based on selected filters.
+This is a demo project for employees administration system.  
+
+Project allows list employees in table, which supports **pagination**, **sorting**, **columns reordering**.
+Profile page allows to observe employee data and edit it in popup form. 
+Form has **fields validation** for strings, dates and has dropdown menus.
+
+Application supports **notifications** for login and logout.
+Project has full user flow: **log in**, **log out** and **password reset** through **email link**.
 
 ## Technologies
-Project is written on ts + react, state managements uses react reducer + react context.
-Authorization data stored in cookies.
-All pages loaded on separate chunks on request using react lazy loading.
+Project is written on `TypeScript` + `React`. `Material UI` v4 used for all UI components.
+
+State management implemented with pure `React Context` and `useReducer` hooks.
+
+State provider implemented with composition of contexts, see [context-compose.ts](src/context/context-compose.tsx).
+
+Authorization data stored in cookies, which has expiration limit for 1 day.
+
+All pages lazily loaded on separate chunks using `dynamic imports` and `React lazy imports`.
+
+Pages preloaded using `prefetch` attribute for link tag, which is implemented with `webpack magic comments`.
