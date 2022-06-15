@@ -20,9 +20,23 @@ module.exports = merge(common, {
       new TerserPlugin({
         minify: TerserPlugin.uglifyJsMinify,
         parallel: 4,
-        extractComments: false,
+        extractComments: true,
       }),
     ],
+    splitChunks: {
+      cacheGroups: {
+        react: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: 'react',
+          chunks: 'all',
+        },
+        material: {
+          test: /[\\/]node_modules[\\/](@material-ui)[\\/]/,
+          name: 'material',
+          chunks: 'all',
+        },
+      },
+    },
   },
   plugins: [
     new CompressionPlugin({
