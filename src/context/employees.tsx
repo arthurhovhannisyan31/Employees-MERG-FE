@@ -30,10 +30,15 @@ const employeesReducer: TEmployeesReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
     case ActionTypes.LOADING:
+      return {
+        ...state,
+        state: payload.state || RequestState.Empty,
+      }
     case ActionTypes.ERROR:
       return {
         ...state,
         state: payload.state || RequestState.Empty,
+        error: payload.error || null,
       }
     case ActionTypes.COUNT:
       return {
