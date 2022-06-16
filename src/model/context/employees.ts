@@ -1,19 +1,28 @@
-import { Action, FetchError } from 'model/common'
+import { Action, FetchError, RequestState } from 'model/common'
 import { Employee, Employees } from 'model/generated'
 
 export interface IEmployeesState {
-  loading: boolean
+  state: RequestState
   error: Error | null
   data: Record<string, Employee[]>
   count: number
 }
-export type TEmployeesAction = Action<
-  Partial<Omit<IEmployeesState, 'data'> & { data: Employee[]; key: string }>
->
+
+export interface TEmployeesPayload {
+  state: RequestState
+  error: Error | null
+  count: number
+  data: Employee[]
+  key: string
+}
+
+export type TEmployeesAction = Action<Partial<TEmployeesPayload>, ActionTypes>
+
 export type TEmployeesReducer = (
   prevState: IEmployeesState,
   action: TEmployeesAction,
 ) => IEmployeesState
+
 export enum ActionTypes {
   LOADING = 'loading',
   ERROR = 'error',

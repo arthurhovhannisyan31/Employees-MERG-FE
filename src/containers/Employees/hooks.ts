@@ -1,15 +1,16 @@
-import { useContext, useCallback, useMemo } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 
 import { SnackbarContext } from 'context/snackbar'
 import { queryEmployees } from 'gql/queries'
 import { useFetch } from 'hooks'
 
+import { RequestState } from 'model/common'
 import {
-  TEmployeesAction,
+  ActionTypes,
   IEmployeesFetchResponse,
+  TEmployeesAction,
 } from 'model/context/employees'
-
-import { GetEmployeesInput } from '../../model/generated'
+import { GetEmployeesInput } from 'model/generated'
 
 interface IUseGetEmployees {
   dispatch: (val: TEmployeesAction) => void
@@ -31,8 +32,8 @@ export const useGetEmployees = ({
   const handleGetEmployees = useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
       dispatch({
-        type: 'loading',
-        payload: { loading: true },
+        type: ActionTypes.LOADING,
+        payload: { state: RequestState.Loading },
       })
       try {
         const res = await handleFetch(
@@ -44,30 +45,30 @@ export const useGetEmployees = ({
           employees: { nodes, count: quantity },
         } = data
         dispatch({
-          type: 'data',
+          type: ActionTypes.DATA,
           payload: {
             data: nodes,
             key,
           },
         })
         dispatch({
-          type: 'count',
+          type: ActionTypes.COUNT,
           payload: { count: quantity },
         })
       } catch (err) {
         setSnackbarState({
-          type: 'error',
+          type: ActionTypes.ERROR,
           message: (err as Error).message,
           open: true,
         })
         dispatch({
-          type: 'error',
-          payload: { error: err as Error },
+          type: ActionTypes.ERROR,
+          payload: { error: err as Error, state: RequestState.Error },
         })
       }
       dispatch({
-        type: 'loading',
-        payload: { loading: false },
+        type: ActionTypes.LOADING,
+        payload: { state: RequestState.Done },
       })
     },
     [dispatch, key, handleFetch, setSnackbarState],

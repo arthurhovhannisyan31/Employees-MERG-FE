@@ -3,10 +3,10 @@ export interface FetchError {
   statusCode: number
 }
 
-export interface Action<T> {
-  type: string
+export interface Action<P, T = string> {
+  type: T
   prop?: string
-  payload: T
+  payload: P
 }
 
 export interface QueryProps {
@@ -15,6 +15,13 @@ export interface QueryProps {
     string,
     string | number | Record<string, string | number | null>
   >
+}
+
+export enum RequestState {
+  Loading,
+  Error,
+  Empty,
+  Done,
 }
 
 export enum RouteName {
