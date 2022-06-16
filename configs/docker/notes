@@ -1,0 +1,10 @@
+docker build -t emp-fe -f configs/docker/server.dockerfile .
+
+docker run \
+  --network local1 \
+  -p 3000:3000 \
+  -d \
+  --env-file configs/env/.env-dev \
+  emp-fe
+--------------------------------
+  --rm \
