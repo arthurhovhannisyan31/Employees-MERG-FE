@@ -1,15 +1,16 @@
-import React, { createContext, useReducer, FC } from 'react'
+import React, { createContext, FC, useReducer } from 'react'
 
 import {
+  ActionTypes,
   IEmployeesContext,
   IEmployeesState,
   TEmployeesReducer,
-  ActionTypes,
 } from 'model/context/employees'
 import { Employee } from 'model/generated'
 
 const employeesInitState: IEmployeesState = {
   loading: false,
+  ready: false,
   error: null,
   data: { '': [] },
   count: 0,
@@ -29,15 +30,24 @@ const employeesReducer: TEmployeesReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
     case ActionTypes.LOADING:
+      return {
+        ...state,
+        [type]: !!payload[type],
+      }
     case ActionTypes.ERROR:
+      return {
+        ...state,
+        error: payload.error as Error,
+      }
     case ActionTypes.COUNT:
       return {
         ...state,
-        [type]: payload[type],
+        count: payload.count ?? 0,
       }
     case ActionTypes.DATA:
       return {
         ...state,
+        ready: true,
         data: {
           ...state.data,
           [payload.key as string]: payload.data as Employee[],

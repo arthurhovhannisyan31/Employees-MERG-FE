@@ -8,16 +8,10 @@ import 'utils/metrics'
 import App from './App'
 
 const root = createRoot(document.getElementById('root'))
-const renderApp = (): void =>
-  root.render(
-    // TODO 12.03.2021 Return after update material-ui to v5
-    // <React.StrictMode>
-    <App />,
-    // </React.StrictMode>
-  )
+const renderApp = (): void => root.render(<App />)
 
 renderApp()
 
 if (module.hot) {
-  module.hot.accept()
+  root.render(<App />)
 }
