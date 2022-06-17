@@ -10,7 +10,6 @@
     "start:prod": "webpack serve --config ./configs/webpack/webpack.prod.config.js",
     "serve:prod": "nodemon --config configs/env/nodemon-prod.json server.js",
     "build": "webpack --config ./configs/webpack/webpack.prod.config.js",
-    "watch": "tsc -w",
     "gentypes": "graphql-codegen --config codegen.yml",
     "lint": "eslint --ext .ts,.tsx,.js src/",
     "format": "yarn lint --fix",

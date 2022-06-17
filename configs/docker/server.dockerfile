@@ -7,9 +7,14 @@ COPY configs ./configs
 
 FROM base as build
 
-# RUN yarn install --production
 RUN yarn install --frozen-lockfile
 
 COPY . .
+
+RUN yarn build
+
+FROM build as serve
+
+COPY /dist /dist
 
 CMD yarn start
