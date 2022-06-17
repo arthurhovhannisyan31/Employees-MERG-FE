@@ -17,13 +17,6 @@ export interface QueryProps {
   >
 }
 
-export enum RequestState {
-  Loading,
-  Error,
-  Empty,
-  Done,
-}
-
 export enum RouteName {
   HOME = 'HOME',
   AUTH = 'AUTH',

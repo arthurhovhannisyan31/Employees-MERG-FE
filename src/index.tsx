@@ -13,5 +13,5 @@ const renderApp = (): void => root.render(<App />)
 renderApp()
 
 if (module.hot) {
-  module.hot.accept()
+  root.render(<App />)
 }

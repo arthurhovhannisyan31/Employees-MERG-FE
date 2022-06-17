@@ -6,33 +6,29 @@ import EmployeesTable from 'containers/Employees/components/EmployeesTable'
 import { useGetEmployees } from 'containers/Employees/hooks'
 import { EmployeesContext } from 'context'
 
-import { RequestState } from 'model/common'
-
 const EmployeesPage: FC = () => {
-  const { dispatch, state: employeesState } = useContext(EmployeesContext)
-  const { error, state, data, count } = employeesState
+  const { dispatch, state } = useContext(EmployeesContext)
+  const { error, data, count, loading } = state
   const [currentPage, setCurrentPage] = useState(0)
   const [pageSize, setPageSize] = useState(5)
+
   const key = useMemo(
-    () => `${pageSize}-${currentPage}`,
-    [pageSize, currentPage],
+    () => `${pageSize}-${currentPage * pageSize}`,
+    [currentPage, pageSize],
   )
 
   const [handleGetEmployees] = useGetEmployees({
-    pageSize,
-    currentPage,
     dispatch,
   })
-  const slice = useMemo(() => data?.[key] || [], [key, data])
-
-  const isLoading = state === RequestState.Loading
-  const requestIsEmpty = state === RequestState.Empty
+  const slice = useMemo(() => data?.[key] || [], [data, key])
 
   useEffect(() => {
-    if (requestIsEmpty) {
+    const isReady = !!data?.[key]
+    if (!isReady) {
       handleGetEmployees({ limit: pageSize, offset: currentPage * pageSize })
     }
-  }, [pageSize, currentPage, handleGetEmployees, slice, requestIsEmpty])
+  }, [pageSize, currentPage, handleGetEmployees, data, key])
+
   return (
     <Grid container direction="row">
       {error ? (
@@ -44,7 +40,7 @@ const EmployeesPage: FC = () => {
           setCurrentPage={setCurrentPage}
           pageSize={pageSize}
           setPageSize={setPageSize}
-          loading={isLoading}
+          loading={loading}
           data={slice}
           count={count}
         />

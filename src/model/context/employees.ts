@@ -1,17 +1,15 @@
-import { Action, FetchError, RequestState } from 'model/common'
+import { Action, FetchError } from 'model/common'
 import { Employee, Employees } from 'model/generated'
 
 export interface IEmployeesState {
-  state: RequestState
+  loading: boolean
+  ready: boolean
   error: Error | null
   data: Record<string, Employee[]>
   count: number
 }
 
-export interface TEmployeesPayload {
-  state: RequestState
-  error: Error | null
-  count: number
+export interface TEmployeesPayload extends Omit<IEmployeesState, 'data'> {
   data: Employee[]
   key: string
 }
@@ -28,6 +26,7 @@ export enum ActionTypes {
   ERROR = 'error',
   COUNT = 'count',
   DATA = 'data',
+  READY = 'ready',
 }
 export interface IEmployeesContext {
   state: IEmployeesState

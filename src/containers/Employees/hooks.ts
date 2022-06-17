@@ -1,39 +1,33 @@
-import { useCallback, useContext, useMemo } from 'react'
+import { useCallback, useContext } from 'react'
 
 import { SnackbarContext } from 'context/snackbar'
 import { queryEmployees } from 'gql/queries'
 import { useFetch } from 'hooks'
 
-import { RequestState } from 'model/common'
 import {
   ActionTypes,
   IEmployeesFetchResponse,
   TEmployeesAction,
 } from 'model/context/employees'
-import { GetEmployeesInput } from 'model/generated'
+
+import { GetEmployeesInput } from '../../model/generated'
 
 interface IUseGetEmployees {
   dispatch: (val: TEmployeesAction) => void
-  pageSize: number
-  currentPage: number
 }
 type GetEmployeesProps = (props: GetEmployeesInput) => void
 export const useGetEmployees = ({
   dispatch,
-  currentPage,
-  pageSize,
 }: IUseGetEmployees): [GetEmployeesProps] => {
-  const key = useMemo(
-    () => `${pageSize}-${currentPage}`,
-    [pageSize, currentPage],
-  )
   const { setSnackbarState } = useContext(SnackbarContext)
   const handleFetch = useFetch()
   const handleGetEmployees = useCallback(
     async ({ offset, limit }: GetEmployeesInput) => {
+      const key = `${limit}-${offset}`
+
       dispatch({
         type: ActionTypes.LOADING,
-        payload: { state: RequestState.Loading },
+        payload: { loading: true },
       })
       try {
         const res = await handleFetch(
@@ -63,15 +57,15 @@ export const useGetEmployees = ({
         })
         dispatch({
           type: ActionTypes.ERROR,
-          payload: { error: err as Error, state: RequestState.Error },
+          payload: { error: err as Error },
         })
       }
       dispatch({
         type: ActionTypes.LOADING,
-        payload: { state: RequestState.Done },
+        payload: { loading: false },
       })
     },
-    [dispatch, key, handleFetch, setSnackbarState],
+    [dispatch, handleFetch, setSnackbarState],
   )
   return [handleGetEmployees]
 }
