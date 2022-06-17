@@ -1,6 +1,5 @@
 import React, { createContext, FC, useReducer } from 'react'
 
-import { RequestState } from 'model/common'
 import {
   ActionTypes,
   IEmployeesContext,
@@ -10,7 +9,8 @@ import {
 import { Employee } from 'model/generated'
 
 const employeesInitState: IEmployeesState = {
-  state: RequestState.Empty,
+  loading: false,
+  ready: false,
   error: null,
   data: { '': [] },
   count: 0,
@@ -32,13 +32,12 @@ const employeesReducer: TEmployeesReducer = (state, action) => {
     case ActionTypes.LOADING:
       return {
         ...state,
-        state: payload.state || RequestState.Empty,
+        [type]: !!payload[type],
       }
     case ActionTypes.ERROR:
       return {
         ...state,
-        state: payload.state || RequestState.Empty,
-        error: payload.error || null,
+        error: payload.error as Error,
       }
     case ActionTypes.COUNT:
       return {
@@ -48,7 +47,7 @@ const employeesReducer: TEmployeesReducer = (state, action) => {
     case ActionTypes.DATA:
       return {
         ...state,
-        state: RequestState.Done,
+        ready: true,
         data: {
           ...state.data,
           [payload.key as string]: payload.data as Employee[],
