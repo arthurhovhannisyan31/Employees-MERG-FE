@@ -15,6 +15,4 @@ RUN yarn build
 
 FROM build as serve
 
-COPY /dist /dist
-
 CMD yarn start
