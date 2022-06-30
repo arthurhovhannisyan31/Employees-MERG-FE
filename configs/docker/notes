@@ -1,14 +1,15 @@
 docker build \
-  -t emp-fe \
+  -t employees-fe \
   -f configs/docker/server.dockerfile \
   .
 
 docker run \
+  --name employees-fe \
   --network local1 \
   -p 3000:3000 \
   -d \
-  --env-file configs/env/.env \
-  emp-fe
+  --env-file configs/env/.env-dev \
+  employees-fe
 --------------------------------
   --rm \
 
