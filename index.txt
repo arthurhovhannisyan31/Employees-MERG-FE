@@ -15,3 +15,5 @@ fix url redirect after login, now loses url
 web-vitals
 https://github.com/GoogleChromeLabs/comlink
 add webworkers
+
+add immer to reducers
