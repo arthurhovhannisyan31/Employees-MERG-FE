@@ -1,0 +1,32 @@
+module.exports = {
+  clearMocks: true,
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coveragePathIgnorePatterns: ['<rootDir>/node_modules/(?!@foo)'],
+  coverageThreshold: {
+    global: {
+      branches: 5,
+      functions: 5,
+      lines: 5,
+      statements: 5,
+    },
+  },
+  globals: {
+    'ts-jest': {
+      tsConfigFile: '<rootDir>/configs/ts-config/tsconfig.jest.json',
+      enableTsDiagnostics: true,
+    },
+  },
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  moduleNameMapper: {
+    '_/(.*)': '<rootDir>/src/$1',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/tests/fileMock.ts',
+    '\\.(css|less|scss)$': 'identity-obj-proxy',
+  },
+  notify: true,
+  notifyMode: 'failure-change',
+  setupFiles: ['<rootDir>/configs/jest/utils/polyfill.ts'],
+  testEnvironment: 'node',
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
+}
