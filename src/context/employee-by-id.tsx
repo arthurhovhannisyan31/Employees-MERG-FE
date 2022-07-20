@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import React, { createContext, useReducer, FC } from 'react'
 
 import {
@@ -5,6 +6,7 @@ import {
   EmployeeByIdContextProps,
   EmployeeByIdReducerProps,
   ActionTypes,
+  EmployeeByIdAction,
 } from 'model/context/employee'
 import { Employee } from 'model/generated'
 
@@ -23,38 +25,31 @@ const EmployeeByIdContext = createContext<EmployeeByIdContextProps>(
   EmployeeByIdContextInitState,
 )
 
-const employeeByIdReducer: EmployeeByIdReducerProps = (state, action) => {
-  const { type, payload } = action
-  switch (type) {
-    case ActionTypes.LOADING:
-    case ActionTypes.ERROR:
-      return {
-        ...state,
-        [type]: payload[type],
-      }
-    case ActionTypes.ADD_ITEM:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [payload.key as string]: payload.data as Employee,
-        },
-      }
-    case ActionTypes.UPDATE_ITEM:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [payload.key as string]: {
-            ...state.data[payload.key as string],
-            ...(payload.data as Employee),
-          },
-        },
-      }
-    default:
-      return state
-  }
-}
+const employeeByIdReducer = produce(
+  (state: EmployeeByIdState, action: EmployeeByIdAction) => {
+    const { type, payload } = action
+    switch (type) {
+      case ActionTypes.LOADING:
+        state.loading = !!payload.loading
+        break
+      case ActionTypes.ERROR:
+        state.error = payload.error as Error
+        break
+      case ActionTypes.ADD_ITEM:
+        state.data[payload.key as string] = {
+          ...state.data[payload.key as string],
+          ...(payload.data as Employee),
+        }
+        break
+      case ActionTypes.UPDATE_ITEM:
+        state.data[payload.key as string] = {
+          ...state.data[payload.key as string],
+          ...(payload.data as Employee),
+        }
+        break
+    }
+  },
+)
 
 const EmployeeContextContainer: FC = ({ children }) => {
   const [state, dispatch] = useReducer<EmployeeByIdReducerProps>(

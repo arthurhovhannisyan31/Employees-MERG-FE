@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import React, { createContext, useReducer, FC } from 'react'
 
 import { API_URL } from 'constants/config'
@@ -24,50 +25,38 @@ const authContextInitValue: AuthContextProps = {
 
 const AuthContext = createContext<AuthContextProps>(authContextInitValue)
 
-const authContextReducer = (
-  state: AuthState,
-  action: AuthReducerAction,
-): AuthState => {
-  const { type, payload } = action
-  switch (type) {
-    case AuthContextActions.LOGIN_REQUEST: {
-      return {
-        ...state,
-        isFetching: action.payload?.isFetching || false,
+const authContextReducer = produce(
+  (state: AuthState, action: AuthReducerAction) => {
+    const { type, payload } = action
+    switch (type) {
+      case AuthContextActions.LOGIN_REQUEST: {
+        state.isFetching = action.payload?.isFetching || false
+        break
       }
-    }
-    case AuthContextActions.LOGIN_SUCCESS: {
-      return {
-        ...state,
-        errors: [],
-        userCredentials: {
+      case AuthContextActions.LOGIN_SUCCESS: {
+        state.errors = []
+        state.userCredentials = {
           _id: payload?.userCredentials?._id ?? '',
           email: payload?.userCredentials?.email ?? '',
-        },
-        isFetching: false,
+        }
+        state.isFetching = false
+        break
       }
-    }
-    case AuthContextActions.LOGOUT: {
-      return {
-        ...state,
-        userCredentials: {
+      case AuthContextActions.LOGOUT: {
+        state.userCredentials = {
           _id: '',
           email: '',
-        },
+        }
+        break
+      }
+      case AuthContextActions.ERRORS: {
+        state.errors = payload?.errors
+        state.isFetching = false
+        break
       }
     }
-    case AuthContextActions.ERRORS: {
-      return {
-        ...state,
-        errors: payload?.errors,
-        isFetching: false,
-      }
-    }
-    default: {
-      return state
-    }
-  }
-}
+  },
+)
 
 const AuthContextContainer: FC = ({ children }) => {
   const [state, dispatch] = useReducer<AuthReducerProps>(

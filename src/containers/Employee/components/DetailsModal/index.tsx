@@ -91,21 +91,27 @@ const DetailsModal: FC<IDetailsModalProps> = ({
 
   const titleOptions = useMemo(
     () =>
-      titles?.sort(sortByName).map((option) => (
-        <MenuItem key={option._id} value={option._id}>
-          {option.name}
-        </MenuItem>
-      )),
+      titles
+        ?.concat()
+        ?.sort(sortByName)
+        .map((option) => (
+          <MenuItem key={option._id} value={option._id}>
+            {option.name}
+          </MenuItem>
+        )),
     [titles],
   )
 
   const departmentOptions = useMemo(
     () =>
-      departments?.sort(sortByName).map((option) => (
-        <MenuItem key={option._id} value={option._id}>
-          {option.name}
-        </MenuItem>
-      )),
+      departments
+        ?.concat()
+        ?.sort(sortByName)
+        .map((option) => (
+          <MenuItem key={option._id} value={option._id}>
+            {option.name}
+          </MenuItem>
+        )),
     [departments],
   )
 

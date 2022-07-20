@@ -43,5 +43,10 @@ module.exports = merge(common, {
       },
     },
   },
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 500,
+    poll: 1000,
+  },
   plugins: [new CleanWebpackPlugin(), new webpack.HotModuleReplacementPlugin()],
 })

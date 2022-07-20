@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import React, { createContext, FC, useReducer } from 'react'
 
 import {
@@ -5,6 +6,7 @@ import {
   IEmployeesContext,
   IEmployeesState,
   TEmployeesReducer,
+  TEmployeesAction,
 } from 'model/context/employees'
 import { Employee } from 'model/generated'
 
@@ -26,37 +28,26 @@ const EmployeesContext = createContext<IEmployeesContext>(
   employeesContextInitState,
 )
 
-const employeesReducer: TEmployeesReducer = (state, action) => {
-  const { type, payload } = action
-  switch (type) {
-    case ActionTypes.LOADING:
-      return {
-        ...state,
-        [type]: !!payload[type],
-      }
-    case ActionTypes.ERROR:
-      return {
-        ...state,
-        error: payload.error as Error,
-      }
-    case ActionTypes.COUNT:
-      return {
-        ...state,
-        count: payload.count ?? 0,
-      }
-    case ActionTypes.DATA:
-      return {
-        ...state,
-        ready: true,
-        data: {
-          ...state.data,
-          [payload.key as string]: payload.data as Employee[],
-        },
-      }
-    default:
-      return state
-  }
-}
+const employeesReducer = produce(
+  (state: IEmployeesState, action: TEmployeesAction) => {
+    const { type, payload } = action
+    switch (type) {
+      case ActionTypes.LOADING:
+        state[type] = !!payload[type]
+        break
+      case ActionTypes.ERROR:
+        state.error = payload.error as Error
+        break
+      case ActionTypes.COUNT:
+        state.count = payload.count ?? 0
+        break
+      case ActionTypes.DATA:
+        state.ready = true
+        state.data[payload.key as string] = payload.data as Employee[]
+        break
+    }
+  },
+)
 
 const EmployeesContextContainer: FC = ({ children }) => {
   const [state, dispatch] = useReducer<TEmployeesReducer>(
