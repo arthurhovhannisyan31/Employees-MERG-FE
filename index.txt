@@ -1,6 +1,3 @@
-Test:
-jest + enzyme, cypress
-
 Refactor:
 - add auth context loading state, hide login page when fetching me status
 - add explicit isAuthenticated state
@@ -12,8 +9,4 @@ Bugs:
 check if session timeout works correctly
 fix url redirect after login, now loses url
 
-web-vitals
-https://github.com/GoogleChromeLabs/comlink
 add webworkers
-
-add immer to reducers

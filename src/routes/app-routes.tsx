@@ -3,7 +3,9 @@ import { lazy } from 'react'
 import { ROUTES } from 'constants/routes'
 import { routeMaker } from 'routes/helpers'
 
-import { CustomRoute } from './types'
+import { RoutePath } from 'model/common'
+
+import { CustomRoute, CustomRouteConfig } from './types'
 
 const Home = lazy(() => import(/* webpackPrefetch: true */ 'containers/Home'))
 const About = lazy(() => import(/* webpackPrefetch: true */ 'containers/About'))
@@ -22,6 +24,16 @@ const ChangePassword = lazy(
   () => import(/* webpackPrefetch: true */ 'containers/ChangePassword'),
 )
 
+const routesComponentMap: Record<RoutePath, CustomRouteConfig['component']> = {
+  [RoutePath.HOME]: Home,
+  [RoutePath.ABOUT]: About,
+  [RoutePath.AUTH]: Auth,
+  [RoutePath.CHANGE_PASSWORD]: ChangePassword,
+  [RoutePath.EMPLOYEE]: Employee,
+  [RoutePath.EMPLOYEES]: Employees,
+  [RoutePath.NOT_FOUND]: NotFound,
+}
+
 export const routes: CustomRoute[] = [
   {
     exact: true,
@@ -29,7 +41,6 @@ export const routes: CustomRoute[] = [
     path: ROUTES.HOME.url,
     basePath: ROUTES.HOME.url,
     label: ROUTES.HOME.label,
-    component: Home,
   },
   {
     exact: true,
@@ -37,7 +48,6 @@ export const routes: CustomRoute[] = [
     path: ROUTES.ABOUT.url,
     basePath: ROUTES.ABOUT.url,
     label: ROUTES.ABOUT.label,
-    component: About,
   },
   {
     exact: false,
@@ -45,7 +55,6 @@ export const routes: CustomRoute[] = [
     path: `${ROUTES.AUTH.url}/:next?`,
     basePath: ROUTES.AUTH.url,
     label: ROUTES.AUTH.label,
-    component: Auth,
   },
   {
     exact: false,
@@ -53,7 +62,6 @@ export const routes: CustomRoute[] = [
     path: `${ROUTES.CHANGE_PASSWORD.url}/:id`,
     basePath: ROUTES.CHANGE_PASSWORD.url,
     label: ROUTES.CHANGE_PASSWORD.label,
-    component: ChangePassword,
   },
   {
     exact: true,
@@ -61,7 +69,6 @@ export const routes: CustomRoute[] = [
     path: `${ROUTES.EMPLOYEE.url}/:id`,
     basePath: ROUTES.EMPLOYEE.url,
     label: ROUTES.EMPLOYEE.label,
-    component: Employee,
   },
   {
     exact: true,
@@ -69,7 +76,6 @@ export const routes: CustomRoute[] = [
     path: ROUTES.EMPLOYEES.url,
     basePath: ROUTES.EMPLOYEES.url,
     label: ROUTES.EMPLOYEES.label,
-    component: Employees,
   },
   {
     exact: true,
@@ -77,8 +83,12 @@ export const routes: CustomRoute[] = [
     path: ROUTES.NOT_FOUND.url,
     basePath: ROUTES.NOT_FOUND.url,
     label: ROUTES.NOT_FOUND.label,
-    component: NotFound,
   },
 ]
 
-export default routes.map(routeMaker)
+export const routesConfig: CustomRouteConfig[] = routes.map((route) => ({
+  ...route,
+  component: routesComponentMap[route.basePath],
+}))
+
+export default routesConfig.map(routeMaker)

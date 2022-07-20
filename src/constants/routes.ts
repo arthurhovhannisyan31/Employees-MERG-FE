@@ -1,32 +1,32 @@
-import { RouteName, RoutePath, RouteMap } from 'model/common'
+import { RouteName, RoutePath, RouteMap, routeNameLabelMap } from 'model/common'
 
 export const ROUTES: RouteMap = {
   [RouteName.HOME]: {
-    label: 'Home',
+    label: routeNameLabelMap[RouteName.HOME],
     url: RoutePath.HOME,
   },
   [RouteName.AUTH]: {
-    label: 'Auth',
+    label: routeNameLabelMap[RouteName.AUTH],
     url: RoutePath.AUTH,
   },
   [RouteName.CHANGE_PASSWORD]: {
-    label: 'Change password',
+    label: routeNameLabelMap[RouteName.CHANGE_PASSWORD],
     url: RoutePath.CHANGE_PASSWORD,
   },
   [RouteName.ABOUT]: {
-    label: 'About',
+    label: routeNameLabelMap[RouteName.ABOUT],
     url: RoutePath.ABOUT,
   },
   [RouteName.EMPLOYEES]: {
-    label: 'Employees',
+    label: routeNameLabelMap[RouteName.EMPLOYEES],
     url: RoutePath.EMPLOYEES,
   },
   [RouteName.EMPLOYEE]: {
-    label: 'Employee',
+    label: routeNameLabelMap[RouteName.EMPLOYEE],
     url: RoutePath.EMPLOYEES,
   },
   [RouteName.NOT_FOUND]: {
-    label: 'Not found',
+    label: routeNameLabelMap[RouteName.NOT_FOUND],
     url: RoutePath.NOT_FOUND,
   },
 }

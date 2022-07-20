@@ -27,6 +27,16 @@ export enum RouteName {
   CHANGE_PASSWORD = 'CHANGE_PASSWORD',
 }
 
+export const routeNameLabelMap: Record<RouteName, string> = {
+  [RouteName.HOME]: 'Home',
+  [RouteName.AUTH]: 'Auth',
+  [RouteName.ABOUT]: 'About',
+  [RouteName.EMPLOYEES]: 'Employees',
+  [RouteName.EMPLOYEE]: 'Employee',
+  [RouteName.NOT_FOUND]: 'Not found',
+  [RouteName.CHANGE_PASSWORD]: 'Change password',
+}
+
 export enum RoutePath {
   HOME = '/',
   AUTH = '/auth',

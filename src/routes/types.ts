@@ -10,6 +10,9 @@ export interface CustomRoute extends RouteProps {
   basePath: RoutePath
   label: string
   icon?: ReactNode
+}
+
+export interface CustomRouteConfig extends CustomRoute {
   component:
     | ComponentClass<RouteComponentProps<Record<string, string | undefined>>>
     | FunctionComponent<RouteComponentProps<Record<string, string | undefined>>>
