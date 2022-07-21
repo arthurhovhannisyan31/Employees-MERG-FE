@@ -3,7 +3,8 @@ import React from 'react'
 
 import { IMenuDrawerItem, TRouteIconMap } from 'containers/Layout/types'
 
-import { RouteName, RouteMap } from 'model/common'
+import { RouteName } from 'model/routes/configs'
+import { RouteMap } from 'model/routes/types'
 
 export const routesIconMap: TRouteIconMap = {
   [RouteName.HOME]: <Home />,

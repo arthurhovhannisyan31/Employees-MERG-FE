@@ -1,11 +1,11 @@
 import { lazy } from 'react'
 
-import { ROUTES } from 'constants/routes'
+import { routes } from 'constants/routes'
 import { routeMaker } from 'routes/helpers'
 
-import { RoutePath } from 'model/common'
+import { RoutePath } from 'model/routes/configs'
 
-import { CustomRoute, CustomRouteConfig } from './types'
+import { CustomRouteConfig } from './types'
 
 const Home = lazy(() => import(/* webpackPrefetch: true */ 'containers/Home'))
 const About = lazy(() => import(/* webpackPrefetch: true */ 'containers/About'))
@@ -34,61 +34,11 @@ const routesComponentMap: Record<RoutePath, CustomRouteConfig['component']> = {
   [RoutePath.NOT_FOUND]: NotFound,
 }
 
-export const routes: CustomRoute[] = [
-  {
-    exact: true,
-    isPrivate: true,
-    path: ROUTES.HOME.url,
-    basePath: ROUTES.HOME.url,
-    label: ROUTES.HOME.label,
-  },
-  {
-    exact: true,
-    isPrivate: false,
-    path: ROUTES.ABOUT.url,
-    basePath: ROUTES.ABOUT.url,
-    label: ROUTES.ABOUT.label,
-  },
-  {
-    exact: false,
-    isPrivate: false,
-    path: `${ROUTES.AUTH.url}/:next?`,
-    basePath: ROUTES.AUTH.url,
-    label: ROUTES.AUTH.label,
-  },
-  {
-    exact: false,
-    isPrivate: false,
-    path: `${ROUTES.CHANGE_PASSWORD.url}/:id`,
-    basePath: ROUTES.CHANGE_PASSWORD.url,
-    label: ROUTES.CHANGE_PASSWORD.label,
-  },
-  {
-    exact: true,
-    isPrivate: true,
-    path: `${ROUTES.EMPLOYEE.url}/:id`,
-    basePath: ROUTES.EMPLOYEE.url,
-    label: ROUTES.EMPLOYEE.label,
-  },
-  {
-    exact: true,
-    isPrivate: true,
-    path: ROUTES.EMPLOYEES.url,
-    basePath: ROUTES.EMPLOYEES.url,
-    label: ROUTES.EMPLOYEES.label,
-  },
-  {
-    exact: true,
-    isPrivate: true,
-    path: ROUTES.NOT_FOUND.url,
-    basePath: ROUTES.NOT_FOUND.url,
-    label: ROUTES.NOT_FOUND.label,
-  },
-]
-
-export const routesConfig: CustomRouteConfig[] = routes.map((route) => ({
-  ...route,
-  component: routesComponentMap[route.basePath],
-}))
+export const routesConfig: CustomRouteConfig[] = Object.values(routes).map(
+  (route) => ({
+    ...route,
+    component: routesComponentMap[route.basePath],
+  }),
+)
 
 export default routesConfig.map(routeMaker)

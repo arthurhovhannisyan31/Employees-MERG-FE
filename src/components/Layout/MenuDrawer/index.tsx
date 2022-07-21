@@ -20,7 +20,7 @@ const MenuDrawer: FC<IIndexProps> = ({ items }) => {
   return (
     <List className={classes.list}>
       {items.map((el) => (
-        <ListItem button key={el.label} onClick={() => history.push(el.url)}>
+        <ListItem button key={el.label} onClick={() => history.push(el.path)}>
           <ListItemIcon>{el.icon}</ListItemIcon>
           <ListItemText primary={el.label} />
         </ListItem>
