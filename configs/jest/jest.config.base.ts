@@ -13,11 +13,14 @@ module.exports = {
   },
   globals: {
     'ts-jest': {
-      tsConfigFile: '<rootDir>/configs/ts-config/tsconfig.jest.json',
-      enableTsDiagnostics: true,
+      tsconfig: '<rootDir>/tsconfig.jest.json',
+      diagnostics: {
+        warnOnly: true,
+      },
     },
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  moduleDirectories: ['node_modules', 'src'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   moduleNameMapper: {
     '_/(.*)': '<rootDir>/src/$1',
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
@@ -26,6 +29,7 @@ module.exports = {
   },
   notify: true,
   notifyMode: 'failure-change',
+  preset: 'ts-jest',
   setupFiles: ['<rootDir>/configs/jest/utils/polyfill.ts'],
   testEnvironment: 'node',
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
