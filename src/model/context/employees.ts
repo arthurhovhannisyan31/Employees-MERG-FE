@@ -14,7 +14,7 @@ export interface TEmployeesPayload extends Omit<IEmployeesState, 'data'> {
   key: string
 }
 
-export type TEmployeesAction = Action<Partial<TEmployeesPayload>, ActionTypes>
+export type TEmployeesAction = Action<ActionTypes, Partial<TEmployeesPayload>>
 
 export type TEmployeesReducer = (
   prevState: IEmployeesState,

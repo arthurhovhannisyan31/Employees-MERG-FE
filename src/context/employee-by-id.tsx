@@ -30,21 +30,21 @@ const employeeByIdReducer = produce(
     const { type, payload } = action
     switch (type) {
       case ActionTypes.LOADING:
-        state.loading = !!payload.loading
+        state.loading = !!payload?.loading
         break
       case ActionTypes.ERROR:
-        state.error = payload.error as Error
+        state.error = payload?.error as Error
         break
       case ActionTypes.ADD_ITEM:
-        state.data[payload.key as string] = {
-          ...state.data[payload.key as string],
-          ...(payload.data as Employee),
+        state.data[payload?.key as string] = {
+          ...state.data[payload?.key as string],
+          ...(payload?.data as Employee),
         }
         break
       case ActionTypes.UPDATE_ITEM:
-        state.data[payload.key as string] = {
-          ...state.data[payload.key as string],
-          ...(payload.data as Employee),
+        state.data[payload?.key as string] = {
+          ...state.data[payload?.key as string],
+          ...(payload?.data as Employee),
         }
         break
     }

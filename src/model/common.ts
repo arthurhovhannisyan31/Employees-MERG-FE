@@ -3,10 +3,13 @@ export interface FetchError {
   statusCode: number
 }
 
-export interface Action<P, T = string> {
+export interface Action<T, P = unknown> {
   type: T
-  prop?: string
-  payload: P
+  payload?: P
+}
+
+export interface CustomAction<T, P, S = string> extends Action<T, P> {
+  prop?: S
 }
 
 export interface QueryProps {

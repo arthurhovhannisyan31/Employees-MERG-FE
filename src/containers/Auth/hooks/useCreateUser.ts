@@ -2,6 +2,7 @@ import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { SnackbarContext } from 'context'
+import { getAction } from 'context/helpers'
 import { mutationCreateUser } from 'gql/mutations'
 import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
@@ -28,23 +29,23 @@ export const useCreateUser = ({
         checkResponse(res?.status)
         const { data }: MutationCreateUserResponse = await res.json()
         if (data?.createUser.errors) {
-          dispatch({
-            type: AuthContextActions.ERRORS,
-            payload: { errors: data?.createUser.errors },
-          })
+          dispatch(
+            getAction(AuthContextActions.ERRORS, {
+              errors: data?.createUser.errors,
+            }),
+          )
         }
         if (data?.createUser.data) {
           const { email, _id, name } = data?.createUser.data
-          dispatch({
-            type: AuthContextActions.LOGIN_SUCCESS,
-            payload: {
+          dispatch(
+            getAction(AuthContextActions.LOGIN_SUCCESS, {
               userCredentials: {
                 _id,
                 email,
                 name,
               },
-            },
-          })
+            }),
+          )
           setSnackbarState({
             type: 'success',
             message: 'Welcome!',

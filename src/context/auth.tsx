@@ -30,7 +30,7 @@ const authContextReducer = produce(
     const { type, payload } = action
     switch (type) {
       case AuthContextActions.LOGIN_REQUEST: {
-        state.isFetching = action.payload?.isFetching || false
+        state.isFetching = payload?.isFetching || false
         break
       }
       case AuthContextActions.LOGIN_SUCCESS: {

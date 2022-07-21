@@ -1,5 +1,6 @@
 import { useCallback, useContext } from 'react'
 
+import { getAction } from 'context/helpers'
 import { SnackbarContext } from 'context/snackbar'
 import { queryEmployees } from 'gql/queries'
 import { useFetch } from 'hooks'
@@ -25,10 +26,7 @@ export const useGetEmployees = ({
     async ({ offset, limit }: GetEmployeesInput) => {
       const key = `${limit}-${offset}`
 
-      dispatch({
-        type: ActionTypes.LOADING,
-        payload: { loading: true },
-      })
+      dispatch(getAction(ActionTypes.LOADING, { loading: true }))
       try {
         const res = await handleFetch(
           queryEmployees({ input: { offset, limit } }),
@@ -38,32 +36,22 @@ export const useGetEmployees = ({
         const {
           employees: { nodes, count: quantity },
         } = data
-        dispatch({
-          type: ActionTypes.DATA,
-          payload: {
+        dispatch(
+          getAction(ActionTypes.DATA, {
             data: nodes,
             key,
-          },
-        })
-        dispatch({
-          type: ActionTypes.COUNT,
-          payload: { count: quantity },
-        })
+          }),
+        )
+        dispatch(getAction(ActionTypes.COUNT, { count: quantity }))
       } catch (err) {
         setSnackbarState({
           type: ActionTypes.ERROR,
           message: (err as Error).message,
           open: true,
         })
-        dispatch({
-          type: ActionTypes.ERROR,
-          payload: { error: err as Error },
-        })
+        dispatch(getAction(ActionTypes.ERROR, { error: err as Error }))
       }
-      dispatch({
-        type: ActionTypes.LOADING,
-        payload: { loading: false },
-      })
+      dispatch(getAction(ActionTypes.LOADING, { loading: false }))
     },
     [dispatch, handleFetch, setSnackbarState],
   )

@@ -7,6 +7,7 @@ export interface EmployeeByIdState {
   data: Record<string, Employee>
 }
 export type EmployeeByIdAction = Action<
+  ActionTypes,
   Partial<
     Omit<EmployeeByIdState, 'data'> & {
       data: Employee | Omit<UpdateEmployeeInput, 'id'>

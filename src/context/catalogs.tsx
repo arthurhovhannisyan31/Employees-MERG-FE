@@ -31,23 +31,23 @@ const catalogsReducer = produce(
     const { type, payload, prop } = action
     switch (type) {
       case ActionTypes.LOADING:
-        state.loading = !!payload.loading
+        state.loading = !!payload?.loading
         break
       case ActionTypes.ERROR:
-        state.error = payload.error as Error
+        state.error = payload?.error as Error
         break
       case ActionTypes.DATA: {
         switch (prop) {
           case 'departments': {
-            state.data.departments = payload.data?.departments as Department[]
+            state.data.departments = payload?.data?.departments as Department[]
             break
           }
           case 'genders': {
-            state.data.genders = payload.data?.genders as Gender[]
+            state.data.genders = payload?.data?.genders as Gender[]
             break
           }
           case 'titles': {
-            state.data.titles = payload.data?.titles as Title[]
+            state.data.titles = payload?.data?.titles as Title[]
             break
           }
         }

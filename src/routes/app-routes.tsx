@@ -3,7 +3,7 @@ import { lazy } from 'react'
 import { routes } from 'constants/routes'
 import { routeMaker } from 'routes/helpers'
 
-import { RoutePath } from 'model/routes/configs'
+import { RouteName } from 'model/routes/configs'
 
 import { CustomRouteConfig } from './types'
 
@@ -24,20 +24,20 @@ const ChangePassword = lazy(
   () => import(/* webpackPrefetch: true */ 'containers/ChangePassword'),
 )
 
-const routesComponentMap: Record<RoutePath, CustomRouteConfig['component']> = {
-  [RoutePath.HOME]: Home,
-  [RoutePath.ABOUT]: About,
-  [RoutePath.AUTH]: Auth,
-  [RoutePath.CHANGE_PASSWORD]: ChangePassword,
-  [RoutePath.EMPLOYEE]: Employee,
-  [RoutePath.EMPLOYEES]: Employees,
-  [RoutePath.NOT_FOUND]: NotFound,
+const routesComponentMap: Record<RouteName, CustomRouteConfig['component']> = {
+  [RouteName.HOME]: Home,
+  [RouteName.ABOUT]: About,
+  [RouteName.AUTH]: Auth,
+  [RouteName.CHANGE_PASSWORD]: ChangePassword,
+  [RouteName.EMPLOYEE]: Employee,
+  [RouteName.EMPLOYEES]: Employees,
+  [RouteName.NOT_FOUND]: NotFound,
 }
 
 export const routesConfig: CustomRouteConfig[] = Object.values(routes).map(
   (route) => ({
     ...route,
-    component: routesComponentMap[route.basePath],
+    component: routesComponentMap[route.key],
   }),
 )
 

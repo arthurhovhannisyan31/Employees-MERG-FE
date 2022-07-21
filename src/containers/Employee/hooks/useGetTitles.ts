@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 
+import { getCustomAction } from 'context/helpers'
 import { queryTitles } from 'gql/queries'
 import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
@@ -19,22 +20,20 @@ export const useGetTitles = ({
 }: IUseGetDepartments): [() => Promise<void>] => {
   const handleFetch = useFetch()
   const handleGetTitles = useCallback(async () => {
-    dispatch({ type: ActionTypes.LOADING, payload: { loading: true } })
+    dispatch(getCustomAction(ActionTypes.LOADING, { loading: true }))
     try {
       const res = await handleFetch(queryTitles())
       checkResponse(res?.status)
       const {
         data: { titles },
       }: TitleFetchResponse = await res.json()
-      dispatch({
-        type: ActionTypes.DATA,
-        payload: { data: { titles } },
-        prop: 'titles',
-      })
+      dispatch(
+        getCustomAction(ActionTypes.DATA, { data: { titles } }, 'titles'),
+      )
     } catch (error) {
-      dispatch({ type: ActionTypes.ERROR, payload: { error: error as Error } })
+      dispatch(getCustomAction(ActionTypes.ERROR, { error: error as Error }))
     }
-    dispatch({ type: ActionTypes.LOADING, payload: { loading: false } })
+    dispatch(getCustomAction(ActionTypes.LOADING, { loading: false }))
   }, [dispatch, handleFetch])
   return [handleGetTitles]
 }

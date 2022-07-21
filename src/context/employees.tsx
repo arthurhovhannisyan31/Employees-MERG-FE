@@ -33,17 +33,17 @@ const employeesReducer = produce(
     const { type, payload } = action
     switch (type) {
       case ActionTypes.LOADING:
-        state[type] = !!payload[type]
+        state[type] = !!payload?.[type]
         break
       case ActionTypes.ERROR:
-        state.error = payload.error as Error
+        state.error = payload?.error as Error
         break
       case ActionTypes.COUNT:
-        state.count = payload.count ?? 0
+        state.count = payload?.count ?? 0
         break
       case ActionTypes.DATA:
         state.ready = true
-        state.data[payload.key as string] = payload.data as Employee[]
+        state.data[payload?.key as string] = payload?.data as Employee[]
         break
     }
   },

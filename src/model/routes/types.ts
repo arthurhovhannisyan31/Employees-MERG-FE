@@ -1,6 +1,7 @@
 import { RouteName, RoutePath } from 'model/routes/configs'
 
 export interface RouteConfig {
+  key: RouteName
   label: string
   exact?: boolean
   isPrivate?: boolean

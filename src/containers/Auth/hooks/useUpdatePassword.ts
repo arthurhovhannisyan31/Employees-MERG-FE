@@ -1,6 +1,7 @@
 import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { getAction } from 'context/helpers'
 import { SnackbarContext } from 'context/snackbar'
 import { mutationUpdatePassword } from 'gql/mutations'
 import { useFetch } from 'hooks'
@@ -28,12 +29,11 @@ export const useUpdatePassword = ({
         checkResponse(res?.status)
         const { data }: MutationUpdatePasswordResponse = await res.json()
         if (data?.updatePassword.data) {
-          dispatch({
-            type: AuthContextActions.LOGIN_SUCCESS,
-            payload: {
+          dispatch(
+            getAction(AuthContextActions.LOGIN_SUCCESS, {
               userCredentials: data.updatePassword.data,
-            },
-          })
+            }),
+          )
           setSnackbarState({
             type: 'success',
             message: 'Password updated!',

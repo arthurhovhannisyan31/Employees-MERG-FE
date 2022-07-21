@@ -9,7 +9,7 @@ import { RouteMap } from 'model/routes/types'
 export const routeMaker: FC<CustomRoute> = (params) =>
   params.isPrivate ? (
     <PrivateRoute
-      key={params.path}
+      key={params.key}
       basePath={params.basePath}
       isPrivate={params.isPrivate}
       path={params.path}
@@ -18,7 +18,12 @@ export const routeMaker: FC<CustomRoute> = (params) =>
       exact={params.exact}
     />
   ) : (
-    <Route key={params.path} {...params} />
+    <Route
+      key={params.key}
+      path={params.path}
+      component={params.component}
+      exact={params.exact}
+    />
   )
 
 export const getAuthFreeRoutes = (routes: RouteMap): string[] => {
