@@ -22,7 +22,7 @@ module.exports = {
   moduleDirectories: ['node_modules', 'src'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   moduleNameMapper: {
-    '_/(.*)': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/$1',
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/tests/fileMock.ts',
     '\\.(css|less|scss)$': 'identity-obj-proxy',
@@ -32,5 +32,5 @@ module.exports = {
   preset: 'ts-jest',
   setupFiles: ['<rootDir>/configs/jest/utils/polyfill.ts'],
   testEnvironment: 'node',
-  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
+  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
 }
