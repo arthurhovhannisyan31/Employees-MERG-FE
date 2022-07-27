@@ -10,22 +10,22 @@ import {
 } from 'model/context/employee'
 import { Employee } from 'model/generated'
 
-const employeeByIdInitState: EmployeeByIdState = {
+export const employeeByIdInitState: EmployeeByIdState = {
   loading: false,
   error: null,
   data: {},
 }
 
-const EmployeeByIdContextInitState: EmployeeByIdContextProps = {
+export const EmployeeByIdContextInitState: EmployeeByIdContextProps = {
   state: employeeByIdInitState,
   dispatch: () => null,
 }
 
-const EmployeeByIdContext = createContext<EmployeeByIdContextProps>(
+export const EmployeeByIdContext = createContext<EmployeeByIdContextProps>(
   EmployeeByIdContextInitState,
 )
 
-const employeeByIdReducer = produce(
+export const employeeByIdReducer = produce(
   (state: EmployeeByIdState, action: EmployeeByIdAction) => {
     const { type, payload } = action
     switch (type) {
@@ -36,6 +36,8 @@ const employeeByIdReducer = produce(
         state.error = payload?.error as Error
         break
       case ActionTypes.ADD_ITEM:
+        // TODO replace key with _id
+        // TODO split cases and make it verbose
         state.data[payload?.key as string] = {
           ...state.data[payload?.key as string],
           ...(payload?.data as Employee),
@@ -51,7 +53,7 @@ const employeeByIdReducer = produce(
   },
 )
 
-const EmployeeContextContainer: FC = ({ children }) => {
+export const EmployeeContextContainer: FC = ({ children }) => {
   const [state, dispatch] = useReducer<EmployeeByIdReducerProps>(
     employeeByIdReducer,
     employeeByIdInitState,
@@ -67,5 +69,3 @@ const EmployeeContextContainer: FC = ({ children }) => {
     </EmployeeByIdContext.Provider>
   )
 }
-
-export { EmployeeContextContainer as default, EmployeeByIdContext }

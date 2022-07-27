@@ -11,21 +11,25 @@ import {
   AuthReducerProps,
 } from 'model/context/auth'
 
-const authContextInitValue: AuthContextProps = {
+export const authDefaultState: AuthState = {
   userCredentials: {
     email: '',
     _id: '',
   },
-  apiUrl: '',
-  headers: {},
   errors: [],
-  dispatch: () => null,
   isFetching: false,
 }
 
-const AuthContext = createContext<AuthContextProps>(authContextInitValue)
+export const authContextInitState: AuthContextProps = {
+  ...authDefaultState,
+  apiUrl: '',
+  headers: {},
+  dispatch: () => null,
+}
 
-const authContextReducer = produce(
+export const AuthContext = createContext<AuthContextProps>(authContextInitState)
+
+export const authContextReducer = produce(
   (state: AuthState, action: AuthReducerAction) => {
     const { type, payload } = action
     switch (type) {
@@ -58,10 +62,10 @@ const authContextReducer = produce(
   },
 )
 
-const AuthContextContainer: FC = ({ children }) => {
+export const AuthContextContainer: FC = ({ children }) => {
   const [state, dispatch] = useReducer<AuthReducerProps>(
     authContextReducer,
-    authContextInitValue,
+    authContextInitState,
   )
 
   const { errors, userCredentials, isFetching } = state
@@ -85,5 +89,3 @@ const AuthContextContainer: FC = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-
-export { AuthContextContainer as default, AuthContext }

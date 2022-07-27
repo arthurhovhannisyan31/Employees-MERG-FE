@@ -7,14 +7,14 @@ import { useFetch } from 'hooks'
 
 import {
   ActionTypes,
-  IEmployeesFetchResponse,
-  TEmployeesAction,
+  EmployeesFetchResponse,
+  EmployeesAction,
 } from 'model/context/employees'
 
 import { GetEmployeesInput } from '../../model/generated'
 
 interface IUseGetEmployees {
-  dispatch: (val: TEmployeesAction) => void
+  dispatch: (val: EmployeesAction) => void
 }
 type GetEmployeesProps = (props: GetEmployeesInput) => void
 export const useGetEmployees = ({
@@ -31,7 +31,7 @@ export const useGetEmployees = ({
         const res = await handleFetch(
           queryEmployees({ input: { offset, limit } }),
         )
-        const { data, errors }: IEmployeesFetchResponse = await res.json()
+        const { data, errors }: EmployeesFetchResponse = await res.json()
         if (errors?.length) return
         const {
           employees: { nodes, count: quantity },

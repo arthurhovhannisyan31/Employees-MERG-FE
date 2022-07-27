@@ -10,7 +10,7 @@ import {
 } from 'model/context/catalogs'
 import { Department, Gender, Title } from 'model/generated'
 
-const catalogsInitState: CatalogsState = {
+export const catalogsInitState: CatalogsState = {
   loading: false,
   error: null,
   data: {
@@ -19,14 +19,17 @@ const catalogsInitState: CatalogsState = {
     titles: [],
   },
 }
-const catalogsContextInitState: CatalogsContextProps = {
+
+export const catalogsContextInitState: CatalogsContextProps = {
   state: catalogsInitState,
   dispatch: () => null,
 }
-const CatalogsContext = createContext<CatalogsContextProps>(
+
+export const CatalogsContext = createContext<CatalogsContextProps>(
   catalogsContextInitState,
 )
-const catalogsReducer = produce(
+
+export const catalogsReducer = produce(
   (state: CatalogsState, action: CatalogsAction) => {
     const { type, payload, prop } = action
     switch (type) {
@@ -57,7 +60,7 @@ const catalogsReducer = produce(
   },
 )
 
-const CatalogsContextContainer: FC = ({ children }) => {
+export const CatalogsContextContainer: FC = ({ children }) => {
   const [state, dispatch] = useReducer<CatalogsReducer>(
     catalogsReducer,
     catalogsInitState,
@@ -73,5 +76,3 @@ const CatalogsContextContainer: FC = ({ children }) => {
     </CatalogsContext.Provider>
   )
 }
-
-export { CatalogsContextContainer as default, CatalogsContext }

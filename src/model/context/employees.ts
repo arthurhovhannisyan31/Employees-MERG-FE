@@ -1,7 +1,7 @@
 import { Action, FetchError } from 'model/common'
 import { Employee, Employees } from 'model/generated'
 
-export interface IEmployeesState {
+export interface EmployeesState {
   loading: boolean
   ready: boolean
   error: Error | null
@@ -9,17 +9,17 @@ export interface IEmployeesState {
   count: number
 }
 
-export interface TEmployeesPayload extends Omit<IEmployeesState, 'data'> {
+export interface EmployeesPayload extends Omit<EmployeesState, 'data'> {
   data: Employee[]
   key: string
 }
 
-export type TEmployeesAction = Action<ActionTypes, Partial<TEmployeesPayload>>
+export type EmployeesAction = Action<ActionTypes, Partial<EmployeesPayload>>
 
-export type TEmployeesReducer = (
-  prevState: IEmployeesState,
-  action: TEmployeesAction,
-) => IEmployeesState
+export type EmployeesReducer = (
+  prevState: EmployeesState,
+  action: EmployeesAction,
+) => EmployeesState
 
 export enum ActionTypes {
   LOADING = 'loading',
@@ -28,12 +28,12 @@ export enum ActionTypes {
   DATA = 'data',
   READY = 'ready',
 }
-export interface IEmployeesContext {
-  state: IEmployeesState
-  initState: IEmployeesState
-  dispatch: (val: TEmployeesAction) => void
+export interface EmployeesContextProps {
+  state: EmployeesState
+  initState: EmployeesState
+  dispatch: (val: EmployeesAction) => void
 }
-export interface IEmployeesFetchResponse {
+export interface EmployeesFetchResponse {
   data: {
     employees: Omit<Employees, '__typename'>
   }

@@ -3,14 +3,14 @@ import React, { createContext, FC, useReducer } from 'react'
 
 import {
   ActionTypes,
-  IEmployeesContext,
-  IEmployeesState,
-  TEmployeesReducer,
-  TEmployeesAction,
+  EmployeesContextProps,
+  EmployeesState,
+  EmployeesReducer,
+  EmployeesAction,
 } from 'model/context/employees'
 import { Employee } from 'model/generated'
 
-const employeesInitState: IEmployeesState = {
+export const employeesInitState: EmployeesState = {
   loading: false,
   ready: false,
   error: null,
@@ -18,18 +18,18 @@ const employeesInitState: IEmployeesState = {
   count: 0,
 }
 
-const employeesContextInitState: IEmployeesContext = {
+export const employeesContextInitState: EmployeesContextProps = {
   state: employeesInitState,
   initState: employeesInitState,
   dispatch: () => null,
 }
 
-const EmployeesContext = createContext<IEmployeesContext>(
+export const EmployeesContext = createContext<EmployeesContextProps>(
   employeesContextInitState,
 )
 
-const employeesReducer = produce(
-  (state: IEmployeesState, action: TEmployeesAction) => {
+export const employeesReducer = produce(
+  (state: EmployeesState, action: EmployeesAction) => {
     const { type, payload } = action
     switch (type) {
       case ActionTypes.LOADING:
@@ -49,8 +49,8 @@ const employeesReducer = produce(
   },
 )
 
-const EmployeesContextContainer: FC = ({ children }) => {
-  const [state, dispatch] = useReducer<TEmployeesReducer>(
+export const EmployeesContextContainer: FC = ({ children }) => {
+  const [state, dispatch] = useReducer<EmployeesReducer>(
     employeesReducer,
     employeesInitState,
   )
@@ -66,5 +66,3 @@ const EmployeesContextContainer: FC = ({ children }) => {
     </EmployeesContext.Provider>
   )
 }
-
-export { EmployeesContextContainer as default, EmployeesContext }

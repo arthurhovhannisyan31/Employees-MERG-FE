@@ -24,7 +24,6 @@ export type EmployeeByIdReducerProps = (
 export enum ActionTypes {
   LOADING = 'loading',
   ERROR = 'error',
-  DATA = 'data',
   ADD_ITEM = 'addItem',
   UPDATE_ITEM = 'updateItem',
 }
