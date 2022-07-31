@@ -31,6 +31,6 @@ module.exports = {
   notifyMode: 'failure-change',
   preset: 'ts-jest',
   setupFiles: ['<rootDir>/configs/jest/utils/polyfill.ts'],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
 }
