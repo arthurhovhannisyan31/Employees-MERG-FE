@@ -7,6 +7,7 @@ import {
   CatalogsReducer,
   ActionTypes,
   CatalogsAction,
+  CatalogsContextContainerProps,
 } from 'model/context/catalogs'
 import { Department, Gender, Title } from 'model/generated'
 
@@ -60,10 +61,13 @@ export const catalogsReducer = produce(
   },
 )
 
-export const CatalogsContextContainer: FC = ({ children }) => {
+export const CatalogsContextContainer: FC<CatalogsContextContainerProps> = ({
+  children,
+  initState = catalogsInitState,
+}) => {
   const [state, dispatch] = useReducer<CatalogsReducer>(
     catalogsReducer,
-    catalogsInitState,
+    initState,
   )
   return (
     <CatalogsContext.Provider

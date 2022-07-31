@@ -1,3 +1,4 @@
+import { getEmployeeStub } from 'context/__tests__/employee-by-id.mock'
 import { getError } from 'context/__tests__/error.mock'
 import { employeesReducer, employeesInitState } from 'context/employees'
 import { getAction } from 'context/helpers'
@@ -20,6 +21,7 @@ describe('employees context reducer', () => {
       loading: payload,
     })
     const state = setup(action)
+
     expect(state.loading).toEqual(payload)
   })
   it(ActionTypes.ERROR, () => {
@@ -28,16 +30,27 @@ describe('employees context reducer', () => {
       error: payload,
     })
     const state = setup(action)
+
     expect(state.error).toEqual(payload)
   })
-  it(ActionTypes.DATA, () => {
-    // TODO continue here
-    expect(1).toEqual(1)
-  })
-  it(ActionTypes.DATA, () => {
-    expect(1).toEqual(1)
-  })
   it(ActionTypes.COUNT, () => {
-    expect(1).toEqual(1)
+    const payload = 5
+    const action: EmployeesAction = getAction(ActionTypes.COUNT, {
+      count: payload,
+    })
+    const state = setup(action)
+
+    expect(state.count).toEqual(payload)
+  })
+  it(ActionTypes.DATA, () => {
+    const key = '123'
+    const payload = [getEmployeeStub()]
+    const action: EmployeesAction = getAction(ActionTypes.DATA, {
+      data: payload,
+      key,
+    })
+    const state = setup(action)
+
+    expect(state.data[key]).toEqual(payload)
   })
 })

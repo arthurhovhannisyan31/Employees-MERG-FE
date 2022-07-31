@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export interface FetchError {
   message: string
   statusCode: number
@@ -26,3 +28,8 @@ export interface QueryResponse<T> {
 }
 
 export type OmitTypeName<T> = Omit<T, '__typename'>
+
+export interface AbstractContextContainerProps<T = Record<string, unknown>> {
+  children: ReactNode
+  initState?: T
+}

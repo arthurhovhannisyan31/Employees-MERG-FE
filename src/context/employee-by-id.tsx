@@ -7,6 +7,7 @@ import {
   EmployeeByIdReducerProps,
   ActionTypes,
   EmployeeByIdAction,
+  EmployeeContextContainerProps,
 } from 'model/context/employee'
 import { Employee } from 'model/generated'
 
@@ -53,10 +54,13 @@ export const employeeByIdReducer = produce(
   },
 )
 
-export const EmployeeContextContainer: FC = ({ children }) => {
+export const EmployeeContextContainer: FC<EmployeeContextContainerProps> = ({
+  children,
+  initState = employeeByIdInitState,
+}) => {
   const [state, dispatch] = useReducer<EmployeeByIdReducerProps>(
     employeeByIdReducer,
-    employeeByIdInitState,
+    initState,
   )
   return (
     <EmployeeByIdContext.Provider

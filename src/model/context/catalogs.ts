@@ -1,4 +1,4 @@
-import { CustomAction } from 'model/common'
+import { AbstractContextContainerProps, CustomAction } from 'model/common'
 import { Department, Gender, Title } from 'model/generated'
 
 export interface CatalogEntries {
@@ -55,3 +55,6 @@ export type TitleFetchResponse = {
     titles: Omit<Title, '__typename'>[]
   }
 }
+
+export type CatalogsContextContainerProps =
+  AbstractContextContainerProps<CatalogsState>

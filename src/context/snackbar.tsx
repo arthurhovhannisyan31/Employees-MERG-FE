@@ -1,5 +1,6 @@
 import React, { useState, createContext, FC } from 'react'
 
+import { AbstractContextContainerProps } from 'model/common'
 import { SnackbarContextProps, SnackbarProps } from 'model/context/snackbar'
 
 const snackbarInitState: SnackbarProps = {
@@ -13,7 +14,9 @@ const SnackbarContext = createContext<SnackbarContextProps>({
   setSnackbarState: () => null,
 })
 
-const SnackbarContextContainer: FC = ({ children }) => {
+const SnackbarContextContainer: FC<AbstractContextContainerProps> = ({
+  children,
+}) => {
   const [snackbarState, setSnackbarState] = useState(snackbarInitState)
 
   const handleChange = (props: Partial<SnackbarProps>): void => {

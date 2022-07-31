@@ -1,4 +1,4 @@
-import { Action } from 'model/common'
+import { AbstractContextContainerProps, Action } from 'model/common'
 import { Employee, UpdateEmployeeInput } from 'model/generated'
 
 export interface EmployeeByIdState {
@@ -38,3 +38,6 @@ export type EmployeeFetchResponse = {
     employee: Omit<Employee, '__typename'>
   }
 }
+
+export type EmployeeContextContainerProps =
+  AbstractContextContainerProps<EmployeeByIdState>

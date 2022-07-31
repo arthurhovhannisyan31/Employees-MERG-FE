@@ -17,7 +17,7 @@ const ContextCompose: FC = ({ children }) => (
       EmployeeContextContainer,
       CatalogsContextContainer,
     ].reduceRight(
-      (child: ReactNode, Container: FC) => (
+      (child: ReactNode, Container) => (
         <Container>{child}</Container>
       ),
       children,

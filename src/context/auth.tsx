@@ -9,6 +9,7 @@ import {
   AuthReducerAction,
   AuthState,
   AuthReducerProps,
+  AuthContextContainerProps,
 } from 'model/context/auth'
 
 export const authDefaultState: AuthState = {
@@ -20,14 +21,14 @@ export const authDefaultState: AuthState = {
   isFetching: false,
 }
 
-export const authContextInitState: AuthContextProps = {
+export const authInitState: AuthContextProps = {
   ...authDefaultState,
   apiUrl: '',
   headers: {},
   dispatch: () => null,
 }
 
-export const AuthContext = createContext<AuthContextProps>(authContextInitState)
+export const AuthContext = createContext<AuthContextProps>(authInitState)
 
 export const authContextReducer = produce(
   (state: AuthState, action: AuthReducerAction) => {
@@ -62,10 +63,13 @@ export const authContextReducer = produce(
   },
 )
 
-export const AuthContextContainer: FC = ({ children }) => {
+export const AuthContextContainer: FC<AuthContextContainerProps> = ({
+  children,
+  initState = authInitState,
+}) => {
   const [state, dispatch] = useReducer<AuthReducerProps>(
     authContextReducer,
-    authContextInitState,
+    initState,
   )
 
   const { errors, userCredentials, isFetching } = state
@@ -89,3 +93,5 @@ export const AuthContextContainer: FC = ({ children }) => {
     </AuthContext.Provider>
   )
 }
+
+AuthContextContainer.displayName = 'AuthContextContainer'

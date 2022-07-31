@@ -7,6 +7,7 @@ import {
   EmployeesState,
   EmployeesReducer,
   EmployeesAction,
+  EmployeesContextContainerProps,
 } from 'model/context/employees'
 import { Employee } from 'model/generated'
 
@@ -49,10 +50,13 @@ export const employeesReducer = produce(
   },
 )
 
-export const EmployeesContextContainer: FC = ({ children }) => {
+export const EmployeesContextContainer: FC<EmployeesContextContainerProps> = ({
+  children,
+  initState = employeesInitState,
+}) => {
   const [state, dispatch] = useReducer<EmployeesReducer>(
     employeesReducer,
-    employeesInitState,
+    initState,
   )
   return (
     <EmployeesContext.Provider

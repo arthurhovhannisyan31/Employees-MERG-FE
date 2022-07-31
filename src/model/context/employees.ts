@@ -1,4 +1,4 @@
-import { Action, FetchError } from 'model/common'
+import { AbstractContextContainerProps, Action, FetchError } from 'model/common'
 import { Employee, Employees } from 'model/generated'
 
 export interface EmployeesState {
@@ -39,3 +39,6 @@ export interface EmployeesFetchResponse {
   }
   errors?: FetchError[]
 }
+
+export type EmployeesContextContainerProps =
+  AbstractContextContainerProps<EmployeesState>

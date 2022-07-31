@@ -1,4 +1,4 @@
-import { Action } from 'model/common'
+import { AbstractContextContainerProps, Action } from 'model/common'
 import { AuthData, FieldError } from 'model/generated'
 
 export enum AuthContextActions {
@@ -32,3 +32,6 @@ export interface DecodedToken {
   iat: number
   userId: string
 }
+
+export type AuthContextContainerProps =
+  AbstractContextContainerProps<AuthContextProps>
