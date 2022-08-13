@@ -1,3 +1,12 @@
+# v0.1.4...
+## Code refactor, unit tests
+- Add checks before commit and push
+- - Run linter, type-check and related tests on commit
+- - Run linter, type-check and all tests on push
+- Tests
+- - Add jest configuration
+- - Add unit tests for reducers and ui components
+
 # v0.1.3 
 ## Code refactor, Authorization improvements
 - Configs

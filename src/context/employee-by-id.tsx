@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import React, { createContext, useReducer, FC } from 'react'
 
 import {
@@ -5,61 +6,61 @@ import {
   EmployeeByIdContextProps,
   EmployeeByIdReducerProps,
   ActionTypes,
+  EmployeeByIdAction,
+  EmployeeContextContainerProps,
 } from 'model/context/employee'
 import { Employee } from 'model/generated'
 
-const employeeByIdInitState: EmployeeByIdState = {
+export const employeeByIdInitState: EmployeeByIdState = {
   loading: false,
   error: null,
   data: {},
 }
 
-const EmployeeByIdContextInitState: EmployeeByIdContextProps = {
+export const EmployeeByIdContextInitState: EmployeeByIdContextProps = {
   state: employeeByIdInitState,
   dispatch: () => null,
 }
 
-const EmployeeByIdContext = createContext<EmployeeByIdContextProps>(
+export const EmployeeByIdContext = createContext<EmployeeByIdContextProps>(
   EmployeeByIdContextInitState,
 )
 
-const employeeByIdReducer: EmployeeByIdReducerProps = (state, action) => {
-  const { type, payload } = action
-  switch (type) {
-    case ActionTypes.LOADING:
-    case ActionTypes.ERROR:
-      return {
-        ...state,
-        [type]: payload[type],
-      }
-    case ActionTypes.ADD_ITEM:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [payload.key as string]: payload.data as Employee,
-        },
-      }
-    case ActionTypes.UPDATE_ITEM:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [payload.key as string]: {
-            ...state.data[payload.key as string],
-            ...(payload.data as Employee),
-          },
-        },
-      }
-    default:
-      return state
-  }
-}
+export const employeeByIdReducer = produce(
+  (state: EmployeeByIdState, action: EmployeeByIdAction) => {
+    const { type, payload } = action
+    switch (type) {
+      case ActionTypes.LOADING:
+        state.loading = !!payload?.loading
+        break
+      case ActionTypes.ERROR:
+        state.error = payload?.error as Error
+        break
+      case ActionTypes.ADD_ITEM:
+        // TODO replace key with _id
+        // TODO split cases and make it verbose
+        state.data[payload?.key as string] = {
+          ...state.data[payload?.key as string],
+          ...(payload?.data as Employee),
+        }
+        break
+      case ActionTypes.UPDATE_ITEM:
+        state.data[payload?.key as string] = {
+          ...state.data[payload?.key as string],
+          ...(payload?.data as Employee),
+        }
+        break
+    }
+  },
+)
 
-const EmployeeContextContainer: FC = ({ children }) => {
+export const EmployeeContextContainer: FC<EmployeeContextContainerProps> = ({
+  children,
+  initState = employeeByIdInitState,
+}) => {
   const [state, dispatch] = useReducer<EmployeeByIdReducerProps>(
     employeeByIdReducer,
-    employeeByIdInitState,
+    initState,
   )
   return (
     <EmployeeByIdContext.Provider
@@ -72,5 +73,3 @@ const EmployeeContextContainer: FC = ({ children }) => {
     </EmployeeByIdContext.Provider>
   )
 }
-
-export { EmployeeContextContainer as default, EmployeeByIdContext }

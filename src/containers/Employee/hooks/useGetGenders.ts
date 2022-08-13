@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 
+import { getAction, getCustomAction } from 'context/helpers'
 import { queryGenders } from 'gql/queries'
 import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
@@ -19,37 +20,32 @@ export const useGetGenders = ({
 }: IUseGetGenders): [() => Promise<void>] => {
   const handleFetch = useFetch()
   const handleGetGenders = useCallback(async () => {
-    dispatch({
-      type: ActionTypes.LOADING,
-      payload: { loading: true },
-    })
+    dispatch(getAction(ActionTypes.LOADING, { loading: true }))
     try {
       const res = await handleFetch(queryGenders())
       checkResponse(res?.status)
       const {
         data: { genders },
       }: GendersFetchResponse = await res.json()
-      dispatch({
-        type: ActionTypes.DATA,
-        payload: {
-          data: {
-            genders,
+      dispatch(
+        getCustomAction(
+          ActionTypes.DATA,
+          {
+            data: {
+              genders,
+            },
           },
-        },
-        prop: 'genders',
-      })
+          'genders',
+        ),
+      )
     } catch (error) {
-      dispatch({
-        type: ActionTypes.ERROR,
-        payload: {
+      dispatch(
+        getAction(ActionTypes.ERROR, {
           error: error as Error,
-        },
-      })
+        }),
+      )
     }
-    dispatch({
-      type: ActionTypes.LOADING,
-      payload: { loading: false },
-    })
+    dispatch(getAction(ActionTypes.LOADING, { loading: false }))
   }, [dispatch, handleFetch])
   return [handleGetGenders]
 }

@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import React, { createContext, useReducer, FC } from 'react'
 
 import {
@@ -5,10 +6,12 @@ import {
   CatalogsState,
   CatalogsReducer,
   ActionTypes,
-  CatalogEntries,
+  CatalogsAction,
+  CatalogsContextContainerProps,
 } from 'model/context/catalogs'
+import { Department, Gender, Title } from 'model/generated'
 
-const catalogsInitState: CatalogsState = {
+export const catalogsInitState: CatalogsState = {
   loading: false,
   error: null,
   data: {
@@ -17,39 +20,54 @@ const catalogsInitState: CatalogsState = {
     titles: [],
   },
 }
-const catalogsContextInitState: CatalogsContextProps = {
+
+export const catalogsContextInitState: CatalogsContextProps = {
   state: catalogsInitState,
   dispatch: () => null,
 }
-const CatalogsContext = createContext<CatalogsContextProps>(
+
+export const CatalogsContext = createContext<CatalogsContextProps>(
   catalogsContextInitState,
 )
-const catalogsReducer: CatalogsReducer = (state, action) => {
-  const { type, payload, prop } = action
-  switch (type) {
-    case ActionTypes.LOADING:
-    case ActionTypes.ERROR:
-      return {
-        ...state,
-        [type]: payload[type],
-      }
-    case ActionTypes.DATA:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [prop as string]: payload.data?.[prop as keyof CatalogEntries],
-        },
-      }
-    default:
-      return state
-  }
-}
 
-const CatalogsContextContainer: FC = ({ children }) => {
+export const catalogsReducer = produce(
+  (state: CatalogsState, action: CatalogsAction) => {
+    const { type, payload, prop } = action
+    switch (type) {
+      case ActionTypes.LOADING:
+        state.loading = !!payload?.loading
+        break
+      case ActionTypes.ERROR:
+        state.error = payload?.error as Error
+        break
+      case ActionTypes.DATA: {
+        switch (prop) {
+          case 'departments': {
+            state.data.departments = payload?.data?.departments as Department[]
+            break
+          }
+          case 'genders': {
+            state.data.genders = payload?.data?.genders as Gender[]
+            break
+          }
+          case 'titles': {
+            state.data.titles = payload?.data?.titles as Title[]
+            break
+          }
+        }
+        break
+      }
+    }
+  },
+)
+
+export const CatalogsContextContainer: FC<CatalogsContextContainerProps> = ({
+  children,
+  initState = catalogsInitState,
+}) => {
   const [state, dispatch] = useReducer<CatalogsReducer>(
     catalogsReducer,
-    catalogsInitState,
+    initState,
   )
   return (
     <CatalogsContext.Provider
@@ -62,5 +80,3 @@ const CatalogsContextContainer: FC = ({ children }) => {
     </CatalogsContext.Provider>
   )
 }
-
-export { CatalogsContextContainer as default, CatalogsContext }

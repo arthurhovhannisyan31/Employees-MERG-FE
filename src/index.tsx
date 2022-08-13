@@ -1,17 +1,14 @@
 import React from 'react'
-// eslint-disable-next-line
-// @ts-ignore
-import { createRoot } from 'react-dom'
+import { render } from 'react-dom'
 
 import 'utils/metrics'
 
 import App from './App'
 
-const root = createRoot(document.getElementById('root'))
-const renderApp = (): void => root.render(<App />)
+const renderApp = (): void => render(<App />, document.getElementById('root'))
 
 renderApp()
 
 if (module.hot) {
-  root.render(<App />)
+  renderApp()
 }

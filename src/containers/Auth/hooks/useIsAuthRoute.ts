@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { routes } from 'routes/app-routes'
+import { routes } from 'constants/routes'
 import { getAuthFreeRoutes } from 'routes/helpers'
 
 export const useIsAuthFreeRoute = (route: string): boolean => {

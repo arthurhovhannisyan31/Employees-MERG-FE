@@ -14,6 +14,27 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
+    allowedHosts: 'all',
+    client: {
+      progress: false,
+      webSocketURL: {
+        port: 443,
+      },
+    },
+    historyApiFallback: true,
+    host: process.env.HOST,
+    server: {
+      type: 'https',
+      options: {
+        key: fs.readFileSync(path.resolve('configs', 'cert', 'key.pem')),
+        cert: fs.readFileSync(path.resolve('configs', 'cert', 'cert.pem')),
+      },
+    },
+    http2: true,
+    port: process.env.PORT || 3000,
+    proxy: {
+      [process.env.API_URL]: `${process.env.PROXY_URL}${process.env.API_URL}`,
+    },
     static: {
       directory: path.join(__dirname, 'dist'),
       watch: {
@@ -21,21 +42,11 @@ module.exports = merge(common, {
         ignored: /node_modules/,
       },
     },
-    host: process.env.APP_URL_DEV,
-    port: process.env.PORT || 3000,
-    historyApiFallback: true,
-    proxy: {
-      [process.env.API_URL]: `${process.env.PROXY_URL}${process.env.API_URL}`,
-    },
-    http2: true,
-    https: {
-      key: fs.readFileSync(path.resolve('configs', 'cert', 'key.pem')),
-      cert: fs.readFileSync(path.resolve('configs', 'cert', 'cert.pem')),
-    },
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new webpack.ProgressPlugin({ percentBy: 'entries' }),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 500,
+    poll: 1000,
+  },
+  plugins: [new CleanWebpackPlugin(), new webpack.HotModuleReplacementPlugin()],
 })

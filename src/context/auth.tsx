@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import React, { createContext, useReducer, FC } from 'react'
 
 import { API_URL } from 'constants/config'
@@ -8,71 +9,67 @@ import {
   AuthReducerAction,
   AuthState,
   AuthReducerProps,
+  AuthContextContainerProps,
 } from 'model/context/auth'
 
-const authContextInitValue: AuthContextProps = {
+export const authDefaultState: AuthState = {
   userCredentials: {
     email: '',
     _id: '',
   },
-  apiUrl: '',
-  headers: {},
   errors: [],
-  dispatch: () => null,
   isFetching: false,
 }
 
-const AuthContext = createContext<AuthContextProps>(authContextInitValue)
-
-const authContextReducer = (
-  state: AuthState,
-  action: AuthReducerAction,
-): AuthState => {
-  const { type, payload } = action
-  switch (type) {
-    case AuthContextActions.LOGIN_REQUEST: {
-      return {
-        ...state,
-        isFetching: action.payload?.isFetching || false,
-      }
-    }
-    case AuthContextActions.LOGIN_SUCCESS: {
-      return {
-        ...state,
-        errors: [],
-        userCredentials: {
-          _id: payload?.userCredentials?._id ?? '',
-          email: payload?.userCredentials?.email ?? '',
-        },
-        isFetching: false,
-      }
-    }
-    case AuthContextActions.LOGOUT: {
-      return {
-        ...state,
-        userCredentials: {
-          _id: '',
-          email: '',
-        },
-      }
-    }
-    case AuthContextActions.ERRORS: {
-      return {
-        ...state,
-        errors: payload?.errors,
-        isFetching: false,
-      }
-    }
-    default: {
-      return state
-    }
-  }
+export const authInitState: AuthContextProps = {
+  ...authDefaultState,
+  apiUrl: '',
+  headers: {},
+  dispatch: () => null,
 }
 
-const AuthContextContainer: FC = ({ children }) => {
+export const AuthContext = createContext<AuthContextProps>(authInitState)
+
+export const authContextReducer = produce(
+  (state: AuthState, action: AuthReducerAction) => {
+    const { type, payload } = action
+    switch (type) {
+      case AuthContextActions.LOGIN_REQUEST: {
+        state.isFetching = payload?.isFetching || false
+        break
+      }
+      case AuthContextActions.LOGIN_SUCCESS: {
+        state.errors = []
+        state.userCredentials = {
+          _id: payload?.userCredentials?._id ?? '',
+          email: payload?.userCredentials?.email ?? '',
+        }
+        state.isFetching = false
+        break
+      }
+      case AuthContextActions.LOGOUT: {
+        state.userCredentials = {
+          _id: '',
+          email: '',
+        }
+        break
+      }
+      case AuthContextActions.ERRORS: {
+        state.errors = payload?.errors
+        state.isFetching = false
+        break
+      }
+    }
+  },
+)
+
+export const AuthContextContainer: FC<AuthContextContainerProps> = ({
+  children,
+  initState = authInitState,
+}) => {
   const [state, dispatch] = useReducer<AuthReducerProps>(
     authContextReducer,
-    authContextInitValue,
+    initState,
   )
 
   const { errors, userCredentials, isFetching } = state
@@ -97,4 +94,4 @@ const AuthContextContainer: FC = ({ children }) => {
   )
 }
 
-export { AuthContextContainer as default, AuthContext }
+AuthContextContainer.displayName = 'AuthContextContainer'

@@ -1,4 +1,4 @@
-import { Action } from 'model/common'
+import { AbstractContextContainerProps, Action } from 'model/common'
 import { Employee, UpdateEmployeeInput } from 'model/generated'
 
 export interface EmployeeByIdState {
@@ -7,6 +7,7 @@ export interface EmployeeByIdState {
   data: Record<string, Employee>
 }
 export type EmployeeByIdAction = Action<
+  ActionTypes,
   Partial<
     Omit<EmployeeByIdState, 'data'> & {
       data: Employee | Omit<UpdateEmployeeInput, 'id'>
@@ -23,7 +24,6 @@ export type EmployeeByIdReducerProps = (
 export enum ActionTypes {
   LOADING = 'loading',
   ERROR = 'error',
-  DATA = 'data',
   ADD_ITEM = 'addItem',
   UPDATE_ITEM = 'updateItem',
 }
@@ -38,3 +38,6 @@ export type EmployeeFetchResponse = {
     employee: Omit<Employee, '__typename'>
   }
 }
+
+export type EmployeeContextContainerProps =
+  AbstractContextContainerProps<EmployeeByIdState>

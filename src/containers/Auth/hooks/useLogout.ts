@@ -2,6 +2,7 @@ import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { AuthContext } from 'context/auth'
+import { getAction } from 'context/helpers'
 import { queryLogout } from 'gql/queries'
 import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
@@ -20,28 +21,26 @@ export const useLogout = (): (() => void) => {
       checkResponse(res?.status)
       const result: QueryLogoutResponse = await res.json()
       if (result?.data?.logout) {
-        dispatch({
-          type: AuthContextActions.LOGOUT,
-        })
+        dispatch(getAction(AuthContextActions.LOGOUT))
         history.push('/auth')
       } else {
-        dispatch({
-          type: AuthContextActions.ERRORS,
-          payload: { errors: [{ field: 'logout', message: 'Logout failed' }] },
-        })
+        dispatch(
+          getAction(AuthContextActions.ERRORS, {
+            errors: [{ field: 'logout', message: 'Logout failed' }],
+          }),
+        )
       }
     } catch (err) {
-      dispatch({
-        type: AuthContextActions.ERRORS,
-        payload: {
+      dispatch(
+        getAction(AuthContextActions.ERRORS, {
           errors: [
             {
               message: (err as Error).message,
               field: (err as Error).message,
             },
           ],
-        },
-      })
+        }),
+      )
     }
   }, [dispatch, handleFetch, history])
 }

@@ -15,7 +15,7 @@ import { AuthContext, ThemeContext } from 'context'
 import { default as routes } from 'routes/app-routes'
 import themeCreator from 'utils/theme'
 
-import { RoutePath } from 'model/common'
+import { RoutePath } from 'model/routes/configs'
 
 import useStyles from './styles'
 

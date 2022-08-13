@@ -50,16 +50,12 @@ module.exports = {
       cache: false,
       favicon: path.resolve('src/static/img', 'favicon.ico'),
     }),
-    new webpack.EnvironmentPlugin([
-      'API_URL',
-      'PROXY_URL',
-      'APP_URL_DEV',
-      'PORT',
-    ]),
+    new webpack.EnvironmentPlugin(['API_URL', 'PROXY_URL', 'HOST', 'PORT']),
     new webpack.ProvidePlugin({ process: 'process/browser' }),
   ],
   resolve: {
     plugins: [new TsconfigPathsPlugin()],
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.mjs', '.json'],
   },
+  stats: 'minimal',
 }

@@ -16,6 +16,7 @@ import TabPanel from 'components/UI/TabPanel'
 import SignUp from 'containers/Auth/components/SignUp'
 import SignIn from 'containers/Auth/components/SingIn'
 import { AuthContext } from 'context'
+import { getAction } from 'context/helpers'
 import { a11yProps } from 'utils/a11y'
 
 import { AuthContextActions } from 'model/context/auth'
@@ -36,10 +37,7 @@ const Auth: FC = () => {
   const classes = useStyles({ hasError: !!authErrors?.length })
 
   const clearErrors = useCallback(() => {
-    dispatch({
-      type: AuthContextActions.ERRORS,
-      payload: { errors: [] },
-    })
+    dispatch(getAction(AuthContextActions.ERRORS, { errors: [] }))
   }, [dispatch])
 
   const handleChange = useCallback(
