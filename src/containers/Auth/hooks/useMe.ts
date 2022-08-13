@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { useIsAuthFreeRoute } from 'containers/Auth/hooks/useIsAuthRoute'
 import { useLogout } from 'containers/Auth/hooks/useLogout'
 import { SnackbarContext } from 'context'
+import { getAction } from 'context/helpers'
 import { queryMe } from 'gql/queries'
 import { useFetch } from 'hooks'
 
@@ -37,12 +38,11 @@ export const useMe = ({
         })
       }
       if (data?.me?.data) {
-        dispatch({
-          type: AuthContextActions.LOGIN_SUCCESS,
-          payload: {
+        dispatch(
+          getAction(AuthContextActions.LOGIN_SUCCESS, {
             userCredentials: data?.me?.data,
-          },
-        })
+          }),
+        )
       }
     } catch (err) {
       setSnackbarState({

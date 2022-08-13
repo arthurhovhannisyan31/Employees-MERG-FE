@@ -1,5 +1,6 @@
 import React, { useState, createContext, FC } from 'react'
 
+import { AbstractContextContainerProps } from 'model/common'
 import { ThemeContextProps } from 'model/context/theme'
 
 const themeInitState = {
@@ -9,7 +10,9 @@ const themeInitState = {
 
 const ThemeContext = createContext<ThemeContextProps>(themeInitState)
 
-const ThemeContextContainer: FC = ({ children }) => {
+const ThemeContextContainer: FC<AbstractContextContainerProps> = ({
+  children,
+}) => {
   const [darkMode, setDarkMode] = useState(true)
 
   const toggleTheme = (): void => setDarkMode((val: boolean) => !val)

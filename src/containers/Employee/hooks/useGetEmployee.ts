@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { getAction } from 'context/helpers'
 import { queryEmployee } from 'gql/queries'
 import { useFetch } from 'hooks'
 import { checkResponse } from 'utils/auth'
@@ -23,33 +24,23 @@ export const useGetEmployee = ({
   const handleFetch = useFetch()
   const handleGetEmployee = useCallback(
     async ({ id }: GetEmployeeInput) => {
-      dispatch({
-        type: ActionTypes.LOADING,
-        payload: { loading: true },
-      })
+      dispatch(getAction(ActionTypes.LOADING, { loading: true }))
       try {
         const res = await handleFetch(queryEmployee({ input: { id } }))
         checkResponse(res?.status)
         const {
           data: { employee },
         }: EmployeeFetchResponse = await res.json()
-        dispatch({
-          type: ActionTypes.ADD_ITEM,
-          payload: {
+        dispatch(
+          getAction(ActionTypes.ADD_ITEM, {
             data: employee,
             key: idParam,
-          },
-        })
+          }),
+        )
       } catch (err) {
-        dispatch({
-          type: ActionTypes.ERROR,
-          payload: { error: err as Error },
-        })
+        dispatch(getAction(ActionTypes.ERROR, { error: err as Error }))
       }
-      dispatch({
-        type: ActionTypes.LOADING,
-        payload: { loading: false },
-      })
+      dispatch(getAction(ActionTypes.LOADING, { loading: false }))
     },
     [dispatch, idParam, handleFetch],
   )

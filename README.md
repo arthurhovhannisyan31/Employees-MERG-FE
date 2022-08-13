@@ -8,6 +8,10 @@ Please use following credentials:
 | Login      | test@test.test |
 | Password   | test           |
 
+## Setup for development
+
+After cloning the project run following command `git config core.hooksPath .git-hooks` to enable git hooks.
+
 ## Description
 This is a demo project for employees administration system.  
 

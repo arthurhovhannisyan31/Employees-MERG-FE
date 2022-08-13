@@ -1,32 +1,61 @@
-import { RouteName, RoutePath, RouteMap } from 'model/common'
+import { RouteName, routeNameLabelMap, RoutePath } from 'model/routes/configs'
+import { RouteMap } from 'model/routes/types'
 
-export const ROUTES: RouteMap = {
+export const routes: RouteMap = {
   [RouteName.HOME]: {
-    label: 'Home',
-    url: RoutePath.HOME,
+    key: RouteName.HOME,
+    label: routeNameLabelMap[RouteName.HOME],
+    basePath: RoutePath.HOME,
+    exact: true,
+    isPrivate: true,
+    path: RoutePath.HOME,
   },
   [RouteName.AUTH]: {
-    label: 'Auth',
-    url: RoutePath.AUTH,
+    key: RouteName.AUTH,
+    label: routeNameLabelMap[RouteName.AUTH],
+    basePath: RoutePath.AUTH,
+    exact: false,
+    isPrivate: false,
+    path: `${RoutePath.AUTH}/:next?`,
   },
   [RouteName.CHANGE_PASSWORD]: {
-    label: 'Change password',
-    url: RoutePath.CHANGE_PASSWORD,
+    key: RouteName.CHANGE_PASSWORD,
+    label: routeNameLabelMap[RouteName.CHANGE_PASSWORD],
+    basePath: RoutePath.CHANGE_PASSWORD,
+    exact: false,
+    isPrivate: false,
+    path: `${RoutePath.CHANGE_PASSWORD}/:id`,
   },
   [RouteName.ABOUT]: {
-    label: 'About',
-    url: RoutePath.ABOUT,
+    key: RouteName.ABOUT,
+    label: routeNameLabelMap[RouteName.ABOUT],
+    basePath: RoutePath.ABOUT,
+    exact: true,
+    isPrivate: false,
+    path: RoutePath.ABOUT,
   },
   [RouteName.EMPLOYEES]: {
-    label: 'Employees',
-    url: RoutePath.EMPLOYEES,
+    key: RouteName.EMPLOYEES,
+    label: routeNameLabelMap[RouteName.EMPLOYEES],
+    basePath: RoutePath.EMPLOYEES,
+    exact: true,
+    isPrivate: true,
+    path: RoutePath.EMPLOYEES,
   },
   [RouteName.EMPLOYEE]: {
-    label: 'Employee',
-    url: RoutePath.EMPLOYEES,
+    key: RouteName.EMPLOYEE,
+    label: routeNameLabelMap[RouteName.EMPLOYEE],
+    basePath: RoutePath.EMPLOYEES,
+    exact: true,
+    isPrivate: true,
+    path: `${RoutePath.EMPLOYEES}/:id`,
   },
   [RouteName.NOT_FOUND]: {
-    label: 'Not found',
-    url: RoutePath.NOT_FOUND,
+    key: RouteName.NOT_FOUND,
+    label: routeNameLabelMap[RouteName.NOT_FOUND],
+    basePath: RoutePath.NOT_FOUND,
+    exact: true,
+    isPrivate: true,
+    path: RoutePath.NOT_FOUND,
   },
 }

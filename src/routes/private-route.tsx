@@ -2,9 +2,12 @@ import React, { useContext, FC } from 'react'
 import { Route, useLocation, useHistory } from 'react-router-dom'
 
 import { AuthContext } from 'context'
-import { CustomRoute } from 'routes/types'
+import { CustomRouteConfig } from 'routes/types'
 
-const PrivateRoute: FC<CustomRoute> = ({ component: Component, ...params }) => {
+const PrivateRoute: FC<CustomRouteConfig> = ({
+  component: Component,
+  ...params
+}) => {
   const { userCredentials } = useContext(AuthContext)
   const isAuthorized = userCredentials?._id
 

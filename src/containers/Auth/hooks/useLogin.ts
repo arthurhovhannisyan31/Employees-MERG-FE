@@ -1,6 +1,7 @@
 import { useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { getAction } from 'context/helpers'
 import { SnackbarContext } from 'context/snackbar'
 import { queryLogin } from 'gql/queries'
 import { useFetch } from 'hooks'
@@ -30,19 +31,19 @@ export const useLogin = ({
         checkResponse(res?.status)
         const { data }: QueryLoginResponse = await res.json()
         if (data?.login?.errors) {
-          dispatch({
-            type: AuthContextActions.ERRORS,
-            payload: { errors: data?.login.errors },
-          })
+          dispatch(
+            getAction(AuthContextActions.ERRORS, {
+              errors: data?.login.errors,
+            }),
+          )
         }
         if (data?.login.data) {
           const { userCredentials } = data?.login.data
-          dispatch({
-            type: AuthContextActions.LOGIN_SUCCESS,
-            payload: {
+          dispatch(
+            getAction(AuthContextActions.LOGIN_SUCCESS, {
               userCredentials,
-            },
-          })
+            }),
+          )
           setSnackbarState({
             type: 'success',
             message: 'Welcome back!',
@@ -51,17 +52,16 @@ export const useLogin = ({
           history.push('/')
         }
       } catch (err) {
-        dispatch({
-          type: AuthContextActions.ERRORS,
-          payload: {
+        dispatch(
+          getAction(AuthContextActions.ERRORS, {
             errors: [
               {
                 message: (err as Error).message,
                 field: (err as Error).message,
               },
             ],
-          },
-        })
+          }),
+        )
       }
     },
     [dispatch, handleFetch, history, setSnackbarState],

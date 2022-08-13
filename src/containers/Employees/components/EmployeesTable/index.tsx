@@ -28,13 +28,13 @@ import {
 } from 'containers/Employees/components/EmployeesTable/helpers'
 import { IEmployeesTableRow } from 'containers/Employees/types'
 
-import { TEmployeesAction } from 'model/context/employees'
+import { EmployeesAction } from 'model/context/employees'
 import { Employee } from 'model/generated'
 
 import useStyles from './style'
 
 interface IProps {
-  dispatch: (val: TEmployeesAction) => void
+  dispatch: (val: EmployeesAction) => void
   currentPage: number
   setCurrentPage: (val: number) => void
   pageSize: number

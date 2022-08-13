@@ -1,14 +1,17 @@
+import { produce } from 'immer'
 import React, { createContext, FC, useReducer } from 'react'
 
 import {
   ActionTypes,
-  IEmployeesContext,
-  IEmployeesState,
-  TEmployeesReducer,
+  EmployeesContextProps,
+  EmployeesState,
+  EmployeesReducer,
+  EmployeesAction,
+  EmployeesContextContainerProps,
 } from 'model/context/employees'
 import { Employee } from 'model/generated'
 
-const employeesInitState: IEmployeesState = {
+export const employeesInitState: EmployeesState = {
   loading: false,
   ready: false,
   error: null,
@@ -16,52 +19,44 @@ const employeesInitState: IEmployeesState = {
   count: 0,
 }
 
-const employeesContextInitState: IEmployeesContext = {
+export const employeesContextInitState: EmployeesContextProps = {
   state: employeesInitState,
   initState: employeesInitState,
   dispatch: () => null,
 }
 
-const EmployeesContext = createContext<IEmployeesContext>(
+export const EmployeesContext = createContext<EmployeesContextProps>(
   employeesContextInitState,
 )
 
-const employeesReducer: TEmployeesReducer = (state, action) => {
-  const { type, payload } = action
-  switch (type) {
-    case ActionTypes.LOADING:
-      return {
-        ...state,
-        [type]: !!payload[type],
-      }
-    case ActionTypes.ERROR:
-      return {
-        ...state,
-        error: payload.error as Error,
-      }
-    case ActionTypes.COUNT:
-      return {
-        ...state,
-        count: payload.count ?? 0,
-      }
-    case ActionTypes.DATA:
-      return {
-        ...state,
-        ready: true,
-        data: {
-          ...state.data,
-          [payload.key as string]: payload.data as Employee[],
-        },
-      }
-    default:
-      return state
-  }
-}
+export const employeesReducer = produce(
+  (state: EmployeesState, action: EmployeesAction) => {
+    const { type, payload } = action
+    switch (type) {
+      case ActionTypes.LOADING:
+        state[type] = !!payload?.[type]
+        break
+      case ActionTypes.ERROR:
+        state.error = payload?.error as Error
+        break
+      case ActionTypes.COUNT:
+        state.count = payload?.count ?? 0
+        break
+      case ActionTypes.DATA:
+        state.ready = true
+        state.data[payload?.key as string] = payload?.data as Employee[]
+        break
+    }
+  },
+)
 
-const EmployeesContextContainer: FC = ({ children }) => {
-  const [state, dispatch] = useReducer<TEmployeesReducer>(
+export const EmployeesContextContainer: FC<EmployeesContextContainerProps> = ({
+  children,
+  initState = employeesInitState,
+}) => {
+  const [state, dispatch] = useReducer<EmployeesReducer>(
     employeesReducer,
-    employeesInitState,
+    initState,
   )
   return (
     <EmployeesContext.Provider
@@ -75,5 +70,3 @@ const EmployeesContextContainer: FC = ({ children }) => {
     </EmployeesContext.Provider>
   )
 }
-
-export { EmployeesContextContainer as default, EmployeesContext }

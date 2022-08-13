@@ -22,7 +22,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useLogout } from 'containers/Auth/hooks/useLogout'
 import { AuthContext, ThemeContext } from 'context'
 
-import { RoutePath } from 'model/common'
+import { RoutePath } from 'model/routes/configs'
 
 import useStyles from './styles'
 

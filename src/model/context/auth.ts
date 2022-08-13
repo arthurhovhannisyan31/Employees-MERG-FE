@@ -1,3 +1,4 @@
+import { AbstractContextContainerProps, Action } from 'model/common'
 import { AuthData, FieldError } from 'model/generated'
 
 export enum AuthContextActions {
@@ -23,10 +24,7 @@ export type AuthReducerProps = (
   action: AuthReducerAction,
 ) => AuthState
 
-export interface AuthReducerAction {
-  type: AuthContextActions
-  payload?: Partial<AuthState>
-}
+export type AuthReducerAction = Action<AuthContextActions, Partial<AuthState>>
 
 export interface DecodedToken {
   email: string
@@ -34,3 +32,6 @@ export interface DecodedToken {
   iat: number
   userId: string
 }
+
+export type AuthContextContainerProps =
+  AbstractContextContainerProps<AuthContextProps>

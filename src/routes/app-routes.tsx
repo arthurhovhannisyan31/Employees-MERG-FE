@@ -1,9 +1,11 @@
 import { lazy } from 'react'
 
-import { ROUTES } from 'constants/routes'
+import { routes } from 'constants/routes'
 import { routeMaker } from 'routes/helpers'
 
-import { CustomRoute } from './types'
+import { RouteName } from 'model/routes/configs'
+
+import { CustomRouteConfig } from './types'
 
 const Home = lazy(() => import(/* webpackPrefetch: true */ 'containers/Home'))
 const About = lazy(() => import(/* webpackPrefetch: true */ 'containers/About'))
@@ -22,63 +24,21 @@ const ChangePassword = lazy(
   () => import(/* webpackPrefetch: true */ 'containers/ChangePassword'),
 )
 
-export const routes: CustomRoute[] = [
-  {
-    exact: true,
-    isPrivate: true,
-    path: ROUTES.HOME.url,
-    basePath: ROUTES.HOME.url,
-    label: ROUTES.HOME.label,
-    component: Home,
-  },
-  {
-    exact: true,
-    isPrivate: false,
-    path: ROUTES.ABOUT.url,
-    basePath: ROUTES.ABOUT.url,
-    label: ROUTES.ABOUT.label,
-    component: About,
-  },
-  {
-    exact: false,
-    isPrivate: false,
-    path: `${ROUTES.AUTH.url}/:next?`,
-    basePath: ROUTES.AUTH.url,
-    label: ROUTES.AUTH.label,
-    component: Auth,
-  },
-  {
-    exact: false,
-    isPrivate: false,
-    path: `${ROUTES.CHANGE_PASSWORD.url}/:id`,
-    basePath: ROUTES.CHANGE_PASSWORD.url,
-    label: ROUTES.CHANGE_PASSWORD.label,
-    component: ChangePassword,
-  },
-  {
-    exact: true,
-    isPrivate: true,
-    path: `${ROUTES.EMPLOYEE.url}/:id`,
-    basePath: ROUTES.EMPLOYEE.url,
-    label: ROUTES.EMPLOYEE.label,
-    component: Employee,
-  },
-  {
-    exact: true,
-    isPrivate: true,
-    path: ROUTES.EMPLOYEES.url,
-    basePath: ROUTES.EMPLOYEES.url,
-    label: ROUTES.EMPLOYEES.label,
-    component: Employees,
-  },
-  {
-    exact: true,
-    isPrivate: true,
-    path: ROUTES.NOT_FOUND.url,
-    basePath: ROUTES.NOT_FOUND.url,
-    label: ROUTES.NOT_FOUND.label,
-    component: NotFound,
-  },
-]
+const routesComponentMap: Record<RouteName, CustomRouteConfig['component']> = {
+  [RouteName.HOME]: Home,
+  [RouteName.ABOUT]: About,
+  [RouteName.AUTH]: Auth,
+  [RouteName.CHANGE_PASSWORD]: ChangePassword,
+  [RouteName.EMPLOYEE]: Employee,
+  [RouteName.EMPLOYEES]: Employees,
+  [RouteName.NOT_FOUND]: NotFound,
+}
 
-export default routes.map(routeMaker)
+export const routesConfig: CustomRouteConfig[] = Object.values(routes).map(
+  (route) => ({
+    ...route,
+    component: routesComponentMap[route.key],
+  }),
+)
+
+export default routesConfig.map(routeMaker)
