@@ -44,7 +44,14 @@
         "allowExpressions": true
       }
     ],
-    "@typescript-eslint/consistent-type-exports": ["error", { fixMixedExportsWithInlineTypeSpecifier: true }],
+    // "@typescript-eslint/consistent-type-exports": ["error", { fixMixedExportsWithInlineTypeSpecifier: true }],
+    // "@typescript-eslint/consistent-type-imports": [
+    //     "warn",
+    //     {
+    //         prefer: "type-imports",
+    //         disallowTypeAnnotations: false,
+    //     },
+    // ],
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-curly-newline": 0,
