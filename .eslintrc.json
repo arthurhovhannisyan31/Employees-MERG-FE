@@ -62,6 +62,13 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/require-default-props": 0,
+    "react/no-unstable-nested-components": [
+      "off" | "warn" | "error",
+      {
+        "allowAsProps": true | false,
+        "customValidators": [] /* optional array of validators used for propTypes validation */
+      }
+    ],
     "import/no-cycle": [2, { "ignoreExternal": true }],
     "import/default": 0,
     "import/named": 0,
